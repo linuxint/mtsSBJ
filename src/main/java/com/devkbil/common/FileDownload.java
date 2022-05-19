@@ -27,7 +27,7 @@ public class FileDownload {
      * 파일(첨부파일, 이미지등) 다운로드.
      */
     @RequestMapping(value = "fileDownload")
-    public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
+    public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String path = System.getProperty("user.dir") + "/fileupload/";
         
         String filename = request.getParameter("filename");
@@ -43,9 +43,10 @@ public class FileDownload {
         } catch (UnsupportedEncodingException ex) {
             LOGGER.error("UnsupportedEncodingException");
         }
-        
-        realPath = path + downname.substring(0, 4) + "/" + downname;
-        
+        try {
+            realPath = path + downname.substring(0, 4) + "/" + downname;
+        } catch (Exception e) {}
+
         File file1 = new File(realPath);
         if(!file1.exists()) {
             return;

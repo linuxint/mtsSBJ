@@ -43,13 +43,14 @@ public class CheckController {
     public String home(@PathVariable String area, @RequestParam String param1, @RequestParam int param2) {
         return "home";
     }
-    
+
+    /*
     @GetMapping(value = "/")
     public String home(Model model) {
         model.addAttribute("hi", "Hello~~");
         return "home";
     }
-    
+    */
     
     
 }
