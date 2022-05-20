@@ -1,7 +1,5 @@
 package com.devkbil.mail;
 
-//http://blog.daum.net/toddryu/49
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
