@@ -5,6 +5,7 @@
 
 좀더 자세한 설명은 [여기](http://forest71.tistory.com/78)에서 얻을 수 있다.
 참조한 소스 기반으로 프레임워크가 변경되었습니다.
+오라클버전은 DB 전환후 일부 기능의 오류가 있을수 있습니다.
 
 블로그에 공유된 3개의 프로젝트를 1개로 합쳤습니다.
 project9 - 3> 멀티게시판
@@ -53,7 +54,7 @@ groupware9 - 1)전자결제
 - MariaDB에 데이터 베이스(mts)를 생성(user_database_myriadb.sql) 하고 tables_myriadb.sql, tableData_myriadb.sql를 실행하여 테이블과 데이터를 생성한다.
 - applicationContext.xml에 적절한 접속 정보를 입력한다.
 - 톰캣이나 이클립스에서 mts를 실행
-- http://localhost:8080/mts/ 로 접속
+- http://localhost:9090/mts/ 로 접속
 - ID/PW: admin/admin, user1/user1, user2/user2 ...
   Oracle PW소스는 변경되지 않아 PW는 1234로 입력된다.
 ### License ###
