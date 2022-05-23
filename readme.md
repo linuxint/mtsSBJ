@@ -60,7 +60,16 @@ groupware9 - 1)전자결제
 - 톰캣이나 Intellij/이클립스에서 mts를 실행
 - http://localhost:9090/mts/ 로 접속
 - ID/PW: admin/admin, user1/user1, user2/user2 ...
-  Oracle PW소스는 변경되지 않아 PW는 1234로 입력된다.
+  Oracle PW소스는 변경되지 않아 PW는 아이디로 입력된다.
+
+### elasticsearch 환경설정 ###
+    1. Elasticsearch에서 기본적으로 제공하는 형태소 분석기 nori를 설치
+    ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
+    2. 사전복사
+    ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
+    3. index생성
+    curl -XPUT localhost:9200/project9 -d @index_board.json -H "Content-Type: application/json"
+
 ### License ###
 MIT
   
