@@ -1,6 +1,5 @@
 package com.devkbil.common.config;
 
-import com.beust.ah.A;
 import com.devkbil.common.AdminInterceptor;
 import com.devkbil.common.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
