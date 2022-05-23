@@ -1,0 +1,24 @@
+server:
+  port: 9090
+  #contextPath: /mts
+spring:
+  boot:
+    admin:
+      url: http://localhost:18080 # server url
+      client:
+        url: http://localhost:18080 # server url
+        username: admin
+        password: admin
+        instance:
+          metadata:
+            user.name: admin
+            user.password: admin
+          server-url: http://localhost:9090 #client url
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
