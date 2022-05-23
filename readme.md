@@ -34,6 +34,10 @@ groupware9 - 1)전자결제
 - 공통 에러 페이지 처리(404, 500)
 - 로그 처리(logback, log4jdbc)
 
+#### 소스제공사항
+- CrossOrigin - DevkbilApplication.java, WebMvcConfig.java - remark해제
+- Banner Custom - mts-banner.txt, application.properties, DevkbilApplication.java
+
 ### 주요 LIB  ###
 - JQuery-2.2.3
 - CKEditor 4.5.10 

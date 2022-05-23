@@ -34,17 +34,17 @@
 
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/WEB-INF/jsp/common/error.jsp</location>
+		<location>/WEB-INF/jsp/error/error.jsp</location>
 	</error-page> 
 
     <error-page>
 	    <error-code>404</error-code>
-		<location>/WEB-INF/jsp/common/error404.jsp</location>
+		<location>/WEB-INF/jsp/error/error404.jsp</location>
     </error-page> 
 
     <error-page>
 	    <error-code>500</error-code>
-		<location>/WEB-INF/jsp/common/error500.jsp</location>
+		<location>/WEB-INF/jsp/error/error500.jsp</location>
     </error-page> 
 
     <session-config>
