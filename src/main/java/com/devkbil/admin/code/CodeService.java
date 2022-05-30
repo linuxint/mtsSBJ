@@ -19,7 +19,7 @@ public class CodeService {
     
     @Autowired
     private SqlSessionTemplate sqlSession;
-    @Autowired
+    @Autowired(required = false)
     private DataSourceTransactionManager txManager;
     
     static final Logger LOGGER = LoggerFactory.getLogger(CodeService.class);

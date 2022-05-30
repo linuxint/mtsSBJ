@@ -19,7 +19,7 @@ public class SignService {
     
     @Autowired
     private SqlSessionTemplate sqlSession;
-    @Autowired
+    @Autowired(required = false)
     private DataSourceTransactionManager txManager;
     
     static final Logger LOGGER = LoggerFactory.getLogger(SignService.class);
