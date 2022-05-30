@@ -11,7 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
+    
+    /**
+     * Interceptor 정의 - admin,login
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         AdminInterceptor adminInterceptor = new AdminInterceptor();
@@ -35,6 +39,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
      */
     
+    /**
+     * resourceHandlers정의 (/js, /css)
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("resources/**")    //지정된 path pattern에 대한 handler를 추가합니다. ex) "/m/**"

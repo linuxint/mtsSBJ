@@ -6,8 +6,15 @@ import org.springframework.boot.web.server.WebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * AccessLog Configuration
+ */
 @Configuration
 public class AccessLogConfig implements WebServerFactoryCustomizer {
+    /**
+     * Log custimze
+     * @param factory the web server factory to customize
+     */
     @Override
     public void customize(final WebServerFactory factory) {
         final TomcatServletWebServerFactory containerFactory = (TomcatServletWebServerFactory) factory;

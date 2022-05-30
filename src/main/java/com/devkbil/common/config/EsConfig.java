@@ -10,11 +10,18 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
+/**
+ * Elasticsearch Configuration
+ */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.devkbil")
 @ComponentScan(basePackages = { "com.devkbil" })
 public class EsConfig {
     
+    /**
+     * Elasticsearch Connection client
+     * @return
+     */
     @Bean
     public RestHighLevelClient client() {
         ClientConfiguration clientConfiguration
@@ -25,6 +32,10 @@ public class EsConfig {
         return RestClients.create(clientConfiguration).rest();
     }
     
+    /**
+     * Elasticsearch Template
+     * @return
+     */
     @Bean
     public ElasticsearchOperations elasticsearchTemplate() {
         return new ElasticsearchRestTemplate(client());
