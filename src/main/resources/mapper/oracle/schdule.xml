@@ -53,7 +53,8 @@
              <include refid="includeSch"/>
          )
          <if test="rowStart != null">
-            OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY
+             WHERE RNUM BETWEEN ${rowStart-1} AND ${rowStart-1}+${displayRowCount}
+             -- OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY -- oracle12c
          </if>
     </select> 
         
