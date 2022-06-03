@@ -19,7 +19,10 @@
              INNER JOIN COM_DEPT CD ON CD.DEPTNO=CU.DEPTNO
              WHERE CU.DELETEFLAG='N' AND CD.DELETEFLAG='N'
                AND CU.USERNM LIKE '%'||#{searchKeyword}||'%'
-        ) WHERE RNUM BETWEEN ${rowStart-1} AND ${rowStart-1} + 10
+        )
+        <if test="rowStart != null">
+            OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY
+        </if>
     </select>
 
     <select id="selectMember4Login" parameterType="com.devkbil.member.LoginVO" resultType="com.devkbil.member.UserVO" >
@@ -27,6 +30,7 @@
           FROM COM_USER CU
          WHERE CU.DELETEFLAG='N' 
            AND CU.USERID = #{userid} AND USERPW=#{userpw}
+        ---SELECT OBJECT_NAME USERNM ,ABBR_NAME USERID FROM DOSA_OBJECT WHERE CLASS_ID = '1003'
     </select> 
     
     <insert id="insertLogIn" parameterType="String">

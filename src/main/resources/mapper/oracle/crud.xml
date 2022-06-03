@@ -29,7 +29,7 @@
             <include refid="includeCrud"/>
         )
         <if test="rowStart != null">
-        WHERE RNUM BETWEEN ${rowStart-1} AND ${rowStart-1} + 10
+            OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY
         </if>
     </select> 
         

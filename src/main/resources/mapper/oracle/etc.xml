@@ -142,7 +142,10 @@
          INNER JOIN TBL_BOARD TB ON DS.BRDNO=TB.BRDNO
          INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=TB.BGNO
          LEFT OUTER JOIN COM_USER CU ON CU.USERNO=TB.USERNO
-    ) WHERE RNUM BETWEEN ${rowStart-1} AND ${rowStart-1} + 10        
+    )
+    <if test="rowStart != null">
+        OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY
+    </if>
      </select>
 
     <select id="selectClassCode" parameterType="String"  resultType="com.devkbil.etc.ClassCodeVO">
