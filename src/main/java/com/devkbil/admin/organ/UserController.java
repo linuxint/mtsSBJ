@@ -53,13 +53,13 @@ public class UserController {
     public String userList(HttpServletRequest request, ModelMap modelMap) {
         String deptno = request.getParameter("deptno");
         
-        return common_UserList(modelMap, deptno);
+        return commonUserList(modelMap, deptno);
     }
     
     /**
      * 지정된 부서의 사용자 리스트.
      */
-    public String common_UserList(ModelMap modelMap, String deptno) {
+    public String commonUserList(ModelMap modelMap, String deptno) {
         
         List<?> listview = userService.selectUserList(deptno);
         
@@ -88,7 +88,7 @@ public class UserController {
         }
         userService.insertUser(userInfo);
         
-        return common_UserList(modelMap, userInfo.getDeptno());
+        return commonUserList(modelMap, userInfo.getDeptno());
     }
     
     /**
@@ -123,6 +123,6 @@ public class UserController {
         
         userService.deleteUser(userInfo.getUserno());
         
-        return common_UserList(modelMap, userInfo.getDeptno());
+        return commonUserList(modelMap, userInfo.getDeptno());
     }
 }
