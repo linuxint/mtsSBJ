@@ -32,7 +32,7 @@
                AND CC.CLASSNO=2
         )
         <if test="rowStart != null">
-        WHERE RNUM BETWEEN ${rowStart-1} AND ${rowStart-1}+${displayRowCount}
+            OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY
         </if>
     </select> 
         

@@ -6,6 +6,7 @@
 <mapper namespace="main">
 
     <select id="selectRecentNews" resultType="com.devkbil.board.BoardVO">
+        <![CDATA[
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY TB.BRDNO DESC) AS RNUM
              , BRDNO, BRDTITLE, TO_CHAR(BRDDATE,'YYYY-MM-DD') BRDDATE
@@ -15,10 +16,12 @@
          LEFT OUTER JOIN COM_USER CU ON TB.USERNO=CU.USERNO
          INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=TB.BGNO
          WHERE BRDDELETEFLAG='N' AND TBG.BGDELETEFLAG='N'
-     ) WHERE RNUM BETWEEN 0 AND 15
-    </select> 
+     ) WHERE RNUM <= 15
+        ]]>
+    </select>
     
     <select id="selectTimeLine" resultType="com.devkbil.board.BoardReplyVO" >
+        <![CDATA[
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY TB.BRDDATE DESC) AS RNUM
              , TB.BRDNO, SUBSTR(TB.BRDTITLE, 0, 10) REMEMO, USERNM REWRITER, PHOTO
@@ -27,10 +30,12 @@
          INNER JOIN TBL_BOARDREPLY TBR ON TBR.BRDNO=TB.BRDNO
          LEFT OUTER JOIN COM_USER CU ON TBR.USERNO=CU.USERNO
          WHERE BRDDELETEFLAG='N' AND REDELETEFLAG='N'
-     ) WHERE RNUM BETWEEN 0 AND 20
+     ) WHERE RNUM <= 20
+        ]]>
     </select>
-    
+
     <select id="selectNoticeListTop5" parameterType="com.devkbil.board.BoardSearchVO" resultType="com.devkbil.board.BoardVO">
+        <![CDATA[
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY BRDNO DESC) AS RNUM
              , BRDNO, BRDTITLE, TO_CHAR(BRDDATE,'YYYY-MM-DD') BRDDATE, BRDNOTICE
@@ -38,8 +43,9 @@
           FROM TBL_BOARD TB
          LEFT OUTER JOIN COM_USER CU ON TB.USERNO=CU.USERNO
          WHERE BRDDELETEFLAG='N' AND BRDNOTICE='Y'
-     ) WHERE RNUM BETWEEN 0 AND 5
-    </select> 
+     ) WHERE RNUM <= 5
+        ]]>
+    </select>
      
 </mapper>
 
