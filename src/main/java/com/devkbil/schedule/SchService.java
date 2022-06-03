@@ -22,7 +22,7 @@ public class SchService {
     
     @Autowired
     private SqlSessionTemplate sqlSession;
-    @Autowired
+    @Autowired(required = false)
     private DataSourceTransactionManager txManager;
     
     static final Logger LOGGER = LoggerFactory.getLogger(SchService.class);
