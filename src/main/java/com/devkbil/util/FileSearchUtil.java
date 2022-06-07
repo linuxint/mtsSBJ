@@ -1,6 +1,7 @@
 package com.devkbil.util;
 
 import com.devkbil.common.AdminInterceptor;
+import com.devkbil.common.FileVO;
 import com.devkbil.common.LocaleMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -15,6 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
@@ -65,10 +69,14 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
         }
     }
     
-    public static void showFIlesInDir3(String dirPath) {
+    public static List<FileVO> showFIlesInDir3(String dirPath) {
+        List<FileVO> filelist = new ArrayList<FileVO>();
+    
         Path path = Paths.get(dirPath);
         DirectoryStream<Path> dir = null;
         BasicFileAttributes attrs;
+        FileVO filedo;
+        FileChannel fileChannel;
         try {
             dir = Files.newDirectoryStream(path);
             for (Path file : dir) {
@@ -79,13 +87,16 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
                 //} else if(file.getFileName().endsWith(".txt")) {
                 //    System.out.println("1");
                 } else {
-                    System.out.println("file: " + file);
-                    System.out.println(file.getFileName());
-                    System.out.println(file.getFileSystem());
-                    System.out.println(file.toUri());
-                    System.out.println(file.toAbsolutePath());
-                    System.out.println(file.getParent());
-                    System.out.println(file.getRoot());
+                    filedo = new FileVO();
+                    filedo.setFilename(file.getFileName().toString());
+                    filedo.setRealname(file.getFileName().toString());
+                    
+                    fileChannel = FileChannel.open(path);
+                    filedo.setFilesize(fileChannel.size()); // Kbyte
+                    
+                    filedo.setUri(file.toUri().toString());
+                    filedo.setFilepath(file.getParent().toString());
+                    filelist.add(filedo);
                 }
             }
         } catch (IOException e) {
@@ -99,6 +110,7 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            return filelist;
         }
     }
     

@@ -27,6 +27,13 @@ public class FileVO {
     @ApiModelProperty(value = "파일사이즈")
     private long filesize;
     
+    @ApiModelProperty(value = "파일fullpath")
+    private String uri;
+    @ApiModelProperty(value = "파일경로")
+    private String filepath;
+    @ApiModelProperty(value = "파일드라이브")
+    private String fileroot;
+    
     /**
      * 파일 크기를 정형화하기.
      */
