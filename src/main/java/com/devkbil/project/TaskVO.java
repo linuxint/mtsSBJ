@@ -16,7 +16,6 @@ import java.util.List;
 @XmlType(propOrder = {"prno", "tsno", "tsparent", "tssort", "tstitle", "tsstartdate", "tsenddate", "tsendreal", "tsrate", "userno", "usernm", "statuscolor", "uploadfile"})
 @Getter
 @Setter
-@ToString
 public class TaskVO {
     
     @ApiModelProperty(value = "프로젝트 번호")

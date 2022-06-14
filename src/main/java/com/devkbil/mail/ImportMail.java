@@ -17,7 +17,6 @@ import java.util.List;
 @XmlType(propOrder = {"mailService", "userno", "session"})
 @Getter
 @Setter
-@ToString
 public class ImportMail implements Runnable {
     @ApiModelProperty(value = "메일서비스")
     private MailService mailService;

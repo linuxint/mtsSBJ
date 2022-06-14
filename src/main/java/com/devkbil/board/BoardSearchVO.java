@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"bgno", "searchKeyword", "searchType", "searchTypeArr", "searchExt1"})
 @Getter
 @Setter
-@ToString
 public class BoardSearchVO extends PageVO {
     
     @ApiModelProperty(value = "게시판 그룹")

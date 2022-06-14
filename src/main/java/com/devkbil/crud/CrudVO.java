@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"crno", "crtitle", "userno", "crmemo", "crdate", "usernm"})
 @Getter
 @Setter
-@ToString
 public class CrudVO {
     
     @ApiModelProperty(value = "번호")

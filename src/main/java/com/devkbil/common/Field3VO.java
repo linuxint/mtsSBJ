@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"field1", "field2", "field3"})
 @Getter
 @Setter
-@ToString
 public class Field3VO {
     @ApiModelProperty(value = "확장필드1")
     private String field1;

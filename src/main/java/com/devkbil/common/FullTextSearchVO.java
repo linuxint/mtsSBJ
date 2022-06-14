@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"searchRange", "searchTerm", "searchTerm1", "searchTerm2", "userno"})
 @Getter
 @Setter
-@ToString
 public class FullTextSearchVO extends SearchVO {
     
     @ApiModelProperty(value = "검색 대상 필드 - 작성자, 제목, 내용등")

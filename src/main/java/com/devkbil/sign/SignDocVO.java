@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"docno", "doctitle", "doccontents", "docstatus", "docstep", "dtno", "dttitle", "userno", "usernm", "deptnm", "updatedate", "docsignpath"})
 @Getter
 @Setter
-@ToString
 public class SignDocVO {
     
     @ApiModelProperty(value = "문서번호")

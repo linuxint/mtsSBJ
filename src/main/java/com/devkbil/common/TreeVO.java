@@ -15,7 +15,6 @@ import java.util.List;
 @XmlType(propOrder = {"key", "title", "parent", "isFolder", "children"})
 @Getter
 @Setter
-@ToString
 public class TreeVO {
     
     @ApiModelProperty(value = "트리노드키")

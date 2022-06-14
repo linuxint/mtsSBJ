@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"fileno", "parentPK", "filename", "realname", "filesize"})
 @Getter
 @Setter
-@ToString
 public class FileVO {
     @ApiModelProperty(value = "파일번호")
     private Integer fileno;

@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"bgno", "bgname", "bglevel", "bgparent", "bgdeleteflag", "bgused", "bgreply", "bgreadonly", "bgdate", "bgnotice"})
 @Getter
 @Setter
-@ToString
 public class BoardGroupVO {
     
     @ApiModelProperty(value = "게시글 그룹번호")

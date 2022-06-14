@@ -15,7 +15,6 @@ import java.util.List;
 @XmlType(propOrder = {"cddate", "cddd", "cddayofweek", "list"})
 @Getter
 @Setter
-@ToString
 public class CalendarVO {
     
     @ApiModelProperty(value = "날짜")

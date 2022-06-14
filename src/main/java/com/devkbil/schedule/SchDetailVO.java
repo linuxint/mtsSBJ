@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"ssno", "sddate", "sdhour", "sdminute", "userno", "sstitle", "fontcolor", "sdseq"})
 @Getter
 @Setter
-@ToString
 public class SchDetailVO {
     
     @ApiModelProperty(value = "일정번호")

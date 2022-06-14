@@ -15,7 +15,6 @@ import java.util.List;
 @XmlType(propOrder = {"year", "month", "day", "week", "istoday", "list"})
 @Getter
 @Setter
-@ToString
 public class DateVO {
     @ApiModelProperty(value = "연도")
     private int year;

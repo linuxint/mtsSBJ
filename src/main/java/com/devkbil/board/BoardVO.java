@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,7 +15,6 @@ import java.util.List;
 @XmlType(propOrder = {"bgno", "bgname", "brdno", "brdtitle", "brdwriter", "brdmemo", "brddate", "brdtime", "brdhit", "brddeleteflag", "filecnt", "replycnt", "userno", "usernm", "brdnotice", "brdlike", "brdlikechk", "extfield1", "etc1", "etc2", "etc3", "etc4", "etc5"})
 @Getter
 @Setter
-@ToString
 public class BoardVO {
     
     @ApiModelProperty(value = "게시글 그룹번호")

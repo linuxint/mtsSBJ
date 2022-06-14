@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"emino", "emiimap", "emiimapport", "emismtp", "emismtpport", "emiuser", "emipw", "userno", "usernm"})
 @Getter
 @Setter
-@ToString
 public class MailInfoVO {
     
     @ApiModelProperty(value = "메일정보번호")

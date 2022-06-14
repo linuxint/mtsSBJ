@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @XmlType(propOrder = {"emno", "emtype", "emfrom", "emsubject", "emcontents", "entrydate", "userno", "usernm", "emino", "strTo", "strCc", "strBcc", "emto", "emcc", "embcc", "files"})
 @Getter
 @Setter
-@ToString
 public class MailVO {
     
     @ApiModelProperty(value = "메일서비스")

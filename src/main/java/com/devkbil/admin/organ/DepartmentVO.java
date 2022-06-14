@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"deptno", "deptnm", "parentno"})
 @Getter
 @Setter
-@ToString
 public class DepartmentVO {
     
     @ApiModelProperty(value = "부서코드")

@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"brdno", "reno", "rewriter", "rememo", "redate", "reparent", "redepth", "reorder", "userno", "usernm", "photo"})
 @Getter
 @Setter
-@ToString
 public class BoardReplyVO {
     
     @ApiModelProperty(value = "게시물 번호")

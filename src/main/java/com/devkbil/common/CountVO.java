@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"field1", "cnt1"})
 @Getter
 @Setter
-@ToString
 public class CountVO {
     @ApiModelProperty(value = "조회필드")
     private String field1;

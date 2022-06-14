@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"classno", "codecd", "codenm"})
 @Getter
 @Setter
-@ToString
 public class CodeVO {
     
     @ApiModelProperty(value = "대분류")

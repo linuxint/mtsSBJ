@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"prno", "prstartdat", "prenddate", "prtitle", "prdate", "userno", "usernm", "prstatus", "deleteflag"})
 @Getter
 @Setter
-@ToString
 public class ProjectVO {
     
     @ApiModelProperty(value = "프로젝트 번호")

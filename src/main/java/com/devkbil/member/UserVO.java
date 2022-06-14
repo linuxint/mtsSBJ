@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"userno", "userid", "userpw", "usernm", "photo", "userrole", "userpos", "ip", "deptno", "deptnm", "photofile"})
 @Getter
 @Setter
-@ToString
 public class UserVO {
     
     @ApiModelProperty(value = "사용자 번호")

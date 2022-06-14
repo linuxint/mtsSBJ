@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"year", "month"})
 @Getter
 @Setter
-@ToString
 public class MonthVO {
     
     @ApiModelProperty(value = "연도")
