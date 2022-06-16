@@ -1,6 +1,5 @@
 package com.devkbil.util;
 
-import com.devkbil.common.AdminInterceptor;
 import com.devkbil.common.FileVO;
 import com.devkbil.common.LocaleMessage;
 import org.slf4j.Logger;
