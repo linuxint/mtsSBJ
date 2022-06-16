@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder;
+
 @Controller
 @EnableAsync
 @EnableScheduling
@@ -64,17 +66,62 @@ public class IndexingController {
      * 3. 첨부파일
      */
     @Scheduled(cron = "0 */1 * * * ?")
-    public void indexingFile() {
+    public void indexingFile() throws IOException {
         if(is_indexing) return;
         is_indexing = true;
         loadLastValue();
         file_path = System.getProperty("user.dir") + "/fileupload/"; //localeMessage.getMessage("info.filePath") + "/";  //  첨부 파일 경로
-        // ---------------------------- 게시판  --------------------------------
+        
+        // ---------------------------- elasticsearch connection --------------------------------
         RestHighLevelClient client = createConnection();
+    
+    
+        // ---------------------------- 게시판 변경글 --------------------------------
+        String brdno_update = getLastValue("brd_update"); // 변경색인 인덱스
+        String brdno = getLastValue("brd"); // 이전 색인시 마지막 일자
         
-        String brdno = getLastValue("brd");                // 이전 색인시 마지막 일자
+        List<BoardVO> boardlist = null;
         
-        List<BoardVO> boardlist = (List<BoardVO>) boardService.selectBoards4Indexing(brdno);
+        if(!brdno_update.equals(brdno)) {
+            boardlist = (List<BoardVO>) boardService.selectBoards4Indexing(brdno_update);
+            UpdateRequest updateRequest;
+            for (BoardVO el : boardlist) {
+                brdno_update = el.getBrdno();
+                updateRequest = new UpdateRequest()
+                        .index(INDEX_NAME)
+                        .id(el.getBrdno())
+                        .doc(jsonBuilder()
+                                .startObject()
+                                .field("bgno", el.getBgno())
+                                .field("brdno", brdno_update)
+                                .field("brdtitle", el.getBrdtitle())
+                                .field("brdmemo", el.getBrdmemo())
+                                .field("brdwriter", el.getUsernm())
+                                .field("userno", el.getUserno())
+                                .field("brddate", el.getBrddate())
+                                .field("brdtime", el.getBrdtime())
+                                .field("brdhit", el.getBrdhit())
+                                .endObject());
+                
+                try {
+                    client.update(updateRequest, RequestOptions.DEFAULT);
+                } catch (IOException | ElasticsearchStatusException e) {
+                    logger.error("indexRequest : " + e);
+                }
+            }
+        }
+    
+        if(boardlist.size() > 0) {
+            writeLastValue("brd_update", brdno_update); // 마지막 색인 이후의 댓글/ 첨부파일 중에서 게시글이 색인 된 것만 색인 해야 함. SQL문에서 field1참조  => logtash를 쓰지 않고 개발한 이유
+        }
+    
+    
+        logger.info("board indexed update : " + boardlist.size());
+        boardlist.clear();
+        boardlist = null;
+    
+        // ---------------------------- 게시판 신규글 --------------------------------
+        boardlist = (List<BoardVO>) boardService.selectBoards4Indexing(brdno);
         for (BoardVO el : boardlist) {
             brdno = el.getBrdno();
             IndexRequest indexRequest = new IndexRequest(INDEX_NAME)
