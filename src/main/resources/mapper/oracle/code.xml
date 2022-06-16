@@ -28,8 +28,8 @@
             <include refid="includeCode"/>
         )
         <if test="rowStart != null">
-            WHERE RNUM BETWEEN ${rowStart-1} AND ${rowStart-1}+${displayRowCount}
-            -- OFFSET ${rowStart-1} ROWS FETCH FIRST ${rowStart-1}+${displayRowCount} ROWS ONLY -- oracle12c
+            WHERE RNUM BETWEEN ${rowStart} AND ${rowStart-1}+${displayRowCount}
+            -- OFFSET ${rowStart-1} ROWS FETCH FIRST ${displayRowCount} ROWS ONLY -- oracle12c
         </if>
     </select> 
         
