@@ -34,7 +34,7 @@ public class SearchController {
     static final Integer DISPLAY_COUNT = 5;
     static final String INDEX_NAME = "mts";
     static final String[] HIGHLIGHT_FIELDS = {"brdwriter", "brdtitle", "brdmemo"};
-    static final String[] INCLUDE_FIELDS = new String[]{"brdno", "userno", "brddate", "brdtime", "brdtitle", "brdwriter", "brdmemo"}; // 값을 가지고 올 필드
+    static final String[] INCLUDE_FIELDS = new String[]{"brdno", "userno", "brddate", "brdtime", "brdtitle", "brdwriter", "brdmemo", "brdhit"}; // 값을 가지고 올 필드
     
     @RequestMapping(value = "/search")
     public String search(HttpServletRequest request, ModelMap modelMap) {

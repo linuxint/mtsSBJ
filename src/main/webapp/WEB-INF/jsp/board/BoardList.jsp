@@ -105,7 +105,7 @@ function TreenodeActivate(node) {
 	                <div id="boardlistDiv" style="width: 250px; height:300px; display: none;" class="popover fade bottom in" role="tooltip">
 	                	<div style="left:15%;" class="arrow"></div>
 	                	<div class="popover-content">
-             				<div id="tree"></div>	
+             				<div id="tree"></div>
 	                	</div>
 	                </div>
                 
@@ -128,25 +128,25 @@ function TreenodeActivate(node) {
 					</div>
 					
 					<c:forEach var="listview" items="${noticelist}" varStatus="status">
-						<c:set var="listitem" value="${listview}" scope="request" />	
+						<c:set var="listitem" value="${listview}" scope="request" />
 						<c:set var="listitemNo" value="" />	
 						<jsp:include page="BoardListSub.jsp" >
 							<jsp:param name="listitemNo" value="${listitemNo}" />
 							<jsp:param name="listitem" value="${listitem}" />
 						</jsp:include>
-					</c:forEach>					
+					</c:forEach>
 					<c:if test="${listview.size()==0}">
 						<div class="listBody height200">
 						</div>
 					</c:if>
 					<c:forEach var="listview" items="${listview}" varStatus="status">
-						<c:set var="listitem" value="${listview}" scope="request" />	
-						<c:set var="listitemNo" value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" scope="request" />	
+						<c:set var="listitem" value="${listview}" scope="request" />
+						<c:set var="listitemNo" value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" scope="request" />
 						<jsp:include page="BoardListSub.jsp" >
 							<jsp:param name="listitemNo" value="${listitemNo}" />
 							<jsp:param name="listitem" value="${listitem}" />
 						</jsp:include>
-					</c:forEach>	
+					</c:forEach>
 					
 					<br/>
 					<form role="form" id="form1" name="form1"  method="post">

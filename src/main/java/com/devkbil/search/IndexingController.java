@@ -86,7 +86,8 @@ public class IndexingController {
                             "brdwriter", el.getUsernm(),
                             "userno", el.getUserno(),
                             "brddate", el.getBrddate(),
-                            "brdtime", el.getBrdtime()
+                            "brdtime", el.getBrdtime(),
+                            "brdhit", el.getBrdhit()
                     );
             
             try {

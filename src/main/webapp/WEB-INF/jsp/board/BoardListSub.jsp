@@ -32,7 +32,7 @@
 			<a href="${link}" <c:if test="${listitem.brdnotice=='Y'}">class="notice"</c:if>><c:out value="${listitem.brdtitle}"/></a>
 			<c:if test="${listitem.replycnt>0}">
 				(<c:out value="${listitem.replycnt}"/>)
-			</c:if>								
+			</c:if>
 		</div>
 		<div class="showField text-muted small">
 			<c:out value="${listitem.brdwriter}"/> 
@@ -40,6 +40,6 @@
 			<i class="fa fa-eye fa-fw"></i> <c:out value="${listitem.brdhit}"/>
 			<c:if test="${listitem.filecnt>0}">
 				<i class="fa fa-download fa-fw" title="<c:out value="${listitem.filecnt}"/>"></i>
-			</c:if>									
+			</c:if>
 		</div>
 	</div>

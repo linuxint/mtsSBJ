@@ -240,7 +240,7 @@
     <!-- ===============================================================================-->
     <select id="selectBoards4Indexing" resultType="com.devkbil.board.BoardVO" parameterType="String">
         SELECT BGNO, BRDNO, CU.USERNM, TB.USERNO, BRDTITLE, BRDMEMO
-             , LEFT(BRDDATE, 10) BRDDATE, RIGHT(BRDDATE, 8) BRDTIME 
+             , LEFT(BRDDATE, 10) BRDDATE, RIGHT(BRDDATE, 8) BRDTIME, (SELECT COUNT(*) FROM TBL_BOARDREAD WHERE BRDNO=TB.BRDNO) BRDHIT
           FROM TBL_BOARD TB
          INNER JOIN COM_USER CU ON CU.USERNO=TB.USERNO 
          WHERE TB.BRDDELETEFLAG='N' 

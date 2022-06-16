@@ -1,7 +1,7 @@
 {
   "settings": {
-	"number_of_shards" : 1,
-	"number_of_replicas": 0,  
+    "number_of_shards" : 1,
+    "number_of_replicas": 0,
     "index": {
       "analysis": {
         "tokenizer": {
@@ -25,13 +25,13 @@
           "nori_posfilter":{
             "type": "nori_part_of_speech",
             "stoptags": ["E", "IC", "J", "MAG", "MAJ", "MM", "NA", "NR", "SC", "SE", "SF", "SH", "SN", "SP", "SSC", "SSO","SY","UNA","UNKNOWN","VA",
-                         "VCN","VCP","VSV","VV","VX","XPN","XR","XSA","XSN","XSV"
+              "VCN","VCP","VSV","VV","VX","XPN","XR","XSA","XSN","XSV"
             ]
           },
-		  "stop_filtering":{
+          "stop_filtering":{
             "type":"stop",
             "stopwords_path":"stopwords.txt"
-          },					  
+          },
           "synonym_filter":{
             "type":"synonym",
             "synonyms_path":"synonyms.txt"
@@ -54,19 +54,27 @@
           },
           "brddate": {
             "type": "date",
-            "fields": {"keyword": {"type": "keyword"} }
+            "fields": {
+              "keyword": {"type": "keyword"}
+            }
           },
           "brdtime": {
             "type": "text",
-            "fields": {"keyword": {"type": "keyword"} }
+            "fields": {
+              "keyword": {"type": "keyword"}
+            }
           },
           "userno": {
             "type": "long",
-            "fields": {"keyword": {"type": "keyword"} }
+            "fields": {
+              "keyword": {"type": "keyword"}
+            }
           },          
           "brdwriter": {
             "type": "text",
-            "fields": {"keyword": {"type": "keyword"} }
+            "fields": {
+              "keyword": {"type": "keyword"}
+            }
           },
           "brdtitle": {
             "type": "text",
@@ -79,6 +87,12 @@
                 "keyword": {"type": "keyword", "index": false, "store": true, "ignore_above": 300}
             }
           },
+          "brdhit" : {
+            "type" : "long",
+            "fields": {
+              "keyword": {"type": "keyword"}
+            }
+          },
           "brdreply": {
             "type": "nested",
             "properties": {
@@ -86,8 +100,8 @@
               "redate": {"type": "text"} ,
               "rememo": {"type": "text", "analyzer":"nori_analyzer"} ,
               "usernm": {"type": "text"} ,
-              "userno": {"type": "text"} 
-           }
+              "userno": {"type": "text"}
+            }
           },
           "brdfiles": {
             "type": "nested",

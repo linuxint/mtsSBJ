@@ -117,9 +117,10 @@ function receiveData(data){
 				   '		<div class="col-lg-12 title"><a href="boardRead?brdno=' + row._source.brdno + '" target="_blank">' + brdtitle + '</a></div>' + 
 				   '		<div class="col-lg-12 row">...' + brdmemo.substring(0, 200) + '...</div>' +  
 				   '		<div class="col-lg-12 row">' + 
-				   '        	<div class="pull-left">등록자: ' + brdwriter + '</div>' +  
-				   '         	<div class="pull-left field1">등록일: ' + row._source.brddate+ ' ' + row._source.brdtime+ '</div>' + 
-				   '		</div>' + 
+				   '        	<div class="pull-left">등록자: ' + brdwriter + '</div>' +
+				   '         	<div class="pull-left field1">등록일: ' + row._source.brddate+ ' ' + row._source.brdtime+ '</div>' +
+				   '         	<div class="pull-left field1">조회수: ' + row._source.brdhit + '</div>' +
+				   '		</div>' +
 			       '</div>';
 		childNode.html(html)
         $list_div.append ( childNode );
