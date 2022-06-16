@@ -91,6 +91,9 @@ public class BoardVO {
     private List<MultipartFile> uploadfile;
     
     public String getBrdmemo() {
+        if(brdmemo==null || brdmemo == "") {
+            return "";
+        }
         return brdmemo.replaceAll("(?i)<script", "&lt;script");
     }
 }
