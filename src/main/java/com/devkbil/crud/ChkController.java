@@ -15,13 +15,11 @@ import java.util.List;
 @Controller
 public class ChkController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(CrudController.class);
     @Autowired
     private CrudService crudService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(CrudController.class);
     
     /**
      * 리스트.

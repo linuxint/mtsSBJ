@@ -27,6 +27,59 @@ public class FileUtil {
     LocaleMessage localeMessage;
     
     /**
+     * 실제 파일 저장.
+     */
+    public static String saveFileOne(MultipartFile file, String basePath, String fileName) {
+        if(file == null || file.getName().equals("") || file.getSize() < 1) {
+            return null;
+        }
+        
+        makeBasePath(basePath);
+        String serverFullPath = basePath + fileName;
+        
+        File file1 = new File(serverFullPath);
+        try {
+            file.transferTo(file1);
+        } catch (IOException ex) {
+            LOGGER.error("IOException");
+        }
+        
+        return serverFullPath;
+    }
+    
+    private static BufferedImage resizeImage(BufferedImage srcImage, int type) {
+        BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, type);
+        Graphics2D g2 = resizedImage.createGraphics();
+        g2.drawImage(srcImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+        g2.dispose();
+        
+        return resizedImage;
+    }
+    
+    /**
+     * 파일 저장 경로 생성.
+     */
+    public static void makeBasePath(String path) {
+        File dir = new File(path);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
+    
+    /**
+     * 날짜로 새로운 파일명 부여.
+     */
+    public static String getNewName() {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+        return ft.format(new Date()) + (int) (Math.random() * 10);
+    }
+    
+    public static String getFileExtension(String filename) {
+        Integer mid = filename.lastIndexOf(".");
+        return filename.substring(mid + 1);
+    }
+    
+    /**
      * 파일 업로드.
      */
     public FileVO saveFile(MultipartFile uploadfile) {
@@ -74,27 +127,6 @@ public class FileUtil {
     }
     
     /**
-     * 실제 파일 저장.
-     */
-    public static String saveFileOne(MultipartFile file, String basePath, String fileName) {
-        if(file == null || file.getName().equals("") || file.getSize() < 1) {
-            return null;
-        }
-        
-        makeBasePath(basePath);
-        String serverFullPath = basePath + fileName;
-        
-        File file1 = new File(serverFullPath);
-        try {
-            file.transferTo(file1);
-        } catch (IOException ex) {
-            LOGGER.error("IOException");
-        }
-        
-        return serverFullPath;
-    }
-    
-    /**
      * 이미지 파일 업로드 및 resize.
      */
     public FileVO saveImage(MultipartFile file) {
@@ -130,38 +162,6 @@ public class FileUtil {
         filedo.setFilesize(file.getSize());
         
         return filedo;
-    }
-    
-    private static BufferedImage resizeImage(BufferedImage srcImage, int type) {
-        BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, type);
-        Graphics2D g2 = resizedImage.createGraphics();
-        g2.drawImage(srcImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
-        g2.dispose();
-        
-        return resizedImage;
-    }
-    
-    /**
-     * 파일 저장 경로 생성.
-     */
-    public static void makeBasePath(String path) {
-        File dir = new File(path);
-        if(!dir.exists()) {
-            dir.mkdirs();
-        }
-    }
-    
-    /**
-     * 날짜로 새로운 파일명 부여.
-     */
-    public static String getNewName() {
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-        return ft.format(new Date()) + (int) (Math.random() * 10);
-    }
-    
-    public static String getFileExtension(String filename) {
-        Integer mid = filename.lastIndexOf(".");
-        return filename.substring(mid + 1);
     }
     
     public String getRealPath(String path, String filename) {

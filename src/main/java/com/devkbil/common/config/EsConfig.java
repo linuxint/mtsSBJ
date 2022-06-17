@@ -15,11 +15,12 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.devkbil")
-@ComponentScan(basePackages = { "com.devkbil" })
+@ComponentScan(basePackages = {"com.devkbil"})
 public class EsConfig {
     
     /**
      * Elasticsearch Connection client
+     *
      * @return
      */
     @Bean
@@ -34,6 +35,7 @@ public class EsConfig {
     
     /**
      * Elasticsearch Template
+     *
      * @return
      */
     @Bean

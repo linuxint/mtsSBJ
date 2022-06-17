@@ -16,13 +16,11 @@ import java.util.List;
 @Controller
 public class MailInfoController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(MailInfoController.class);
     @Autowired
     private MailService mailService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(MailInfoController.class);
     
     /**
      * 리스트.

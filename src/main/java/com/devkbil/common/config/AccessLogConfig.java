@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class AccessLogConfig implements WebServerFactoryCustomizer {
     /**
      * Log custimze
+     *
      * @param factory the web server factory to customize
      */
     @Override

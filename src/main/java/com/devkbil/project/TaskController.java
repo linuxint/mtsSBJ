@@ -17,16 +17,13 @@ import java.util.List;
 @Controller
 public class TaskController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
     @Autowired
     private ProjectService projectService;
-    
     @Autowired
     private TaskService taskService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
     
     /**
      * Task.

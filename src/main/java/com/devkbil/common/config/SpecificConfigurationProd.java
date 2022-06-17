@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 public class SpecificConfigurationProd {
     /**
      * Prod Cache Configuration
+     *
      * @return
      */
     @Bean

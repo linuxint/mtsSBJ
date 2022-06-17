@@ -1,9 +1,9 @@
 package com.devkbil.project;
 
 import com.devkbil.common.Field3VO;
-import com.devkbil.util.FileUtil;
 import com.devkbil.common.FileVO;
 import com.devkbil.etc.EtcService;
+import com.devkbil.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,13 @@ import java.util.List;
 @Controller
 public class TaskMineController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
     @Autowired
     private TaskService taskService;
-    
     @Autowired
     private EtcService etcService;
-    
     @Autowired
     private ProjectService projectService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
     
     /**
      * Task.

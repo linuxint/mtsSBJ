@@ -17,16 +17,13 @@ import java.util.List;
 @Controller
 public class SignController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(SignController.class);
     @Autowired
     private SignService signService;
-    
     @Autowired
     private SignDocService signDocService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(SignController.class);
     
     /**
      * 결제 받을 문서 리스트.

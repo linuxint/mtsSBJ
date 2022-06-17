@@ -4,9 +4,9 @@ import com.devkbil.board.BoardReplyVO;
 import com.devkbil.board.BoardService;
 import com.devkbil.board.BoardVO;
 import com.devkbil.common.Field3VO;
-import com.devkbil.util.FileUtil;
 import com.devkbil.common.FileVO;
 import com.devkbil.common.LocaleMessage;
+import com.devkbil.util.FileUtil;
 import org.apache.http.HttpHost;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
@@ -43,19 +43,16 @@ import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder;
 @EnableScheduling
 public class IndexingController {
     
-    @Autowired
-    LocaleMessage localeMessage;
-    
-    @Autowired
-    private BoardService boardService;
-
-    
     static final Logger logger = LoggerFactory.getLogger(IndexingController.class);
     static final String INDEX_NAME = "mts";
-    final String LAST_FILE = System.getProperty("user.dir")  + "/elasticsearch/mts.last";
     //final String LAST_FILE = localeMessage.getMessage("info.workspace") + "/elasticsearch/mts.last";
     static final String FILE_EXTENTION = "doc,ppt,xls,docx,pptx,xlsx,pdf,txt,zip,hwp";
     static boolean is_indexing = false;
+    final String LAST_FILE = System.getProperty("user.dir") + "/elasticsearch/mts.last";
+    @Autowired
+    LocaleMessage localeMessage;
+    @Autowired
+    private BoardService boardService;
     private Properties lastFileProps = null;            // 마지막 색인값 보관
     private String file_path = null;                    // 첨부 파일 경로
     
@@ -74,8 +71,8 @@ public class IndexingController {
         
         // ---------------------------- elasticsearch connection --------------------------------
         RestHighLevelClient client = createConnection();
-    
-    
+        
+        
         // ---------------------------- 게시판 변경글 --------------------------------
         String brdno_update = getLastValue("brd_update"); // 변경색인 인덱스
         String brdno = getLastValue("brd"); // 이전 색인시 마지막 일자
@@ -110,16 +107,16 @@ public class IndexingController {
                 }
             }
         }
-    
+        
         if(boardlist.size() > 0) {
             writeLastValue("brd_update", brdno_update); // 마지막 색인 이후의 댓글/ 첨부파일 중에서 게시글이 색인 된 것만 색인 해야 함. SQL문에서 field1참조  => logtash를 쓰지 않고 개발한 이유
         }
-    
-    
+        
+        
         logger.info("board indexed update : " + boardlist.size());
         boardlist.clear();
         boardlist = null;
-    
+        
         // ---------------------------- 게시판 신규글 --------------------------------
         boardlist = (List<BoardVO>) boardService.selectBoards4Indexing(brdno);
         for (BoardVO el : boardlist) {
@@ -235,6 +232,7 @@ public class IndexingController {
     
     /**
      * tika로 오피스 등에서 텍스트 추출
+     *
      * @param filename
      * @return
      */
@@ -256,6 +254,7 @@ public class IndexingController {
     }
     
     // ---------------------------------------------------------------------------
+    
     /**
      * 처리한 마지막 값(날짜)을 저장한 파일 열고 읽기
      */
@@ -270,6 +269,7 @@ public class IndexingController {
     
     /**
      * 처리한 마지막 값(날짜) 쓰기
+     *
      * @param key
      * @param value
      */
@@ -287,6 +287,7 @@ public class IndexingController {
     
     /**
      * 데이터 종류별 마지막 값 반환
+     *
      * @param key
      * @return
      */

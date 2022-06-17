@@ -31,12 +31,6 @@ public class SendMail {
     private final String SMTP_USERNM;
     private String smtpssl = "true";
     
-    public static void main(String[] args) throws Exception {
-        
-        SendMail sm = new SendMail("", "", "", "", "");
-        sm.send(true, new String[]{""}, new String[]{}, new String[]{}, "test", "body1111");
-    }
-    
     public SendMail(String host, String port, String user, String usernm, String pw) {
         this.SMTP_HOST = host;
         this.SMTP_PORT = port;
@@ -44,6 +38,12 @@ public class SendMail {
         this.SMTP_USERNM = usernm;
         this.SMTP_PASSWD = pw;
         if(!"465".equals(port)) smtpssl = "false";
+    }
+    
+    public static void main(String[] args) throws Exception {
+        
+        SendMail sm = new SendMail("", "", "", "", "");
+        sm.send(true, new String[]{""}, new String[]{}, new String[]{}, "test", "body1111");
     }
     
     public void send(boolean debug, String[] recipients, String[] cc, String[] bcc, String subject, String contents) throws MessagingException {

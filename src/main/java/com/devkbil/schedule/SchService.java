@@ -20,12 +20,11 @@ import java.util.List;
 @Service
 public class SchService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(SchService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(SchService.class);
     
     public List<?> selectCalendar(MonthVO param, String userno) {
         List<?> list = sqlSession.selectList("selectCalendar", param);

@@ -19,13 +19,11 @@ import java.util.List;
 @Service
 public class TaskService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
-
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
     
     /**
      * ------------------------------------------

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 public class SpecificConfigurationLocal {
     /**
      * Local Cache Configuration
+     *
      * @return
      */
     @Bean

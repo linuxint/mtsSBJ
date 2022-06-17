@@ -22,12 +22,11 @@ import java.util.List;
 @Service
 public class MailService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
     
     /**
      * 리스트.

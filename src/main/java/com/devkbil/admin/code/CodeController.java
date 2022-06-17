@@ -14,10 +14,9 @@ import java.util.List;
 @Controller
 public class CodeController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(CodeController.class);
     @Autowired
     private CodeService codeService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(CodeController.class);
     
     /**
      * 공통 코드 리스트.

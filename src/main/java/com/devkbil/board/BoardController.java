@@ -3,11 +3,11 @@ package com.devkbil.board;
 import com.devkbil.admin.board.BoardGroupService;
 import com.devkbil.admin.board.BoardGroupVO;
 import com.devkbil.common.Field3VO;
-import com.devkbil.util.FileUtil;
 import com.devkbil.common.FileVO;
 import com.devkbil.common.TreeMaker;
 import com.devkbil.common.UtilEtc;
 import com.devkbil.etc.EtcService;
+import com.devkbil.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,13 @@ import java.util.List;
 @Controller
 public class BoardController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
     @Autowired
     private BoardService boardService;
-    
     @Autowired
     private BoardGroupService boardGroupService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
     
     /**
      * 리스트.

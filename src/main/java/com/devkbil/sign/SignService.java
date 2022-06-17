@@ -17,12 +17,11 @@ import java.util.List;
 @Service
 public class SignService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(SignService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(SignService.class);
     
     /**
      * 결제 받을 문서 리스트.

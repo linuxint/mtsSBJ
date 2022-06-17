@@ -16,13 +16,11 @@ import java.util.List;
 @Controller
 public class SchController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(SchController.class);
     @Autowired
     private SchService schService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(SchController.class);
     
     /**
      * 리스트.

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 public class SpecificConfigurationDev {
     /**
      * Dev Cache Configuration
+     *
      * @return
      */
     @Bean

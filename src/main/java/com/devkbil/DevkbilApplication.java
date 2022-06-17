@@ -1,20 +1,15 @@
 package com.devkbil;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import java.io.PrintStream;
 
 @SpringBootApplication
 //@CrossOrigin(origins = "http://localhost:18080")	//'Access-Control-Allow-Origin' header 추가
 //@RestController
 @MapperScan(basePackages = "com.devkbil.*")
 public class DevkbilApplication {
-
+    
     public static void main(String[] args) {
         //SpringApplication.run(DevkbilApplication.class, args);
         SpringApplication application = new SpringApplication(DevkbilApplication.class);
@@ -40,5 +35,5 @@ public class DevkbilApplication {
         */
         application.run(args);
     }
-
+    
 }

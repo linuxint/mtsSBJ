@@ -18,12 +18,11 @@ import java.util.List;
 @Service
 public class CrudService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(CrudService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(CrudService.class);
     
     /**
      * 리스트.

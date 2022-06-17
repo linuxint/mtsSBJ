@@ -33,16 +33,17 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
     /**
      * 파일 리스트 출력 (Recursive, listFiles)
      * ex) System.out.println("2");
-     *     showFilesInDIr("/home/mjs/test/test");
+     * showFilesInDIr("/home/mjs/test/test");
+     *
      * @param dirPath
      */
     public static void showFilesInDIr(String dirPath) {
         File dir = new File(dirPath);
-        File files[] = dir.listFiles();
+        File[] files = dir.listFiles();
         
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (file.isDirectory()) {
+            if(file.isDirectory()) {
                 showFilesInDIr(file.getPath());
             } else {
                 System.out.println("file: " + file);
@@ -52,17 +53,18 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
     
     /**
      * 파일 리스트 출력(Recursive, Filtering)
+     *
      * @param dirPath
      */
     public static void showFilesInDIr(String dirPath, String fileExt) {
         File dir = new File(dirPath);
-        File files[] = dir.listFiles();
+        File[] files = dir.listFiles();
         
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (file.isDirectory()) {
+            if(file.isDirectory()) {
                 showFilesInDIr(file.getPath(), fileExt);
-            } else if (file.getName().endsWith(fileExt)){
+            } else if(file.getName().endsWith(fileExt)) {
                 System.out.println("file: " + file);
             }
         }
@@ -70,7 +72,7 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
     
     public static List<FileVO> showFIlesInDir3(String dirPath) {
         List<FileVO> filelist = new ArrayList<FileVO>();
-    
+        
         Path path = Paths.get(dirPath);
         DirectoryStream<Path> dir = null;
         BasicFileAttributes attrs;
@@ -83,8 +85,8 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
                 if(attrs.isDirectory()) {
                     System.out.println("dir : " + file);
                     showFIlesInDir3(file.toString());
-                //} else if(file.getFileName().endsWith(".txt")) {
-                //    System.out.println("1");
+                    //} else if(file.getFileName().endsWith(".txt")) {
+                    //    System.out.println("1");
                 } else {
                     filedo = new FileVO();
                     filedo.setFilename(file.getFileName().toString());
@@ -102,7 +104,7 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
             e.printStackTrace();
         } finally {
             try {
-                if (dir != null) {
+                if(dir != null) {
                     dir.close();
                 }
             } catch (IOException e) {
@@ -116,9 +118,9 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
     // 방문한 파일 정보
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attr) {
-        if (attr.isSymbolicLink()) {
+        if(attr.isSymbolicLink()) {
             System.out.format("Symbolic link: %s ", file);
-        } else if (attr.isRegularFile()) {
+        } else if(attr.isRegularFile()) {
             System.out.format("Regular file: %s ", file);
         } else {
             System.out.format("Other: %s ", file);

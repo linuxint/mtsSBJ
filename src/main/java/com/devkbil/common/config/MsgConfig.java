@@ -12,6 +12,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 public class MsgConfig {
     /**
      * MessageSource Define
+     *
      * @return
      */
     @Bean

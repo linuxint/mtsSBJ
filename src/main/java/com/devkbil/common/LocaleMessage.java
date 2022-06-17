@@ -11,13 +11,13 @@ public class LocaleMessage {
     
     @Autowired
     MessageSource messageSource;
-
+    
     public String getMessage(String key) {
-        return messageSource.getMessage(key,null, Locale.KOREA);
+        return messageSource.getMessage(key, null, Locale.KOREA);
     }
     
     public String getMessage(String key, Object[] objs) {
-        return messageSource.getMessage(key,objs, Locale.getDefault());
-    
+        return messageSource.getMessage(key, objs, Locale.getDefault());
+        
     }
 }

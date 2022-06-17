@@ -17,12 +17,11 @@ import java.util.List;
 @Service
 public class CodeService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(CodeService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(CodeService.class);
     
     public Integer selectCodeCount(SearchVO param) {
         return sqlSession.selectOne("selectCodeCount", param);

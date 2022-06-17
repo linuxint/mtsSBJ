@@ -1,10 +1,10 @@
 package com.devkbil.member;
 
 import com.devkbil.admin.organ.UserService;
-import com.devkbil.util.FileUtil;
 import com.devkbil.common.FileVO;
 import com.devkbil.common.SearchVO;
 import com.devkbil.common.UtilEtc;
+import com.devkbil.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

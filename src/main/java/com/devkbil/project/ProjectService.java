@@ -13,10 +13,9 @@ import java.util.List;
 @Service
 public class ProjectService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
     
     /**
      * ------------------------------------------

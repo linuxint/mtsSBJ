@@ -16,12 +16,12 @@ import java.util.List;
 @Component
 public class AdminInterceptor implements HandlerInterceptor {
     static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
-
-
+    
+    
     public List adminEssential = Arrays.asList("/ad**");
-
+    
     //public List adminInessential = Arrays.asList("/memberLogin", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
-
+    
     /**
      * 관리자 페이지는 관리자만 접근 허용.
      */

@@ -15,13 +15,11 @@ import java.util.List;
 @Controller
 public class SignDocController {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(SignDocController.class);
     @Autowired
     private SignDocService signDocService;
-    
     @Autowired
     private EtcService etcService;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(SignDocController.class);
     
     /**
      * 리스트.

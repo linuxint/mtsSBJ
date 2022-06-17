@@ -45,8 +45,9 @@ public class FileDownload {
         }
         try {
             realPath = path + downname.substring(0, 4) + "/" + downname;
-        } catch (Exception e) {}
-
+        } catch (Exception e) {
+        }
+        
         File file1 = new File(realPath);
         if(!file1.exists()) {
             return;

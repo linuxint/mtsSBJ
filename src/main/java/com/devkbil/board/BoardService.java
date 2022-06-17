@@ -20,12 +20,11 @@ import java.util.List;
 @Service
 public class BoardService {
     
+    static final Logger LOGGER = LoggerFactory.getLogger(BoardService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(BoardService.class);
     
     /**
      * 게시판 정보 (그룹).

@@ -19,6 +19,43 @@ public class LoginController {
     private MemberService memberService;
     
     /**
+     * 쿠키 저장.
+     */
+    public static void set_cookie(String cid, String value, HttpServletResponse res) {
+        
+        Cookie ck = new Cookie(cid, value);
+        ck.setPath("/");
+        ck.setMaxAge(cookieExpire);
+        res.addCookie(ck);
+    }
+    
+    /**
+     * 쿠키 가져오기.
+     */
+    public static String get_cookie(String cid, HttpServletRequest request) {
+        String ret = "";
+        
+        if(request == null) {
+            return ret;
+        }
+        
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null) {
+            return ret;
+        }
+        
+        for (Cookie ck : cookies) {
+            if(ck.getName().equals(cid)) {
+                ret = ck.getValue();
+                
+                ck.setMaxAge(cookieExpire);
+                break;
+            }
+        }
+        return ret;
+    }
+    
+    /**
      * 로그인화면.
      */
     @RequestMapping(value = "memberLogin")
@@ -61,6 +98,10 @@ public class LoginController {
         return "redirect:/index";
     }
     
+    /*
+     * -------------------------------------------------------------------------
+     */
+    
     /**
      * 로그아웃.
      */
@@ -87,47 +128,6 @@ public class LoginController {
     @RequestMapping(value = "noAuthMessage")
     public String noAuthMessage(HttpServletRequest request) {
         return "common/noAuth";
-    }
-    
-    /*
-     * -------------------------------------------------------------------------
-     */
-    
-    /**
-     * 쿠키 저장.
-     */
-    public static void set_cookie(String cid, String value, HttpServletResponse res) {
-        
-        Cookie ck = new Cookie(cid, value);
-        ck.setPath("/");
-        ck.setMaxAge(cookieExpire);
-        res.addCookie(ck);
-    }
-    
-    /**
-     * 쿠키 가져오기.
-     */
-    public static String get_cookie(String cid, HttpServletRequest request) {
-        String ret = "";
-        
-        if(request == null) {
-            return ret;
-        }
-        
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null) {
-            return ret;
-        }
-        
-        for (Cookie ck : cookies) {
-            if(ck.getName().equals(cid)) {
-                ret = ck.getValue();
-                
-                ck.setMaxAge(cookieExpire);
-                break;
-            }
-        }
-        return ret;
     }
     
 }

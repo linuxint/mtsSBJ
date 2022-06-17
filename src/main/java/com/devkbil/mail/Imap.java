@@ -1,9 +1,9 @@
 package com.devkbil.mail;
 
-import com.devkbil.util.FileUtil;
 import com.devkbil.common.FileVO;
 import com.devkbil.common.LocaleMessage;
 import com.devkbil.common.Util4calen;
+import com.devkbil.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,11 @@ import java.util.Properties;
 
 public class Imap {
     static final Logger LOGGER = LoggerFactory.getLogger(Imap.class);
-    
-    @Autowired
-    LocaleMessage localeMessage;
-    
     private final String protocol = "imap";
     private final String mbox = "INBOX";
     private final boolean debug = true;
+    @Autowired
+    LocaleMessage localeMessage;
     private String filePath;
     
     private Store store;

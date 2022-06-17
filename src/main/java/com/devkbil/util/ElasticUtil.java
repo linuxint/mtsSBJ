@@ -27,7 +27,7 @@ public class ElasticUtil {
         HttpHost host = new HttpHost(hostname, port);
         RestClientBuilder restClientBuilder = RestClient.builder(host);
         client = new RestHighLevelClient(restClientBuilder);
-    };
+    }
     
     public static ElasticUtil getInstance() throws IOException {
         if(self == null)
@@ -35,7 +35,7 @@ public class ElasticUtil {
         return self;
     }
     
-    public Map<String,Object> getReponse(String index, String id) {
+    public Map<String, Object> getReponse(String index, String id) {
         GetResponse response = null;
         
         GetRequest getRequest = new GetRequest(index, id);

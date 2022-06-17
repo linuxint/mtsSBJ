@@ -17,11 +17,11 @@ import java.util.List;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     static final Logger LOGGER = LoggerFactory.getLogger(BoardService.class);
-
+    
     public List loginEssential = Arrays.asList("/**");
-
+    
     public List loginInessential = Arrays.asList("/memberLogin", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
-
+    
     /**
      * Controller 실행 요청전.
      * 일반 사용자의 로그인 체크.
@@ -30,11 +30,11 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
         HttpSession session = req.getSession();
         /**
-        session.setAttribute("userid", "admin");
-        session.setAttribute("userrole", "A");        
-        session.setAttribute("userno",   "1");        
-        session.setAttribute("usernm", "관리자");
-       */
+         session.setAttribute("userid", "admin");
+         session.setAttribute("userrole", "A");
+         session.setAttribute("userno",   "1");
+         session.setAttribute("usernm", "관리자");
+         */
         
         try {
             if(session == null || session.getAttribute("userno") == null) {

@@ -4,7 +4,6 @@ import com.devkbil.common.AdminInterceptor;
 import com.devkbil.common.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,6 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     
     /**
      * Interceptor 정의 - admin,login
+     *
      * @param registry
      */
     @Override
@@ -21,8 +21,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         AdminInterceptor adminInterceptor = new AdminInterceptor();
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns(adminInterceptor.adminEssential);
-                //.excludePathPatterns(adminInterceptor.adminInessential);
-
+        //.excludePathPatterns(adminInterceptor.adminInessential);
+        
         LoginInterceptor loginIntercepter = new LoginInterceptor();
         registry.addInterceptor(loginIntercepter)
                 .addPathPatterns(loginIntercepter.loginEssential)
@@ -41,6 +41,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     
     /**
      * resourceHandlers정의 (/js, /css)
+     *
      * @param registry
      */
     @Override
