@@ -1,5 +1,5 @@
 .calendarColumn {
-	display: inline-block;
+    display: inline-block;
     width: 13%;
     padding: 1px;
     min-height: 200px;
@@ -32,7 +32,7 @@
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
-	
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -48,21 +48,21 @@
 
 @media screen and (max-width: 1024px) {
   .calendarColumn{
-		width: 23%;
+        width: 23%;
   }
 }
 
 @media screen and (max-width: 450px) {
-	.calendarColumn{
-		width: 49%;
-		display: none;
-	}
-	.columnSelected {
-		display: inline-block !important;
-	}
-	
-	.calenSlideButton{
-		display: inline-block;
-	}
+    .calendarColumn{
+        width: 49%;
+        display: none;
+    }
+    .columnSelected {
+        display: inline-block !important;
+    }
+
+    .calenSlideButton{
+        display: inline-block;
+    }
 }
 
