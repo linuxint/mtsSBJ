@@ -33,9 +33,9 @@ import org.apache.commons.collections.map.ListOrderedMap;
  * <pre>
  * 개정이력(Modification Information)
  *
- * 수정일		수정자				수정내용
+ * 수정일        수정자                수정내용
  * ----------------------------------------------
- * 2009.02.06	우병훈				최초 생성
+ * 2009.02.06    우병훈                최초 생성
  * </pre>
  */
 public class EgovMap extends ListOrderedMap {

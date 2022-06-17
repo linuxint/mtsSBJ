@@ -11,40 +11,40 @@
 
     <mvc:annotation-driven />
     
-	<!--  컨트롤러등을 찾는 기본 패키지 경로  -->
-	<context:component-scan base-package="com" />
-	
-	<mvc:interceptors>
-	    <mvc:interceptor>
-	       <mvc:mapping path="/**"/>  
-	       <mvc:exclude-mapping path="/memberLogin"/> 
-	       <mvc:exclude-mapping path="/memberLoginChk"/> 
-	       <mvc:exclude-mapping path="/js/**"/> 
-	       <mvc:exclude-mapping path="/css/**"/> 
-	       <mvc:exclude-mapping path="/images/**"/> 
-	       <bean class="com.common.LoginInterceptor"/>
-	    </mvc:interceptor>
-	    <mvc:interceptor>
-	       <mvc:mapping path="/ad*"/>  
-	       <bean class="com.common.AdminInterceptor"/>
-	    </mvc:interceptor>
-	</mvc:interceptors>
-	
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix"><value>/WEB-INF/jsp/</value></property>
-		<property name="suffix"><value>.jsp</value></property>
-	</bean>
-	
-	<mvc:resources mapping="/js/**" location="/js/" />
-	<mvc:resources mapping="/css/**" location="/css/" />
-	<mvc:resources mapping="/images/**" location="/images/" />
-	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!--  컨트롤러등을 찾는 기본 패키지 경로  -->
+    <context:component-scan base-package="com" />
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+           <mvc:mapping path="/**"/>
+           <mvc:exclude-mapping path="/memberLogin"/>
+           <mvc:exclude-mapping path="/memberLoginChk"/>
+           <mvc:exclude-mapping path="/js/**"/>
+           <mvc:exclude-mapping path="/css/**"/>
+           <mvc:exclude-mapping path="/images/**"/>
+           <bean class="com.common.LoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+           <mvc:mapping path="/ad*"/>
+           <bean class="com.common.AdminInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000" />
         <property name="maxInMemorySize" value="100000000" />
     </bean>
 
-	<bean id="swagger2Config" class="com.common.config.SwaggerConfig"></bean>
-	<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
-	<mvc:resources location="classpath:/META-INF/resources/webjars/"  mapping="/webjars/**"></mvc:resources>
+    <bean id="swagger2Config" class="com.common.config.SwaggerConfig"></bean>
+    <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
+    <mvc:resources location="classpath:/META-INF/resources/webjars/"  mapping="/webjars/**"></mvc:resources>
 </beans>

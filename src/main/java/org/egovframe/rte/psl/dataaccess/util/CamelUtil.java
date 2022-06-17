@@ -23,9 +23,9 @@ package org.egovframe.rte.psl.dataaccess.util;
  * <pre>
  * 개정이력(Modification Information)
  *
- * 수정일		수정자				수정내용
+ * 수정일        수정자                수정내용
  * ----------------------------------------------
- * 2009.02.06	우병훈				최초 생성
+ * 2009.02.06    우병훈                최초 생성
  * </pre>
  */
 public final class CamelUtil {
