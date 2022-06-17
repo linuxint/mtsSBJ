@@ -106,16 +106,15 @@ public class IndexingController {
                     logger.error("indexRequest : " + e);
                 }
             }
+            
+            if(boardlist.size() > 0) {
+                writeLastValue("brd_update", brdno_update); // 마지막 색인 이후의 댓글/ 첨부파일 중에서 게시글이 색인 된 것만 색인 해야 함. SQL문에서 field1참조  => logtash를 쓰지 않고 개발한 이유
+            }
+            logger.info("board indexed update : " + boardlist.size());
+            boardlist.clear();
+            boardlist = null;
         }
         
-        if(boardlist.size() > 0) {
-            writeLastValue("brd_update", brdno_update); // 마지막 색인 이후의 댓글/ 첨부파일 중에서 게시글이 색인 된 것만 색인 해야 함. SQL문에서 field1참조  => logtash를 쓰지 않고 개발한 이유
-        }
-        
-        
-        logger.info("board indexed update : " + boardlist.size());
-        boardlist.clear();
-        boardlist = null;
         
         // ---------------------------- 게시판 신규글 --------------------------------
         boardlist = (List<BoardVO>) boardService.selectBoards4Indexing(brdno);
