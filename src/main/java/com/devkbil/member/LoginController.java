@@ -101,9 +101,12 @@ public class LoginController {
     /*
      * -------------------------------------------------------------------------
      */
-    
+
     /**
      * 로그아웃.
+     * @param request
+     * @param modelMap
+     * @return
      */
     @RequestMapping(value = "memberLogout")
     public String memberLogout(HttpServletRequest request, ModelMap modelMap) {
@@ -121,9 +124,11 @@ public class LoginController {
         
         return "redirect:/memberLogin";
     }
-    
+
     /**
      * 사용자가 관리자페이지에 접근하면 오류 출력.
+     * @param request
+     * @return
      */
     @RequestMapping(value = "noAuthMessage")
     public String noAuthMessage(HttpServletRequest request) {
