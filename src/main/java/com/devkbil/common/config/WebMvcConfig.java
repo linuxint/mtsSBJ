@@ -6,10 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+    
+    private static final String REQUEST_URL = "/index";
+    private static final String REDIRECT_URL = "/memberLogin";
+    private static final String ERROR_URL = "/error/**";
+    private static final String ERROR_PAGE_CLASSPATH = "classpath:templates/error/";
+    
     
     /**
      * Interceptor 정의 - admin,login
@@ -52,6 +59,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("resources/css/**")
                 .addResourceLocations("classpath:/static/css/")
                 .setCachePeriod(20);    //caching period를 20초로 지정합니다. ex) 60 * 60 * 24 * 365
+        registry.addResourceHandler(ERROR_URL)
+                .addResourceLocations(ERROR_PAGE_CLASSPATH);
     }
     
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController(REQUEST_URL, REDIRECT_URL);
+    }
 }
