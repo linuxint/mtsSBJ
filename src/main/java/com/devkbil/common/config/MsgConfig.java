@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 public class MsgConfig {
     
-    private static final String MSG_BASE_PATH = "classpath:messages/message";
+    private static final String MSG_BASE_PATH = "message/message";
     private static final String MSG_ENCODE = StandardCharsets.UTF_8.name();
     private static final int MSG_RELOAD_SECOND = 60;
     
