@@ -188,6 +188,50 @@ INSERT INTO com_code (CLASSNO, CODECD, CODENM) VALUES (5, '3', '월단위');
 INSERT INTO com_code (CLASSNO, CODECD, CODENM) VALUES (6, 'Y', '공개');
 INSERT INTO com_code (CLASSNO, CODECD, CODENM) VALUES (6, 'N', '비공개');
 
+
+INSERT INTO COM_CODE_V2 VALUES ('0','','공통코드','','N');
+INSERT INTO COM_CODE_V2 VALUES ('1','0','사용자롤','','N');
+INSERT INTO COM_CODE_V2 VALUES ('2','0','문서결제상태','','N');
+INSERT INTO COM_CODE_V2 VALUES ('3','0','직책구분','','N');
+INSERT INTO COM_CODE_V2 VALUES ('4','0','근무상태','','N');
+INSERT INTO COM_CODE_V2 VALUES ('5','0','반복단위','','N');
+INSERT INTO COM_CODE_V2 VALUES ('6','0','공개여부','','N');
+
+INSERT INTO COM_CODE_V2 VALUES ('A',  1, '관리자',   '사용자롤', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('U',  1, '사용자',   '사용자롤', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('20', 2, '임시저장',  '문서결제상태', 'N'); -- 0-20
+INSERT INTO COM_CODE_V2 VALUES ('21', 2, '대기중',   '문서결제상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('22', 2, '심사중',   '문서결제상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('23', 2, '반려',    '문서결제상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('24', 2, '결재 완료','문서결제상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('01', 3, '선임',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('02', 3, '주임',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('03', 3, '대리',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('04', 3, '과장',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('05', 3, '차장',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('06', 3, '부장',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('07', 3, '이사',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('08', 3, '상무',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('09', 3, '전무',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('10', 3, '부사장',   '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('11', 3, '사장',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('12', 3, '부회장',   '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('13', 3, '회장',    '직책구분', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('41', 4, '업무',    '근무상태', 'N'); -- 1 -41
+INSERT INTO COM_CODE_V2 VALUES ('42', 4, '회의',    '근무상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('43', 4, '외근',    '근무상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('44', 4, '출장',    '근무상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('45', 4, '교육',    '근무상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('46', 4, '휴가',    '근무상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('47', 4, '기타',    '근무상태', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('51', 5, '반복없음', '반복단위', 'N'); -- 1-51
+INSERT INTO COM_CODE_V2 VALUES ('52', 5, '주단위',  '반복단위', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('53', 5, '월단위',  '반복단위', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('Y',  6, '공개',   '공개여부', 'N');
+INSERT INTO COM_CODE_V2 VALUES ('N',  6, '비공개',  '공개여부', 'N');
+
+
+
 SELECT * FROM SCH_HOLIDAY;
 -- TRUNCATE TABLE SCH_HOLIDAY;
 INSERT INTO SCH_HOLIDAY (SHNO, SHTITLE, SHMONTH, SHDATE, SHCOLOR, DELETEFLAG) VALUES (SHNO_SEQ.NEXTVAL, '신정', 1, 1, 'RED', 'N');
