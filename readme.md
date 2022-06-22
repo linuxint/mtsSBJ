@@ -68,7 +68,7 @@ groupware9 - 1) Electronic payment
     2. Pre-copy
     ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config
     3. Create index
-    curl -XPUT localhost:9200/project9 -d @index_board.json -H "Content-Type: application/json"
+    curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
 
 ### License ###
 MIT

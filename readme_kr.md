@@ -68,7 +68,7 @@ groupware9 - 1)전자결제
     2. 사전복사
     ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
     3. index생성
-    curl -XPUT localhost:9200/project9 -d @index_board.json -H "Content-Type: application/json"
+    curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
 
 ### License ###
 MIT
