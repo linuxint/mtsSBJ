@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service("CodeCacheService")
 public class CodeCacheService { //extends EgovAbstractServiceImpl
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(CodeCacheService.class);
 
     @Autowired
     public CodeCacheDAO CodeCacheDAO;
