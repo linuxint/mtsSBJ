@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="datacart">
+
+    <sql id="includeDataCart">
+        WHERE 1=1
+        <if test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
+            <foreach item="item" index="index" collection="searchTypeArr" separator=" OR " open="AND (" close=")">
+                 ${item} LIKE '%'||#{searchKeyword}||'%'
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="selectDataCartCount" resultType="Integer" parameterType="String">
+        SELECT COUNT(*)
+          FROM BK_DATA_CART TB
+         WHERE USER_ID = #{inspReqId} AND USE_YN = 'Y'
+    </select> 
+
+        
+    <insert id="insertDataCart" parameterType="com.devkbil.datacart.DataCart" >
+        INSERT INTO BK_DATA_CART(DATA_CART_ID,USER_ID, CATG_MST_DATA_ID, CATG_MST_DATA_NM, CATEGORY_DESC
+        , KEYWORD_NM, CHARG_DEPT_CD, CAHRG_DEPT_NM, DATASTWD_ID, DATASWD_NM, VIEW_COUNT)
+        VALUES (BK_DATA_CART_SEQ.nextval,#{inspReqId},#{catgMstDataId},#{catgMstDataNm},#{categoryDesc}
+        ,#{keywordNm},#{chargDeptCd},#{chargDeptNm},#{dataStwdId},#{dataStwdNm},#{viewCount})
+    </insert>
+
+    <select id="selectDataCartList" resultType="com.devkbil.datacart.DataCart" parameterType="String">
+        SELECT ROW_NUMBER() OVER (ORDER BY DATA_CART_ID, USER_ID) AS RNUM
+        , DATA_CART_ID as dataCartId , USER_ID as inspReqId , CATG_MST_DATA_ID as catgMstDataId , CATG_MST_DATA_NM as catgMstDataNm , CATEGORY_DESC as categoryDesc
+        , KEYWORD_NM as keywordNm, CHARG_DEPT_CD as chargDeptCd , CAHRG_DEPT_NM as chargDeptNm, DATASTWD_ID as dataStwdId , DATASWD_NM as dataStwdNm
+        , VIEW_COUNT as viewCount , USE_YN as useYn, REG_DT as regDt
+        FROM BK_DATA_CART TB
+        WHERE USER_ID = #{inspReqId} AND USE_YN = 'Y'
+    </select>
+
+    <select id="selectDataCartOne" parameterType="com.devkbil.datacart.DataCart" resultType="hashMap">
+        SELECT DATA_CART_ID as dataCartId , USER_ID as inspReqId , CATG_MST_DATA_ID as catgMstDataId , CATG_MST_DATA_NM as catgMstDataNm , CATEGORY_DESC as categoryDesc
+             , KEYWORD_NM as keywordNm, CHARG_DEPT_CD as chargDeptCd , CAHRG_DEPT_NM as chargDeptNm, DATASTWD_ID as dataStwdId , DATASWD_NM as dataStwdNm
+             , VIEW_COUNT as viewCount , USE_YN as useYn, REG_DT as regDt
+          FROM BK_DATA_CART TB
+         WHERE DATA_CART_ID=${dataCartId} AND USER_ID=#{inspReqId} AND USE_YN = 'Y'
+    </select> 
+    
+    <update id="deleteDataCartOne" parameterType="hashMap">
+        UPDATE BK_DATA_CART
+           SET USE_YN = 'N'
+         WHERE DATA_CART_ID=${dataCartId} AND USER_ID=#{inspReqId} AND USE_YN = 'Y'
+    </update>
+
+    <update id="deleteDataCart" parameterType="String">
+        UPDATE BK_DATA_CART
+           SET USE_YN = 'N'
+        WHERE USER_ID in ($(inspReqId)) AND USE_YN = 'Y'
+    </update>
+
+    <insert id="cartCheckOut" parameterType="String">
+    </insert>
+</mapper>
+

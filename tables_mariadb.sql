@@ -1,29 +1,55 @@
+
+-- start DATA CART TABLE
+-- DROP TABLE DATA_CART CASCADE CONSTRAINTS;
+CREATE TABLE DATA_CART
+(
+    DATA_CART_ID        INT                        NOT NULL AUTO_INCREMENT COMMENT '데이터 열람 요청 SEQ',
+    USER_ID             VARCHAR(50)                NOT NULL                COMMENT '열람 요청자 ID',
+    CATG_MST_DATA_ID    VARCHAR(100)               NULL                    COMMENT '데이터 ID',
+    CATG_MST_DATA_NM    VARCHAR(1000)              NULL                    COMMENT '데이터 명',
+    CATEGORY_DESC       VARCHAR(1000)              NULL                    COMMENT '카테고리',
+    KEYWORD_NM          VARCHAR(1000)              NULL                    COMMENT '키워드명',
+    CHARG_DEPT_CD       VARCHAR(10)                NULL                    COMMENT '데이터 소유 부서',
+    CAHRG_DEPT_NM       VARCHAR(100)               NULL                    COMMENT '데이터 소유 부서명',
+    DATASTWD_ID         VARCHAR(10)                NULL                    COMMENT '데이터 스튜어드 아이디',
+    DATASWD_NM          VARCHAR(100)               NULL                    COMMENT '데이터 스튜어드명',
+    VIEW_COUNT          VARCHAR2(10)               NULL                    COMMENT '조회수',
+    USE_YN              VARCHAR(1) DEFAULT 'Y'     NULL                    COMMENT '사용여부',
+    REG_DT              DATETIME   DEFAULT SYSDATE NULL                    COMMENT '등록일',
+    CONSTRAINT PK_DATA_CART PRIMARY KEY (DATA_CART_ID,USER_ID)
+) COMMENT = '데이터 열람 요청 카트';
+
+-- end DATA CART TABLE
+
+
+
+
 CREATE TABLE PRJ_PROJECT
 (
     PRNO        INT          NOT NULL AUTO_INCREMENT COMMENT '프로젝트 번호',
-    PRSTARTDATE VARCHAR(10)  NULL COMMENT '시작일자',
-    PRENDDATE   VARCHAR(10)  NULL COMMENT '종료일자',
-    PRTITLE     VARCHAR(100) NULL COMMENT '프로젝트 제목',
-    PRDATE      DATETIME     NULL COMMENT '작성일자',
-    USERNO      INT          NULL COMMENT '사용자번호',
-    PRSTATUS    CHAR(1)      NULL COMMENT '상태',
-    DELETEFLAG  CHAR(1)      NULL COMMENT '삭제',
+    PRSTARTDATE VARCHAR(10)  NULL                    COMMENT '시작일자',
+    PRENDDATE   VARCHAR(10)  NULL                    COMMENT '종료일자',
+    PRTITLE     VARCHAR(100) NULL                    COMMENT '프로젝트 제목',
+    PRDATE      DATETIME     NULL                    COMMENT '작성일자',
+    USERNO      INT          NULL                    COMMENT '사용자번호',
+    PRSTATUS    CHAR(1)      NULL                    COMMENT '상태',
+    DELETEFLAG  CHAR(1)      NULL                    COMMENT '삭제',
     PRIMARY KEY (PRNO)
 ) COMMENT ='프로젝트';
 
 CREATE TABLE PRJ_TASK
 (
-    PRNO        INT           NULL COMMENT '프로젝트 번호',
+    PRNO        INT           NULL                    COMMENT '프로젝트 번호',
     TSNO        BIGINT        NOT NULL AUTO_INCREMENT COMMENT '업무번호',
-    TSPARENT    BIGINT        NULL COMMENT '부모업무번호',
-    TSSORT      MEDIUMINT(10) NULL COMMENT '정렬',
-    TSTITLE     VARCHAR(100)  NULL COMMENT '업무 제목',
-    TSSTARTDATE VARCHAR(10)   NULL COMMENT '시작일자',
-    TSENDDATE   VARCHAR(10)   NULL COMMENT '종료일자',
-    TSENDREAL   VARCHAR(10)   NULL COMMENT '종료일자(실제)',
-    TSRATE      SMALLINT      NULL COMMENT '진행율',
-    OLDNO       BIGINT        NULL COMMENT '이전업무번호',
-    DELETEFLAG  CHAR(1)       NULL COMMENT '삭제',
+    TSPARENT    BIGINT        NULL                    COMMENT '부모업무번호',
+    TSSORT      MEDIUMINT(10) NULL                    COMMENT '정렬',
+    TSTITLE     VARCHAR(100)  NULL                    COMMENT '업무 제목',
+    TSSTARTDATE VARCHAR(10)   NULL                    COMMENT '시작일자',
+    TSENDDATE   VARCHAR(10)   NULL                    COMMENT '종료일자',
+    TSENDREAL   VARCHAR(10)   NULL                    COMMENT '종료일자(실제)',
+    TSRATE      SMALLINT      NULL                    COMMENT '진행율',
+    OLDNO       BIGINT        NULL                    COMMENT '이전업무번호',
+    DELETEFLAG  CHAR(1)       NULL                    COMMENT '삭제',
     PRIMARY KEY (TSNO)
 ) COMMENT ='프로젝트 업무';
 
@@ -60,10 +86,10 @@ CREATE TABLE COM_CODE
 DROP TABLE COM_CODE_V2 CASCADE CONSTRAINTS;
 CREATE TABLE COM_CODE_V2
 (
-    CODECD     VARCHAR2(5),         -- 코드
-    PCODECD    VARCHAR2(5),         -- 코드시컨스
-    CODENM     VARCHAR2(40),        -- 코드명
-    CODEDESC   VARCHAR2(100),       -- 코드설명
+    CODECD     VARCHAR(5),         -- 코드
+    PCODECD    VARCHAR(5),         -- 코드시컨스
+    CODENM     VARCHAR(40),        -- 코드명
+    CODEDESC   VARCHAR(100),       -- 코드설명
     DELETEFLAG CHAR(1) DEFAULT 'N', -- 사용여부
     CONSTRAINT COM_CODE_V2_PK PRIMARY KEY (CODECD),
     CONSTRAINT COM_CODE_V2_UK UNIQUE      (CODECD, PCODECD),
