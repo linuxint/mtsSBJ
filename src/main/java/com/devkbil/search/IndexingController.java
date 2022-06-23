@@ -36,7 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder;
+//import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder; // springboot 2.6.8
+import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder; // springboot 2.7.0
 
 @Controller
 @EnableAsync
