@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,15 +28,15 @@ public class DataCartController {
     }
     
     @GetMapping("/cart/add/{catgMstDataId}")
-    public String addDataToCart(@PathVariable("catgMstDataId") String catgMstDataId, @RequestBody DataCart dataCart
+    public List<?> addDataToCart(@PathVariable("catgMstDataId") String catgMstDataId, @RequestBody DataCart dataCart
     ) throws Exception {
         dataCartCacheService.setDataCartOne(dataCart);
         logger.debug(String.format("Product with id: %s added to shopping cart.", catgMstDataId));
-        return "redirect:/";
+        return this.cart();
     }
     
     @GetMapping("/cart/remove/{dataCartId}")
-    public String removeDataFromCart(@PathVariable("dataCartId") String dataCartId, @RequestBody DataCart dataCart) throws Exception {
+    public List<?> removeDataFromCart(@PathVariable("dataCartId") String dataCartId, @RequestBody DataCart dataCart) throws Exception {
         
         String catgMstDataId = dataCart.getCatgMstDataId();
         
@@ -47,20 +46,20 @@ public class DataCartController {
         dataCartCacheService.clearDataCartOne(param);
         
         logger.debug(String.format("Dasta with id: %s removed from data cart.", catgMstDataId));
-        
-        return "redirect:/cart";
+    
+        return this.cart();
     }
     
     @GetMapping("/cart/clear")
-    public String clearProductsInCart() throws Exception {
+    public List<?> clearProductsInCart() throws Exception {
         dataCartCacheService.clearDataCart(userId);
-        return "redirect:/cart";
+        return this.cart();
     }
     
     @GetMapping("/cart/checkout")
-    public String cartCheckout() throws Exception {
+    public List<?> cartCheckout() throws Exception {
         //dataCartService.cartCheckout();
         Boolean retValue = dataCartCacheService.cartCheckout(userId);
-        return "redirect:/cart";
+        return this.cart();
     }
 }

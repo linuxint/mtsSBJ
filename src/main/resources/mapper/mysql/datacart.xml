@@ -22,9 +22,9 @@
 
         
     <insert id="insertDataCart" parameterType="com.devkbil.datacart.DataCart" >
-        INSERT INTO BK_DATA_CART(DATA_CART_ID,USER_ID, CATG_MST_DATA_ID, CATG_MST_DATA_NM, CATEGORY_DESC
+        INSERT INTO BK_DATA_CART(USER_ID, CATG_MST_DATA_ID, CATG_MST_DATA_NM, CATEGORY_DESC
         , KEYWORD_NM, CHARG_DEPT_CD, CAHRG_DEPT_NM, DATASTWD_ID, DATASWD_NM, VIEW_COUNT)
-        VALUES (BK_DATA_CART_SEQ.nextval,#{inspReqId},#{catgMstDataId},#{catgMstDataNm},#{categoryDesc}
+        VALUES (#{inspReqId},#{catgMstDataId},#{catgMstDataNm},#{categoryDesc}
         ,#{keywordNm},#{chargDeptCd},#{chargDeptNm},#{dataStwdId},#{dataStwdNm},#{viewCount})
     </insert>
 
