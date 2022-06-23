@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 //@CrossOrigin(origins = "http://localhost:18080")    //'Access-Control-Allow-Origin' header 추가
 //@RestController
+//@MapperScan(basePackages = "com.devkbil.*")
 public class DevkbilApplication {
     
     public static void main(String[] args) {
