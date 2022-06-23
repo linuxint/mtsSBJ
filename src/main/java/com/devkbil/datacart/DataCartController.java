@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/cart")
 public class DataCartController {
     private static final Logger logger = LoggerFactory.getLogger(DataCartController.class);
     
@@ -21,13 +23,13 @@ public class DataCartController {
     @Autowired
     private DataCartCacheService dataCartCacheService;
     
-    @GetMapping("/cart")
+    @GetMapping
     public List<?> cart() throws Exception {
         
         return dataCartCacheService.getDataCart();
     }
     
-    @GetMapping("/cart/add/{catgMstDataId}")
+    @GetMapping("/add/{catgMstDataId}")
     public List<?> addDataToCart(@PathVariable("catgMstDataId") String catgMstDataId, @RequestBody DataCart dataCart
     ) throws Exception {
         dataCartCacheService.setDataCartOne(dataCart);
@@ -35,7 +37,7 @@ public class DataCartController {
         return this.cart();
     }
     
-    @GetMapping("/cart/remove/{dataCartId}")
+    @GetMapping("/remove/{dataCartId}")
     public List<?> removeDataFromCart(@PathVariable("dataCartId") String dataCartId, @RequestBody DataCart dataCart) throws Exception {
         
         String catgMstDataId = dataCart.getCatgMstDataId();
@@ -50,13 +52,13 @@ public class DataCartController {
         return this.cart();
     }
     
-    @GetMapping("/cart/clear")
+    @GetMapping("/clear")
     public List<?> clearProductsInCart() throws Exception {
         dataCartCacheService.clearDataCart(userId);
         return this.cart();
     }
     
-    @GetMapping("/cart/checkout")
+    @GetMapping("/checkout")
     public List<?> cartCheckout() throws Exception {
         //dataCartService.cartCheckout();
         Boolean retValue = dataCartCacheService.cartCheckout(userId);
