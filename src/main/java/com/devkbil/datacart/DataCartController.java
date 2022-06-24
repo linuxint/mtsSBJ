@@ -29,6 +29,13 @@ public class DataCartController {
         return dataCartCacheService.getDataCart();
     }
     
+    /**
+     * 데이터 장바구니 추가
+     * @param catgMstDataId
+     * @param dataCart
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/add/{catgMstDataId}")
     public List<?> addDataToCart(@PathVariable("catgMstDataId") String catgMstDataId, @RequestBody DataCart dataCart
     ) throws Exception {
@@ -37,6 +44,13 @@ public class DataCartController {
         return this.cart();
     }
     
+    /**
+     * 데이터 장바구니 삭제
+     * @param dataCartId
+     * @param dataCart
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/remove/{dataCartId}")
     public List<?> removeDataFromCart(@PathVariable("dataCartId") String dataCartId, @RequestBody DataCart dataCart) throws Exception {
         
@@ -52,12 +66,22 @@ public class DataCartController {
         return this.cart();
     }
     
+    /**
+     * 데이터 장바구니 전체삭제
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/clear")
     public List<?> clearProductsInCart() throws Exception {
         dataCartCacheService.clearDataCart(userId);
         return this.cart();
     }
     
+    /**
+     * 데이터 장바구니 열람신청
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/checkout")
     public List<?> cartCheckout() throws Exception {
         //dataCartService.cartCheckout();
