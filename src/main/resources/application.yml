@@ -27,3 +27,8 @@ application:
   title: MTS
   version: 1.0
   formatted-version: 1.0
+
+  spring:
+    mvc:
+      pathmatch:
+        matching-strategy: ant_path_matcher
