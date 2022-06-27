@@ -14,14 +14,18 @@ spring:
             user.name: admin
             user.password: admin
           server-url: http://localhost:9090 #client url
+
 management:
   endpoints:
     web:
+      path-mapping:
+        health: healthcheck
+      base-path: /application
       exposure:
         include: "*"
   endpoint:
     health:
-      show-details: never
+      show-details: always
 
 application:
   title: MTS
@@ -35,4 +39,9 @@ application:
 
 springdoc:
   swagger-ui:
-    path=/apidoc:
+    path: /apidoc
+
+info:
+  contact:
+    email: linuxint@gmail.com
+    phone: +82
