@@ -26,16 +26,16 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @ComponentScan(basePackages = {"com.devkbil"})
 public class EsConfig {
 
-    @Value("${elasticsearch.ip}")
-    private static String ELASTIC_HOST;
+    @Value("${elasticsearch.host}")
+    String ELASTIC_HOST = "localhost";
     @Value("${elasticsearch.port}")
-    private static int ELASTIC_PORT;
+    int ELASTIC_PORT = 9200;
     @Value("${elasticsearch.scheme}")
-    private static String ELASTIC_SCHEME;
+    String ELASTIC_SCHEME = "mts";
     @Value("${elasticsearch.credentials.id}")
-    private static String ELASTIC_CREDENTILS_ID;
+    String ELASTIC_CREDENTILS_ID = "elastic";
     @Value("${elasticsearch.credentials.passwd}")
-    private static String ELASTIC_CREDENTILS_PASSWD;
+    String ELASTIC_CREDENTILS_PASSWD = "manager";
     /**
      * Elasticsearch Connection client
      *

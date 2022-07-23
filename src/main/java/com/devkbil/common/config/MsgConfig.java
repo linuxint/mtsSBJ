@@ -16,11 +16,11 @@ import java.nio.charset.StandardCharsets;
 public class MsgConfig {
     
     @Value("${spring.messages.basename}")
-    private static String MSG_BASE_PATH;
+    String MSG_BASE_PATH = "message/message";
     @Value("${spring.messages.encoding}")
-    private static String MSG_ENCODE;
+    String MSG_ENCODE = StandardCharsets.UTF_8.name();
     @Value("${spring.messages.reload-second}")
-    private static int MSG_RELOAD_SECOND = 60;
+    int MSG_RELOAD_SECOND = 60;
     
     
     /**
