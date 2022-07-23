@@ -6,21 +6,25 @@ import com.devkbil.board.BoardVO;
 import com.devkbil.common.Field3VO;
 import com.devkbil.common.FileVO;
 import com.devkbil.common.LocaleMessage;
+import com.devkbil.common.config.EsConfig;
 import com.devkbil.util.FileUtil;
-import org.apache.http.HttpHost;
+
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
+
 import org.elasticsearch.ElasticsearchStatusException;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -36,8 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-//import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder; // springboot 2.6.8
-import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder; // springboot 2.7.0
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder; // springboot 2.6.8
+//import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder; // springboot 2.7.0
 
 @Controller
 @EnableAsync
@@ -45,11 +49,12 @@ import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder; // springb
 public class IndexingController {
     
     static final Logger logger = LoggerFactory.getLogger(IndexingController.class);
+    @Value("${elasticsearch.clustername}")
     static final String INDEX_NAME = "mts";
     //final String LAST_FILE = localeMessage.getMessage("info.workspace") + "/elasticsearch/mts.last";
     static final String FILE_EXTENTION = "doc,ppt,xls,docx,pptx,xlsx,pdf,txt,zip,hwp";
     static boolean is_indexing = false;
-    final String LAST_FILE = System.getProperty("user.dir") + "/elasticsearch/mts.last";
+    final String LAST_FILE = System.getProperty("user.dir") + "/elasticsearch/" + INDEX_NAME + ".last";
     @Autowired
     LocaleMessage localeMessage;
     @Autowired
@@ -63,7 +68,7 @@ public class IndexingController {
      * 2. 댓글
      * 3. 첨부파일
      */
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "${batch.indexingFile.crone}")
     public void indexingFile() throws IOException {
         if(is_indexing) return;
         is_indexing = true;
@@ -71,8 +76,9 @@ public class IndexingController {
         file_path = System.getProperty("user.dir") + "/fileupload/"; //localeMessage.getMessage("info.filePath") + "/";  //  첨부 파일 경로
         
         // ---------------------------- elasticsearch connection --------------------------------
-        RestHighLevelClient client = createConnection();
-        
+        //RestHighLevelClient client = createConnection();
+        EsConfig esConfig = new EsConfig();
+        RestHighLevelClient client = esConfig.client();
         
         // ---------------------------- 게시판 변경글 --------------------------------
         String brdno_update = getLastValue("brd_update"); // 변경색인 인덱스
@@ -298,12 +304,23 @@ public class IndexingController {
     }
     
     // ---------------------------------------------------------------------------
+    /*
+    // 공통 환경으로 변경
     public RestHighLevelClient createConnection() {
+        final CredentialsProvider credentialProvider = new BasicCredentialsProvider();
+        credentialProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("elastic", "manager"));
+
         return new RestHighLevelClient(
                 RestClient.builder(
                         new HttpHost("localhost", 9200, "http")
+                ).setHttpClientConfigCallback(
+                        httpAsyncClientBuilder -> {
+                            HttpAsyncClientBuilder httpAsyncClientBuilder1 = httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialProvider);
+                            return httpAsyncClientBuilder1;
+                        }
                 )
         );
     }
+     */
     // ---------------------------------------------------------------------------
 }

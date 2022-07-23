@@ -2,12 +2,12 @@ package com.devkbil.search;
 
 import com.devkbil.common.FullTextSearchVO;
 import com.devkbil.common.Util4calen;
-import org.apache.http.HttpHost;
+import com.devkbil.common.config.EsConfig;
+
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -17,8 +17,10 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +37,7 @@ public class SearchController {
     static final String INDEX_NAME = "mts";
     static final String[] HIGHLIGHT_FIELDS = {"brdwriter", "brdtitle", "brdmemo"};
     static final String[] INCLUDE_FIELDS = new String[]{"brdno", "userno", "brddate", "brdtime", "brdtitle", "brdwriter", "brdmemo", "brdhit"}; // 값을 가지고 올 필드
-    
+
     @RequestMapping(value = "/search")
     public String search(HttpServletRequest request, ModelMap modelMap) {
         String today = Util4calen.date2Str(Util4calen.getToday());
@@ -76,7 +78,9 @@ public class SearchController {
         RestHighLevelClient client = null;
         SearchResponse searchResponse = null;
         try {
-            client = createConnection();
+            //client = createConnection();
+            EsConfig esConfig = new EsConfig();
+            client = esConfig.client();
             searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
@@ -151,15 +155,25 @@ public class SearchController {
         
         return highlightBuilder;
     }
-    
-    
+
     // ---------------------------------------------------------------------------
+    /*
+    // 공통 환경으로 변경
     public RestHighLevelClient createConnection() {
+        final CredentialsProvider credentialProvider = new BasicCredentialsProvider();
+        credentialProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("elastic", "manager"));
+
         return new RestHighLevelClient(
                 RestClient.builder(
                         new HttpHost("localhost", 9200, "http")
+                ).setHttpClientConfigCallback(
+                        httpAsyncClientBuilder -> {
+                            HttpAsyncClientBuilder httpAsyncClientBuilder1 = httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialProvider);
+                            return httpAsyncClientBuilder1;
+                        }
                 )
         );
     }
+     */
     // ---------------------------------------------------------------------------
 }
