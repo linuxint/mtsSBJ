@@ -63,11 +63,15 @@ groupware9 - 1) Electronic payment
   The Oracle PW source is not changed, so the PW is entered as an ID.
 
 ### elasticsearch configuration ###
-    1. Install the stemming analyzer nori provided by default in Elasticsearch
+    1. docker exec -it elastic /bin/bash
+    2. Install the stemming analyzer nori provided by default in Elasticsearch
     ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
-    2. Pre-copy
-    ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config
-    3. Create index
+    3. Dictionary copy
+    ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
+    docker cp stopwords.txt elastic:/usr/share/elasticsearch/config/
+    docker cp synonym.txt elastic:/usr/share/elasticsearch/config/
+    docker cp userdict.txt elastic:/usr/share/elasticsearch/config/
+    4. Create index
     curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
 
 ### License ###

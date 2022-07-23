@@ -63,11 +63,15 @@ groupware9 - 1)전자결제
   Oracle PW소스는 변경되지 않아 PW는 아이디로 입력된다.
 
 ### elasticsearch 환경설정 ###
-    1. Elasticsearch에서 기본적으로 제공하는 형태소 분석기 nori를 설치
+    1. docker exec -it elastic /bin/bash
+    2. Elasticsearch에서 기본적으로 제공하는 형태소 분석기 nori를 설치
     ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
-    2. 사전복사
+    3. 사전복사
     ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
-    3. index생성
+    docker cp stopwords.txt elasticsearch:/usr/share/elasticsearch/config/
+    docker cp synonyms.txt elasticsearch:/usr/share/elasticsearch/config/
+    docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
+    4. index생성
     curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
 
 ### License ###
