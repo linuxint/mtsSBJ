@@ -15,6 +15,8 @@
     <name>devkbil</name>
     <description>devkbil</description>
     <properties>
+        <elasticsearch.version>7.15.2</elasticsearch.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
@@ -145,11 +147,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.36</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
             <version>1.7.36</version>
         </dependency>
 
@@ -292,6 +289,19 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-elasticsearch</artifactId>
             <version>4.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>${elasticsearch.version}</version>
+        </dependency>
+
+        <!-- TestContainers -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
