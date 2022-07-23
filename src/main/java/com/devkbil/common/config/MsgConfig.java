@@ -1,5 +1,6 @@
 package com.devkbil.common.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +15,12 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 public class MsgConfig {
     
-    private static final String MSG_BASE_PATH = "message/message";
-    private static final String MSG_ENCODE = StandardCharsets.UTF_8.name();
-    private static final int MSG_RELOAD_SECOND = 60;
+    @Value("${spring.messages.basename}")
+    private static String MSG_BASE_PATH;
+    @Value("${spring.messages.encoding}")
+    private static String MSG_ENCODE;
+    @Value("${spring.messages.reload-second}")
+    private static int MSG_RELOAD_SECOND = 60;
     
     
     /**
