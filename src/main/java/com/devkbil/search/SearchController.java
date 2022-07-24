@@ -21,6 +21,7 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class SearchController {
     
     static final Logger logger = LoggerFactory.getLogger(SearchController.class);
     static final Integer DISPLAY_COUNT = 5;
+    @Value("${elasticsearch.clustername}")
     static final String INDEX_NAME = "mts";
     static final String[] HIGHLIGHT_FIELDS = {"brdwriter", "brdtitle", "brdmemo"};
     static final String[] INCLUDE_FIELDS = new String[]{"brdno", "userno", "brddate", "brdtime", "brdtitle", "brdwriter", "brdmemo", "brdhit"}; // 값을 가지고 올 필드

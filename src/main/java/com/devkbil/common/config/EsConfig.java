@@ -31,7 +31,7 @@ public class EsConfig {
     @Value("${elasticsearch.port}")
     int ELASTIC_PORT = 9200;
     @Value("${elasticsearch.scheme}")
-    String ELASTIC_SCHEME = "mts";
+    String ELASTIC_SCHEME = "http";
     @Value("${elasticsearch.credentials.id}")
     String ELASTIC_CREDENTILS_ID = "elastic";
     @Value("${elasticsearch.credentials.passwd}")

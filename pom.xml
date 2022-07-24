@@ -15,8 +15,6 @@
     <name>devkbil</name>
     <description>devkbil</description>
     <properties>
-        <elasticsearch.version>7.15.2</elasticsearch.version>
-        <testcontainers.version>1.15.1</testcontainers.version>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
@@ -68,6 +66,7 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
+            <version>3.0.5</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -293,14 +292,14 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>${elasticsearch.version}</version>
+            <version>7.17.4</version>
         </dependency>
 
         <!-- TestContainers -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>${testcontainers.version}</version>
+            <version>1.17.2</version>
             <scope>test</scope>
         </dependency>
 

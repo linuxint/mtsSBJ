@@ -29,6 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
         HttpSession session = req.getSession();
+        String userid = (String)req.getSession().getAttribute("userno");
         /**
          session.setAttribute("userid", "admin");
          session.setAttribute("userrole", "A");

@@ -31,9 +31,11 @@
             <div class="error-template">
                 <h1>
                     Exception Error</h1>
+                <h2>${code}</h2>
                 <div class="error-details">
-                    Please contact the server administrator
+                    ${msg}
                 </div>
+                <div>${timestamp}</div>
                 <div>
                     <a href="index" class="btn btn-default btn-lg">
                         <span class="glyphicon glyphicon-home"></span>Take Me Home </a>

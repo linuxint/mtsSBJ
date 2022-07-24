@@ -39,6 +39,12 @@
                     <a href="index" class="btn btn-default btn-lg">
                         <span class="glyphicon glyphicon-home"></span>Take Me Home </a>
                 </div>
+                <div layout:fragment="content">
+                    <h1>Error Page</h1>
+                    error code : ${code}
+                    <br>error msg : ${msg}
+                    <br>timestamp : ${timestamp}
+                </div>
             </div>
         </div>
     </div>
