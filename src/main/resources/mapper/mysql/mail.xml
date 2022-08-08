@@ -22,7 +22,7 @@
     
     <select id="selectReceiveMailList" resultType="com.devkbil.mail.MailVO" parameterType="com.devkbil.common.SearchVO">
         SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, DATE_FORMAT(ENTRYDATE,'%y-%m-%d %h:%s') ENTRYDATE, EM.USERNO, USERNM
-             , (SELECT EAADDRESS FROM EML_ADDRESS WHERE EMNO=EM.EMNO AND EATYPE='T' ORDER BY EASEQ LIMIT 1) STRTO
+             , (SELECT EAADDRESS FROM EML_ADDRESS ADDR WHERE ADDR.EMNO = EMNO AND EATYPE='T' ORDER BY EASEQ LIMIT 1) STRTO
           FROM EML_MAIL EM
          INNER JOIN COM_USER CU ON EM.USERNO=CU.USERNO
          <include refid="includeMail"/> 

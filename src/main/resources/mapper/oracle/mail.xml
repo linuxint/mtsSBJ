@@ -27,8 +27,8 @@
                  , (
                     SELECT EAADDRESS FROM (
                         SELECT ROW_NUMBER() OVER (ORDER BY EASEQ) AS RNUM2, EAADDRESS
-                        FROM EML_ADDRESS
-                        WHERE EMNO=EM.EMNO AND EATYPE='T'
+                        FROM EML_ADDRESS ADDR
+                        WHERE ADDR.EMNO = EMNO AND EATYPE='T'
                     ) WHERE RNUM2 = 1
                    ) STRTO
               FROM EML_MAIL EM
