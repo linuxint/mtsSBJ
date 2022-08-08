@@ -33,6 +33,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" id="closeX" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"><s:message code="memu.user"/></h4>
             <div class="col-lg-4 pull-right">
                 <div class="input-group custom-search-form">
                     <input class="form-control" type="text" id="searchKeyword" name="searchKeyword" onkeydown="if(event.keyCode == 13) { fn_search();}">
@@ -41,7 +42,6 @@
                             </span>
                 </div>
             </div>
-            <h4 class="modal-title" id="myModalLabel"><s:message code="memu.user"/></h4>
         </div>
         <div class="modal-body" id="myModalBody">
             <!-- /.row -->
