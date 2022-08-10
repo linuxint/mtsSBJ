@@ -122,9 +122,11 @@
                     <div class="row form-group">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-2"><label><s:message code="common.photo"/></label></div>
+                        <c:if test="${ !empty  userInfo.photo}">
                         <div class="col-sm-3">
                             <img id="previewImg" style="width:100%; height: 120px; max-width: 100px;" src="fileDownload?downname=<c:out value="${userInfo.photo}"/>">
                         </div>
+                        </c:if>
                         <div class="col-lg-5">
                             <input type="file" name="photofile" id="photofile" accept='image/*'/>
                         </div>
