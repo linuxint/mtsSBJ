@@ -3,6 +3,8 @@ package com.devkbil.common;
 import com.devkbil.board.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +23,16 @@ public class LoginInterceptor implements HandlerInterceptor {
     public List loginEssential = Arrays.asList("/**");
     
     public List loginInessential = Arrays.asList("/memberLogin", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
-    
+
+    @Bean
+    public FilterRegistrationBean mdcFilterRegisterationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        MDCFilter mdcFilter = new MDCFilter();
+        registrationBean.setFilter(mdcFilter);
+        registrationBean.setOrder(10);
+        return registrationBean;
+    }
+
     /**
      * Controller 실행 요청전.
      * 일반 사용자의 로그인 체크.
