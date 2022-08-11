@@ -3,11 +3,11 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 
 <table class="table table-striped table-bordered table-hover">
-    <colgroup>
+    <!--colgroup>
         <col width='20%'/>
         <col width='40%'/>
         <col width='40%'/>
-    </colgroup>
+    </colgroup-->
     <thead>
     <tr>
         <th><s:message code="board.no"/></th>
