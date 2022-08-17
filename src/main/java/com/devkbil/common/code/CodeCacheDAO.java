@@ -1,12 +1,10 @@
 package com.devkbil.common.code;
 
-import java.util.List;
-import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository("commonCodeDAO")

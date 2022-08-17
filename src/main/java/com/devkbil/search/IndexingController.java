@@ -8,10 +8,8 @@ import com.devkbil.common.FileVO;
 import com.devkbil.common.LocaleMessage;
 import com.devkbil.common.config.EsConfig;
 import com.devkbil.util.FileUtil;
-
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
-
 import org.elasticsearch.ElasticsearchStatusException;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -19,10 +17,8 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -40,8 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-//import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder; // 7.15
-import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder; // 7.17
+import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder;
 
 @Controller
 @EnableAsync
