@@ -53,6 +53,12 @@ groupware9 - 1)전자결제
     Framework - MyBatis, SpringBoot 2.7
     Build Tool - Maven
 
+### docker image 설치 ###
+    1. docker pull jaspeen/oracle-xe-11g
+    2. docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
+    3. docker pull docker.elastic.co/elasticsearch/elasticsearch:7.3.1
+    4. docker run -p 9200:9200 -p 9300:9300 --name elk-e -e "discovery.type=single-node" elasticsearch-custom
+
 ### 설치 ###
 - OracleDB에 데이터 베이스(mts)를 생성(user_database_oracle.sql) 하고 tables_oracle.sql, tableData_oracle.sql를 실행하여 테이블과 데이터를 생성한다.
 - MariaDB에 데이터 베이스(mts)를 생성(user_database_myriadb.sql) 하고 tables_myriadb.sql, tableData_myriadb.sql를 실행하여 테이블과 데이터를 생성한다.

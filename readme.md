@@ -53,6 +53,12 @@ groupware9 - 1) Electronic payment
     Framework - MyBatis, SpringBoot 2.7
     Build Tool - Maven
 
+### docker image Pull ###
+    1. docker pull jaspeen/oracle-xe-11g
+    2. docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
+    3. docker pull docker.elastic.co/elasticsearch/elasticsearch:7.3.1
+    4. docker run -p 9200:9200 -p 9300:9300 --name elk-e -e "discovery.type=single-node" elasticsearch-custom
+
 ### installation ###
 - Create a database (mts) in OracleDB (user_database_oracle.sql) and create tables and data by executing tables_oracle.sql and tableData_oracle.sql.
 - Create a database (mts) in MariaDB (user_database_myriadb.sql) and create tables and data by executing tables_myriadb.sql and tableData_myriadb.sql.
