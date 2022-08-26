@@ -69,17 +69,58 @@ groupware9 - 1)전자결제
   Oracle PW소스는 변경되지 않아 PW는 아이디로 입력된다.
 
 ### elasticsearch 환경설정 ###
-    1. docker exec -it elastic /bin/bash
-    2. Elasticsearch에서 기본적으로 제공하는 형태소 분석기 nori를 설치
-    ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
-    3. 사전복사
-    ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
-    docker cp stopwords.txt elasticsearch:/usr/share/elasticsearch/config/
-    docker cp synonyms.txt elasticsearch:/usr/share/elasticsearch/config/
-    docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
-    4. index생성
-    curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
+    0. 도커 이미지 다운로드
+      docker pull docker.elastic.co/elasticsearch/elasticsearch:7.17.5
+    1. 도커 실행
+      docker run -d -p 9200:9200 -p 9300:9300 --name elasticsearch docker.elastic.co/elasticsearch/elasticsearch:7.17.5
+    2. 사용자 비밀번호 설정
+      ./docker exet -t elasticsearch /bin/bash
+      ./bin/elasticsearch-setup-passwords interactive
+           ~ password : manager
 
+              future versions of Elasticsearch will require Java 11; your Java version from [/usr/local/java/jdk/jre] does not meet this requirement
+              Initiating the setup of passwords for reserved users elastic,apm_system,kibana,kibana_system,logstash_system,beats_system,remote_monitoring_user.
+              You will be prompted to enter passwords as the process progresses.
+              Please confirm that you would like to continue [y/N] y
+              
+              Enter password for [elastic]:
+              Reenter password for [elastic]:
+              Enter password for [apm_system]:
+              Reenter password for [apm_system]:
+              Enter password for [kibana_system]:
+              Reenter password for [kibana_system]:
+              Enter password for [logstash_system]:
+              Reenter password for [logstash_system]:
+              Enter password for [beats_system]:
+              Reenter password for [beats_system]:
+              Enter password for [remote_monitoring_user]:
+              Reenter password for [remote_monitoring_user]:
+              Changed password for user [apm_system]
+              Changed password for user [kibana_system]
+              Changed password for user [kibana]
+              Changed password for user [logstash_system]
+              Changed password for user [beats_system]
+              Changed password for user [remote_monitoring_user]
+              Changed password for user [elastic]
+
+    3. docker exec -it elastic /bin/bash
+    4. Elasticsearch에서 기본적으로 제공하는 형태소 분석기 nori를 설치
+       ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
+    5. 사전복사
+      ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
+      docker cp stopwords.txt elasticsearch:/usr/share/elasticsearch/config/
+      docker cp synonyms.txt elasticsearch:/usr/share/elasticsearch/config/
+      docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
+    6. index생성
+      curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
+
+### james 환경설정 ###
+    1. docker pull apache/james:demo-3.7.0
+    2. docker run -p "465:465" -p "993:993" --name james apache/james:demo-3.7.0
+      IMAP port : 993
+      SMTP port : 465
+      user : user01@james.local
+      passwd : 1234
 ### License ###
 MIT
   
