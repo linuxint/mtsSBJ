@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ad_user">
-    <select id="selectUserList" parameterType="String" resultType="com.devkbil.member.UserVO">
+    <select id="selectUserList" parameterType="String" resultType="com.devkbil.mtssbj.member.UserVO">
         SELECT USERNO, USERID, USERNM, USERPW, PHOTO, DEPTNO, CODENM USERROLE
           FROM COM_USER CU
          INNER JOIN COM_CODE CC ON CC.CODECD=CU.USERROLE
@@ -12,7 +12,7 @@
            AND CC.CLASSNO=1          
     </select> 
     
-    <select id="selectUserListWithDept" parameterType="com.devkbil.common.SearchVO" resultType="com.devkbil.member.UserVO">
+    <select id="selectUserListWithDept" parameterType="com.devkbil.mtssbj.common.SearchVO" resultType="com.devkbil.mtssbj.member.UserVO">
         SELECT USERNO, USERID, USERNM, USERPW, PHOTO, CU.DEPTNO, DEPTNM, CC.CODENM USERPOS
           FROM COM_USER CU
          INNER JOIN COM_DEPT CD ON CD.DEPTNO=CU.DEPTNO
@@ -33,12 +33,12 @@
            AND USERID=#{userid}        
     </select> 
    
-    <insert id="insertUser" parameterType="com.devkbil.member.UserVO" >
+    <insert id="insertUser" parameterType="com.devkbil.mtssbj.member.UserVO" >
         INSERT INTO COM_USER(USERNO, USERID, USERNM, USERPW, USERROLE, PHOTO, DEPTNO, DELETEFLAG)
         VALUES (USERNO_SEQ.NEXTVAL, #{userid}, #{usernm}, #{userpw}, #{userrole}, #{photo, jdbcType=VARCHAR}, #{deptno}, 'N')
     </insert>
     
-    <update id="updateUser" parameterType="com.devkbil.member.UserVO">
+    <update id="updateUser" parameterType="com.devkbil.mtssbj.member.UserVO">
         UPDATE COM_USER
            SET USERNM=#{usernm}
              , USERROLE=#{userrole}
@@ -49,7 +49,7 @@
            AND USERNO=#{userno} 
     </update> 
 
-    <update id="updateUserByMe" parameterType="com.devkbil.member.UserVO">
+    <update id="updateUserByMe" parameterType="com.devkbil.mtssbj.member.UserVO">
         UPDATE COM_USER
            SET USERNM=#{usernm}
              <if test="photo!=null and photo!=''"> 
@@ -59,7 +59,7 @@
            AND USERNO=#{userno} 
     </update> 
         
-    <select id="selectUserOne" parameterType="String" resultType="com.devkbil.member.UserVO">
+    <select id="selectUserOne" parameterType="String" resultType="com.devkbil.mtssbj.member.UserVO">
         SELECT USERNO, USERID, USERNM, USERPW, USERROLE, PHOTO, DEPTNO
           FROM COM_USER
          WHERE DELETEFLAG='N' 
@@ -72,7 +72,7 @@
          WHERE USERNO=#{userno}
     </delete> 
     
-    <update id="updateUserPassword" parameterType="com.devkbil.member.UserVO">
+    <update id="updateUserPassword" parameterType="com.devkbil.mtssbj.member.UserVO">
         UPDATE COM_USER
            SET USERPW=#{userpw}
          WHERE USERNO=#{userno} 

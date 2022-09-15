@@ -5,7 +5,7 @@
 
 <mapper namespace="main">
 
-    <select id="selectRecentNews" resultType="com.devkbil.board.BoardVO">
+    <select id="selectRecentNews" resultType="com.devkbil.mtssbj.board.BoardVO">
         SELECT BRDNO, BRDTITLE, DATE_FORMAT(BRDDATE,'%Y-%m-%d') BRDDATE
              , TB.USERNO, USERNM BRDWRITER, BGNAME, TB.BGNO
              , (SELECT COUNT(*) FROM TBL_BOARDREPLY WHERE BRDNO=TB.BRDNO AND REDELETEFLAG='N') REPLYCNT
@@ -17,7 +17,7 @@
          LIMIT 15
     </select> 
     
-    <select id="selectTimeLine" resultType="com.devkbil.board.BoardReplyVO" >
+    <select id="selectTimeLine" resultType="com.devkbil.mtssbj.board.BoardReplyVO" >
         SELECT TB.BRDNO, LEFT(TB.BRDTITLE, 10) REMEMO, USERNM REWRITER, PHOTO
              , UF_DATETIME2STRING(REDATE) REDATE
           FROM TBL_BOARD TB
@@ -28,7 +28,7 @@
          LIMIT 20
     </select>
     
-    <select id="selectNoticeListTop5" parameterType="com.devkbil.board.BoardSearchVO" resultType="com.devkbil.board.BoardVO">
+    <select id="selectNoticeListTop5" parameterType="com.devkbil.mtssbj.board.BoardSearchVO" resultType="com.devkbil.mtssbj.board.BoardVO">
         SELECT BRDNO, BRDTITLE, DATE_FORMAT(BRDDATE,'%Y-%m-%d') BRDDATE, BRDNOTICE
              , TB.USERNO, USERNM BRDWRITER
           FROM TBL_BOARD TB

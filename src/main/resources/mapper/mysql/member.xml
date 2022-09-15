@@ -5,14 +5,14 @@
 
 <mapper namespace="member">
 
-    <select id="selectSearchMemberCount" parameterType="com.devkbil.common.SearchVO" resultType="Integer" >
+    <select id="selectSearchMemberCount" parameterType="com.devkbil.mtssbj.common.SearchVO" resultType="Integer" >
         SELECT COUNT(*)
           FROM COM_USER CU
          WHERE CU.DELETEFLAG='N'
            AND CU.USERNM LIKE CONCAT('%', #{searchKeyword},'%')
     </select> 
     
-    <select id="selectSearchMemberList" parameterType="com.devkbil.common.SearchVO" resultType="com.devkbil.member.UserVO" >
+    <select id="selectSearchMemberList" parameterType="com.devkbil.mtssbj.common.SearchVO" resultType="com.devkbil.mtssbj.member.UserVO" >
         SELECT USERNO, USERID, USERNM, PHOTO, DEPTNM DEPTNO
           FROM COM_USER CU
          INNER JOIN COM_DEPT CD ON CD.DEPTNO=CU.DEPTNO
@@ -21,7 +21,7 @@
          LIMIT ${rowStart-1}, 10
     </select> 
 
-    <select id="selectMember4Login" parameterType="com.devkbil.member.LoginVO" resultType="com.devkbil.member.UserVO" >
+    <select id="selectMember4Login" parameterType="com.devkbil.mtssbj.member.LoginVO" resultType="com.devkbil.mtssbj.member.UserVO" >
         SELECT USERNO, USERID, USERNM, USERROLE
           FROM COM_USER CU
          WHERE CU.DELETEFLAG='N' 

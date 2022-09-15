@@ -5,7 +5,7 @@
 
 <mapper namespace="taskMine">
 
-    <select id="selectTaskMineList" resultType="com.devkbil.project.TaskVO" parameterType="com.devkbil.common.Field3VO">
+    <select id="selectTaskMineList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="com.devkbil.mtssbj.common.Field3VO">
         SELECT PRNO, PT.TSNO, TSPARENT, TSSORT, TSTITLE,
                TSSTARTDATE,
                TSENDDATE,
@@ -18,14 +18,14 @@
          ORDER BY TSNO 
     </select> 
         
-    <update id="updateTaskMine" parameterType="com.devkbil.project.TaskVO">
+    <update id="updateTaskMine" parameterType="com.devkbil.mtssbj.project.TaskVO">
         UPDATE PRJ_TASK
            SET TSRATE=#{tsrate}
          WHERE DELETEFLAG='N'
            AND TSNO=#{tsno}
     </update> 
     
-    <select id="selectTaskMineOne" resultType="com.devkbil.project.TaskVO" parameterType="String">
+    <select id="selectTaskMineOne" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
         SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE,
                TSSTARTDATE,
                TSENDDATE,
@@ -38,14 +38,14 @@
     </select> 
 
     <!-- =============================================================================== -->
-    <select id="selectTaskFileList" resultType="com.devkbil.common.FileVO" parameterType="String">
+    <select id="selectTaskFileList" resultType="com.devkbil.mtssbj.common.FileVO" parameterType="String">
         SELECT FILENO, FILENAME, REALNAME, FILESIZE
           FROM PRJ_TASKFILE
          WHERE TSNO=#{brdno}
          ORDER BY FILENO DESC 
     </select> 
 
-    <insert id="insertTaskFile" parameterType="com.devkbil.common.FileVO" >
+    <insert id="insertTaskFile" parameterType="com.devkbil.mtssbj.common.FileVO" >
         INSERT INTO PRJ_TASKFILE (TSNO, FILENO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, FILENO_TASK_SEQ.NEXTVAL, #{filename}, #{realname}, #{filesize})
     </insert>

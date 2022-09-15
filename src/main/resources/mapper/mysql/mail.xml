@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectReceiveMailCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectReceiveMailCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM EML_MAIL EM
          <include refid="includeMail"/>
     </select> 
     
-    <select id="selectReceiveMailList" resultType="com.devkbil.mail.MailVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectReceiveMailList" resultType="com.devkbil.mtssbj.mail.MailVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, DATE_FORMAT(ENTRYDATE,'%y-%m-%d %h:%s') ENTRYDATE, EM.USERNO, USERNM
              , (SELECT EAADDRESS FROM EML_ADDRESS ADDR WHERE ADDR.EMNO = EMNO AND EATYPE='T' ORDER BY EASEQ LIMIT 1) STRTO
           FROM EML_MAIL EM
@@ -32,20 +32,20 @@
          </if>
     </select> 
         
-    <insert id="insertMail" parameterType="com.devkbil.mail.MailVO" useGeneratedKeys="true" keyProperty="emno">
+    <insert id="insertMail" parameterType="com.devkbil.mtssbj.mail.MailVO" useGeneratedKeys="true" keyProperty="emno">
         INSERT INTO EML_MAIL(EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, USERNO, EMINO, DELETEFLAG, ENTRYDATE) 
         VALUES (#{emtype}, #{emsubject}, #{emfrom}, #{emcontents}, #{userno}, #{emino}, 'N',
                 <if test="entrydate!=null">#{entrydate}</if><if test="entrydate==null">now()</if>)
     </insert>
 
-    <update id="updateMail" parameterType="com.devkbil.mail.MailVO">
+    <update id="updateMail" parameterType="com.devkbil.mtssbj.mail.MailVO">
         UPDATE EML_MAIL
            SET EMSUBJECT=#{emsubject}, EMCONTENTS=#{emcontents}
          WHERE EMNO=#{emno} 
     </update> 
         
 
-    <insert id="insertMailAddress" parameterType="com.devkbil.mail.MailAddressVO" >
+    <insert id="insertMailAddress" parameterType="com.devkbil.mtssbj.mail.MailAddressVO" >
         INSERT INTO EML_ADDRESS(EMNO, EATYPE, EASEQ, EAADDRESS)
         VALUES (#{emno}, #{eatype}, #{easeq}, #{eaaddress})
     </insert>
@@ -56,33 +56,33 @@
          WHERE EMINO=#{emino} AND EMTYPE='R'
     </select>
 
-    <insert id="insertMailFile" parameterType="com.devkbil.common.FileVO" >
+    <insert id="insertMailFile" parameterType="com.devkbil.mtssbj.common.FileVO" >
         INSERT INTO EML_MAILFILE (EMNO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, #{filename}, #{realname}, #{filesize})
     </insert>
             
-    <select id="selectReceiveMailOne" parameterType="com.devkbil.mail.MailVO" resultType="com.devkbil.mail.MailVO">
+    <select id="selectReceiveMailOne" parameterType="com.devkbil.mtssbj.mail.MailVO" resultType="com.devkbil.mtssbj.mail.MailVO">
         SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, DATE_FORMAT(ENTRYDATE,'%y-%m-%d %h:%s') ENTRYDATE, EM.USERNO, USERNM 
           FROM EML_MAIL EM
          INNER JOIN COM_USER CU ON EM.USERNO=CU.USERNO
          WHERE EM.DELETEFLAG='N' AND EMNO=#{emno}
     </select> 
 
-    <select id="selectMailAddressList" parameterType="com.devkbil.mail.MailAddressVO" resultType="com.devkbil.mail.MailAddressVO">
+    <select id="selectMailAddressList" parameterType="com.devkbil.mtssbj.mail.MailAddressVO" resultType="com.devkbil.mtssbj.mail.MailAddressVO">
         SELECT EAADDRESS
           FROM EML_ADDRESS
          WHERE EMNO=#{emno} AND EATYPE=#{eatype}
          ORDER BY EASEQ
     </select> 
     
-    <select id="selectMailFileList" parameterType="String" resultType="com.devkbil.common.FileVO">
+    <select id="selectMailFileList" parameterType="String" resultType="com.devkbil.mtssbj.common.FileVO">
         SELECT FILENO, FILENAME, REALNAME, FILESIZE
           FROM EML_MAILFILE
          WHERE EMNO=#{emno}
          ORDER BY FILENO DESC 
     </select> 
             
-    <delete id="deleteMail" parameterType="com.devkbil.mail.MailVO">
+    <delete id="deleteMail" parameterType="com.devkbil.mtssbj.mail.MailVO">
         UPDATE EML_MAIL
            SET DELETEFLAG='Y'
          WHERE EMNO=#{emno} 

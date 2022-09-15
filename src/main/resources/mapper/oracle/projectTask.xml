@@ -5,7 +5,7 @@
 
 <mapper namespace="task">
 
-    <select id="selectTaskList" resultType="com.devkbil.project.TaskVO" parameterType="String">
+    <select id="selectTaskList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
         SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE,
                TSSTARTDATE,
                TSENDDATE,
@@ -18,7 +18,7 @@
          ORDER BY TSNO 
     </select> 
 
-    <select id="selectTaskWorkerList" resultType="com.devkbil.project.TaskVO" parameterType="String">
+    <select id="selectTaskWorkerList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
         SELECT PRNO, PTU.USERNO, PT.TSNO, TSPARENT, TSSORT, TSTITLE,
                TSSTARTDATE,
                TSENDDATE,
@@ -32,12 +32,12 @@
          ORDER BY PTU.USERNO, TSNO 
     </select> 
             
-    <insert id="insertTask" parameterType="com.devkbil.project.TaskVO">
+    <insert id="insertTask" parameterType="com.devkbil.mtssbj.project.TaskVO">
         INSERT INTO PRJ_TASK(PRNO, TSNO, TSPARENT, TSSORT, TSTITLE,  TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE, DELETEFLAG)
         VALUES (#{prno}, TSNO_SEQ.NEXTVAL, #{tsparent}, #{tssort}, #{tstitle}, #{ tsstartdate}, #{tsenddate},  #{tsendreal},#{tsrate}, 'N')
     </insert>
     
-    <update id="updateTask" parameterType="com.devkbil.project.TaskVO">
+    <update id="updateTask" parameterType="com.devkbil.mtssbj.project.TaskVO">
         UPDATE PRJ_TASK
            SET TSTITLE=#{tstitle}
              , TSSTARTDATE=#{tsstartdate} 
@@ -48,7 +48,7 @@
            AND TSNO=#{tsno}
     </update> 
     
-    <select id="selectTaskOne" resultType="com.devkbil.project.TaskVO" parameterType="String">
+    <select id="selectTaskOne" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
         SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE,
                TSSTARTDATE,
                TSENDDATE,
@@ -70,7 +70,7 @@
         DELETE FROM PRJ_TASKUSER WHERE TSNO = #{tsno}
     </delete>
     
-    <insert id="insertTaskUser" parameterType="com.devkbil.common.Field3VO" >
+    <insert id="insertTaskUser" parameterType="com.devkbil.mtssbj.common.Field3VO" >
         INSERT INTO PRJ_TASKUSER(TSNO, USERNO)
         VALUES (#{field1}, #{field2})
     </insert>

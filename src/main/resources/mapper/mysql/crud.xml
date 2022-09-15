@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectCrudCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectCrudCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM TBL_CRUD TC
          <include refid="includeCrud"/>
     </select> 
     
-    <select id="selectCrudList" resultType="com.devkbil.crud.CrudVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectCrudList" resultType="com.devkbil.mtssbj.crud.CrudVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT CRNO, CRTITLE, TC.USERNO, USERNM, CRMEMO, DATE_FORMAT(CRDATE,'%Y-%m-%d') CRDATE
           FROM TBL_CRUD TC
          INNER JOIN COM_USER CU ON TC.USERNO=CU.USERNO
@@ -31,25 +31,25 @@
          </if>
     </select> 
         
-    <insert id="insertCrud" parameterType="com.devkbil.crud.CrudVO" >
+    <insert id="insertCrud" parameterType="com.devkbil.mtssbj.crud.CrudVO" >
         INSERT INTO TBL_CRUD(CRTITLE, USERNO, CRMEMO, CRDATE, CRDELETEFLAG)
         VALUES (#{crtitle}, #{userno}, #{crmemo}, NOW(), 'N')
     </insert>
     
-    <update id="updateCrud" parameterType="com.devkbil.crud.CrudVO">
+    <update id="updateCrud" parameterType="com.devkbil.mtssbj.crud.CrudVO">
         UPDATE TBL_CRUD
            SET CRTITLE=#{crtitle}, CRMEMO=#{crmemo}
          WHERE CRNO=#{crno} 
     </update> 
         
-    <select id="selectCrudOne" parameterType="com.devkbil.crud.CrudVO" resultType="com.devkbil.crud.CrudVO">
+    <select id="selectCrudOne" parameterType="com.devkbil.mtssbj.crud.CrudVO" resultType="com.devkbil.mtssbj.crud.CrudVO">
         SELECT CRNO, CRTITLE, TC.USERNO, USERNM, CRMEMO, DATE_FORMAT(CRDATE,'%Y-%m-%d') CRDATE
           FROM TBL_CRUD TC
          INNER JOIN COM_USER CU ON TC.USERNO=CU.USERNO
          WHERE CRDELETEFLAG='N' AND CRNO=#{crno}
     </select> 
     
-    <delete id="deleteCrud" parameterType="com.devkbil.crud.CrudVO">
+    <delete id="deleteCrud" parameterType="com.devkbil.mtssbj.crud.CrudVO">
         UPDATE TBL_CRUD
            SET CRDELETEFLAG='Y'
          WHERE CRNO=#{crno} 

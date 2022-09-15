@@ -5,7 +5,7 @@
 
 <mapper namespace="main">
 
-    <select id="selectRecentNews" resultType="com.devkbil.board.BoardVO">
+    <select id="selectRecentNews" resultType="com.devkbil.mtssbj.board.BoardVO">
         <![CDATA[
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY TB.BRDNO DESC) AS RNUM
@@ -20,7 +20,7 @@
         ]]>
     </select>
     
-    <select id="selectTimeLine" resultType="com.devkbil.board.BoardReplyVO" >
+    <select id="selectTimeLine" resultType="com.devkbil.mtssbj.board.BoardReplyVO" >
         <![CDATA[
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY TB.BRDDATE DESC) AS RNUM
@@ -34,7 +34,7 @@
         ]]>
     </select>
 
-    <select id="selectNoticeListTop5" parameterType="com.devkbil.board.BoardSearchVO" resultType="com.devkbil.board.BoardVO">
+    <select id="selectNoticeListTop5" parameterType="com.devkbil.mtssbj.board.BoardSearchVO" resultType="com.devkbil.mtssbj.board.BoardVO">
         <![CDATA[
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY BRDNO DESC) AS RNUM

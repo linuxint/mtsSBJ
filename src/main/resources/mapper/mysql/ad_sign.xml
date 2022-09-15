@@ -13,13 +13,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocTypeCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectSignDocTypeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOCTYPE SDT
          <include refid="includeSignDocType"/>
     </select> 
     
-    <select id="selectSignDocTypeList" resultType="com.devkbil.admin.sign.SignDocTypeVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectSignDocTypeList" resultType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT DTNO, DTTITLE, DTCONTENTS
           FROM SGN_DOCTYPE SDT
          <include refid="includeSignDocType"/>
@@ -29,24 +29,24 @@
          </if>
     </select> 
 
-    <insert id="insertSignDocType" parameterType="com.devkbil.admin.sign.SignDocTypeVO" >
+    <insert id="insertSignDocType" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO" >
         INSERT INTO SGN_DOCTYPE(DTTITLE, DTCONTENTS, DELETEFLAG)
         VALUES (#{dttitle}, #{dtcontents}, 'N')
     </insert>
     
-    <update id="updateSignDocType" parameterType="com.devkbil.admin.sign.SignDocTypeVO">
+    <update id="updateSignDocType" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO">
         UPDATE SGN_DOCTYPE
            SET DTTITLE=#{dttitle}, DTCONTENTS=#{dtcontents}
          WHERE DTNO=#{dtno} 
     </update> 
         
-    <select id="selectSignDocTypeOne" parameterType="com.devkbil.admin.sign.SignDocTypeVO" resultType="com.devkbil.admin.sign.SignDocTypeVO">
+    <select id="selectSignDocTypeOne" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO" resultType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO">
         SELECT DTNO, DTTITLE, DTCONTENTS
           FROM SGN_DOCTYPE SDT
          WHERE DELETEFLAG='N' AND DTNO=#{dtno}
     </select> 
     
-    <delete id="deleteSignDocType" parameterType="com.devkbil.admin.sign.SignDocTypeVO">
+    <delete id="deleteSignDocType" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO">
         UPDATE SGN_DOCTYPE
            SET DELETEFLAG='Y'
          WHERE DTNO=#{dtno} 

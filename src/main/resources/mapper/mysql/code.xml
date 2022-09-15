@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectCodeCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectCodeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM COM_CODE CC
          <include refid="includeCode"/>
     </select> 
     
-    <select id="selectCodeList" resultType="com.devkbil.admin.code.CodeVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectCodeList" resultType="com.devkbil.mtssbj.admin.code.CodeVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT CLASSNO, CODECD, CODENM
           FROM COM_CODE TB
          <include refid="includeCode"/>
@@ -30,24 +30,24 @@
          </if>
     </select> 
         
-    <insert id="insertCode" parameterType="com.devkbil.admin.code.CodeVO" >
+    <insert id="insertCode" parameterType="com.devkbil.mtssbj.admin.code.CodeVO" >
         INSERT INTO COM_CODE(CLASSNO, CODECD, CODENM)
         VALUES (#{classno}, #{codecd}, #{codenm})
     </insert>
     
-    <update id="updateCode" parameterType="com.devkbil.admin.code.CodeVO">
+    <update id="updateCode" parameterType="com.devkbil.mtssbj.admin.code.CodeVO">
         UPDATE COM_CODE
            SET CODENM=#{codenm}
          WHERE CLASSNO=#{classno} AND CODECD=#{codecd}
     </update> 
         
-    <select id="selectCodeOne" parameterType="com.devkbil.admin.code.CodeVO" resultType="com.devkbil.admin.code.CodeVO">
+    <select id="selectCodeOne" parameterType="com.devkbil.mtssbj.admin.code.CodeVO" resultType="com.devkbil.mtssbj.admin.code.CodeVO">
         SELECT CLASSNO, CODECD, CODENM
           FROM COM_CODE CC
          WHERE CLASSNO=#{classno} AND CODECD=#{codecd}
     </select> 
     
-    <delete id="deleteCodeOne" parameterType="com.devkbil.admin.code.CodeVO">
+    <delete id="deleteCodeOne" parameterType="com.devkbil.mtssbj.admin.code.CodeVO">
         DELETE FROM COM_CODE
          WHERE CLASSNO=#{classno} AND CODECD=#{codecd}
     </delete> 

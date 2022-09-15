@@ -18,13 +18,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectSignDocCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOC SD
          <include refid="includeSignDoc"/> 
     </select> 
     
-    <select id="selectSignDocList" resultType="com.devkbil.sign.SignDocVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectSignDocList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT SD.DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCSTEP, SD.DTNO, SDT.DTTITLE, DEPTNM
              , DATE_FORMAT(UPDATEDATE,'%Y-%m-%d') as UPDATEDATE, CODENM as DOCSTATUS
           FROM SGN_DOC SD
@@ -52,13 +52,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocTobeCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectSignDocTobeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOC SD
          <include refid="includeSignDocTobe"/>
     </select> 
     
-    <select id="selectSignDocTobeList" resultType="com.devkbil.sign.SignDocVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectSignDocTobeList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT SD.DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCSTEP, SD.DTNO, SDT.DTTITLE, DEPTNM
              , DATE_FORMAT(UPDATEDATE,'%Y-%m-%d') as UPDATEDATE, CODENM as DOCSTATUS
           FROM SGN_DOC SD
@@ -72,12 +72,12 @@
          </if>
     </select> 
             
-    <insert id="insertSignDoc" parameterType="com.devkbil.sign.SignDocVO" useGeneratedKeys="true" keyProperty="docno">
+    <insert id="insertSignDoc" parameterType="com.devkbil.mtssbj.sign.SignDocVO" useGeneratedKeys="true" keyProperty="docno">
         INSERT INTO SGN_DOC(DOCTITLE, USERNO, DOCCONTENTS, DOCSTATUS, DOCSTEP, DTNO, DEPTNM, DOCSIGNPATH, UPDATEDATE, INSERTDATE, DELETEFLAG)
         VALUES (#{doctitle}, #{userno}, #{doccontents}, #{docstatus}, 1, #{dtno}, #{deptnm}, #{docsignpath}, NOW(), NOW(), 'N')
     </insert>
     
-    <update id="updateSignDoc" parameterType="com.devkbil.sign.SignDocVO">
+    <update id="updateSignDoc" parameterType="com.devkbil.mtssbj.sign.SignDocVO">
         UPDATE SGN_DOC
            SET DOCTITLE=#{doctitle}, DOCCONTENTS=#{doccontents}, DOCSIGNPATH=#{docsignpath}
              , UPDATEDATE=NOW()
@@ -90,12 +90,12 @@
          WHERE DOCNO=#{docno} 
     </delete>
          
-    <insert id="insertSign" parameterType="com.devkbil.sign.SignVO" >
+    <insert id="insertSign" parameterType="com.devkbil.mtssbj.sign.SignVO" >
         INSERT INTO SGN_SIGN(DOCNO, SSSTEP, SSTYPE, SSRESULT, RECEIVEDATE, USERNO, USERPOS)
         VALUES (#{docno}, #{ssstep}, #{sstype}, #{ssresult}, NOW(), #{userno}, #{userpos})
     </insert>
 
-    <select id="selectSignDocOne" parameterType="com.devkbil.sign.SignDocVO" resultType="com.devkbil.sign.SignDocVO">
+    <select id="selectSignDocOne" parameterType="com.devkbil.mtssbj.sign.SignDocVO" resultType="com.devkbil.mtssbj.sign.SignDocVO">
         SELECT DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCCONTENTS, DOCSTATUS, DOCSTEP, DTNO, DEPTNM
              , DATE_FORMAT(UPDATEDATE,'%Y-%m-%d') as UPDATEDATE, DOCSIGNPATH
           FROM SGN_DOC SD
@@ -110,13 +110,13 @@
         WHERE SD.DOCNO=#{docno} AND SD.DOCSTATUS IN (1,2)
     </select>
 
-    <update id="deleteSignDoc" parameterType="com.devkbil.sign.SignDocVO">
+    <update id="deleteSignDoc" parameterType="com.devkbil.mtssbj.sign.SignDocVO">
         UPDATE SGN_DOC
            SET DELETEFLAG='Y'
          WHERE DOCNO=#{docno} 
     </update> 
 
-    <select id="selectSign" parameterType="String" resultType="com.devkbil.sign.SignVO">
+    <select id="selectSign" parameterType="String" resultType="com.devkbil.mtssbj.sign.SignVO">
         SELECT SSNO, DOCNO, SSSTEP, SSTYPE, SSRESULT, SD.USERNO, USERNM, SD.USERPOS, SIGNDATE, SSCOMMENT
           FROM SGN_SIGN SD
          INNER JOIN COM_USER CU ON SD.USERNO=CU.USERNO
@@ -124,7 +124,7 @@
          ORDER BY SSSTEP
     </select>
     
-    <select id="selectSignLast" parameterType="com.devkbil.sign.SignDocVO" resultType="com.devkbil.sign.SignVO">
+    <select id="selectSignLast" parameterType="com.devkbil.mtssbj.sign.SignDocVO" resultType="com.devkbil.mtssbj.sign.SignVO">
         SELECT SSNO, DOCNO, SSSTEP, SSTYPE, 0 as SSRESULT, SD.USERNO, USERNM, CD.CODENM as USERPOS
           FROM SGN_SIGN SD
          INNER JOIN COM_USER CU ON SD.USERNO=CU.USERNO
@@ -134,21 +134,21 @@
     </select>
   
     <!-- 결재 -->
-    <update id="updateSign" parameterType="com.devkbil.sign.SignVO" >
+    <update id="updateSign" parameterType="com.devkbil.mtssbj.sign.SignVO" >
         UPDATE SGN_SIGN SS 
          INNER JOIN SGN_DOC SD ON SD.DOCNO=SS.DOCNO AND SD.DOCSTEP=SS.SSSTEP
            SET SSRESULT=#{ssresult}, SIGNDATE=NOW(), SSCOMMENT=#{sscomment}
          WHERE SS.DOCNO=#{docno} 
     </update>
 
-    <select id="selectChkRemainSign" parameterType="com.devkbil.sign.SignVO" resultType="String">
+    <select id="selectChkRemainSign" parameterType="com.devkbil.mtssbj.sign.SignVO" resultType="String">
         SELECT SSSTEP
           FROM SGN_SIGN SD
          WHERE DOCNO=#{docno} AND SSRESULT=0
          LIMIT 1
     </select>
 
-    <update id="updateSignDocStatus" parameterType="com.devkbil.sign.SignVO">
+    <update id="updateSignDocStatus" parameterType="com.devkbil.mtssbj.sign.SignVO">
         UPDATE SGN_DOC
            SET DOCSTATUS = #{ssresult}
             <if test="ssstep != null">

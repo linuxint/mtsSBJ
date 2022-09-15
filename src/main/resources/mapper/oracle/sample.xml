@@ -5,7 +5,7 @@
 
 <mapper namespace="sample">
 
-    <select id="selectBoardGroupCount4Statistic" resultType="com.devkbil.common.CountVO" >
+    <select id="selectBoardGroupCount4Statistic" resultType="com.devkbil.mtssbj.common.CountVO" >
         SELECT BGNAME FIELD1, CNT CNT1
           FROM (
                 SELECT BGNO, COUNT(*) CNT

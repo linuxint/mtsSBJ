@@ -4,26 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boardGroup">
-    <select id="selectBoardGroupList" resultType="com.devkbil.common.TreeVO" >
+    <select id="selectBoardGroupList" resultType="com.devkbil.mtssbj.common.TreeVO" >
         SELECT BGNO KEY, BGNAME TITLE, BGPARENT PARENT
           FROM TBL_BOARDGROUP
          WHERE BGDELETEFLAG='N' 
          ORDER BY BGNO  
     </select> 
     
-    <insert id="insertBoardGroup" parameterType="com.devkbil.admin.board.BoardGroupVO" >
+    <insert id="insertBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO" >
         INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, BGDELETEFLAG, BGDATE)
         VALUES (BGNO_SEQ.NEXTVAL, #{bgname}, #{bgused}, #{bgreply}, #{bgreadonly}, #{bgnotice}, #{bgparent, jdbcType=VARCHAR}, 'N', SYSDATE )
     </insert>
     
-    <update id="updateBoardGroup" parameterType="com.devkbil.admin.board.BoardGroupVO">
+    <update id="updateBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
         UPDATE TBL_BOARDGROUP
            SET BGNAME=#{bgname}, BGUSED=#{bgused}, BGREPLY=#{bgreply}
              , BGREADONLY=#{bgreadonly}, BGNOTICE=#{bgnotice}
          WHERE BGNO=#{bgno}
     </update> 
         
-    <select id="selectBoardGroupOne" parameterType="String" resultType="com.devkbil.admin.board.BoardGroupVO">
+    <select id="selectBoardGroupOne" parameterType="String" resultType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
         SELECT BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE
           FROM TBL_BOARDGROUP
          WHERE BGDELETEFLAG='N' AND BGNO=#{bgno} 

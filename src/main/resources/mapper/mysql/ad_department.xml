@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ad_department">
-    <select id="selectDepartment" resultType="com.devkbil.common.TreeVO" >
+    <select id="selectDepartment" resultType="com.devkbil.mtssbj.common.TreeVO" >
         SELECT DEPTNO 'KEY', DEPTNM TITLE, PARENTNO PARENT
           FROM COM_DEPT
          WHERE DELETEFLAG='N' 
          ORDER BY DEPTNO  
     </select> 
     
-    <insert id="insertDepartment" parameterType="com.devkbil.admin.organ.DepartmentVO" >
+    <insert id="insertDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO" >
         <selectKey resultType="String" keyProperty="deptno" order="BEFORE">
             SELECT IFNULL(MAX(DEPTNO),0)+1 FROM COM_DEPT
         </selectKey>    
@@ -19,13 +19,13 @@
         VALUES (#{deptno}, #{deptnm}, #{parentno}, 'N')
     </insert>
     
-    <update id="updateDepartment" parameterType="com.devkbil.admin.organ.DepartmentVO">
+    <update id="updateDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO">
         UPDATE COM_DEPT
            SET DEPTNM=#{deptnm}
          WHERE DEPTNO=#{deptno}
     </update> 
         
-    <select id="selectDepartmentOne" parameterType="String" resultType="com.devkbil.admin.organ.DepartmentVO">
+    <select id="selectDepartmentOne" parameterType="String" resultType="com.devkbil.mtssbj.admin.organ.DepartmentVO">
         SELECT DEPTNO, DEPTNM
           FROM COM_DEPT
          WHERE DELETEFLAG='N' AND DEPTNO=#{deptno} 

@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectProjectCount" resultType="Integer" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectProjectCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT COUNT(*)
           FROM PRJ_PROJECT PP
          <include refid="includeProject"/>
     </select> 
     
-    <select id="selectProjectList" resultType="com.devkbil.project.ProjectVO" parameterType="com.devkbil.common.SearchVO">
+    <select id="selectProjectList" resultType="com.devkbil.mtssbj.project.ProjectVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
         SELECT PRNO, PRTITLE, PRDATE, PRSTARTDATE, PRENDDATE
              , PP.USERNO, USERNM, CODENM AS PRSTATUS
           FROM PRJ_PROJECT PP
@@ -34,12 +34,12 @@
          </if>
     </select> 
         
-    <insert id="insertProject" parameterType="com.devkbil.project.ProjectVO" >
+    <insert id="insertProject" parameterType="com.devkbil.mtssbj.project.ProjectVO" >
         INSERT INTO PRJ_PROJECT(PRTITLE, PRSTARTDATE, PRENDDATE, PRDATE, USERNO, PRSTATUS, DELETEFLAG)
         VALUES (#{prtitle}, #{prstartdate}, #{prenddate}, now(), #{userno}, '0', 'N')
     </insert>
     
-    <update id="updateProject" parameterType="com.devkbil.project.ProjectVO">
+    <update id="updateProject" parameterType="com.devkbil.mtssbj.project.ProjectVO">
         UPDATE PRJ_PROJECT
            SET PRTITLE=#{prtitle}
              , PRSTATUS=#{prstatus}
@@ -49,7 +49,7 @@
            AND PRNO=#{prno}
     </update> 
         
-    <select id="selectProjectOne" parameterType="String" resultType="com.devkbil.project.ProjectVO">
+    <select id="selectProjectOne" parameterType="String" resultType="com.devkbil.mtssbj.project.ProjectVO">
         SELECT PRNO, PRTITLE, PRDATE, PRSTARTDATE, PRENDDATE
              , PP.USERNO, USERNM, PRSTATUS
           FROM PRJ_PROJECT PP
@@ -58,7 +58,7 @@
            AND PRNO=#{field1}
     </select> 
     
-    <select id="selectProjectAuthChk" parameterType="com.devkbil.project.ProjectVO" resultType="String">
+    <select id="selectProjectAuthChk" parameterType="com.devkbil.mtssbj.project.ProjectVO" resultType="String">
         SELECT PRNO
           FROM PRJ_PROJECT
          WHERE DELETEFLAG='N'
@@ -72,7 +72,7 @@
     </delete> 
     
 
-    <insert id="taskCopy_step1" parameterType="com.devkbil.common.Field3VO">
+    <insert id="taskCopy_step1" parameterType="com.devkbil.mtssbj.common.Field3VO">
         INSERT INTO PRJ_TASK(PRNO, TSPARENT, TSTITLE, TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE, DELETEFLAG, OLDNO)
             SELECT #{field2}, TSPARENT, TSTITLE, TSSTARTDATE, TSENDDATE, NULL, 0, 'N', TSNO
             FROM PRJ_TASK

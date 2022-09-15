@@ -35,7 +35,7 @@
         ]]>
     </select>
     
-    <select id="selectAlertList4Ajax" parameterType="String" resultType="com.devkbil.board.BoardVO">
+    <select id="selectAlertList4Ajax" parameterType="String" resultType="com.devkbil.mtssbj.board.BoardVO">
         <![CDATA[
         SELECT DS.BRDNO, DS.RENO, UF_DATETIME2STRING(DS.BRDDATE) BRDDATE, DS.TYPE AS extfield1
              , TB.BRDTITLE
@@ -73,7 +73,7 @@
         ]]>
      </select>
      
-    <select id="selectAlertList" parameterType="String" resultType="com.devkbil.board.BoardVO">
+    <select id="selectAlertList" parameterType="String" resultType="com.devkbil.mtssbj.board.BoardVO">
         SELECT DS.BRDNO, DS.RENO, TO_CHAR(DS.BRDDATE,'YYYY-MM-DD HH24:MI') BRDDATE, DS.USERNO, DS.TYPE AS extfield1
              , TB.BRDTITLE, TB.BRDLIKE, USERNM BRDWRITER
              , (SELECT COUNT(*) FROM TBL_BOARDREAD WHERE BRDNO=TB.BRDNO) BRDHIT
@@ -111,7 +111,7 @@
          ORDER BY DS.BRDDATE DESC
     </select>
 
-    <select id="selectList4UserCount" parameterType="com.devkbil.board.BoardSearchVO" resultType="Integer">
+    <select id="selectList4UserCount" parameterType="com.devkbil.mtssbj.board.BoardSearchVO" resultType="Integer">
         SELECT (
                 SELECT COUNT(*)
                   FROM TBL_BOARD TB
@@ -122,7 +122,7 @@
                  WHERE TBR.REDELETEFLAG='N' AND TBR.USERNO=#{searchExt1}
                ) FROM DUAL
      </select>        
-    <select id="selectList4User" parameterType="com.devkbil.board.BoardSearchVO" resultType="com.devkbil.board.BoardVO">
+    <select id="selectList4User" parameterType="com.devkbil.mtssbj.board.BoardSearchVO" resultType="com.devkbil.mtssbj.board.BoardVO">
     SELECT * FROM (
         SELECT ROW_NUMBER() OVER (ORDER BY TB.BRDDATE DESC) AS RNUM
              , DS.BRDNO, TO_CHAR(DS.BRDDATE,'YYYY-MM-DD HH24:MI') BRDDATE, DS.TYPE extfield1
@@ -149,7 +149,7 @@
     </if>
      </select>
 
-    <select id="selectClassCode" parameterType="String"  resultType="com.devkbil.etc.ClassCodeVO">
+    <select id="selectClassCode" parameterType="String"  resultType="com.devkbil.mtssbj.etc.ClassCodeVO">
         SELECT CODECD, CODENM 
           FROM COM_CODE 
          WHERE CLASSNO=#{classno} -- AND DELETEFLAG='N'
