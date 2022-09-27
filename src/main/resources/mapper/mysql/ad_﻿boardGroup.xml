@@ -15,14 +15,14 @@
         <selectKey resultType="String" keyProperty="bgno" order="BEFORE">
             SELECT IFNULL(MAX(BGNO),0)+1 FROM TBL_BOARDGROUP
         </selectKey>    
-        INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, BGDELETEFLAG, BGDATE)
+        INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, BGDELETEFLAG, BGREGDATE)
         VALUES (#{bgno}, #{bgname}, #{bgused}, #{bgreply}, #{bgreadonly}, #{bgnotice}, #{bgparent}, 'N', NOW() )
     </insert>
     
     <update id="updateBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
         UPDATE TBL_BOARDGROUP
            SET BGNAME=#{bgname}, BGUSED=#{bgused}, BGREPLY=#{bgreply}
-             , BGREADONLY=#{bgreadonly}, BGNOTICE=#{bgnotice}
+             , BGREADONLY=#{bgreadonly}, BGNOTICE=#{bgnotice}, BGUPDATE=NOW()
          WHERE BGNO=#{bgno}
     </update> 
         
@@ -34,7 +34,7 @@
 
     <delete id="deleteBoardGroup" parameterType="String">
         UPDATE TBL_BOARDGROUP
-           SET BGDELETEFLAG='Y'
+           SET BGDELETEFLAG='Y', BGUPDATE=NOW()
          WHERE BGNO=#{bgno}
     </delete> 
 

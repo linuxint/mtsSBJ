@@ -218,7 +218,8 @@ CREATE TABLE TBL_BOARDGROUP
     BGREPLY      CHAR(1),                         -- 댓글 사용여부
     BGREADONLY   CHAR(1),                         -- 글쓰기 가능 여부
     BGNOTICE     CHAR(1),                         -- 공지 쓰기  가능 여부
-    BGDATE       DATETIME,                        -- 생성일자
+    BGREGDATE    DATETIME,                        -- 생성일자
+    BGUPDATE     DATETIME,                        -- 변경일자
     PRIMARY KEY (BGNO)
 );
 

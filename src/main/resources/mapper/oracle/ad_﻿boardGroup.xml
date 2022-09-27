@@ -12,14 +12,14 @@
     </select> 
     
     <insert id="insertBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO" >
-        INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, BGDELETEFLAG, BGDATE)
+        INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, BGDELETEFLAG, BGREGDATE)
         VALUES (BGNO_SEQ.NEXTVAL, #{bgname}, #{bgused}, #{bgreply}, #{bgreadonly}, #{bgnotice}, #{bgparent, jdbcType=VARCHAR}, 'N', SYSDATE )
     </insert>
     
     <update id="updateBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
         UPDATE TBL_BOARDGROUP
            SET BGNAME=#{bgname}, BGUSED=#{bgused}, BGREPLY=#{bgreply}
-             , BGREADONLY=#{bgreadonly}, BGNOTICE=#{bgnotice}
+             , BGREADONLY=#{bgreadonly}, BGNOTICE=#{bgnotice}, BGUPDATE=SYSDATE
          WHERE BGNO=#{bgno}
     </update> 
         
@@ -31,7 +31,7 @@
 
     <delete id="deleteBoardGroup" parameterType="String">
         UPDATE TBL_BOARDGROUP
-           SET BGDELETEFLAG='Y'
+           SET BGDELETEFLAG='Y', BGUPDATE=SYSDATE
          WHERE BGNO=#{bgno}
     </delete> 
 
