@@ -151,11 +151,8 @@
     <update id="updateSign" parameterType="com.devkbil.mtssbj.sign.SignVO" >
         MERGE /*+ USE_HASH AB */
          INTO SGN_SIGN SS
-        USING ( SELECT DOCNO, DOCSTEP
-              FROM SGN_DOC SD
-              ) SD
-          ON ( SD.DOCNO=SS.DOCNO AND SD.DOCSTEP=SS.SSSTEP )
-        WHEN MATCHED THEN
+        USING ( SELECT DOCNO, DOCSTEP FROM SGN_DOC SD) SD ON ( SD.DOCNO=SS.DOCNO AND SD.DOCSTEP=SS.SSSTEP )
+         WHEN MATCHED THEN
         UPDATE SET SSRESULT=#{ssresult}
             , SIGNDATE=SYSDATE
             , SSCOMMENT=#{sscomment}
