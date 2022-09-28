@@ -2,6 +2,13 @@ server:
   port: 9090
   #contextPath: /mts
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  resources:
+    cache:
+      cachecontrol:
+        duration: 1
   boot:
     admin:
       url: http://localhost:18080 # server url
@@ -14,6 +21,28 @@ spring:
             user.name: admin
             user.password: admin
           server-url: http://localhost:9090 #client url
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    hibernate:
+      ##ddl-auto: create
+      default_schema: mts
+      properties:
+        hibernate:
+          format_sql: true
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    database: oracle
+
+logging:
+    level:
+        org:
+          hibernate:
+            type:
+              descriptor:
+                sql: trace
+
 
 management:
   endpoints:
@@ -32,10 +61,6 @@ application:
   version: 1.0
   formatted-version: 1.0
 
-  spring:
-    mvc:
-      pathmatch:
-        matching-strategy: ant_path_matcher
 
 springdoc:
   swagger-ui:
