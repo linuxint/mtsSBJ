@@ -8,6 +8,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.UUID;
@@ -46,6 +47,19 @@ public class MDCFilter extends OncePerRequestFilter {
 
 
     private String getUserPrincipal(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userid = "";
+        String usernm = "";
+       try {
+           userid = session.getAttribute("userid").toString();
+           usernm = session.getAttribute("usernm").toString();
+           userid  = userid+"@"+usernm;
+       } catch (NullPointerException e) {
+           userid = "";
+       }
+        return userid;
+        
+    /*
         Principal principal = request.getUserPrincipal();
         if (principal == null)
             return null;
@@ -54,6 +68,7 @@ public class MDCFilter extends OncePerRequestFilter {
         int iWord = Math.min(0, parts.length - 2);
         String userId = parts[iWord];
         return userId;
+     */
     }
 
 }

@@ -27,7 +27,7 @@
     <property name ="ERR_LOG_FILE_NAME" value = "${log.config.filename}_error"/>
 
     <!-- 로그 파일 패턴 -->
-    <property name ="LOG_PATTERN" value = "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread][%X{trxId}] [%logger{0}:%line] - %msg%n"/>
+    <property name ="LOG_PATTERN" value = "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread][%X{trxId}][%X{userName}] [%logger{0}:%line] - %msg%n"/>
 
 
 
