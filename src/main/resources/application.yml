@@ -27,7 +27,6 @@ spring:
         show_sql: true
         format_sql: true
     hibernate:
-      ##ddl-auto: create
       default_schema: mts
       properties:
         hibernate:
