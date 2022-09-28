@@ -508,10 +508,10 @@ END;
 
 DELIMITER $$
 
-CREATE PROCEDURE `makeCalendar`()
+CREATE PROCEDURE `makeCalendar`(startdate VARCHAR(10),enddate VARCHAR(10))
 BEGIN
-    DECLARE sdate date DEFAULT '2018-01-01';
-    DECLARE edate date DEFAULT '2025-12-31';
+    DECLARE sdate date DEFAULT STR_TO_DATE(startdate, '%Y-%m-%d');
+    DECLARE edate date DEFAULT STR_TO_DATE(enddate, '%Y-%m-%d');
 
     WHILE sdate <= edate
         DO

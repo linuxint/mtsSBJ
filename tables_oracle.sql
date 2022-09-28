@@ -929,39 +929,41 @@ BEGIN
 
 END uf_datetime2string;
 
----- start makeCalendar
-declare
-    sdate date := to_date('2022-05-07','YYYY-MM-DD');
-    edate date := to_date('2025-05-06','YYYY-MM-DD');
+
+CREATE OR REPLACE FUNCTION makeCalendar(startdate IN VARCHAR2, enddate IN VARCHAR2)
+    RETURN VARCHAR2
+IS
+    PRAGMA AUTONOMOUS_TRANSACTION;
+    ret_ varchar2(10);
+    sdate date := to_date(startdate,'YYYY-MM-DD');
+    edate date := to_date(enddate,'YYYY-MM-DD');
 begin
     WHILE(sdate  <= edate)
         LOOP
             INSERT INTO COM_DATE (CDNO, CDDATE, CDYEAR, CDMM, CDDD, CDWEEKOFYEAR, CDWEEKOFMONTH, CDWEEK, CDDAYOFWEEK)
-            SELECT cdno_seq.nextval,
-                   to_char(sdate,'YYYY-MM-DD'),
-                   extract(year from TO_DATE(TO_DATE(sdate))),
-                   extract(month from TO_DATE(TO_DATE(sdate))),
-                   extract(day from TO_DATE(TO_DATE(sdate))),
+            SELECT CDNO_SEQ.NEXTVAL,
+                   TO_CHAR(sdate,'YYYY-MM-DD'),
+                   EXTRACT(year from TO_DATE(TO_DATE(sdate))),
+                   EXTRACT(month from TO_DATE(TO_DATE(sdate))),
+                   EXTRACT(day from TO_DATE(TO_DATE(sdate))),
                    TO_CHAR(TO_DATE(sdate), 'IW'),
-                   to_char(sdate, 'WW'),
-                   to_char(sdate+1, 'IW')-1,
-                   to_char(sdate, 'D')
+                   TO_CHAR(sdate, 'WW'),
+                   TO_CHAR(sdate+1, 'IW')-1,
+                   TO_CHAR(sdate, 'D')
             FROM DUAL;
             SELECT sdate+1 INTO sdate FROM DUAL;
 
         END LOOP;
-
-end;
+        COMMIT;
+    RETURN ret_;
+END makeCalendar;
 ---- end makeCalendar
 
 -- DROP FUNCTION getColor4Alert;
 
-CREATE OR REPLACE FUNCTION getColor4Alert(TSSTARTDATE_ IN VARCHAR2
-, TSENDDATE_ IN VARCHAR2
-, TSENDREAL_ IN VARCHAR2
-, TSRATE_ IN NUMBER)
-    RETURN VARCHAR2
-    IS
+CREATE OR REPLACE FUNCTION getColor4Alert(TSSTARTDATE_ IN VARCHAR2 , TSENDDATE_ IN VARCHAR2 , TSENDREAL_ IN VARCHAR2 , TSRATE_ IN NUMBER)
+RETURN VARCHAR2
+IS
     BGCOLOR_ varchar2(10)  := 'gray'; -- tsstartdate < today
     TODAY_   TIMESTAMP(6) := SYSDATE;
 BEGIN
@@ -1025,3 +1027,7 @@ update SCH_SCHEDULE set SSENDHOUR     = trim(SSENDHOUR    );
 update SCH_SCHEDULE set SSENDMINUTE   = trim(SSENDMINUTE  );
 
 */
+
+select makeCalendar('2025-05-07', '2025-05-08') from dual;
+
+commit;
