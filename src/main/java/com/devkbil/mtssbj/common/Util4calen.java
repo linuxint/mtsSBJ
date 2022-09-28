@@ -1,6 +1,7 @@
 package com.devkbil.mtssbj.common;
 
 
+import com.devkbil.mtssbj.schedule.MonthVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,20 @@ import java.util.Date;
 public class Util4calen {
     static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
     static final String[] dayArr = {"일", "월", "화", "수", "목", "금", "토"};
+    
+    
+    
+    public static MonthVO monthValid(MonthVO monthVO) {
+        if(Integer.parseInt(monthVO.getMonth()) < 1 ) {
+            monthVO.setMonth(String.valueOf(Integer.parseInt(monthVO.getMonth())+12));
+            monthVO.setYear(String.valueOf(Integer.parseInt(monthVO.getYear())-1));
+        }
+        if(Integer.parseInt(monthVO.getMonth()) > 12 ) {
+            monthVO.setMonth(String.valueOf(Integer.parseInt(monthVO.getMonth())-12));
+            monthVO.setYear(String.valueOf(Integer.parseInt(monthVO.getYear())+1));
+        }
+        return monthVO;
+    }
     
     /**
      * 시스템의 오늘 일자 반.

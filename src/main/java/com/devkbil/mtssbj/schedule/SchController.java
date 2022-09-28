@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.schedule;
 
+import com.devkbil.mtssbj.common.DateVO;
 import com.devkbil.mtssbj.common.Util4calen;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
@@ -31,13 +32,16 @@ public class SchController {
         String userno = request.getSession().getAttribute("userno").toString();
         
         etcService.setCommonAttribute(userno, modelMap);
-        
-        // 
+    
         if(searchVO.getYear() == null || "".equals(searchVO.getYear())) {
             Date today = Util4calen.getToday();
             searchVO.setYear(Util4calen.getYear(today).toString());
             searchVO.setMonth(Util4calen.getMonth(today).toString());
         }
+        if("0".equals(searchVO.getMonth()) || "13".equals(searchVO.getMonth())) {
+            searchVO = Util4calen.monthValid(searchVO);
+        }
+        
         Integer dayofweek = Util4calen.getDayOfWeek(Util4calen.str2Date(searchVO.getYear() + "-" + searchVO.getMonth() + "-01"));
         
         List<?> listview = schService.selectCalendar(searchVO, userno);
