@@ -250,10 +250,10 @@ CREATE TABLE TBL_CRUD
 CREATE TABLE COM_DATE
 (
     CDNO          bigint NOT NULL AUTO_INCREMENT COMMENT '번호',
-    CDDATE        char(10) COMMENT '날짜',
-    CDYEAR        char(4) COMMENT '년도',
-    CDMM          char(2) COMMENT '월',
-    CDDD          char(2) COMMENT '일',
+    CDDATE        varchar(10) COMMENT '날짜',
+    CDYEAR        varchar(4) COMMENT '년도',
+    CDMM          varchar(2) COMMENT '월',
+    CDDD          varchar(2) COMMENT '일',
     CDWEEKOFYEAR  smallint COMMENT 'WEEKOFYEAR',
     CDWEEKOFMONTH smallint COMMENT 'WEEKOFMONTH',
     CDWEEK        smallint COMMENT 'WEEK',
@@ -265,10 +265,10 @@ CREATE TABLE COM_DATE
 -- 메일주소
 CREATE TABLE EML_ADDRESS
 (
-    EMNO      int(10) NOT NULL COMMENT '메일번호',
-    EASEQ     int     NOT NULL COMMENT '순번',
-    EATYPE    char(1) NOT NULL COMMENT '주소종류',
-    EAADDRESS varchar(150) COMMENT '메일주소',
+    EMNO      INT(10) NOT NULL COMMENT '메일번호',
+    EASEQ     INT     NOT NULL COMMENT '순번',
+    EATYPE    CHAR(1) NOT NULL COMMENT '주소종류',
+    EAADDRESS VARCHAR(150) COMMENT '메일주소',
     PRIMARY KEY (EMNO, EASEQ, EATYPE)
 ) COMMENT = '메일주소' DEFAULT CHARACTER SET utf8
                    COLLATE utf8_general_ci;
@@ -277,15 +277,15 @@ CREATE TABLE EML_ADDRESS
 -- 메일
 CREATE TABLE EML_MAIL
 (
-    EMNO       int(10) NOT NULL AUTO_INCREMENT COMMENT '메일번호',
-    EMTYPE     char(1) COMMENT '메일종류',
-    EMSUBJECT  varchar(150) COMMENT '제목',
-    EMFROM     varchar(150) COMMENT '보낸사람',
-    EMCONTENTS mediumtext COMMENT '내용',
-    ENTRYDATE  datetime COMMENT '작성일',
-    USERNO     int(10) NOT NULL COMMENT '사용자번호',
-    EMINO      int(10) NOT NULL COMMENT '메일정보번호',
-    DELETEFLAG char(1) COMMENT '삭제',
+    EMNO       INT(10) NOT NULL AUTO_INCREMENT COMMENT '메일번호',
+    EMTYPE     CHAR(1) COMMENT '메일종류',
+    EMSUBJECT  VARCHAR(150) COMMENT '제목',
+    EMFROM     VARCHAR(150) COMMENT '보낸사람',
+    EMCONTENTS MEDIUMTEXT COMMENT '내용',
+    ENTRYDATE  DATETIME COMMENT '작성일',
+    USERNO     INT(10) NOT NULL COMMENT '사용자번호',
+    EMINO      INT(10) NOT NULL COMMENT '메일정보번호',
+    DELETEFLAG CHAR(1) COMMENT '삭제',
     PRIMARY KEY (EMNO),
     UNIQUE (EMNO)
 ) COMMENT = '메일';
@@ -294,11 +294,11 @@ CREATE TABLE EML_MAIL
 -- 첨부파일
 CREATE TABLE EML_MAILFILE
 (
-    FILENO   int(10) NOT NULL AUTO_INCREMENT COMMENT '파일번호',
-    FILENAME varchar(100) COMMENT '파일명',
-    REALNAME varchar(30) COMMENT '실제파일명',
-    FILESIZE int(10) COMMENT '파일크기',
-    EMNO     int(10) NOT NULL COMMENT '메일번호',
+    FILENO   INT(10) NOT NULL AUTO_INCREMENT COMMENT '파일번호',
+    FILENAME VARCHAR(100) COMMENT '파일명',
+    REALNAME VARCHAR(30) COMMENT '실제파일명',
+    FILESIZE INT(10) COMMENT '파일크기',
+    EMNO     INT(10) NOT NULL COMMENT '메일번호',
     PRIMARY KEY (FILENO),
     UNIQUE (FILENO)
 ) COMMENT = '첨부파일';
@@ -307,16 +307,16 @@ CREATE TABLE EML_MAILFILE
 -- 메일정보
 CREATE TABLE EML_MAILINFO
 (
-    EMINO       int(10) NOT NULL AUTO_INCREMENT COMMENT '메일정보번호',
-    EMIIMAP     varchar(30) COMMENT 'IMAP서버주소',
-    EMIIMAPPORT varchar(5) COMMENT 'IMAP서버포트',
-    EMISMTP     varchar(30) COMMENT 'SMTP 서버주소',
-    EMISMTPPORT varchar(5) COMMENT 'SMTP 서버포트',
-    EMIUSER     varchar(50) COMMENT '계정',
-    EMIPW       varchar(50) COMMENT '비밀번호',
-    USERNO      int(10) NOT NULL COMMENT '사용자번호',
-    ENTRYDATE   date COMMENT '등록일자',
-    DELETEFLAG  char(1) COMMENT '삭제',
+    EMINO       INT(10) NOT NULL AUTO_INCREMENT COMMENT '메일정보번호',
+    EMIIMAP     VARCHAR(30) COMMENT 'IMAP서버주소',
+    EMIIMAPPORT VARCHAR(5) COMMENT 'IMAP서버포트',
+    EMISMTP     VARCHAR(30) COMMENT 'SMTP 서버주소',
+    EMISMTPPORT VARCHAR(5) COMMENT 'SMTP 서버포트',
+    EMIUSER     VARCHAR(50) COMMENT '계정',
+    EMIPW       VARCHAR(50) COMMENT '비밀번호',
+    USERNO      INT(10) NOT NULL COMMENT '사용자번호',
+    ENTRYDATE   DATE COMMENT '등록일자',
+    DELETEFLAG  CHAR(1) COMMENT '삭제',
     PRIMARY KEY (EMINO),
     UNIQUE (EMINO)
 ) COMMENT = '메일정보';
@@ -325,11 +325,11 @@ CREATE TABLE EML_MAILINFO
 -- 일정상세
 CREATE TABLE SCH_DETAIL
 (
-    SSNO     int(10)  NOT NULL COMMENT '일정번호',
-    SDSEQ    smallint NOT NULL COMMENT '순번',
-    SDDATE   date COMMENT '날짜',
-    SDHOUR   char(2) COMMENT '시간',
-    SDMINUTE char(2) COMMENT '분',
+    SSNO     INT(10)  NOT NULL COMMENT '일정번호',
+    SDSEQ    SMALLINT NOT NULL COMMENT '순번',
+    SDDATE   DATE COMMENT '날짜',
+    SDHOUR   VARCHAR(2) COMMENT '시간',
+    SDMINUTE VARCHAR(2) COMMENT '분',
     PRIMARY KEY (SSNO, SDSEQ),
     UNIQUE (SSNO, SDSEQ)
 ) COMMENT = '일정상세';
@@ -338,12 +338,12 @@ CREATE TABLE SCH_DETAIL
 -- 공휴일
 CREATE TABLE SCH_HOLIDAY
 (
-    SHNO       smallint NOT NULL AUTO_INCREMENT COMMENT '번호',
-    SHTITLE    varchar(20) COMMENT '공휴일명',
-    SHMONTH    smallint COMMENT '월',
-    SHDATE     smallint COMMENT '일',
-    SHCOLOR    varchar(10) COMMENT '색상',
-    DELETEFLAG char(1) COMMENT '삭제',
+    SHNO       SMALLINT NOT NULL AUTO_INCREMENT COMMENT '번호',
+    SHTITLE    VARCHAR(20) COMMENT '공휴일명',
+    SHMONTH    SMALLINT COMMENT '월',
+    SHDATE     SMALLINT COMMENT '일',
+    SHCOLOR    VARCHAR(10) COMMENT '색상',
+    DELETEFLAG CHAR(1) COMMENT '삭제',
     PRIMARY KEY (SHNO),
     UNIQUE (SHNO)
 ) COMMENT = '공휴일';
@@ -352,24 +352,24 @@ CREATE TABLE SCH_HOLIDAY
 -- 일정
 CREATE TABLE SCH_SCHEDULE
 (
-    SSNO           int(10) NOT NULL AUTO_INCREMENT COMMENT '일정번호',
-    SSTITLE        varchar(50) COMMENT '일정명',
-    SSTYPE         char(1) COMMENT '구분',
-    SSSTARTDATE    char(10) COMMENT '시작일',
-    SSSTARTHOUR    char(2) COMMENT '시작일-시간',
-    SSSTARTMINUTE  char(2) COMMENT '시작일-분',
-    SSENDDATE      varchar(10) COMMENT '종료일',
-    SSENDHOUR      char(2) COMMENT '종료일-시간',
-    SSENDMINUTE    char(2) COMMENT '종료일-분',
-    SSREPEATTYPE   char(1) COMMENT '반복',
-    SSREPEATOPTION varchar(2) COMMENT '반복옵션',
-    SSREPEATEND    varchar(10) COMMENT '반복종료',
-    SSCONTENTS     text COMMENT '내용',
-    SSISOPEN       char(1) COMMENT '공개여부',
-    UPDATEDATE     datetime COMMENT '수정일자',
-    INSERTDATE     datetime COMMENT '작성일자',
-    USERNO         int(10) NOT NULL COMMENT '사용자번호',
-    DELETEFLAG     char(1) COMMENT '삭제',
+    SSNO           INT(10) NOT NULL AUTO_INCREMENT COMMENT '일정번호',
+    SSTITLE        VARCHAR(50) COMMENT '일정명',
+    SSTYPE         CHAR(1) COMMENT '구분',
+    SSSTARTDATE    VARCHAR(10) COMMENT '시작일',
+    SSSTARTHOUR    VARCHAR(2) COMMENT '시작일-시간',
+    SSSTARTMINUTE  VARCHAR(2) COMMENT '시작일-분',
+    SSENDDATE      VARCHAR(10) COMMENT '종료일',
+    SSENDHOUR      VARCHAR(2) COMMENT '종료일-시간',
+    SSENDMINUTE    VARCHAR(2) COMMENT '종료일-분',
+    SSREPEATTYPE   CHAR(1) COMMENT '반복',
+    SSREPEATOPTION VARCHAR(2) COMMENT '반복옵션',
+    SSREPEATEND    VARCHAR(10) COMMENT '반복종료',
+    SSCONTENTS     TEXT COMMENT '내용',
+    SSISOPEN       CHAR(1) COMMENT '공개여부',
+    UPDATEDATE     DATETIME COMMENT '수정일자',
+    INSERTDATE     DATETIME COMMENT '작성일자',
+    USERNO         INT(10) NOT NULL COMMENT '사용자번호',
+    DELETEFLAG     CHAR(1) COMMENT '삭제',
     PRIMARY KEY (SSNO),
     UNIQUE (SSNO)
 ) COMMENT = '일정';
@@ -378,18 +378,18 @@ CREATE TABLE SCH_SCHEDULE
 -- 결재문서
 CREATE TABLE SGN_DOC
 (
-    DOCNO       bigint  NOT NULL AUTO_INCREMENT COMMENT '문서번호',
-    DOCTITLE    varchar(50) COMMENT '제목',
-    DOCCONTENTS text COMMENT '문서내용',
-    DELETEFLAG  char(1) COMMENT '삭제여부',
-    DOCSTATUS   char(1) COMMENT '문서상태',
-    DOCSTEP     smallint COMMENT '결재단계',
-    DTNO        int     NOT NULL COMMENT '문서양식번호',
-    UPDATEDATE  datetime COMMENT '수정일자',
-    INSERTDATE  datetime COMMENT '작성일자',
-    USERNO      int(10) NOT NULL COMMENT '사용자번호',
-    DEPTNM      varchar(20) COMMENT '부서명',
-    DOCSIGNPATH varchar(200) COMMENT '결재경로문자열',
+    DOCNO       BIGINT  NOT NULL AUTO_INCREMENT COMMENT '문서번호',
+    DOCTITLE    VARCHAR(50) COMMENT '제목',
+    DOCCONTENTS TEXT COMMENT '문서내용',
+    DELETEFLAG  CHAR(1) COMMENT '삭제여부',
+    DOCSTATUS   CHAR(1) COMMENT '문서상태',
+    DOCSTEP     SMALLINT COMMENT '결재단계',
+    DTNO        INT     NOT NULL COMMENT '문서양식번호',
+    UPDATEDATE  DATETIME COMMENT '수정일자',
+    INSERTDATE  DATETIME COMMENT '작성일자',
+    USERNO      INT(10) NOT NULL COMMENT '사용자번호',
+    DEPTNM      VARCHAR(20) COMMENT '부서명',
+    DOCSIGNPATH VARCHAR(200) COMMENT '결재경로문자열',
     PRIMARY KEY (DOCNO),
     UNIQUE (DOCNO)
 ) COMMENT = '결재문서';
@@ -398,11 +398,11 @@ CREATE TABLE SGN_DOC
 -- 첨부파일
 CREATE TABLE SGN_DOCFILE
 (
-    FILENO   int(10) NOT NULL AUTO_INCREMENT COMMENT '파일번호',
-    FILENAME varchar(100) COMMENT '파일명',
-    REALNAME varchar(30) COMMENT '실제파일명',
-    FILESIZE int(10) COMMENT '파일크기',
-    DOCNO    bigint  NOT NULL COMMENT '문서번호',
+    FILENO   INT(10) NOT NULL AUTO_INCREMENT COMMENT '파일번호',
+    FILENAME VARCHAR(100) COMMENT '파일명',
+    REALNAME VARCHAR(30) COMMENT '실제파일명',
+    FILESIZE INT(10) COMMENT '파일크기',
+    DOCNO    BIGINT  NOT NULL COMMENT '문서번호',
     PRIMARY KEY (FILENO),
     UNIQUE (FILENO)
 ) COMMENT = '첨부파일';
@@ -411,10 +411,10 @@ CREATE TABLE SGN_DOCFILE
 -- 문서양식종류
 CREATE TABLE SGN_DOCTYPE
 (
-    DTNO       int NOT NULL AUTO_INCREMENT COMMENT '문서양식번호',
-    DTTITLE    varchar(30) COMMENT '문서양식명',
-    DTCONTENTS text COMMENT '문서양식내용',
-    DELETEFLAG char(1) COMMENT '삭제',
+    DTNO       INT NOT NULL AUTO_INCREMENT COMMENT '문서양식번호',
+    DTTITLE    VARCHAR(30) COMMENT '문서양식명',
+    DTCONTENTS TEXT COMMENT '문서양식내용',
+    DELETEFLAG CHAR(1) COMMENT '삭제',
     PRIMARY KEY (DTNO),
     UNIQUE (DTNO)
 ) COMMENT = '문서양식종류';
@@ -423,11 +423,11 @@ CREATE TABLE SGN_DOCTYPE
 -- 결재경로
 CREATE TABLE SGN_PATH
 (
-    SPNO       int     NOT NULL AUTO_INCREMENT COMMENT '결재경로번호',
-    SPTITLE    varchar(30) COMMENT '경로명',
-    INSERTDATE date COMMENT '생성일자',
-    USERNO     int(10) NOT NULL COMMENT '사용자번호',
-    SPSIGNPATH varchar(200) COMMENT '결재경로문자열',
+    SPNO       INT     NOT NULL AUTO_INCREMENT COMMENT '결재경로번호',
+    SPTITLE    VARCHAR(30) COMMENT '경로명',
+    INSERTDATE DATE COMMENT '생성일자',
+    USERNO     INT(10) NOT NULL COMMENT '사용자번호',
+    SPSIGNPATH VARCHAR(200) COMMENT '결재경로문자열',
     PRIMARY KEY (SPNO),
     UNIQUE (SPNO)
 ) COMMENT = '결재경로';
@@ -436,10 +436,10 @@ CREATE TABLE SGN_PATH
 -- 결재경로상세-결재자
 CREATE TABLE SGN_PATHUSER
 (
-    SPNO   int     NOT NULL COMMENT '결재경로번호',
-    SPUSEQ int     NOT NULL COMMENT '경로순번',
-    USERNO int(10) NOT NULL COMMENT '사용자번호',
-    SSTYPE char(1) COMMENT '결재종류',
+    SPNO   INT     NOT NULL COMMENT '결재경로번호',
+    SPUSEQ INT     NOT NULL COMMENT '경로순번',
+    USERNO INT(10) NOT NULL COMMENT '사용자번호',
+    SSTYPE CHAR(1) COMMENT '결재종류',
     PRIMARY KEY (SPNO, SPUSEQ),
     UNIQUE (SPNO)
 ) COMMENT = '결재경로상세-결재자';
@@ -448,16 +448,16 @@ CREATE TABLE SGN_PATHUSER
 -- 결재
 CREATE TABLE SGN_SIGN
 (
-    SSNO        int(10) NOT NULL AUTO_INCREMENT COMMENT '결재번호',
-    DOCNO       bigint  NOT NULL COMMENT '문서번호',
-    SSSTEP      smallint COMMENT '결재단계',
-    SSTYPE      char(1) COMMENT '결재종류',
-    SSRESULT    char(1) COMMENT '결재결과',
-    SSCOMMENT   varchar(1000) COMMENT '코멘트',
-    RECEIVEDATE datetime COMMENT '받은일자',
-    SIGNDATE    datetime COMMENT '결재일자',
-    USERNO      int(10) NOT NULL COMMENT '사용자번호',
-    USERPOS     varchar(10) COMMENT '직위',
+    SSNO        INT(10)     NOT NULL AUTO_INCREMENT COMMENT '결재번호',
+    DOCNO       BIGINT      NOT NULL    COMMENT '문서번호',
+    SSSTEP      SMALLINT                COMMENT '결재단계',
+    SSTYPE      CHAR(1)                 COMMENT '결재종류',
+    SSRESULT    CHAR(1)                 COMMENT '결재결과',
+    SSCOMMENT   VARCHAR(1000)           COMMENT '코멘트',
+    RECEIVEDATE DATETIME                COMMENT '받은일자',
+    SIGNDATE    DATETIME                COMMENT '결재일자',
+    USERNO      INT(10)     NOT NULL    COMMENT '사용자번호',
+    USERPOS     VARCHAR(10)             COMMENT '직위',
     PRIMARY KEY (SSNO, DOCNO),
     UNIQUE (SSNO, DOCNO)
 ) COMMENT = '결재';
@@ -511,7 +511,7 @@ DELIMITER $$
 CREATE PROCEDURE `makeCalendar`()
 BEGIN
     DECLARE sdate date DEFAULT '2018-01-01';
-    DECLARE edate date DEFAULT '2020-12-31';
+    DECLARE edate date DEFAULT '2025-12-31';
 
     WHILE sdate <= edate
         DO
