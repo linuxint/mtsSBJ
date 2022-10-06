@@ -1,7 +1,9 @@
 package com.devkbil.mtssbj.common.config;
 
 import com.devkbil.mtssbj.common.AdminInterceptor;
+import com.devkbil.mtssbj.common.CommonInterceptor;
 import com.devkbil.mtssbj.common.LoginInterceptor;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -34,6 +36,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(loginIntercepter)
                 .addPathPatterns(loginIntercepter.loginEssential)
                 .excludePathPatterns(loginIntercepter.loginInessential);
+    
+        CommonInterceptor commonInterceptor = new CommonInterceptor();
+        registry.addInterceptor(commonInterceptor);
+        
     }
     
     /*
