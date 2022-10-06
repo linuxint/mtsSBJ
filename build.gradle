@@ -31,6 +31,10 @@ repositories {
     maven { url 'https://repo.spring.io/snapshot' }
     maven { url 'https://repo.maven.apache.org/maven2/' }
     mavenCentral()
+    maven {
+        url 'https://repo.clojars.org'
+        name 'Clojars'
+    }
 }
 
 dependencies {
@@ -38,6 +42,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.7.4'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.4'
+    implementation 'com.navercorp.lucy:lucy-xss:1.6.3'
+    implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.4'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.4'
