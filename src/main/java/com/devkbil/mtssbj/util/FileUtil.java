@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 public class FileUtil {
-    static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
     static final Integer IMG_WIDTH = 100;
     static final Integer IMG_HEIGHT = 100;
     
