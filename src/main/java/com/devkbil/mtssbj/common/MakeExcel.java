@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.common;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -18,8 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+@Slf4j
 public class MakeExcel {
-    static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
     
     public MakeExcel() {
     }
@@ -49,7 +50,7 @@ public class MakeExcel {
             resultWorkbook.write(os);
             
         } catch (ParsePropertyException | InvalidFormatException | IOException ex) {
-            LOGGER.error("MakeExcel");
+            log.error("MakeExcel");
         }
     }
 }

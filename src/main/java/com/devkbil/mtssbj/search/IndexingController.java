@@ -7,7 +7,8 @@ import com.devkbil.mtssbj.common.Field3VO;
 import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
 import com.devkbil.mtssbj.common.config.EsConfig;
-import com.devkbil.mtssbj.util.FileUtil;
+import com.devkbil.mtssbj.common.util.FileUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.elasticsearch.ElasticsearchStatusException;
@@ -38,12 +39,12 @@ import java.util.Properties;
 
 import static org.elasticsearch.xcontent.XContentFactory.jsonBuilder;
 
+@Slf4j
 @Controller
 @EnableAsync
 @EnableScheduling
 public class IndexingController {
     
-    static final Logger logger = LoggerFactory.getLogger(IndexingController.class);
     @Value("${elasticsearch.clustername}")
     static final String INDEX_NAME = "mts";
     //final String LAST_FILE = localeMessage.getMessage("info.workspace") + "/elasticsearch/mts.last";
@@ -105,14 +106,14 @@ public class IndexingController {
                 try {
                     client.update(updateRequest, RequestOptions.DEFAULT);
                 } catch (IOException | ElasticsearchStatusException e) {
-                    logger.error("indexRequest : " + e);
+                    log.error("indexRequest : " + e);
                 }
             }
             
             if(boardlist.size() > 0) {
                 writeLastValue("brd_update", brdno_update); // 마지막 색인 이후의 댓글/ 첨부파일 중에서 게시글이 색인 된 것만 색인 해야 함. SQL문에서 field1참조  => logtash를 쓰지 않고 개발한 이유
             }
-            logger.info("board indexed update : " + boardlist.size());
+            log.info("board indexed update : " + boardlist.size());
             boardlist.clear();
             boardlist = null;
         }
@@ -138,7 +139,7 @@ public class IndexingController {
             try {
                 client.index(indexRequest, RequestOptions.DEFAULT);
             } catch (IOException | ElasticsearchStatusException e) {
-                logger.error("indexRequest : " + e);
+                log.error("indexRequest : " + e);
             }
         }
         
@@ -147,7 +148,7 @@ public class IndexingController {
         }
         
         
-        logger.info("board indexed : " + boardlist.size());
+        log.info("board indexed : " + boardlist.size());
         boardlist.clear();
         boardlist = null;
         
@@ -178,7 +179,7 @@ public class IndexingController {
             try {
                 client.update(updateRequest, RequestOptions.DEFAULT);
             } catch (IOException | ElasticsearchStatusException e) {
-                logger.error("updateCommit : " + e);
+                log.error("updateCommit : " + e);
             }
         }
         
@@ -186,7 +187,7 @@ public class IndexingController {
             writeLastValue("reply", reno); // 마지막 색인  정보 저장 - 댓글
         }
         
-        logger.info("board reply indexed : " + replylist.size());
+        log.info("board reply indexed : " + replylist.size());
         replylist.clear();
         replylist = null;
         
@@ -212,14 +213,14 @@ public class IndexingController {
             try {
                 client.update(updateRequest, RequestOptions.DEFAULT);
             } catch (IOException | ElasticsearchStatusException e) {
-                logger.error("updateCommit : " + e);
+                log.error("updateCommit : " + e);
             }
         }
         if(filelist.size() > 0) {
             writeLastValue("file", fileno); // 마지막 색인  정보 저장 - 댓글
         }
         
-        logger.info("board files indexed : " + filelist.size());
+        log.info("board files indexed : " + filelist.size());
         filelist.clear();
         filelist = null;
         
@@ -241,7 +242,7 @@ public class IndexingController {
         
         File file = new File(file_path + filename.substring(0, 4) + "/" + filename);
         if(!file.exists()) {
-            logger.error("file not exists : " + filename);
+            log.error("file not exists : " + filename);
             return "";
         }
         String text = "";
@@ -264,7 +265,7 @@ public class IndexingController {
         try {
             lastFileProps.load(new FileInputStream(LAST_FILE));
         } catch (IOException e) {
-            logger.error("" + e);
+            log.error("" + e);
         }
     }
     
@@ -282,7 +283,7 @@ public class IndexingController {
             lastFileProps.store(lastFileOut, "Last Indexing");
             lastFileOut.close();
         } catch (IOException e) {
-            logger.error("writeLastValue : " + e);
+            log.error("writeLastValue : " + e);
         }
     }
     

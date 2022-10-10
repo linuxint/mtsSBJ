@@ -2,6 +2,7 @@ package com.devkbil.mtssbj.common;
 
 
 import com.devkbil.mtssbj.schedule.MonthVO;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,11 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+@Slf4j
 public class Util4calen {
-    static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
     static final String[] dayArr = {"일", "월", "화", "수", "목", "금", "토"};
-    
-    
     
     public static MonthVO monthValid(MonthVO monthVO) {
         if(Integer.parseInt(monthVO.getMonth()) < 1 ) {
@@ -63,7 +62,7 @@ public class Util4calen {
         try {
             ret = ft.parse(date);
         } catch (ParseException ex) {
-            LOGGER.error("date parse error ");
+            log.error("date parse error ");
         }
         return ret;
     }

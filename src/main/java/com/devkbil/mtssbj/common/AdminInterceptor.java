@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.common;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,10 +14,9 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class AdminInterceptor implements HandlerInterceptor {
-    static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
-    
     
     public List<String> adminEssential = Collections.singletonList("/ad**"); // Arrays.asList("/ad**");
     
@@ -38,7 +38,7 @@ public class AdminInterceptor implements HandlerInterceptor {
                 return false;
             }
         } catch (IOException ex) {
-            LOGGER.error("AdminInterceptor");
+            log.error("AdminInterceptor");
         }
         
         return true;

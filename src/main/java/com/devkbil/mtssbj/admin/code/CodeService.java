@@ -1,6 +1,7 @@
 package com.devkbil.mtssbj.admin.code;
 
 import com.devkbil.mtssbj.common.SearchVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +15,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class CodeService {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(CodeService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
@@ -48,7 +49,7 @@ public class CodeService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertCode");
+            log.error("insertCode");
         }
     }
     

@@ -2,6 +2,7 @@ package com.devkbil.mtssbj.admin.sign;
 
 import com.devkbil.mtssbj.common.SearchVO;
 import com.devkbil.mtssbj.etc.EtcService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class SignDocController {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(SignDocController.class);
     @Autowired
     private SignDocService signDocService;
     @Autowired

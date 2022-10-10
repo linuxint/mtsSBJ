@@ -3,7 +3,7 @@ package com.devkbil.mtssbj.project;
 import com.devkbil.mtssbj.common.Field3VO;
 import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.etc.EtcService;
-import com.devkbil.mtssbj.util.FileUtil;
+import com.devkbil.mtssbj.common.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

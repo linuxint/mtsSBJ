@@ -1,8 +1,8 @@
-package com.devkbil.mtssbj.util;
+package com.devkbil.mtssbj.common.util;
 
-import com.devkbil.mtssbj.common.AdminInterceptor;
 import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class FileUtil {
-    static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
     static final Integer IMG_WIDTH = 100;
     static final Integer IMG_HEIGHT = 100;
     
@@ -41,7 +41,7 @@ public class FileUtil {
         try {
             file.transferTo(file1);
         } catch (IOException ex) {
-            LOGGER.error("IOException");
+            log.error("IOException");
         }
         
         return serverFullPath;
@@ -153,7 +153,7 @@ public class FileUtil {
                 file1.delete();
             }
         } catch (IOException ex) {
-            LOGGER.error("IOException:saveImage");
+            log.error("IOException:saveImage");
         }
         
         FileVO filedo = new FileVO();

@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.datacart;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/cart")
 public class DataCartController {
-    private static final Logger logger = LoggerFactory.getLogger(DataCartController.class);
     
     String userId = "admin"; // UserProvideService.getUser();
     
@@ -40,7 +41,7 @@ public class DataCartController {
     public List<?> addDataToCart(@PathVariable("catgMstDataId") String catgMstDataId, @RequestBody DataCart dataCart
     ) throws Exception {
         dataCartCacheService.setDataCartOne(dataCart);
-        logger.debug(String.format("Product with id: %s added to shopping cart.", catgMstDataId));
+        log.debug(String.format("Product with id: %s added to shopping cart.", catgMstDataId));
         return this.cart();
     }
     
@@ -61,7 +62,7 @@ public class DataCartController {
         param.put("inspReqId", userId);
         dataCartCacheService.clearDataCartOne(param);
         
-        logger.debug(String.format("Dasta with id: %s removed from data cart.", catgMstDataId));
+        log.debug(String.format("Dasta with id: %s removed from data cart.", catgMstDataId));
     
         return this.cart();
     }

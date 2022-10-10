@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.common;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+@Slf4j
 @Controller
 public class FileDownload {
-    static final Logger LOGGER = LoggerFactory.getLogger(FileDownload.class);
     
     @Autowired
     LocaleMessage localeMessage;
@@ -41,7 +42,7 @@ public class FileDownload {
         try {
             filename = URLEncoder.encode(filename, "UTF-8");
         } catch (UnsupportedEncodingException ex) {
-            LOGGER.error("UnsupportedEncodingException");
+            log.error("UnsupportedEncodingException");
         }
         try {
             realPath = path + downname.substring(0, 4) + "/" + downname;
@@ -68,9 +69,9 @@ public class FileDownload {
             fis.close();
             os.close();
         } catch (FileNotFoundException ex) {
-            LOGGER.error("FileNotFoundException");
+            log.error("FileNotFoundException");
         } catch (IOException ex) {
-            LOGGER.error("IOException");
+            log.error("IOException");
         }
     }
     

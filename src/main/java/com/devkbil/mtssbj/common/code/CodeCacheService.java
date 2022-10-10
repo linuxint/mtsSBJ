@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.common.code;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service("CodeCacheService")
 public class CodeCacheService { //extends EgovAbstractServiceImpl
-    private final Logger LOGGER = LoggerFactory.getLogger(CodeCacheService.class);
 
     @Autowired
     public CodeCacheDAO CodeCacheDAO;

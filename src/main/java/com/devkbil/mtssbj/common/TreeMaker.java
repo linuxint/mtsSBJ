@@ -1,6 +1,7 @@
 package com.devkbil.mtssbj.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,8 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class TreeMaker {
-    static final Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
     
     /**
      * 부모코드를 이용하여 계층형 트리 구성.
@@ -43,7 +44,7 @@ public class TreeMaker {
         try {
             str = mapper.writeValueAsString(rootlist);
         } catch (IOException ex) {
-            LOGGER.error("TreeMaker");
+            log.error("TreeMaker");
         }
         return str;
     }

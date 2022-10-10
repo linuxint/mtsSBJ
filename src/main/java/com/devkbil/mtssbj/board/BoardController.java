@@ -7,7 +7,8 @@ import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.TreeMaker;
 import com.devkbil.mtssbj.common.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
-import com.devkbil.mtssbj.util.FileUtil;
+import com.devkbil.mtssbj.common.util.FileUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class BoardController {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
     @Autowired
     private BoardService boardService;
     @Autowired
@@ -192,7 +193,7 @@ public class BoardController {
         try {
             response.getWriter().print(treeStr);
         } catch (IOException ex) {
-            LOGGER.error("boardListByAjax");
+            log.error("boardListByAjax");
         }
         
     }

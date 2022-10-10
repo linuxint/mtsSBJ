@@ -1,7 +1,8 @@
-package com.devkbil.mtssbj.util;
+package com.devkbil.mtssbj.common.util;
 
 import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ import java.util.List;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
+@Slf4j
 public class FileSearchUtil extends SimpleFileVisitor<Path> {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(FileSearchUtil.class);
     static final Integer IMG_WIDTH = 100;
     static final Integer IMG_HEIGHT = 100;
     

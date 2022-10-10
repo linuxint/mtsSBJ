@@ -3,6 +3,7 @@ package com.devkbil.mtssbj.board;
 import com.devkbil.mtssbj.admin.board.BoardGroupVO;
 import com.devkbil.mtssbj.common.Field3VO;
 import com.devkbil.mtssbj.common.FileVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +18,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @Service
 public class BoardService {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(BoardService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
@@ -77,7 +78,7 @@ public class BoardService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertBoard");
+            log.error("insertBoard");
         }
     }
     
@@ -115,7 +116,7 @@ public class BoardService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertBoardLike");
+            log.error("insertBoardLike");
         }
     }
     

@@ -2,6 +2,7 @@ package com.devkbil.mtssbj.project;
 
 import com.devkbil.mtssbj.common.Field3VO;
 import com.devkbil.mtssbj.common.FileVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TaskService {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
@@ -70,7 +71,7 @@ public class TaskService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertTask");
+            log.error("insertTask");
         }
     }
     
@@ -119,7 +120,7 @@ public class TaskService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertTaskMine");
+            log.error("insertTaskMine");
         }
     }
     
@@ -138,7 +139,7 @@ public class TaskService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertTaskMine");
+            log.error("insertTaskMine");
         }
     }
     

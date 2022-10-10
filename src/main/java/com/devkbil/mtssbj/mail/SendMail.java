@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.mail;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,9 +22,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+@Slf4j
 public class SendMail {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(SendMail.class);
     private final String SMTP_HOST;
     private final String SMTP_PORT;        // "465";
     private final String SMTP_ACCOUNT;
@@ -75,7 +76,7 @@ public class SendMail {
             addressFrom = new InternetAddress(SMTP_ACCOUNT, SMTP_USERNM, "UTF-8");
             msg.setFrom(addressFrom);
         } catch (UnsupportedEncodingException e) {
-            LOGGER.error("send mail");
+            log.error("send mail");
         }
         
         msg.setRecipients(Message.RecipientType.TO, mail2Addr(recipients));
@@ -100,7 +101,7 @@ public class SendMail {
                 if(!"".equals(maillist[i])) addressTo[i] = new InternetAddress(maillist[i]);
             }
         } catch (AddressException e) {
-            LOGGER.error("mail2Addr");
+            log.error("mail2Addr");
         }
         
         return addressTo;
@@ -118,9 +119,9 @@ public class SendMail {
             }
             in.close();
         } catch (FileNotFoundException e1) {
-            LOGGER.error("mailFile");
+            log.error("mailFile");
         } catch (IOException e) {
-            LOGGER.error("mailFile");
+            log.error("mailFile");
         }
         return mailBody;
     }

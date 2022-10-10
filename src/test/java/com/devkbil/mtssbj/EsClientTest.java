@@ -21,6 +21,7 @@ package com.devkbil.mtssbj;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -82,7 +83,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class EsClientTest {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger log = LogManager.getLogger();
     private static ElasticsearchContainer container;
     private static RestHighLevelClient client = null;
     private static final String PASSWORD = "manager";
@@ -91,7 +92,7 @@ class EsClientTest {
     static void startOptionallyTestContainers() {
         client = getClient("http://localhost:9200");
         if (client == null) {
-            logger.info("Starting testcontainers.");
+            log.info("Starting testcontainers.");
             // Start the container. This step might take some time...
             container = new ElasticsearchContainer(
                     DockerImageName.parse("docker.elastic.co/elasticsearch/elasticsearch")
@@ -129,10 +130,10 @@ class EsClientTest {
                             .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider))
             );
             MainResponse info = client.info(RequestOptions.DEFAULT);
-            logger.info("Connected to a cluster running version {} at {}.", info.getVersion().getNumber(), elasticsearchServiceAddress);
+            log.info("Connected to a cluster running version {} at {}.", info.getVersion().getNumber(), elasticsearchServiceAddress);
             return client;
         } catch (Exception e) {
-            logger.info("No cluster is running yet at {}.", elasticsearchServiceAddress);
+            log.info("No cluster is running yet at {}.", elasticsearchServiceAddress);
             return null;
         }
     }
@@ -146,14 +147,14 @@ class EsClientTest {
         GetResponse getResponse = client.get(new GetRequest("test", "1").fetchSourceContext(
                 new FetchSourceContext(true, new String[]{"application_id"}, null)
         ), RequestOptions.DEFAULT);
-        logger.info("doc = {}", getResponse);
+        log.info("doc = {}", getResponse);
     }
 
     @Test
     void nodeStatsWithLowLevelClient() throws IOException {
         Response response = client.getLowLevelClient().performRequest(new Request("GET", "/_nodes/stats/thread_pool"));
         String s = EntityUtils.toString(response.getEntity());
-        logger.info("thread_pool = {}", s);
+        log.info("thread_pool = {}", s);
     }
 
     @Test
@@ -164,8 +165,8 @@ class EsClientTest {
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         boolean exists1 = client.exists(new GetRequest("test", "1"), RequestOptions.DEFAULT);
         boolean exists2 = client.exists(new GetRequest("test", "2"), RequestOptions.DEFAULT);
-        logger.info("exists1 = {}", exists1);
-        logger.info("exists2 = {}", exists2);
+        log.info("exists1 = {}", exists1);
+        log.info("exists2 = {}", exists2);
     }
 
     @Test
@@ -192,7 +193,7 @@ class EsClientTest {
     void callInfo() throws IOException {
         MainResponse info = client.info(RequestOptions.DEFAULT);
         String version = info.getVersion().getNumber();
-        logger.info("version = {}", version);
+        log.info("version = {}", version);
     }
 
     @Test
@@ -218,7 +219,7 @@ class EsClientTest {
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("test"), RequestOptions.DEFAULT);
         SearchResponse response = client.search(new SearchRequest("test"), RequestOptions.DEFAULT);
-        logger.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
+        log.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
     }
 
     @Test
@@ -233,24 +234,24 @@ class EsClientTest {
                         QueryBuilders.matchQuery("foo", "bar")
                 )
         ), RequestOptions.DEFAULT);
-        logger.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
+        log.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
         response = client.search(new SearchRequest("test").source(
                 new SearchSourceBuilder().query(
                         QueryBuilders.termQuery("foo", "bar")
                 )
         ), RequestOptions.DEFAULT);
-        logger.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
+        log.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
         response = client.search(new SearchRequest("test").source(
                 new SearchSourceBuilder().query(
                         QueryBuilders.wrapperQuery("{\"match_all\":{}}")
                 )
         ), RequestOptions.DEFAULT);
-        logger.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
+        log.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
         response = client.search(new SearchRequest("test").source(
                 new SearchSourceBuilder().query(QueryBuilders.matchAllQuery())
                         .trackScores(true)
         ), RequestOptions.DEFAULT);
-        logger.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
+        log.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
     }
 
     @Test
@@ -277,7 +278,7 @@ class EsClientTest {
                         QueryBuilders.wrapperQuery(query)
                 ).size(size)
         ), RequestOptions.DEFAULT);
-        logger.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
+        log.info("response.getHits().totalHits = {}", response.getHits().getTotalHits().value);
     }
 
     @Test
@@ -312,7 +313,7 @@ class EsClientTest {
         // Bug reported at https://github.com/elastic/elasticsearch/issues/64602
         try {
             GetTransformResponse response = client.transform().getTransform(new GetTransformRequest(id), RequestOptions.DEFAULT);
-            logger.info("response.getCount() = {}", response.getCount());
+            log.info("response.getCount() = {}", response.getCount());
             fail("Failing this test indicates that https://github.com/elastic/elasticsearch/issues/64602 has been fixed. The code should be reviewed");
         } catch (IOException ignored) { }
     }
@@ -332,7 +333,7 @@ class EsClientTest {
                         )
         ), RequestOptions.DEFAULT);
         HighlightField highlightField = response.getHits().getAt(0).getHighlightFields().get("foo");
-        logger.info("Highlights: {}", (Object) highlightField.fragments());
+        log.info("Highlights: {}", (Object) highlightField.fragments());
     }
 
     @Test
@@ -349,7 +350,7 @@ class EsClientTest {
         ), RequestOptions.DEFAULT);
         Terms top10foo = response.getAggregations().get("top10foo");
         for (Terms.Bucket bucket : top10foo.getBuckets()) {
-            logger.info("top10foo bucket = {}, count = {}", bucket.getKeyAsString(), bucket.getDocCount());
+            log.info("top10foo bucket = {}, count = {}", bucket.getKeyAsString(), bucket.getDocCount());
         }
     }
 
@@ -364,17 +365,17 @@ class EsClientTest {
                         new BulkProcessor.Listener() {
                             @Override
                             public void beforeBulk(long executionId, BulkRequest request) {
-                                logger.debug("going to execute bulk of {} requests", request.numberOfActions());
+                                log.debug("going to execute bulk of {} requests", request.numberOfActions());
                             }
 
                             @Override
                             public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
-                                logger.debug("bulk executed {} failures", response.hasFailures() ? "with" : "without");
+                                log.debug("bulk executed {} failures", response.hasFailures() ? "with" : "without");
                             }
 
                             @Override
                             public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
-                                logger.warn("error while executing bulk", failure);
+                                log.warn("error while executing bulk", failure);
                             }
                         })
                 .setBulkActions(10)
@@ -389,7 +390,7 @@ class EsClientTest {
 
         client.indices().refresh(new RefreshRequest("bulk"), RequestOptions.DEFAULT);
         SearchResponse response = client.search(new SearchRequest("bulk").source(new SearchSourceBuilder().size(0)), RequestOptions.DEFAULT);
-        logger.info("Indexed {} documents. Found {} documents.", size, response.getHits().getTotalHits().value);
+        log.info("Indexed {} documents. Found {} documents.", size, response.getHits().getTotalHits().value);
     }
 
     @Test
@@ -404,7 +405,7 @@ class EsClientTest {
                 .query(QueryBuilders.rangeQuery("foo").from(0).to(1))
         ), RequestOptions.DEFAULT);
         for (SearchHit hit : response.getHits()) {
-            logger.info("hit _id = {}, _source = {}", hit.getId(), hit.getSourceAsString());
+            log.info("hit _id = {}, _source = {}", hit.getId(), hit.getSourceAsString());
         }
     }
 

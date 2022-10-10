@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.util;
+package com.devkbil.mtssbj.common.util;
 
 import org.apache.http.HttpHost;
 import org.apache.ibatis.io.Resources;

@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static com.devkbil.mtssbj.util.FileSearchUtil.showFIlesInDir3;
+import static com.devkbil.mtssbj.common.util.FileSearchUtil.showFIlesInDir3;
 
 @Controller
 public class FileSearchController {
-    
-    static final Logger LOGGER = LoggerFactory.getLogger(FileSearchController.class);
     
     @RequestMapping(value = "/fileAllIndex")
     public String fileAllIndex(HttpServletRequest request, ModelMap modelMap) {

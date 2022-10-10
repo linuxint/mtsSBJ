@@ -3,6 +3,7 @@ package com.devkbil.mtssbj.schedule;
 import com.devkbil.mtssbj.common.Field3VO;
 import com.devkbil.mtssbj.common.SearchVO;
 import com.devkbil.mtssbj.common.Util4calen;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +18,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class SchService {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(SchService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
@@ -119,7 +120,7 @@ public class SchService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertSch");
+            log.error("insertSch");
         }
     }
     

@@ -3,7 +3,7 @@ package com.devkbil.mtssbj.mail;
 import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
 import com.devkbil.mtssbj.common.Util4calen;
-import com.devkbil.mtssbj.util.FileUtil;
+import com.devkbil.mtssbj.common.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

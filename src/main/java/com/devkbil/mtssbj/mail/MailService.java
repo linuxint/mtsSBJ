@@ -2,6 +2,7 @@ package com.devkbil.mtssbj.mail;
 
 import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.SearchVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +20,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @Service
 public class MailService {
     
-    static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
@@ -101,7 +102,7 @@ public class MailService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertMails");
+            log.error("insertMails");
         }
     }
     
@@ -132,7 +133,7 @@ public class MailService {
             txManager.commit(status);
         } catch (TransactionException | MessagingException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertMail");
+            log.error("insertMail");
         }
     }
     
@@ -200,7 +201,7 @@ public class MailService {
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
-            LOGGER.error("insertMailInfo");
+            log.error("insertMailInfo");
         }
     }
     

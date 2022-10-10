@@ -30,7 +30,7 @@ import java.io.IOException;
 @Controller
 public class SearchController {
     
-    static final Logger logger = LoggerFactory.getLogger(SearchController.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
     static final Integer DISPLAY_COUNT = 5;
     @Value("${elasticsearch.clustername}")
     static final String INDEX_NAME = "mts";

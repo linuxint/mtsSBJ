@@ -1,5 +1,6 @@
 package com.devkbil.mtssbj.error;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -14,17 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+@Slf4j
 @Controller
 public class CustomErrorController implements ErrorController {
-
-    static final Logger LOGGER = LoggerFactory.getLogger(CustomErrorController.class);
 
     @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request, HttpServletResponse response, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
-        LOGGER.info("httpStatus : "+httpStatus.toString());
+        log.info("httpStatus : "+httpStatus.toString());
 
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(response.getStatus());
