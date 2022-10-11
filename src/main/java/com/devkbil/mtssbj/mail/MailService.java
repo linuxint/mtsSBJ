@@ -74,7 +74,7 @@ public class MailService {
      * 삭제.
      */
     public void deleteMails(String[] param) {
-        HashMap hm = new HashMap();
+        HashMap hm = new HashMap<String, Object>();
         hm.put("list", param);
         
         sqlSession.insert("deleteMails", hm);
@@ -90,13 +90,13 @@ public class MailService {
         TransactionStatus status = txManager.getTransaction(def);
         
         try {
-            for (int i = 0; i < param.size(); i++) {
-                MailVO mail = param.get(i);
+            for(MailVO mail : param) {
                 mail.setUserno(userno);
                 mail.setEmtype("R");
                 mail.setEmino(emino);
                 insertMailOne(mail);
             }
+            
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
@@ -148,16 +148,16 @@ public class MailService {
         insertMailAddress(mail.getEmbcc(), mavo);
         
         ArrayList<FileVO> files = mail.getFiles();
-        for (int j = 0; j < files.size(); j++) {
-            FileVO fvo = files.get(j);
+        for(FileVO fvo : files) {
             fvo.setParentPK(mail.getEmno());
             sqlSession.insert("insertMailFile", fvo);
         }
     }
     
     public void insertMailAddress(ArrayList<String> list, MailAddressVO mavo) {
+        String str;
         for (int j = 0; j < list.size(); j++) {
-            String str = list.get(j);
+            str = list.get(j);
             if("".equals(str) || str == null) continue;
             mavo.setEaseq(j);
             mavo.setEaaddress(list.get(j));
