@@ -1,6 +1,5 @@
 package com.devkbil.mtssbj.schedule;
 
-import com.devkbil.mtssbj.common.DateVO;
 import com.devkbil.mtssbj.common.Util4calen;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
