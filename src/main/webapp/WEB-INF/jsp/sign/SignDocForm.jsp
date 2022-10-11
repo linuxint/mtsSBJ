@@ -46,6 +46,13 @@
             if (!chkInputValue("#doctitle", "제목")) return false;
             if (!chkInputValue("#doccontents", "내용")) return false;
 
+            if (!chkInputValue("#docno", "문서번호")) return false;
+
+            if($(".signArea").length == 0) {
+                alert("결재라인을 추가해주세요");
+                return false;
+            }
+
             $("#form1").submit();
         }
 
@@ -189,12 +196,18 @@
 
         <div class="row" style="margin-top: 10px">
             <form id="form1" name="form1" role="form" action="signDocSave" method="post">
-                <input type="hidden" name="docno" value="<c:out value="${signDocInfo.docno}"/>">
                 <input type="hidden" name="docstatus" id="docstatus" value="<c:out value="${signDocInfo.docstatus}"/>">
                 <input type="hidden" name="dtno" value="<c:out value="${signDocInfo.dtno}"/>">
                 <input type="hidden" name="docsignpath" id="docsignpath" value="<c:out value="${signDocInfo.docsignpath}"/>">
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <div class="row form-group">
+                            <label class="col-lg-1">문서번호</label>
+                            <div class="col-lg-11">
+                                <input placeholder="임시저장시 문서번호가 생성됩니다." readonly type="input" class="form-control" name="docno" id="docno" value="<c:out value="${signDocInfo.docno}"/>">
+                            </div>
+                        </div>
+
                         <div class="row form-group">
                             <label class="col-lg-1">제목</label>
                             <div class="col-lg-11">

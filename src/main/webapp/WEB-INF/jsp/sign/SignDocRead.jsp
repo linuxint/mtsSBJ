@@ -119,8 +119,8 @@
             <button class="btn btn-outline btn-primary" onclick="history.back(-1)"><s:message code="common.btnList"/></button>
             <c:if test='${signDocInfo.userno==sessionScope.userno and signDocInfo.docstatus<=1}'>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocDelete?docno=<c:out value="${signDocInfo.docno}"/>', '<s:message code="common.btnDelete"/>')"><s:message code="common.btnDelete"/></button>
-                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocCancel?docno=<c:out value="${signDocInfo.docno}"/>', '회수')">회수</button>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocForm?docno=<c:out value="${signDocInfo.docno}"/>')"><s:message code="common.btnUpdate"/></button>
+                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocCancel?docno=<c:out value="${signDocInfo.docno}"/>', '회수')"><s:message code="common.btnCollect"/></button>
             </c:if>
             <c:if test='${signer==sessionScope.userno}'>
                 <button class="btn btn-outline btn-primary" onclick="fn_sign()">결재승인</button>
