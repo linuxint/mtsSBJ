@@ -22,7 +22,7 @@ public class CustomErrorController implements ErrorController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
-        log.info("httpStatus : "+ httpStatus);
+        log.info("httpStatus : "+ httpStatus.toString());
 
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(response.getStatus());

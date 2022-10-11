@@ -36,7 +36,7 @@ public class CodeConstant {
         OPEN("공개"),
         CLOSE("비공개");
 
-        private final String viewName;
+        private String viewName;
         CodeOption(String viewName) { this.viewName = viewName; }
         public String getViewName() { return viewName; }
     }

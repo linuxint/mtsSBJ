@@ -6,7 +6,7 @@ public enum MDCKey {
     TRX_ID("trxId");
 
     @Getter
-    private final String key;
+    private String key;
 
     MDCKey(String key) {
         this.key = key;

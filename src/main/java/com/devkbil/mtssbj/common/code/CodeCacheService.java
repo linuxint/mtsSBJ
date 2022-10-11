@@ -17,8 +17,8 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
     @Autowired
     public CodeCacheDAO CodeCacheDAO;
 
-    private static final List<Map> codeGroup = new ArrayList<Map>();
-    private static final List<Map> code = new ArrayList<Map>();
+    private static List<Map> codeGroup = new ArrayList<Map>();
+    private static List<Map> code = new ArrayList<Map>();
 
     /**
      * 공통코드 메모리 등록

@@ -16,7 +16,7 @@ public class CommonInterceptor implements HandlerInterceptor {
         ModifiableHttpServletRequest params = new ModifiableHttpServletRequest(request);
         params.setParameter("key1", "value1");
         //TODO
-        request = params;
+        request = (HttpServletRequest)params;
         return true;
     }
     

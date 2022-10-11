@@ -74,7 +74,7 @@ public class MailService {
      * 삭제.
      */
     public void deleteMails(String[] param) {
-        HashMap hm = new HashMap<String, Object>();
+        HashMap hm = new HashMap();
         hm.put("list", param);
         
         sqlSession.insert("deleteMails", hm);
