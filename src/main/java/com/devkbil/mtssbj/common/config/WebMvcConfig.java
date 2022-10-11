@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
     
     private static final String REQUEST_URL = "/index";
