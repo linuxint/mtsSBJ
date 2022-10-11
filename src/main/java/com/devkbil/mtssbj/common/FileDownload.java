@@ -12,8 +12,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Controller
@@ -36,12 +36,8 @@ public class FileDownload {
         if(filename == null || "".equals(filename)) {
             filename = downname;
         }
-        
-        try {
-            filename = URLEncoder.encode(filename, "UTF-8");
-        } catch (UnsupportedEncodingException ex) {
-            log.error("UnsupportedEncodingException");
-        }
+    
+        filename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
         try {
             realPath = path + downname.substring(0, 4) + "/" + downname;
         } catch (Exception e) {

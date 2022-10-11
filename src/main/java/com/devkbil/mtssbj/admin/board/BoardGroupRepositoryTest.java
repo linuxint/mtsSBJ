@@ -26,7 +26,7 @@ class BoardGroupRepositoryTest {
         
         BoardGroup saveBg = boardGroupRepository.save(bg);
     
-        System.out.println(saveBg.toString());
+        System.out.println(saveBg);
     }
 
     public void createBoardGroupList() {

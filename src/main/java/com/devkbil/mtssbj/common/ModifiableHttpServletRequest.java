@@ -9,7 +9,7 @@ import java.util.Map;
 
 class ModifiableHttpServletRequest extends HttpServletRequestWrapper {
     
-    private HashMap<String, Object> params;
+    private final HashMap<String, Object> params;
     
     @SuppressWarnings("unchecked")
     public ModifiableHttpServletRequest(HttpServletRequest request) {

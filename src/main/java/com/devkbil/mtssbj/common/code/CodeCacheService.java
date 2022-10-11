@@ -17,8 +17,8 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
     @Autowired
     public CodeCacheDAO CodeCacheDAO;
 
-    private static List<Map> codeGroup = new ArrayList<Map>();
-    private static List<Map> code = new ArrayList<Map>();
+    private static final List<Map> codeGroup = new ArrayList<Map>();
+    private static final List<Map> code = new ArrayList<Map>();
 
     /**
      * 공통코드 메모리 등록
@@ -61,8 +61,8 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
         String returnVal = "";
         Iterator<Map> iterator = codeGroup.iterator();
         while (iterator.hasNext()) {
-            Map Map = (Map) iterator.next();
-            if(codecd.equals((String)Map.get("codecd"))) {
+            Map Map = iterator.next();
+            if(codecd.equals(Map.get("codecd"))) {
                 returnVal = (String)Map.get("codenm");
                 break;
             }
@@ -79,8 +79,8 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
         String returnVal = "";
         Iterator<Map> iterator = code.iterator();
         while (iterator.hasNext()) {
-            Map Map = (Map) iterator.next();
-            if(pcodecd.equals((String)Map.get("pcodecd")) && detailCode.equals((String)Map.get("codecd")) ) {
+            Map Map = iterator.next();
+            if(pcodecd.equals(Map.get("pcodecd")) && detailCode.equals(Map.get("codecd")) ) {
                 returnVal = (String)Map.get("codenm");
                 break;
             }
@@ -98,8 +98,8 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
 
         Iterator<Map> iterator = code.iterator();
         while (iterator.hasNext()) {
-            Map Map = (Map) iterator.next();
-            if(pcodecd.equals((String)Map.get("pcodecd"))) {
+            Map Map = iterator.next();
+            if(pcodecd.equals(Map.get("pcodecd"))) {
                 returnVal.add(Map);
             }
         }

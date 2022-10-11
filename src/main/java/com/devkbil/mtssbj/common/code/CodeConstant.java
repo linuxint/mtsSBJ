@@ -36,7 +36,7 @@ public class CodeConstant {
         OPEN("공개"),
         CLOSE("비공개");
 
-        private String viewName;
+        private final String viewName;
         CodeOption(String viewName) { this.viewName = viewName; }
         public String getViewName() { return viewName; }
     }
@@ -64,8 +64,8 @@ public class CodeConstant {
         }),
         EMPTY("없음", new CodeOption[]{});
 
-        private String viewName;
-        private CodeOption[] containCode;
+        private final String viewName;
+        private final CodeOption[] containCode;
 
         CodeGroup(String viewName, CodeOption[] containCode) {
             this.viewName = viewName;
