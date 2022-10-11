@@ -97,8 +97,11 @@
     </delete>
          
     <insert id="insertSign" parameterType="com.devkbil.mtssbj.sign.SignVO" >
-        INSERT INTO SGN_SIGN(SSNO, DOCNO, SSSTEP, SSTYPE, SSRESULT, RECEIVEDATE, USERNO, USERPOS)
-        VALUES (SSNO_SIGN_SEQ.NEXTVAL, #{docno}, #{ssstep}, #{sstype}, #{ssresult}, SYSDATE, #{userno}, #{userpos})
+        INSERT INTO SGN_SIGN(SSNO, DOCNO, SSSTEP, SSTYPE, SSRESULT, RECEIVEDATE, SIGNDATE, USERNO, USERPOS)
+        VALUES (
+                SSNO_SIGN_SEQ.NEXTVAL, #{docno}, #{ssstep}, #{sstype}, #{ssresult}
+                , SYSDATE, ${signdate}, #{userno}, #{userpos}
+            )
     </insert>
 
     <select id="selectSignDocOne" parameterType="com.devkbil.mtssbj.sign.SignDocVO" resultType="com.devkbil.mtssbj.sign.SignDocVO">

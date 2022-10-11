@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Slf4j
@@ -73,8 +74,10 @@ public class SignService {
                 param2.setUserpos(arr[3]);
                 if("0".equals(arr[2])) {
                     param2.setSsresult("1");
+                    param2.setSigndate("SYSDATE");
                 } else {
                     param2.setSsresult("0");
+                    param2.setSigndate("''");
                 }
                 
                 sqlSession.insert("insertSign", param2);
