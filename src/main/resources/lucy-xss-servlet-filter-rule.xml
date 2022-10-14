@@ -65,6 +65,12 @@
                 <param name="doccontents" useDefender="false" />
             </params>
         </url-rule>
+        <url-rule>
+            <url>/boardSave</url>
+            <params>
+                <param name="brdmemo" useDefender="false" />
+            </params>
+        </url-rule>
 
         <!-- url2 내의 url2Parameter1만 필터링 되지 않으며 url2Parameter2는 xssSaxFilterDefender를 사용해 필터링 한다.  -->
         <url-rule>
