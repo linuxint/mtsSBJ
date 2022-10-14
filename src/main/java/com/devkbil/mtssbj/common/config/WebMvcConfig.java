@@ -3,9 +3,9 @@ package com.devkbil.mtssbj.common.config;
 import com.devkbil.mtssbj.common.AdminInterceptor;
 import com.devkbil.mtssbj.common.CommonInterceptor;
 import com.devkbil.mtssbj.common.LoginInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -19,6 +19,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private static final String ERROR_URL = "/error/**";
     private static final String ERROR_PAGE_CLASSPATH = "classpath:templates/error/";
     
+    @Value("${server.indexPage}")
+    private static final String indexPage = "index.jsp";
     
     /**
      * Interceptor 정의 - admin,login
@@ -72,5 +74,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController(REQUEST_URL, REDIRECT_URL);
+        if(!"".equals(indexPage)) {
+            registry.addViewController("/").setViewName("forward:/" + indexPage);
+        }
     }
 }
