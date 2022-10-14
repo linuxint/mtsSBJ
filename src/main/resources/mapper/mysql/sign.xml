@@ -76,7 +76,11 @@
         INSERT INTO SGN_DOC(DOCTITLE, USERNO, DOCCONTENTS, DOCSTATUS, DOCSTEP, DTNO, DEPTNM, DOCSIGNPATH, UPDATEDATE, INSERTDATE, DELETEFLAG)
         VALUES (#{doctitle}, #{userno}, #{doccontents}, #{docstatus}, 1, #{dtno}, #{deptnm}, #{docsignpath}, NOW(), NOW(), 'N')
     </insert>
-    
+
+    <select id="docnoSeqCurrval" resultType="String">
+        SELECT LAST_INSERT_ID()
+    </select>
+
     <update id="updateSignDoc" parameterType="com.devkbil.mtssbj.sign.SignDocVO">
         UPDATE SGN_DOC
            SET DOCTITLE=#{doctitle}, DOCCONTENTS=#{doccontents}, DOCSIGNPATH=#{docsignpath}
