@@ -104,11 +104,13 @@ public class BoardController {
     @RequestMapping(value = "/boardSave")
     public String boardSave(HttpServletRequest request, BoardVO boardInfo) {
         String userno = request.getSession().getAttribute("userno").toString();
+        String userrole = request.getSession().getAttribute("userrole").toString();
+        boolean isAdmin = "A".equals(userrole) ? true : false;
         boardInfo.setUserno(userno);
         
         if(boardInfo.getBrdno() != null && !"".equals(boardInfo.getBrdno())) {    // check auth for update
             String chk = boardService.selectBoardAuthChk(boardInfo);
-            if(chk == null) {
+            if(chk == null && !isAdmin) {
                 return "common/noAuth";
             }
         }

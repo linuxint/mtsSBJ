@@ -222,7 +222,7 @@
                 </c:if>
             </div>
             <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardList?bgno=<c:out value="${bgno}"/>')"><s:message code="common.btnList"/></button>
-            <c:if test='${boardInfo.userno==sessionScope.userno}'>
+            <c:if test='${boardInfo.userno==sessionScope.userno or sessionScope.userrole=="A"}'>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardDelete?bgno=<c:out value="${boardInfo.bgno}"/>&brdno=<c:out value="${boardInfo.brdno}"/>', '<s:message code="common.btnDelete"/>')"><s:message code="common.btnDelete"/></button>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardForm?brdno=<c:out value="${boardInfo.brdno}"/>')"><s:message code="common.btnUpdate"/></button>
             </c:if>
@@ -265,7 +265,7 @@
                                 <div class="photoTitle">
                                     <div>
                                         <c:out value="${replylist.rewriter}"/> <c:out value="${replylist.redate}"/>
-                                        <c:if test='${replylist.userno==sessionScope.userno}'>
+                                        <c:if test='${replylist.userno==sessionScope.userno or sessionScope.userrole=="A"}'>
                                             <a href="javascript:fn_replyDelete('<c:out value="${replylist.reno}"/>')" title="<s:message code="common.btnDelete"/>"><span class="text-muted"><i class="fa fa-times fa-fw"></i></span></a>
                                             <a href="javascript:fn_replyUpdate('<c:out value="${replylist.reno}"/>')" title="<s:message code="common.btnUpdate"/>"><span class="text-muted"><i class="fa fa-edit fa-fw"></i></span></a>
                                         </c:if>
