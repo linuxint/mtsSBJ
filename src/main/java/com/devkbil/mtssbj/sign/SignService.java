@@ -11,7 +11,6 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Slf4j
@@ -56,8 +55,6 @@ public class SignService {
         try {
             if(param.getDocno() == null || "".equals(param.getDocno())) {
                 sqlSession.insert("insertSignDoc", param);
-                String docno = sqlSession.selectOne("docnoSeqCurrval"); //  문서번호 추출
-                param.setDocno(docno); // 결재의 문서번호에 사용
             } else {
                 sqlSession.update("updateSignDoc", param);
                 sqlSession.delete("deleteSign", param.getDocno());

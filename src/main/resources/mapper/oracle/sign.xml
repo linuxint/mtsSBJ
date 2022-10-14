@@ -81,11 +81,10 @@
     <insert id="insertSignDoc" parameterType="com.devkbil.mtssbj.sign.SignDocVO">
         INSERT INTO SGN_DOC(DOCNO, DOCTITLE, USERNO, DOCCONTENTS, DOCSTATUS, DOCSTEP, DTNO, DEPTNM, DOCSIGNPATH, UPDATEDATE, INSERTDATE, DELETEFLAG)
         VALUES (DOCNO_SEQ.NEXTVAL, #{doctitle}, #{userno}, #{doccontents}, #{docstatus}, 1, #{dtno}, #{deptnm, jdbcType=VARCHAR}, #{docsignpath}, SYSDATE, SYSDATE, 'N')
+        <selectKey keyProperty="docno" resultType="String">
+            SELECT DOCNO_SEQ.CURRVAL as docno FROM DUAL
+        </selectKey>
     </insert>
-
-    <select id="docnoSeqCurrval" resultType="String">
-        SELECT DOCNO_SEQ.CURRVAL FROM DUAL
-    </select>
 
     <update id="updateSignDoc" parameterType="com.devkbil.mtssbj.sign.SignDocVO">
         UPDATE SGN_DOC
