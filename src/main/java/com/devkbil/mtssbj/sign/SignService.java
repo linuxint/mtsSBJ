@@ -56,17 +56,20 @@ public class SignService {
         try {
             if(param.getDocno() == null || "".equals(param.getDocno())) {
                 sqlSession.insert("insertSignDoc", param);
+                String docno = sqlSession.selectOne("docnoSeqCurrval"); //  문서번호 추출
+                param.setDocno(docno); // 결재의 문서번호에 사용
             } else {
                 sqlSession.update("updateSignDoc", param);
+                sqlSession.delete("deleteSign", param.getDocno());
             }
             
-            sqlSession.delete("deleteSign", param.getDocno());
             String docsignpath = param.getDocsignpath();
             String[] users = docsignpath.split("\\|\\|");
+            String[] arr;
+            SignVO param2 = new SignVO();
             for (int i = 0; i < users.length; i++) {
                 if("".equals(users[i])) continue;
-                String[] arr = users[i].split(","); // 사번, 이름, 기안/합의/결제, 직책
-                SignVO param2 = new SignVO();
+                arr = users[i].split(","); // 사번, 이름, 기안/합의/결제, 직책
                 param2.setSsstep(Integer.toString(i));
                 param2.setDocno(param.getDocno());
                 param2.setUserno(arr[0]);
@@ -81,6 +84,8 @@ public class SignService {
                 }
                 
                 sqlSession.insert("insertSign", param2);
+    
+                param2 = new SignVO();
             }
             
             txManager.commit(status);
