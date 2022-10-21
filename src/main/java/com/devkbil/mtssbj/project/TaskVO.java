@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
-@ApiModel(value = "프로젝트 : ProjectVO", description = "ProjectVO")
-@XmlRootElement(name = "ProjectVO")
+@ApiModel(value = "프로젝트타스크 : TaskVO", description = "프로젝트 타스크 정보")
+@XmlRootElement(name = "TaskVO")
 @XmlType(propOrder = {"prno", "tsno", "tsparent", "tssort", "tstitle", "tsstartdate", "tsenddate", "tsendreal", "tsrate", "userno", "usernm", "statuscolor", "uploadfile"})
 @Getter
 @Setter

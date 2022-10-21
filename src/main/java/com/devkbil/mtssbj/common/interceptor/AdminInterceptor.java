@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

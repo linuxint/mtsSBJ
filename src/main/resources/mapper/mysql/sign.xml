@@ -18,13 +18,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOC SD
          <include refid="includeSignDoc"/> 
     </select> 
     
-    <select id="selectSignDocList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT SD.DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCSTEP, SD.DTNO, SDT.DTTITLE, DEPTNM
              , DATE_FORMAT(UPDATEDATE,'%Y-%m-%d') as UPDATEDATE, CODENM as DOCSTATUS
           FROM SGN_DOC SD
@@ -52,13 +52,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocTobeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocTobeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOC SD
          <include refid="includeSignDocTobe"/>
     </select> 
     
-    <select id="selectSignDocTobeList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocTobeList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT SD.DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCSTEP, SD.DTNO, SDT.DTTITLE, DEPTNM
              , DATE_FORMAT(UPDATEDATE,'%Y-%m-%d') as UPDATEDATE, CODENM as DOCSTATUS
           FROM SGN_DOC SD

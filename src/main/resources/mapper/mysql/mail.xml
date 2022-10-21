@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectReceiveMailCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectReceiveMailCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM EML_MAIL EM
          <include refid="includeMail"/>
     </select> 
     
-    <select id="selectReceiveMailList" resultType="com.devkbil.mtssbj.mail.MailVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectReceiveMailList" resultType="com.devkbil.mtssbj.mail.MailVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, DATE_FORMAT(ENTRYDATE,'%y-%m-%d %h:%s') ENTRYDATE, EM.USERNO, USERNM
              , (SELECT EAADDRESS FROM EML_ADDRESS ADDR WHERE ADDR.EMNO = EMNO AND EATYPE='T' ORDER BY EASEQ LIMIT 1) STRTO
           FROM EML_MAIL EM
@@ -56,7 +56,7 @@
          WHERE EMINO=#{emino} AND EMTYPE='R'
     </select>
 
-    <insert id="insertMailFile" parameterType="com.devkbil.mtssbj.common.FileVO" >
+    <insert id="insertMailFile" parameterType="com.devkbil.mtssbj.common.util.FileVO" >
         INSERT INTO EML_MAILFILE (EMNO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, #{filename}, #{realname}, #{filesize})
     </insert>
@@ -75,7 +75,7 @@
          ORDER BY EASEQ
     </select> 
     
-    <select id="selectMailFileList" parameterType="String" resultType="com.devkbil.mtssbj.common.FileVO">
+    <select id="selectMailFileList" parameterType="String" resultType="com.devkbil.mtssbj.common.util.FileVO">
         SELECT FILENO, FILENAME, REALNAME, FILESIZE
           FROM EML_MAILFILE
          WHERE EMNO=#{emno}

@@ -86,62 +86,62 @@
                     <a href="boardList"><i class="fa fa-files-o fa-fw"></i> <s:message code="board.boardName"/></a>
                 </li>
                 <li>
-                    <a href="search"><i class="fa fa-search fa-fw"></i> 통합검색</a>
+                    <a href="search"><i class="fa fa-search fa-fw"></i> <s:message code="search.total"/></a>
                 </li>
                 <li>
                     <a href="projectList"><i class="fa fa-tasks fa-fw"></i> <s:message code="project.title"/></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-edit fa-fw"></i> 전자결재<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-edit fa-fw"></i> <s:message code="electronic.payment"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="signDocTypeList">기안하기</a>
+                            <a href="signDocTypeList"> <s:message code="electronic.draft"/></a>
                         </li>
                         <li>
-                            <a href="signListTobe">결재 받을(은) 문서 </a>
+                            <a href="signListTobe"> <s:message code="electronic.approved"/></a>
                         </li>
                         <li>
-                            <a href="signListTo">결재 할(한) 문서</a>
+                            <a href="signListTo"> <s:message code="electronic.paid"/></a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="schList"><i class="fa fa-calendar fa-fw"></i> 일정관리</a>
+                    <a href="schList"><i class="fa fa-calendar fa-fw"></i> <s:message code="schedule.management"/></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-envelope-o fa-fw"></i> 메일<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-envelope-o fa-fw"></i> <s:message code="mail.title"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="mailForm">새메일</a>
+                            <a href="mailForm"> <s:message code="mail.new"/></a>
                         </li>
                         <li>
-                            <a href="receiveMails">받은 메일</a>
+                            <a href="receiveMails"> <s:message code="mail.receive"/></a>
                         </li>
                         <li>
-                            <a href="sendMails">보낸 메일</a>
+                            <a href="sendMails"> <s:message code="mail.send"/></a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-music fa-fw"></i> 샘플<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-music fa-fw"></i> <s:message code="sample.title"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="sample1">샘플 1: 조직도/사용자</a>
+                            <a href="sample1"><s:message code="sample.title"/></a>
                         </li>
                         <li>
-                            <a href="sample2">샘플 2: 날짜 선택 </a>
+                            <a href="sample2"><s:message code="sample.1"/></a>
                         </li>
                         <li>
-                            <a href="sample3">샘플 3: 챠트</a>
+                            <a href="sample3"><s:message code="sample.2"/></a>
                         </li>
                         <li>
-                            <a href="sample4">샘플 4: List & Excel</a>
+                            <a href="sample4"><s:message code="sample.3"/></a>
                         </li>
                         <li>
-                            <a href="crudList">샘플 5: CRUD</a>
+                            <a href="crudList"><s:message code="sample.4"/></a>
                         </li>
                         <li>
-                            <a href="chkList">샘플 6: Multy Checkbox</a>
+                            <a href="chkList"><s:message code="sample.5"/></a>
                         </li>
                     </ul>
                 </li>
@@ -165,7 +165,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="adSignDocTypeList"><i class="fa fa-edit fa-fw"></i> 결재문서양식</a>
+                        <a href="adSignDocTypeList"><i class="fa fa-edit fa-fw"></i> <s:message code="electronic.approval"/></a>
                     </li>
                     <li>
                         <a href="adCodeList"><i class="fa fa-gear fa-fw"></i> <s:message code="memu.code"/></a>

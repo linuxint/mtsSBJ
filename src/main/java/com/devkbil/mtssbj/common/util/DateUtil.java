@@ -1,6 +1,7 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.util;
 
 
+import com.devkbil.mtssbj.schedule.DateVO;
 import com.devkbil.mtssbj.schedule.MonthVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,11 +9,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @Slf4j
-public class Util4calen {
+public class DateUtil {
     static final String[] dayArr = {"일", "월", "화", "수", "목", "금", "토"};
-    
+
+    public static Date convDate(String sDate) throws ParseException {
+        return convDate(sDate, "yyyyMMddHHmmss");
+    }
+    public static Date convDate(String sDate, String sFormat) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat(sFormat, Locale.KOREA);
+        Date retDate = formatter.parse(sDate);
+        return retDate;
+    }
+
     public static MonthVO monthValid(MonthVO monthVO) {
         if(Integer.parseInt(monthVO.getMonth()) < 1 ) {
             monthVO.setMonth(String.valueOf(Integer.parseInt(monthVO.getMonth())+12));

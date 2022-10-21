@@ -8,8 +8,8 @@ import lombok.Setter;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@ApiModel(value = "코드 : TreeVO", description = "ClassCodeVO")
-@XmlRootElement(name = "ClassCodeVO")
+@ApiModel(value = "메일주소 : MailAddressVO", description = "메일주소")
+@XmlRootElement(name = "MailAddressVO")
 @XmlType(propOrder = {"emno", "eatype", "eaaddress", "easeq"})
 @Getter
 @Setter

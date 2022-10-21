@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.admin.sign;
 
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import com.devkbil.mtssbj.etc.EtcService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,9 @@
 package com.devkbil.mtssbj.member;
 
 import com.devkbil.mtssbj.admin.organ.UserService;
-import com.devkbil.mtssbj.common.FileVO;
-import com.devkbil.mtssbj.common.SearchVO;
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.util.FileVO;
+import com.devkbil.mtssbj.search.SearchVO;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

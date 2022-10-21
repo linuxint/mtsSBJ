@@ -8,12 +8,12 @@ import lombok.Setter;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@ApiModel(value = "확장필드 : Field3VO", description = "확장필드")
-@XmlRootElement(name = "확장필드")
+@ApiModel(value = "확장필드 : ExtFieldVO", description = "확장필드")
+@XmlRootElement(name = "ExtFieldVO")
 @XmlType(propOrder = {"field1", "field2", "field3"})
 @Getter
 @Setter
-public class Field3VO {
+public class ExtFieldVO {
     @ApiModelProperty(value = "확장필드1")
     private String field1;
     @ApiModelProperty(value = "확장필드2")
@@ -24,10 +24,10 @@ public class Field3VO {
     /**
      * 한번에 값 설정.
      */
-    public Field3VO() {
+    public ExtFieldVO() {
     }
     
-    public Field3VO(String field1, String field2, String field3) {
+    public ExtFieldVO(String field1, String field2, String field3) {
         this.field1 = field1;
         this.field2 = field2;
         this.field3 = field3;

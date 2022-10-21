@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.log;
 
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

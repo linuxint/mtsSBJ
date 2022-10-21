@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.schedule;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @ApiModel(value = "달력 : DateVO", description = "달력")
-@XmlRootElement(name = "달력")
+@XmlRootElement(name = "DateVO")
 @XmlType(propOrder = {"year", "month", "day", "week", "istoday", "list"})
 @Getter
 @Setter

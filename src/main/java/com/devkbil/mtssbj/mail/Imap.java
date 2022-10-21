@@ -1,8 +1,8 @@
 package com.devkbil.mtssbj.mail;
 
-import com.devkbil.mtssbj.common.FileVO;
+import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,7 +113,7 @@ public class Imap {
                 c.add(Calendar.DATE, 1);    // next day
                 ReceivedDateTerm endDateTerm = new ReceivedDateTerm(ComparisonTerm.LT, c.getTime());
                 
-                c.setTime(Util4calen.str2Date(lastdate));
+                c.setTime(DateUtil.str2Date(lastdate));
                 ReceivedDateTerm startDateTerm = new ReceivedDateTerm(ComparisonTerm.GE, c.getTime());
                 
                 dateTerm = new AndTerm(startDateTerm, endDateTerm);
@@ -169,7 +169,7 @@ public class Imap {
             }
             
             mailInfo.setEmsubject(message.getSubject());
-            mailInfo.setEntrydate(Util4calen.date2Str(message.getSentDate()));
+            mailInfo.setEntrydate(DateUtil.date2Str(message.getSentDate()));
         }
         
         Object o = p.getContent();

@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.member;
 
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

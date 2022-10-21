@@ -12,7 +12,7 @@
          ORDER BY CDDATE
     </select> 
 
-    <select id="selectSchList4Calen" resultType="com.devkbil.mtssbj.schedule.SchDetailVO" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <select id="selectSchList4Calen" resultType="com.devkbil.mtssbj.schedule.SchDetailVO" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         SELECT SSNO, SDSEQ, SSTITLE, USERNO, SDHOUR, SDMINUTE, FONTCOLOR
           FROM (
                 SELECT NULL SSNO, NULL SDSEQ, SHTITLE SSTITLE, NULL USERNO, NULL SDHOUR, NULL SDMINUTE, SHCOLOR FONTCOLOR
@@ -37,13 +37,13 @@
         WHERE DELETEFLAG='N'
     </sql>
 
-    <select id="selectSchCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSchCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM SCH_SCHEDULE TC
          <include refid="includeSch"/>
     </select> 
     
-    <select id="selectSchList" resultType="com.devkbil.mtssbj.schedule.SchVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSchList" resultType="com.devkbil.mtssbj.schedule.SchVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT SSTITLE, SSTYPE, SSSTARTDATE, SSSTARTHOUR, SSSTARTMINUTE, SSENDDATE, SSENDHOUR
              , SSENDMINUTE, SSREPEATTYPE, SSREPEATEND, SSCONTENTS, SSISOPEN, TC.USERNO, USERNM
           FROM SCH_SCHEDULE TC

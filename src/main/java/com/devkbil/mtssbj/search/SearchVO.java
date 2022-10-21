@@ -1,5 +1,6 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.search;
 
+import com.devkbil.mtssbj.common.PagingVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"searchKeyword", "searchType", "searchTypeArr", "searchExt1", "userno"})
 @Getter
 @Setter
-public class SearchVO extends PageVO {
+public class SearchVO extends PagingVO {
     
     @ApiModelProperty(value = "검색 키워드")
     private String searchKeyword = "";         // 검색 키워드

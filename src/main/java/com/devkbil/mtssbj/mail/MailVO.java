@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.mail;
 
-import com.devkbil.mtssbj.common.FileVO;
+import com.devkbil.mtssbj.common.util.FileVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 
-@ApiModel(value = "메일 : MailVO", description = "MailVO")
+@ApiModel(value = "메일 : MailVO", description = "메일")
 @XmlRootElement(name = "MailVO")
 @XmlType(propOrder = {"emno", "emtype", "emfrom", "emsubject", "emcontents", "entrydate", "userno", "usernm", "emino", "strTo", "strCc", "strBcc", "emto", "emcc", "embcc", "files"})
 @Getter

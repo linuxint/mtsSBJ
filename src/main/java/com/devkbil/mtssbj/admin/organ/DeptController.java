@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.admin.organ;
 
-import com.devkbil.mtssbj.common.TreeMaker;
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.tree.TreeMaker;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

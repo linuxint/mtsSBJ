@@ -1,8 +1,8 @@
 package com.devkbil.mtssbj.schedule;
 
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.SearchVO;
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.search.SearchVO;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SchService {
     public List<?> selectCalendar(MonthVO param, String userno) {
         List<?> list = sqlSession.selectList("selectCalendar", param);
         
-        Field3VO fld = new Field3VO();
+        ExtFieldVO fld = new ExtFieldVO();
         fld.setField1(userno);
         for (int i = 0; i < list.size(); i++) {
             CalendarVO cvo = (CalendarVO) list.get(i);
@@ -72,46 +72,46 @@ public class SchService {
             param2.setSdminute(param.getSsstartminute());
             
             Integer inx = 1;
-            Date sdate = Util4calen.str2Date(param.getSsstartdate());
+            Date sdate = DateUtil.str2Date(param.getSsstartdate());
             if("1".equals(param.getSsrepeattype())) {            //반복없음
-                Date edate = Util4calen.str2Date(param.getSsenddate());
+                Date edate = DateUtil.str2Date(param.getSsenddate());
                 while (!sdate.after(edate)) {
                     param2.setSdseq(inx++);
-                    param2.setSddate(Util4calen.date2Str(sdate));
+                    param2.setSddate(DateUtil.date2Str(sdate));
                     sqlSession.insert("insertSchDetail", param2);
-                    sdate = Util4calen.dateAdd(sdate, 1);
+                    sdate = DateUtil.dateAdd(sdate, 1);
                 }
             } else if("2".equals(param.getSsrepeattype())) {            //주간반복
-                Date edate = Util4calen.str2Date(param.getSsrepeatend());
+                Date edate = DateUtil.str2Date(param.getSsrepeatend());
                 
                 Integer dayofweek = Integer.parseInt(param.getSsrepeatoption());
                 while (!sdate.after(edate)) {
-                    if(Util4calen.getDayOfWeek(sdate) == dayofweek) break;
-                    sdate = Util4calen.dateAdd(sdate, 1);
+                    if(DateUtil.getDayOfWeek(sdate) == dayofweek) break;
+                    sdate = DateUtil.dateAdd(sdate, 1);
                 }
                 while (!sdate.after(edate)) {
                     param2.setSdseq(inx++);
-                    param2.setSddate(Util4calen.date2Str(sdate));
+                    param2.setSddate(DateUtil.date2Str(sdate));
                     sqlSession.insert("insertSchDetail", param2);
-                    sdate = Util4calen.dateAdd(sdate, 7);
+                    sdate = DateUtil.dateAdd(sdate, 7);
                 }
             } else if("3".equals(param.getSsrepeattype())) {            //월간반복
-                Date edate = Util4calen.str2Date(param.getSsrepeatend());
+                Date edate = DateUtil.str2Date(param.getSsrepeatend());
                 
-                Integer iYear = Util4calen.getYear(sdate);
-                Integer iMonth = Util4calen.getMonth(sdate);
+                Integer iYear = DateUtil.getYear(sdate);
+                Integer iMonth = DateUtil.getMonth(sdate);
                 String sday = param.getSsrepeatoption();
                 
-                Date ndate = Util4calen.str2Date(iYear + "-" + iMonth + "-" + sday);
+                Date ndate = DateUtil.str2Date(iYear + "-" + iMonth + "-" + sday);
                 if(sdate.after(ndate))
-                    sdate = Util4calen.str2Date(String.format("%s-%s-%s", iYear, ++iMonth, sday));
+                    sdate = DateUtil.str2Date(String.format("%s-%s-%s", iYear, ++iMonth, sday));
                 else sdate = ndate;
                 
                 while (!sdate.after(edate)) {
                     param2.setSdseq(inx++);
-                    param2.setSddate(Util4calen.date2Str(sdate));
+                    param2.setSddate(DateUtil.date2Str(sdate));
                     sqlSession.insert("insertSchDetail", param2);
-                    sdate = Util4calen.str2Date(String.format("%s-%s-%s", iYear, ++iMonth, sday));
+                    sdate = DateUtil.str2Date(String.format("%s-%s-%s", iYear, ++iMonth, sday));
                 }
             }
             

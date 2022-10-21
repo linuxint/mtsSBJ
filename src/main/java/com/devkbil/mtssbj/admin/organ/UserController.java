@@ -1,8 +1,8 @@
 package com.devkbil.mtssbj.admin.organ;
 
-import com.devkbil.mtssbj.common.FileVO;
-import com.devkbil.mtssbj.common.TreeMaker;
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.util.FileVO;
+import com.devkbil.mtssbj.common.tree.TreeMaker;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import com.devkbil.mtssbj.member.UserVO;

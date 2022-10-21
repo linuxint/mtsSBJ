@@ -3,8 +3,8 @@ package com.devkbil.mtssbj.search;
 import com.devkbil.mtssbj.board.BoardReplyVO;
 import com.devkbil.mtssbj.board.BoardService;
 import com.devkbil.mtssbj.board.BoardVO;
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.FileVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
 import com.devkbil.mtssbj.common.config.EsConfig;
 import com.devkbil.mtssbj.common.util.FileUtil;
@@ -151,7 +151,7 @@ public class IndexingController {
         boardlist = null;
         
         // ---------------------------- 댓글 --------------------------------
-        Field3VO lastVO = new Field3VO(); // 게시판, 댓글, 파일의 마지막 색인 값
+        ExtFieldVO lastVO = new ExtFieldVO(); // 게시판, 댓글, 파일의 마지막 색인 값
         lastVO.setField1(brdno);
         lastVO.setField2(getLastValue("reply"));
         

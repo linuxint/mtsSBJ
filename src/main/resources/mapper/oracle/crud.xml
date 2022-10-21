@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectCrudCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectCrudCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM TBL_CRUD TC
          <include refid="includeCrud"/>
     </select> 
     
-    <select id="selectCrudList" resultType="com.devkbil.mtssbj.crud.CrudVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectCrudList" resultType="com.devkbil.mtssbj.crud.CrudVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT * FROM (
             SELECT ROW_NUMBER() OVER (ORDER BY TC.CRNO DESC) AS RNUM
                    , CRNO, CRTITLE, TC.USERNO, USERNM, CRMEMO, TO_CHAR(CRDATE,'YYYY-MM-DD') CRDATE

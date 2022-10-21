@@ -2,7 +2,7 @@ package com.devkbil.mtssbj.sign;
 
 import com.devkbil.mtssbj.admin.sign.SignDocService;
 import com.devkbil.mtssbj.admin.sign.SignDocTypeVO;
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -53,12 +53,6 @@ groupware9 - 1)전자결제
     Framework - MyBatis, SpringBoot 2.7
     Build Tool - Maven
 
-### docker image 설치 ###
-    1. docker pull jaspeen/oracle-xe-11g
-    2. docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
-    3. docker pull docker.elastic.co/elasticsearch/elasticsearch:7.3.1
-    4. docker run -p 9200:9200 -p 9300:9300 --name elk-e -e "discovery.type=single-node" elasticsearch-custom
-
 ### 설치 ###
 - OracleDB에 데이터 베이스(mts)를 생성(user_database_oracle.sql) 하고 tables_oracle.sql, tableData_oracle.sql를 실행하여 테이블과 데이터를 생성한다.
 - MariaDB에 데이터 베이스(mts)를 생성(user_database_myriadb.sql) 하고 tables_myriadb.sql, tableData_myriadb.sql를 실행하여 테이블과 데이터를 생성한다.
@@ -67,21 +61,26 @@ groupware9 - 1)전자결제
 - http://localhost:9090/mts/ 로 접속
 - ID/PW: admin/admin, user1/user1, user2/user2 ...
   Oracle PW소스는 변경되지 않아 PW는 아이디로 입력된다.
+- 
+### oracle11g 환경설정 ###
+    0. 도커 이미지 다운로드
+      docker pull jaspeen/oracle-xe-11g
+    1. 도커 실행
+      docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
 
 ### elasticsearch 환경설정 ###
     0. 도커 이미지 다운로드
-      docker pull docker.elastic.co/elasticsearch/elasticsearch:7.17.5
+      docker pull elasticsearch:7.17.6
     1. 도커 실행
-      docker run -d -p 9200:9200 -p 9300:9300 --name elasticsearch docker.elastic.co/elasticsearch/elasticsearch:7.17.5
+      docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -e "discovery.type=single-node" elasticsearch:7.17.6
     2. 사용자 비밀번호 설정
-      ./docker exet -t elasticsearch /bin/bash
+      ./docker exec -t elasticsearch /bin/bash
       ./bin/elasticsearch-setup-passwords interactive
            ~ password : manager
 
-              future versions of Elasticsearch will require Java 11; your Java version from [/usr/local/java/jdk/jre] does not meet this requirement
               Initiating the setup of passwords for reserved users elastic,apm_system,kibana,kibana_system,logstash_system,beats_system,remote_monitoring_user.
               You will be prompted to enter passwords as the process progresses.
-              Please confirm that you would like to continue [y/N] y
+              Please confirm that you would like to continue [y/N]y
               
               Enter password for [elastic]:
               Reenter password for [elastic]:
@@ -103,7 +102,7 @@ groupware9 - 1)전자결제
               Changed password for user [remote_monitoring_user]
               Changed password for user [elastic]
 
-    3. docker exec -it elastic /bin/bash
+    3. docker exec -it elasticsearch /bin/bash
     4. Elasticsearch에서 기본적으로 제공하는 형태소 분석기 nori를 설치
        ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
     5. 사전복사
@@ -121,6 +120,25 @@ groupware9 - 1)전자결제
       SMTP port : 465
       user : user01@james.local
       passwd : 1234
+
+### 네트워크 환경설정 ###
+    0. 네티워크 생성
+      > docker network create somenetwork
+    1. 네트워크 정보 확인
+      > docker network inspect somenetwork
+    2. 컨테이너에 네트워크 연결1
+      > docker network connect somenetwork elasticsearch
+    3. 컨테이너에 네트워크 연결2
+      > docker network connect somenetwork oracle11g
+    4. 네트워크 정보 확인
+      > docker network inspect somenetwork
+    5. 네트워크 연결 확인
+      > docker exec oracle11g ping elasticsearch
+      PING elasticsearch (172.19.0.2) 56(84) bytes of data.
+      64 bytes from elasticsearch.somenetwork (172.19.0.2): icmp_seq=1 ttl=64 time=0.091 ms
+      64 bytes from elasticsearch.somenetwork (172.19.0.2): icmp_seq=2 ttl=64 time=0.076 ms
+      64 bytes from elasticsearch.somenetwork (172.19.0.2): icmp_seq=6 ttl=64 time=0.048 ms
+
 ### License ###
 MIT
   

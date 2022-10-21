@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.tree;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

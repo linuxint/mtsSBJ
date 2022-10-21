@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectProjectCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectProjectCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM PRJ_PROJECT PP
          <include refid="includeProject"/>
     </select> 
     
-    <select id="selectProjectList" resultType="com.devkbil.mtssbj.project.ProjectVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectProjectList" resultType="com.devkbil.mtssbj.project.ProjectVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT PRNO, PRTITLE, PRDATE, PRSTARTDATE, PRENDDATE
              , PP.USERNO, USERNM, CODENM AS PRSTATUS
           FROM PRJ_PROJECT PP
@@ -72,7 +72,7 @@
     </delete> 
     
 
-    <insert id="taskCopy_step1" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <insert id="taskCopy_step1" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         INSERT INTO PRJ_TASK(PRNO, TSPARENT, TSTITLE, TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE, DELETEFLAG, OLDNO)
             SELECT #{field2}, TSPARENT, TSTITLE, TSSTARTDATE, TSENDDATE, NULL, 0, 'N', TSNO
             FROM PRJ_TASK

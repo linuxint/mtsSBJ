@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@ApiModel(value = "부서 : CountVO", description = "게시판조회수")
+@ApiModel(value = "조회수 : CountVO", description = "게시판조회수")
 @XmlRootElement(name = "CountVO")
 @XmlType(propOrder = {"field1", "cnt1"})
 @Getter

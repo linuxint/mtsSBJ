@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"displayRowCount", "rowStart", "rowEnd", "totPage", "totRow", "page", "pageStart", "pageEnd"})
 @Getter
 @Setter
-public class PageVO {
+public class PagingVO {
     
     @ApiModelProperty(value = "출력할 데이터 개수")
     private Integer displayRowCount = 10;           // 출력할 데이터 개수

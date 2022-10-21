@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.log;
 
 import lombok.Getter;
 

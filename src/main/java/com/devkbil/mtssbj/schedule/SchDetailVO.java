@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@ApiModel(value = "프로젝트 : SchDetailVO", description = "SchDetailVO")
+@ApiModel(value = "일정 : SchDetailVO", description = "일정정보")
 @XmlRootElement(name = "SchDetailVO")
 @XmlType(propOrder = {"ssno", "sddate", "sdhour", "sdminute", "userno", "sstitle", "fontcolor", "sdseq"})
 @Getter

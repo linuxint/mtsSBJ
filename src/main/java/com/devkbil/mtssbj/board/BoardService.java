@@ -1,8 +1,8 @@
 package com.devkbil.mtssbj.board;
 
 import com.devkbil.mtssbj.admin.board.BoardGroupVO;
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.FileVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,7 @@ public class BoardService {
         }
     }
     
-    public BoardVO selectBoardOne(Field3VO param) {
+    public BoardVO selectBoardOne(ExtFieldVO param) {
         return sqlSession.selectOne("selectBoardOne", param);
     }
     
@@ -91,7 +91,7 @@ public class BoardService {
         return sqlSession.selectOne("selectBoardAuthChk", param);
     }
     
-    public void updateBoardRead(Field3VO param) {
+    public void updateBoardRead(ExtFieldVO param) {
         sqlSession.insert("updateBoardRead", param);
     }
     
@@ -102,7 +102,7 @@ public class BoardService {
     /**
      * 좋아요저장.
      */
-    public void insertBoardLike(Field3VO param) {
+    public void insertBoardLike(ExtFieldVO param) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = txManager.getTransaction(def);
@@ -183,11 +183,11 @@ public class BoardService {
         return sqlSession.selectList("selectBoards4Indexing", param);
     }
     
-    public List<?> selectBoardReply4Indexing(Field3VO param) {
+    public List<?> selectBoardReply4Indexing(ExtFieldVO param) {
         return sqlSession.selectList("selectBoardReply4Indexing", param);
     }
     
-    public List<?> selectBoardFiles4Indexing(Field3VO param) {
+    public List<?> selectBoardFiles4Indexing(ExtFieldVO param) {
         return sqlSession.selectList("selectBoardFiles4Indexing", param);
     }
 }

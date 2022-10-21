@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.admin.code;
 
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

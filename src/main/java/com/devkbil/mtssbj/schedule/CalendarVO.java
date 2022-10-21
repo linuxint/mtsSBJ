@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
-@ApiModel(value = "프로젝트 : CalendarVO", description = "CalendarVO")
+@ApiModel(value = "달력 : CalendarVO", description = "달력항목")
 @XmlRootElement(name = "CalendarVO")
 @XmlType(propOrder = {"cddate", "cddd", "cddayofweek", "list"})
 @Getter

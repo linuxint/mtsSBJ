@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.board;
 
-import com.devkbil.mtssbj.common.PageVO;
+import com.devkbil.mtssbj.common.PagingVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"bgno", "searchKeyword", "searchType", "searchTypeArr", "searchExt1"})
 @Getter
 @Setter
-public class BoardSearchVO extends PageVO {
+public class BoardSearchVO extends PagingVO {
     
     @ApiModelProperty(value = "게시판 그룹")
     private String bgno;                       // 게시판 그룹

@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.project;
 
-import com.devkbil.mtssbj.common.SearchVO;
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.search.SearchVO;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +71,7 @@ public class ProjectController {
         if(prno != null) {
             projectInfo = projectService.selectProjectOne(prno);
         } else {
-            String today = Util4calen.date2Str(Util4calen.getToday());
+            String today = DateUtil.date2Str(DateUtil.getToday());
             projectInfo = new ProjectVO();
             projectInfo.setPrstartdate(today);
             projectInfo.setPrenddate(today);

@@ -40,11 +40,11 @@ groupware9 - 1) Electronic payment
 
 ### Major LIBs ###
 - JQuery-2.2.3
-- CKEditor 4.5.10 
+- CKEditor 4.5.10
 - SB-Admin 2, morris v0.5.0, DatePicker
 - DynaTree 1.2.4
 - jQuery EasyUI 1.4.3
-- FullCalendar v5 
+- FullCalendar v5
 
 ### Development Environment ###
     Programming Language - Java 1.8
@@ -56,8 +56,8 @@ groupware9 - 1) Electronic payment
 ### docker image Pull ###
     1. docker pull jaspeen/oracle-xe-11g
     2. docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
-    3. docker pull docker.elastic.co/elasticsearch/elasticsearch:7.3.1
-    4. docker run -p 9200:9200 -p 9300:9300 --name elk-e -e "discovery.type=single-node" elasticsearch-custom
+    3. docker pull elasticsearch:7.17.6
+    4. docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -e "discovery.type=single-node" elasticsearch:7.17.6
 
 ### installation ###
 - Create a database (mts) in OracleDB (user_database_oracle.sql) and create tables and data by executing tables_oracle.sql and tableData_oracle.sql.
@@ -69,14 +69,14 @@ groupware9 - 1) Electronic payment
   The Oracle PW source is not changed, so the PW is entered as an ID.
 
 ### elasticsearch configuration ###
-    1. docker exec -it elastic /bin/bash
+    1. docker exec -it elasticsearch /bin/bash
     2. Install the stemming analyzer nori provided by default in Elasticsearch
     ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
     3. Dictionary copy
     ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
-    docker cp stopwords.txt elastic:/usr/share/elasticsearch/config/
-    docker cp synonym.txt elastic:/usr/share/elasticsearch/config/
-    docker cp userdict.txt elastic:/usr/share/elasticsearch/config/
+    docker cp stopwords.txt elasticsearch:/usr/share/elasticsearch/config/
+    docker cp synonym.txt elasticsearch:/usr/share/elasticsearch/config/
+    docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
     4. Create index
     curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
 

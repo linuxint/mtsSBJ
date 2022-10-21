@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.board;
 
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

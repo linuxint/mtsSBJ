@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.schedule;
 
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,15 +33,15 @@ public class SchController {
         etcService.setCommonAttribute(userno, modelMap);
     
         if(searchVO.getYear() == null || "".equals(searchVO.getYear())) {
-            Date today = Util4calen.getToday();
-            searchVO.setYear(Util4calen.getYear(today).toString());
-            searchVO.setMonth(Util4calen.getMonth(today).toString());
+            Date today = DateUtil.getToday();
+            searchVO.setYear(DateUtil.getYear(today).toString());
+            searchVO.setMonth(DateUtil.getMonth(today).toString());
         }
         if("0".equals(searchVO.getMonth()) || "13".equals(searchVO.getMonth())) {
-            searchVO = Util4calen.monthValid(searchVO);
+            searchVO = DateUtil.monthValid(searchVO);
         }
         
-        Integer dayofweek = Util4calen.getDayOfWeek(Util4calen.str2Date(searchVO.getYear() + "-" + searchVO.getMonth() + "-01"));
+        Integer dayofweek = DateUtil.getDayOfWeek(DateUtil.str2Date(searchVO.getYear() + "-" + searchVO.getMonth() + "-01"));
         
         List<?> listview = schService.selectCalendar(searchVO, userno);
         
@@ -72,7 +72,7 @@ public class SchController {
             
             String cddate = request.getParameter("cddate");
             if(cddate == null || "".equals(cddate)) {
-                cddate = Util4calen.date2Str(Util4calen.getToday());
+                cddate = DateUtil.date2Str(DateUtil.getToday());
             }
             schInfo.setSsstartdate(cddate);
             schInfo.setSsstarthour("09");

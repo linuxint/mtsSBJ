@@ -3,7 +3,7 @@ package com.devkbil.mtssbj.main;
 import com.devkbil.mtssbj.board.BoardSearchVO;
 import com.devkbil.mtssbj.board.BoardService;
 import com.devkbil.mtssbj.common.MakeExcel;
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +51,7 @@ public class SampleController {
         etcService.setCommonAttribute(userno, modelMap);
         // -----------------------------------------
         
-        String today = Util4calen.date2Str(Util4calen.getToday());
+        String today = DateUtil.date2Str(DateUtil.getToday());
         
         modelMap.addAttribute("today", today);
         return "main/sample2";

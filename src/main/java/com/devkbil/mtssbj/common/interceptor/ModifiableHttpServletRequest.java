@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -7,7 +7,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-class ModifiableHttpServletRequest extends HttpServletRequestWrapper {
+public class ModifiableHttpServletRequest extends HttpServletRequestWrapper {
     
     private HashMap<String, Object> params;
     

@@ -2,8 +2,8 @@ package com.devkbil.mtssbj.etc;
 
 import com.devkbil.mtssbj.admin.organ.DeptService;
 import com.devkbil.mtssbj.admin.organ.UserService;
-import com.devkbil.mtssbj.common.SearchVO;
-import com.devkbil.mtssbj.common.TreeMaker;
+import com.devkbil.mtssbj.search.SearchVO;
+import com.devkbil.mtssbj.common.tree.TreeMaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

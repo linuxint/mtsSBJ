@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.project;
 
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.FileVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class TaskMineController {
         Integer alertcount = etcService.selectAlertCount(userno);
         modelMap.addAttribute("alertcount", alertcount);
         
-        List<?> listview = taskService.selectTaskMineList(new Field3VO(prno, userno, null));
+        List<?> listview = taskService.selectTaskMineList(new ExtFieldVO(prno, userno, null));
         
         modelMap.addAttribute("listview", listview);
         modelMap.addAttribute("prno", prno);

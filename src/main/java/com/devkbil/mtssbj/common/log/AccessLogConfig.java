@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common.config;
+package com.devkbil.mtssbj.common.log;
 
 import org.apache.catalina.valves.AccessLogValve;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;

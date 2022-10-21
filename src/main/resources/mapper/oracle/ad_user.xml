@@ -12,7 +12,7 @@
            AND CC.CLASSNO=1          
     </select> 
     
-    <select id="selectUserListWithDept" parameterType="com.devkbil.mtssbj.common.SearchVO" resultType="com.devkbil.mtssbj.member.UserVO">
+    <select id="selectUserListWithDept" parameterType="com.devkbil.mtssbj.search.SearchVO" resultType="com.devkbil.mtssbj.member.UserVO">
         SELECT USERNO, USERID, USERNM, USERPW, PHOTO, CU.DEPTNO, DEPTNM, CC.CODENM USERPOS
           FROM COM_USER CU
          INNER JOIN COM_DEPT CD ON CD.DEPTNO=CU.DEPTNO

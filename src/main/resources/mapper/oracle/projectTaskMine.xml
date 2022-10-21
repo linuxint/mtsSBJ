@@ -5,7 +5,7 @@
 
 <mapper namespace="taskMine">
 
-    <select id="selectTaskMineList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <select id="selectTaskMineList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         SELECT PRNO, PT.TSNO, TSPARENT, TSSORT, TSTITLE,
                TSSTARTDATE,
                TSENDDATE,
@@ -38,14 +38,14 @@
     </select> 
 
     <!-- =============================================================================== -->
-    <select id="selectTaskFileList" resultType="com.devkbil.mtssbj.common.FileVO" parameterType="String">
+    <select id="selectTaskFileList" resultType="com.devkbil.mtssbj.common.util.FileVO" parameterType="String">
         SELECT FILENO, FILENAME, REALNAME, FILESIZE
           FROM PRJ_TASKFILE
          WHERE TSNO=#{brdno}
          ORDER BY FILENO DESC 
     </select> 
 
-    <insert id="insertTaskFile" parameterType="com.devkbil.mtssbj.common.FileVO" >
+    <insert id="insertTaskFile" parameterType="com.devkbil.mtssbj.common.util.FileVO" >
         INSERT INTO PRJ_TASKFILE (TSNO, FILENO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, FILENO_TASK_SEQ.NEXTVAL, #{filename}, #{realname}, #{filesize})
     </insert>

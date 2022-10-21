@@ -1,4 +1,4 @@
-package com.devkbil;
+package com.devkbil.mtssbj;
 
 
 import com.devkbil.mtssbj.mail.SendMail;

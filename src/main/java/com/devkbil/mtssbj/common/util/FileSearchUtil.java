@@ -1,6 +1,5 @@
 package com.devkbil.mtssbj.common.util;
 
-import com.devkbil.mtssbj.common.FileVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

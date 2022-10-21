@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.project;
 
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.FileVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class TaskService {
             }
             String userno = param.getUserno();
             if(userno != null) {
-                Field3VO fld = new Field3VO(param.getTsno(), null, null);
+                ExtFieldVO fld = new ExtFieldVO(param.getTsno(), null, null);
                 String[] usernos = userno.split(",");
                 for (int i = 0; i < usernos.length; i++) {
                     if("".equals(usernos[i])) {
@@ -89,7 +89,7 @@ public class TaskService {
      * ------------------------------------------
      * TaskMine.
      */
-    public List<?> selectTaskMineList(Field3VO param) {
+    public List<?> selectTaskMineList(ExtFieldVO param) {
         return sqlSession.selectList("selectTaskMineList", param);
     }
     
@@ -125,7 +125,7 @@ public class TaskService {
     /**
      * TaskMine 복사.
      */
-    public void taskCopy(Field3VO param) {
+    public void taskCopy(ExtFieldVO param) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = txManager.getTransaction(def);

@@ -14,13 +14,13 @@
         </if>               
     </sql>
 
-    <select id="selectCodeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectCodeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM COM_CODE CC
          <include refid="includeCode"/>
     </select> 
     
-    <select id="selectCodeList" resultType="com.devkbil.mtssbj.admin.code.CodeVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectCodeList" resultType="com.devkbil.mtssbj.admin.code.CodeVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT * FROM (
             SELECT ROW_NUMBER() OVER (ORDER BY CLASSNO, CODECD) AS RNUM
                    , CLASSNO, CODECD, CODENM

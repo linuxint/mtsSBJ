@@ -8,8 +8,8 @@ import lombok.Setter;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@ApiModel(value = "트리구조 : TreeVO", description = "TreeVO")
-@XmlRootElement(name = "TreeVO")
+@ApiModel(value = "CRUD : CrudVO", description = "CrudVO")
+@XmlRootElement(name = "CrudVO")
 @XmlType(propOrder = {"crno", "crtitle", "userno", "crmemo", "crdate", "usernm"})
 @Getter
 @Setter

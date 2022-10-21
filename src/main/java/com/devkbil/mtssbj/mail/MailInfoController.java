@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.mail;
 
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

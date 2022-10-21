@@ -18,13 +18,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOC SD
          <include refid="includeSignDoc"/> 
     </select> 
     
-    <select id="selectSignDocList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT * FROM (
             SELECT ROW_NUMBER() OVER (ORDER BY SD.DOCNO DESC) AS RNUM
                  , SD.DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCSTEP, SD.DTNO, SDT.DTTITLE, DEPTNM
@@ -55,13 +55,13 @@
         </if>               
     </sql>
 
-    <select id="selectSignDocTobeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocTobeCount" resultType="Integer" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT COUNT(*)
           FROM SGN_DOC SD
          <include refid="includeSignDocTobe"/>
     </select> 
     
-    <select id="selectSignDocTobeList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.common.SearchVO">
+    <select id="selectSignDocTobeList" resultType="com.devkbil.mtssbj.sign.SignDocVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT * FROM (
             SELECT ROW_NUMBER() OVER (ORDER BY DOCNO DESC) AS RNUM
                  , SD.DOCNO, DOCTITLE, SD.USERNO, USERNM, DOCSTEP, SD.DTNO, SDT.DTTITLE, DEPTNM

@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.project;
 
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class ProjectService {
         return sqlSession.selectOne("selectProjectAuthChk", param);
     }
     
-    public void updateProjectRead(Field3VO param) {
+    public void updateProjectRead(ExtFieldVO param) {
         sqlSession.insert("updateProjectRead", param);
     }
     

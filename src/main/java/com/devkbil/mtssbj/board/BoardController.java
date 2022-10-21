@@ -2,10 +2,10 @@ package com.devkbil.mtssbj.board;
 
 import com.devkbil.mtssbj.admin.board.BoardGroupService;
 import com.devkbil.mtssbj.admin.board.BoardGroupVO;
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.FileVO;
-import com.devkbil.mtssbj.common.TreeMaker;
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
+import com.devkbil.mtssbj.common.tree.TreeMaker;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import lombok.extern.slf4j.Slf4j;
@@ -80,7 +80,7 @@ public class BoardController {
         String brdno = request.getParameter("brdno");
         
         if(brdno != null) {
-            BoardVO boardInfo = boardService.selectBoardOne(new Field3VO(brdno, userno, null));
+            BoardVO boardInfo = boardService.selectBoardOne(new ExtFieldVO(brdno, userno, null));
             List<?> listview = boardService.selectBoardFileList(brdno);
             
             modelMap.addAttribute("boardInfo", boardInfo);
@@ -136,7 +136,7 @@ public class BoardController {
         String bgno = request.getParameter("bgno");
         String brdno = request.getParameter("brdno");
         
-        Field3VO f3 = new Field3VO(brdno, userno, null);
+        ExtFieldVO f3 = new ExtFieldVO(brdno, userno, null);
         
         boardService.updateBoardRead(f3);
         BoardVO boardInfo = boardService.selectBoardOne(f3);
@@ -208,7 +208,7 @@ public class BoardController {
         String brdno = request.getParameter("brdno");
         String userno = request.getSession().getAttribute("userno").toString();
         
-        boardService.insertBoardLike(new Field3VO(brdno, userno, null));
+        boardService.insertBoardLike(new ExtFieldVO(brdno, userno, null));
         
         UtilEtc.responseJsonValue(response, "OK");
     }

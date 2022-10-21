@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.admin.board;
 
-import com.devkbil.mtssbj.common.TreeMaker;
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.tree.TreeMaker;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

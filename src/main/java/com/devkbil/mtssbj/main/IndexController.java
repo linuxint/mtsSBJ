@@ -1,9 +1,9 @@
 package com.devkbil.mtssbj.main;
 
-import com.devkbil.mtssbj.common.DateVO;
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.SearchVO;
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.schedule.DateVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.search.SearchVO;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 import com.devkbil.mtssbj.project.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class IndexController {
         String userno = request.getSession().getAttribute("userno").toString();
         etcService.setCommonAttribute(userno, modelMap);
         
-        Date today = Util4calen.getToday();
+        Date today = DateUtil.getToday();
         
         calCalen(userno, today, modelMap);
         
@@ -69,7 +69,7 @@ public class IndexController {
         String userno = request.getSession().getAttribute("userno").toString();
         String date = request.getParameter("date");
         
-        Date today = Util4calen.getToday(date);
+        Date today = DateUtil.getToday(date);
         
         calCalen(userno, today, modelMap);
         
@@ -79,36 +79,36 @@ public class IndexController {
     private String calCalen(String userno, Date targetDay, ModelMap modelMap) {
         List<DateVO> calenList = new ArrayList<DateVO>();
         
-        Date today = Util4calen.getToday();
-        int month = Util4calen.getMonth(targetDay);
-        int week = Util4calen.getWeekOfMonth(targetDay);
+        Date today = DateUtil.getToday();
+        int month = DateUtil.getMonth(targetDay);
+        int week = DateUtil.getWeekOfMonth(targetDay);
         
-        Date fweek = Util4calen.getFirstOfWeek(targetDay);
-        Date lweek = Util4calen.getLastOfWeek(targetDay);
-        Date preWeek = Util4calen.dateAdd(fweek, -1);
-        Date nextWeek = Util4calen.dateAdd(lweek, 1);
+        Date fweek = DateUtil.getFirstOfWeek(targetDay);
+        Date lweek = DateUtil.getLastOfWeek(targetDay);
+        Date preWeek = DateUtil.dateAdd(fweek, -1);
+        Date nextWeek = DateUtil.dateAdd(lweek, 1);
         
-        Field3VO fld = new Field3VO();
+        ExtFieldVO fld = new ExtFieldVO();
         fld.setField1(userno);
         
         while (fweek.compareTo(lweek) <= 0) {
-            DateVO dvo = Util4calen.date2VO(fweek);
-            dvo.setIstoday(Util4calen.dateDiff(fweek, today) == 0);
-            dvo.setDate(Util4calen.date2Str(fweek));
+            DateVO dvo = DateUtil.date2VO(fweek);
+            dvo.setIstoday(DateUtil.dateDiff(fweek, today) == 0);
+            dvo.setDate(DateUtil.date2Str(fweek));
             
             fld.setField2(dvo.getDate());
             dvo.setList(indexService.selectSchList4Calen(fld));
             
             calenList.add(dvo);
             
-            fweek = Util4calen.dateAdd(fweek, 1);
+            fweek = DateUtil.dateAdd(fweek, 1);
         }
         
         modelMap.addAttribute("month", month);
         modelMap.addAttribute("week", week);
         modelMap.addAttribute("calenList", calenList);
-        modelMap.addAttribute("preWeek", Util4calen.date2Str(preWeek));
-        modelMap.addAttribute("nextWeek", Util4calen.date2Str(nextWeek));
+        modelMap.addAttribute("preWeek", DateUtil.date2Str(preWeek));
+        modelMap.addAttribute("nextWeek", DateUtil.date2Str(nextWeek));
         
         return "main/index";
     }

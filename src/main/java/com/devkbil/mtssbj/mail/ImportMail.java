@@ -11,8 +11,8 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApiModel(value = "메일수신 : ImportMail", description = "ImportMail")
-@XmlRootElement(name = "ClassCodeVO")
+@ApiModel(value = "메일수신 : ImportMail", description = "메일수신")
+@XmlRootElement(name = "ImportMail")
 @XmlType(propOrder = {"mailService", "userno", "session"})
 @Getter
 @Setter

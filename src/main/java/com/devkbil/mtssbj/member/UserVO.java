@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@ApiModel(value = "사용자 : UserVO", description = "UserVO")
+@ApiModel(value = "사용자 : UserVO", description = "사용자정보")
 @XmlRootElement(name = "UserVO")
 @XmlType(propOrder = {"userno", "userid", "userpw", "usernm", "photo", "userrole", "userpos", "ip", "deptno", "deptnm", "photofile"})
 @Getter

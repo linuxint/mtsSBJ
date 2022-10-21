@@ -1,6 +1,6 @@
 package com.devkbil.mtssbj.admin.organ;
 
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import com.devkbil.mtssbj.member.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

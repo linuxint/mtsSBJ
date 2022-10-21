@@ -70,7 +70,7 @@
         DELETE FROM PRJ_TASKUSER WHERE TSNO = #{tsno}
     </delete>
     
-    <insert id="insertTaskUser" parameterType="com.devkbil.mtssbj.common.Field3VO" >
+    <insert id="insertTaskUser" parameterType="com.devkbil.mtssbj.common.ExtFieldVO" >
         INSERT INTO PRJ_TASKUSER(TSNO, USERNO)
         VALUES (#{field1}, #{field2})
     </insert>

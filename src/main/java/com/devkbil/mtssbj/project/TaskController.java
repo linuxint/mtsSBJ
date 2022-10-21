@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.project;
 
-import com.devkbil.mtssbj.common.Field3VO;
-import com.devkbil.mtssbj.common.UtilEtc;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,7 +140,7 @@ public class TaskController {
         String prno = request.getParameter("prno");
         String srcno = request.getParameter("srcno");
         
-        taskService.taskCopy(new Field3VO(srcno, prno, null));
+        taskService.taskCopy(new ExtFieldVO(srcno, prno, null));
         
         return "redirect:/task?prno=" + prno;
     }

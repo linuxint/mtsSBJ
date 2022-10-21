@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.mail;
 
-import com.devkbil.mtssbj.common.FileVO;
-import com.devkbil.mtssbj.common.SearchVO;
+import com.devkbil.mtssbj.common.util.FileVO;
+import com.devkbil.mtssbj.search.SearchVO;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

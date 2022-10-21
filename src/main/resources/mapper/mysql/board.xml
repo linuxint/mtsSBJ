@@ -85,7 +85,7 @@
            AND BRDNO=#{brdno}
     </update> 
         
-    <select id="selectBoardOne" parameterType="com.devkbil.mtssbj.common.Field3VO" resultType="com.devkbil.mtssbj.board.BoardVO">
+    <select id="selectBoardOne" parameterType="com.devkbil.mtssbj.common.ExtFieldVO" resultType="com.devkbil.mtssbj.board.BoardVO">
         SELECT BGNO, BRDNO, BRDTITLE, USERNM BRDWRITER, BRDMEMO, BRDNOTICE, BRDLIKE
              , DATE_FORMAT(BRDDATE,'%Y-%m-%d') BRDDATE, TB.USERNO
              , (SELECT COUNT(*) FROM TBL_BOARDREAD WHERE BRDNO=TB.BRDNO) BRDHIT
@@ -103,18 +103,18 @@
            AND BRDNO=#{brdno} AND USERNO=#{userno}
     </select> 
 
-    <update id="updateBoardRead" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <update id="updateBoardRead" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         INSERT INTO TBL_BOARDREAD(BRDNO, USERNO, READDATE)
                  VALUES (#{field1}, #{field2}, NOW())
                      ON DUPLICATE KEY UPDATE READDATE=NOW();
     </update> 
 
-    <insert id="insertBoardLike" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <insert id="insertBoardLike" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         INSERT INTO TBL_BOARDLIKE(BRDNO, USERNO, BLDATE)
               VALUES (#{field1}, #{field2}, NOW())
     </insert> 
 
-    <insert id="updateBoard4Like" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <insert id="updateBoard4Like" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         UPDATE TBL_BOARD
            SET BRDLIKE = BRDLIKE + 1 
          WHERE BRDNO=#{field1}
@@ -129,14 +129,14 @@
     </delete> 
     
     <!-- =============================================================================== -->
-    <select id="selectBoardFileList" resultType="com.devkbil.mtssbj.common.FileVO" parameterType="String">
+    <select id="selectBoardFileList" resultType="com.devkbil.mtssbj.common.util.FileVO" parameterType="String">
         SELECT FILENO, FILENAME, REALNAME, FILESIZE
           FROM TBL_BOARDFILE
          WHERE BRDNO=#{brdno}
          ORDER BY FILENO DESC 
     </select> 
 
-    <insert id="insertBoardFile" parameterType="com.devkbil.mtssbj.common.FileVO" >
+    <insert id="insertBoardFile" parameterType="com.devkbil.mtssbj.common.util.FileVO" >
         INSERT INTO TBL_BOARDFILE (BRDNO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, #{filename}, #{realname}, #{filesize})
     </insert>
@@ -249,7 +249,7 @@
          limit 20
     </select>
     
-    <select id="selectBoardReply4Indexing" resultType="com.devkbil.mtssbj.board.BoardReplyVO" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <select id="selectBoardReply4Indexing" resultType="com.devkbil.mtssbj.board.BoardReplyVO" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         SELECT BRDNO, RENO, USERNM, TBR.USERNO, REMEMO, REDATE 
           FROM TBL_BOARDREPLY TBR
          INNER JOIN COM_USER CU ON CU.USERNO=TBR.USERNO 
@@ -258,7 +258,7 @@
          ORDER BY RENO 
     </select>
             
-    <select id="selectBoardFiles4Indexing" resultType="com.devkbil.mtssbj.common.FileVO" parameterType="com.devkbil.mtssbj.common.Field3VO">
+    <select id="selectBoardFiles4Indexing" resultType="com.devkbil.mtssbj.common.util.FileVO" parameterType="com.devkbil.mtssbj.common.ExtFieldVO">
         SELECT BRDNO parentPK, FILENO, FILENAME, REALNAME, FILESIZE
           FROM TBL_BOARDFILE
          WHERE FILENO &gt; #{field2}  AND BRDNO &lt;= #{field1}

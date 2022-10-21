@@ -1,7 +1,6 @@
 package com.devkbil.mtssbj.search;
 
-import com.devkbil.mtssbj.common.FullTextSearchVO;
-import com.devkbil.mtssbj.common.Util4calen;
+import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.common.config.EsConfig;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.action.search.SearchRequest;
@@ -39,7 +38,7 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(HttpServletRequest request, ModelMap modelMap) {
-        String today = Util4calen.date2Str(Util4calen.getToday());
+        String today = DateUtil.date2Str(DateUtil.getToday());
         
         modelMap.addAttribute("today", today);
         
