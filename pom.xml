@@ -374,7 +374,7 @@
 						<enabled>true</enabled>
 					</releases>
 					<id>central</id>
-					<url>http://repo.maven.apache.org/maven2</url>
+					<url>https://repo1.maven.org/maven2/</url>
 				</repository>
 
 			</repositories>
@@ -385,12 +385,12 @@
 						<enabled>true</enabled>
 					</releases>
 					<id>central</id>
-					<url>http://repo.maven.apache.org/maven2</url>
+					<url>https://repo1.maven.apache.org/maven2</url>
 				</pluginRepository>
 				<pluginRepository>
 					<id>acme corp</id>
 					<name>Acme Internal Corporate Repository</name>
-					<url>http://acmecorp.com/plugins</url>
+					<url>https://acmecorp.com/plugins</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
