@@ -1,29 +1,4 @@
 
--- start DATA CART TABLE
--- DROP TABLE DATA_CART CASCADE CONSTRAINTS;
-CREATE TABLE DATA_CART
-(
-    DATA_CART_ID        INT                        NOT NULL AUTO_INCREMENT COMMENT '데이터 열람 요청 SEQ',
-    USER_ID             VARCHAR(50)                NOT NULL                COMMENT '열람 요청자 ID',
-    CATG_MST_DATA_ID    VARCHAR(100)               NULL                    COMMENT '데이터 ID',
-    CATG_MST_DATA_NM    VARCHAR(1000)              NULL                    COMMENT '데이터 명',
-    CATEGORY_DESC       VARCHAR(1000)              NULL                    COMMENT '카테고리',
-    KEYWORD_NM          VARCHAR(1000)              NULL                    COMMENT '키워드명',
-    CHARG_DEPT_CD       VARCHAR(10)                NULL                    COMMENT '데이터 소유 부서',
-    CAHRG_DEPT_NM       VARCHAR(100)               NULL                    COMMENT '데이터 소유 부서명',
-    DATASTWD_ID         VARCHAR(10)                NULL                    COMMENT '데이터 스튜어드 아이디',
-    DATASWD_NM          VARCHAR(100)               NULL                    COMMENT '데이터 스튜어드명',
-    VIEW_COUNT          VARCHAR2(10)               NULL                    COMMENT '조회수',
-    USE_YN              VARCHAR(1) DEFAULT 'Y'     NULL                    COMMENT '사용여부',
-    REG_DT              DATETIME   DEFAULT SYSDATE NULL                    COMMENT '등록일',
-    CONSTRAINT PK_DATA_CART PRIMARY KEY (DATA_CART_ID,USER_ID)
-) COMMENT = '데이터 열람 요청 카트';
-
--- end DATA CART TABLE
-
-
-
-
 CREATE TABLE PRJ_PROJECT
 (
     PRNO        INT          NOT NULL AUTO_INCREMENT COMMENT '프로젝트 번호',
@@ -76,9 +51,9 @@ CREATE TABLE PRJ_TASKFILE
 
 CREATE TABLE COM_CODE
 (
-    CLASSNO INT(11),     -- 대분류
-    CODECD  VARCHAR(10), -- 코드
-    CODENM  VARCHAR(30), -- 코드명
+    CLASSNO INT(11)     COMMENT '대분류',
+    CODECD  VARCHAR(10) COMMENT '코드',
+    CODENM  VARCHAR(30) COMMENT '코드명',
     PRIMARY KEY (CLASSNO, CODECD)
 );
 
