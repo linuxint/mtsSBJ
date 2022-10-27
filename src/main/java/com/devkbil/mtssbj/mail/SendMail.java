@@ -110,7 +110,7 @@ public class SendMail {
         BufferedReader in;
         String mailBody = "";
         try {
-            in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), StandardCharsets.UTF_8));
+            in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), StandardCharsets.UTF_8.toString()));
             String line = null;
             while ((line = in.readLine()) != null) {
                 mailBody += line;
