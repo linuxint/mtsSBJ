@@ -1,0 +1,59 @@
+server:
+  port: 9090
+
+spring:
+  profiles:
+    default: dev # 기본 환경을 dev로
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/profiledemo?serverTimezone=Asia/Seoul
+#    username: root
+#    password: abcd
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    show-sql: true
+
+---
+server:
+  port: 9090
+
+spring:
+  config:
+    activate:
+      on-profile: local # 환경이름설정
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+
+---
+server:
+  port: 8082
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+
+---
+server:
+  port: 8083
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: none

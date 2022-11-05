@@ -21,17 +21,14 @@
 		<dependency>
 	            <groupId>org.springframework.boot</groupId>
 	            <artifactId>spring-boot-starter-data-jdbc</artifactId>
-			<version>2.7.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
-			<version>2.7.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.7.4</version>
 		</dependency>
 		<!--dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,7 +43,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<version>2.7.4</version>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
@@ -54,7 +50,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-			<version>2.7.4</version>
 		</dependency>
 		<!--dependency>
 			<groupId>org.springframework.data</groupId>
@@ -64,7 +59,7 @@
 		<dependency>
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-client</artifactId>
-			<version>2.7.6</version>
+			<version>2.7.7</version>
 		</dependency>
 
 		<dependency>
@@ -89,7 +84,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<version>2.7.4</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -101,7 +95,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>2.7.4</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -238,14 +231,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
-			<version>2.7.4</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
 		<dependency>
 			<groupId>io.swagger.parser.v3</groupId>
 			<artifactId>swagger-parser</artifactId>
-			<version>2.1.5</version>
+			<version>2.1.7</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
@@ -277,7 +269,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 				<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.11</version>
+			<version>1.6.12</version>
 		</dependency>
 
 		<!-- JUnit4 사용하기 위해서 Vintage Engine 모듈을 제외 -->
@@ -297,7 +289,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>2.7.4</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -338,7 +329,17 @@
             <artifactId>groovy-all</artifactId>
             <version>2.4.16</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+
+	</dependencies>
 
 	<build>
 		<plugins>
