@@ -38,7 +38,7 @@ public class FileDownload {
             filename = downname;
         }
     
-        filename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
+        filename = URLEncoder.encode(filename, StandardCharsets.UTF_8.toString());
         try {
             realPath = path + downname.substring(0, 4) + "/" + downname;
         } catch (Exception e) {
