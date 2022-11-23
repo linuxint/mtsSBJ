@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -14,6 +15,8 @@ import java.util.Locale;
 public class DateTest {
     public static void main(String[] args) {
         
+        String[] a = new String[2];
+        System.out.println(Arrays.toString(a));
         // 현재 날짜/시간
         LocalDateTime now = LocalDateTime.now();
         // 현재 날짜/시간 출력
