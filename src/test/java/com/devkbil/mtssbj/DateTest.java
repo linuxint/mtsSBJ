@@ -1,18 +1,22 @@
 package com.devkbil.mtssbj;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class DateTest {
     public static void main(String[] args) {
-        /*
+        
+        String[] a = new String[2];
+        System.out.println(Arrays.toString(a));
         // 현재 날짜/시간
         LocalDateTime now = LocalDateTime.now();
         // 현재 날짜/시간 출력
@@ -21,6 +25,9 @@ public class DateTest {
         // 포맷팅
         String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
         // 포맷팅 현재 날짜/시간 출력
+        System.out.println(formatedNow); // 2022년 05월 03일 15시 52분 21초
+    
+        formatedNow = now.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS_"));
         System.out.println(formatedNow); // 2022년 05월 03일 15시 52분 21초
     
         // 년, 월(문자열, 숫자), 일(월 기준, 년 기준), 요일(문자열, 숫자), 시, 분, 초 구하기
@@ -45,27 +52,27 @@ public class DateTest {
         System.out.println("분 : " + minute); // 분 : 53
         System.out.println("초 : " + second); // 초 : 35
     
-        */
+        
     
         // 1. LocalDate 생성
         LocalDate date = LocalDate.of(2021, 12, 25);
         System.out.println(date); // 2021-12-25
     
         // 2. DayOfWeek 객체 구하기
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        DayOfWeek dayOfWeek2 = date.getDayOfWeek();
     
         // 3. 텍스트 요일 구하기 (영문)
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US));  // Saturday
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.US));  // S
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US));  // Sat
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.FULL, Locale.US));  // Saturday
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.NARROW, Locale.US));  // S
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.SHORT, Locale.US));  // Sat
     
         // 4. 텍스트 요일 구하기 (한글)
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN));  // 토요일
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREAN));  // 토
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN));  // 토
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.FULL, Locale.KOREAN));  // 토요일
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.NARROW, Locale.KOREAN));  // 토
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.SHORT, Locale.KOREAN));  // 토
     
         // 5. 텍스트 요일 구하기 (default)
-        System.out.println(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()));  // 토요일
+        System.out.println(dayOfWeek2.getDisplayName(TextStyle.FULL, Locale.getDefault()));  // 토요일
     
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
