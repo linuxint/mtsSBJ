@@ -25,7 +25,12 @@ public class IndexController {
     private EtcService etcService;
     @Autowired
     private ProjectService projectService;
-    
+
+    @RequestMapping(value = "/thymeleaf")
+    public String thymeleaf(HttpServletRequest request, SearchVO searchVO, ModelMap modelMap) {
+        return "thymeleaf/thymeleaf";
+    }
+
     /**
      * main page.
      */
