@@ -334,11 +334,12 @@
             <artifactId>commons-compress</artifactId>
             <version>1.21</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.4.21</version>
-        </dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>3.0.13</version>
+			<type>pom</type>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
@@ -396,6 +397,13 @@
 			</repositories>
 
 			<pluginRepositories>
+				<pluginRepository>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<id>groovy</id>
+					<url>https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all</url>
+				</pluginRepository>
 				<pluginRepository>
 					<releases>
 						<enabled>true</enabled>
