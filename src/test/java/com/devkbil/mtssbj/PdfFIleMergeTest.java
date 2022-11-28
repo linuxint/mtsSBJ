@@ -1,38 +1,53 @@
 package com.devkbil.mtssbj;
 
+import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class PdfFIleMergeTest {
     public static void main(String[] args) throws IOException {
 
-        String[] destFiles = { "Demo1.pdf","Demo2.pdf" };
+        Path resourceDirectory = Paths.get("src","test","resources");
+        String absolutePath = resourceDirectory.toFile().getAbsolutePath() + "/";
+        System.out.println(absolutePath);
 
-        File fileIO;
-        int pageCount = 0;
-
+        File file = null;
+        //Create PDFMergerUtility class object
         PDFMergerUtility PDFmerger = new PDFMergerUtility();
-        for(String pdfFile: destFiles) {
-            fileIO = new File(pdfFile);
-            pageCount = PDDocument.load(fileIO).getNumberOfPages();
-            System.out.println(pdfFile + " pageCount : "+ pageCount);
+        //Setting the destination file path
+        PDFmerger.setDestinationFileName(absolutePath + "merged.pdf");
+        PDDocument doc = null;
+        String[] pdfFileList = {"Demo1.pdf","Demo2.pdf"};
 
-            //Instantiating PDFMergerUtility class
-            //adding the source files
-            PDFmerger.addSource(fileIO);
+        try {
+            for(String pdfFile : pdfFileList) {
+
+                file = new File(absolutePath + pdfFile);
+
+                doc = PDDocument.load(file);
+                int pageCount = doc.getNumberOfPages();
+                doc.close();
+
+                System.out.println(pdfFile + " page " + pageCount);
+                //adding the source files
+                PDFmerger.addSource(file);
+            }
+
+        } catch(IOException ex) {
+            ex.printStackTrace();
         }
+        file = null;
 
-        PDFmerger.setDestinationFileName("merged.pdf");
-
-        //Merging the two documents
-        PDFmerger.mergeDocuments();
-        System.out.println("Documents merged");
-
-        int mergeFileCount = PDDocument.load(new File("merged.pdf")).getNumberOfPages();
-        System.out.println("mergeFileCount : " + mergeFileCount);
+        //Merging the documents
+        PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+        PDFmerger = null;
+        System.out.println("PDF Documents merged to a single file successfully");
 
     }
+
 }
