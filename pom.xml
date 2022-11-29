@@ -379,6 +379,20 @@
                     <target>10</target>
                 </configuration>
             </plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>output-resources</directory>
+						</fileset>
+						<fileset>
+							<directory>logs</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
         </plugins>
 	</build>
 
@@ -397,6 +411,13 @@
 			</repositories>
 
 			<pluginRepositories>
+				<pluginRepository>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<id>pdfbox</id>
+					<url>https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox</url>
+				</pluginRepository>
 				<pluginRepository>
 					<releases>
 						<enabled>true</enabled>
