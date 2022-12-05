@@ -61,18 +61,18 @@ groupware9 - 1)전자결제
 - http://localhost:9090/mts/ 로 접속
 - ID/PW: admin/admin, user1/user1, user2/user2 ...
   Oracle PW소스는 변경되지 않아 PW는 아이디로 입력된다.
-- 
+
 ### oracle11g 환경설정 ###
     0. 도커 이미지 다운로드
-      docker pull jaspeen/oracle-xe-11g
+      docker pull linuxint/oracle-xe-11g
     1. 도커 실행
-      docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
+      docker run --name oracle11g -d -p 1521:1521 linuxint/oracle11g
 
 ### elasticsearch 환경설정 ###
     0. 도커 이미지 다운로드
       docker pull elasticsearch:7.17.6
     1. 도커 실행
-      docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -e "discovery.type=single-node" elasticsearch:7.17.6
+      docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -e "discovery.type=single-node" linuxint/elasticsearch
     2. 사용자 비밀번호 설정
       ./docker exec -t elasticsearch /bin/bash
       ./bin/elasticsearch-setup-passwords interactive
@@ -114,8 +114,8 @@ groupware9 - 1)전자결제
       curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
 
 ### james 환경설정 ###
-    1. docker pull apache/james:demo-3.7.0
-    2. docker run -p "465:465" -p "993:993" --name james apache/james:demo-3.7.0
+    1. docker pull apache/james:demo-latest
+    2. docker run -p "465:465" -p "993:993" --name james apache/james:demo-latest
       IMAP port : 993
       SMTP port : 465
       user : user01@james.local

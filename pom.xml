@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.5</version>
+		<version>2.7.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.devkbil</groupId>
@@ -15,24 +15,37 @@
 	<name>mtssbj</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
 	            <groupId>org.springframework.boot</groupId>
 	            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+			<version>2.7.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+			<version>2.7.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.7.6</version>
 		</dependency>
 		<!--dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<scope>test</scope>
 		</dependency-->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -43,13 +56,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
+			<version>2.7.6</version>
+			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>2.7.6</version>
 		</dependency>
 		<!--dependency>
 			<groupId>org.springframework.data</groupId>
@@ -71,7 +86,7 @@
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
-			<version>3.0.6</version>
+			<version>3.0.9</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -84,17 +99,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<version>2.7.6</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>9.0.67</version>
+			<version>9.0.69</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.7.6</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -231,6 +248,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
+			<version>2.7.6</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
@@ -269,7 +287,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 				<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.12</version>
+			<version>1.6.13</version>
 		</dependency>
 
 		<!-- JUnit4 사용하기 위해서 Vintage Engine 모듈을 제외 -->
@@ -289,24 +307,25 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+			<version>2.7.6</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-elasticsearch</artifactId>
-			<version>4.4.5</version>
+			<version>4.4.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>7.17.6</version>
+			<version>7.17.7</version>
 		</dependency>
 
 		<!-- TestContainers -->
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>1.17.4</version>
+			<version>1.17.6</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -322,14 +341,30 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
-            <version>1.21</version>
+            <version>1.22</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.4.16</version>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>3.0.13</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.27</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox-tools</artifactId>
+			<version>2.0.27</version>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>3.1.0.RELEASE</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -353,6 +388,20 @@
                     <target>10</target>
                 </configuration>
             </plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>output-resources</directory>
+						</fileset>
+						<fileset>
+							<directory>logs</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
         </plugins>
 	</build>
 
@@ -371,6 +420,20 @@
 			</repositories>
 
 			<pluginRepositories>
+				<pluginRepository>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<id>pdfbox</id>
+					<url>https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox</url>
+				</pluginRepository>
+				<pluginRepository>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<id>groovy</id>
+					<url>https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all</url>
+				</pluginRepository>
 				<pluginRepository>
 					<releases>
 						<enabled>true</enabled>

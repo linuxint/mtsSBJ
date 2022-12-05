@@ -53,12 +53,6 @@ groupware9 - 1) Electronic payment
     Framework - MyBatis, SpringBoot 2.7
     Build Tool - Maven
 
-### docker image Pull ###
-    1. docker pull jaspeen/oracle-xe-11g
-    2. docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle11g
-    3. docker pull elasticsearch:7.17.6
-    4. docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -e "discovery.type=single-node" elasticsearch:7.17.6
-
 ### installation ###
 - Create a database (mts) in OracleDB (user_database_oracle.sql) and create tables and data by executing tables_oracle.sql and tableData_oracle.sql.
 - Create a database (mts) in MariaDB (user_database_myriadb.sql) and create tables and data by executing tables_myriadb.sql and tableData_myriadb.sql.
@@ -68,17 +62,83 @@ groupware9 - 1) Electronic payment
 - ID/PW: admin/admin, user1/user1, user2/user2 ...
   The Oracle PW source is not changed, so the PW is entered as an ID.
 
+
+### oracle11g configuration ###
+    0. docker image download
+      docker pull linuxint/oracle-xe-11g
+    1. docker run
+      docker run --name oracle11g -d -p 1521:1521 linuxint/oracle11g
+
 ### elasticsearch configuration ###
-    1. docker exec -it elasticsearch /bin/bash
-    2. Install the stemming analyzer nori provided by default in Elasticsearch
-    ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
-    3. Dictionary copy
-    ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
-    docker cp stopwords.txt elasticsearch:/usr/share/elasticsearch/config/
-    docker cp synonym.txt elasticsearch:/usr/share/elasticsearch/config/
-    docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
-    4. Create index
-    curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
+    0. docker image download
+      docker pull elasticsearch:7.17.6
+    1. docker run
+      docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -e "discovery.type=single-node" linuxint/elasticsearch
+    2. user password set
+      ./docker exec -t elasticsearch /bin/bash
+      ./bin/elasticsearch-setup-passwords interactive
+           ~ password : manager
+
+              Initiating the setup of passwords for reserved users elastic,apm_system,kibana,kibana_system,logstash_system,beats_system,remote_monitoring_user.
+              You will be prompted to enter passwords as the process progresses.
+              Please confirm that you would like to continue [y/N]y
+              
+              Enter password for [elastic]:
+              Reenter password for [elastic]:
+              Enter password for [apm_system]:
+              Reenter password for [apm_system]:
+              Enter password for [kibana_system]:
+              Reenter password for [kibana_system]:
+              Enter password for [logstash_system]:
+              Reenter password for [logstash_system]:
+              Enter password for [beats_system]:
+              Reenter password for [beats_system]:
+              Enter password for [remote_monitoring_user]:
+              Reenter password for [remote_monitoring_user]:
+              Changed password for user [apm_system]
+              Changed password for user [kibana_system]
+              Changed password for user [kibana]
+              Changed password for user [logstash_system]
+              Changed password for user [beats_system]
+              Changed password for user [remote_monitoring_user]
+              Changed password for user [elastic]
+
+    3. docker exec -it elasticsearch /bin/bash
+    4. Install nori, a morphological analyzer provided by default in Elasticsearch       ./elasticsearch/bin/elasticsearch-plugin install analysis-nori
+    5. dictionary copy
+      ./elasticsearch/stopwords.txt, synonym.txt, userdict.txt -> elasticsearch/config 
+      docker cp stopwords.txt elasticsearch:/usr/share/elasticsearch/config/
+      docker cp synonyms.txt elasticsearch:/usr/share/elasticsearch/config/
+      docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
+    6. index create
+      curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
+
+### james configuration ###
+    1. docker pull apache/james:demo-latest
+    2. docker run -p "465:465" -p "993:993" --name james apache/james:demo-latest
+      IMAP port : 993
+      SMTP port : 465
+      user : user01@james.local
+      passwd : 1234
+
+### network configuration ###
+    1.
+    0. Create a network
+      > docker network create somenetwork
+    1. Check network information
+      > docker network inspect somenetwork
+    2. Connect the network to the container1
+      > docker network connect somenetwork elasticsearch
+    3. Network Connections to Containers2
+      > docker network connect somenetwork oracle11g
+    4. Check network information
+      > docker network inspect somenetwork
+    5. Check network connection
+      > docker exec oracle11g ping elasticsearch
+      PING elasticsearch (172.19.0.2) 56(84) bytes of data.
+      64 bytes from elasticsearch.somenetwork (172.19.0.2): icmp_seq=1 ttl=64 time=0.091 ms
+      64 bytes from elasticsearch.somenetwork (172.19.0.2): icmp_seq=2 ttl=64 time=0.076 ms
+      64 bytes from elasticsearch.somenetwork (172.19.0.2): icmp_seq=6 ttl=64 time=0.048 ms
 
 ### License ###
 MIT
