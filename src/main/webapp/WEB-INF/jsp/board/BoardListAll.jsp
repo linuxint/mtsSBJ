@@ -102,8 +102,10 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
-                <button id="boardlistBtn" type="button" class="btn btn-default" onclick="showBoardList()"><i class="fa  fa-files-o fa-fw"></i> 전체</button>
-                <div id="boardlistDiv" style="width: 250px; height:300px; display: none;" class="popover fade bottom in" role="tooltip">
+                <button id="boardlistBtn" type="button" class="btn btn-default" onclick="showBoardList()"><i
+                        class="fa  fa-files-o fa-fw"></i> <s:message code="common.all"/></button>
+                <div id="boardlistDiv" style="width: 250px; height:300px; display: none;" class="popover fade bottom in"
+                     role="tooltip">
                     <div style="left:15%;" class="arrow"></div>
                     <div class="popover-content">
                         <div id="tree"></div>
@@ -137,7 +139,9 @@
                 </c:if>
                 <c:forEach var="listview" items="${listview}" varStatus="status">
                     <c:set var="listitem" value="${listview}" scope="request"/>
-                    <c:set var="listitemNo" value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" scope="request"/>
+                    <c:set var="listitemNo"
+                           value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"
+                           scope="request"/>
                     <jsp:include page="BoardListAllSub.jsp">
                         <jsp:param name="listitemNo" value="${listitemNo}"/>
                         <jsp:param name="listitem" value="${listitem}"/>
@@ -150,15 +154,18 @@
                     <div class="form-group">
                         <div class="checkbox col-lg-3 pull-left">
                             <label class="pull-right">
-                                <input type="checkbox" name="searchType" value="brdmemo" <c:if test="${fn:indexOf(searchVO.searchType, 'brdmemo')!=-1}">checked="checked"</c:if>/>
+                                <input type="checkbox" name="searchType" value="brdmemo"
+                                       <c:if test="${fn:indexOf(searchVO.searchType, 'brdmemo')!=-1}">checked="checked"</c:if>/>
                                 <s:message code="board.contents"/>
                             </label>
                             <label class="pull-right">
-                                <input type="checkbox" name="searchType" value="brdtitle" <c:if test="${fn:indexOf(searchVO.searchType, 'brdtitle')!=-1}">checked="checked"</c:if>/>
+                                <input type="checkbox" name="searchType" value="brdtitle"
+                                       <c:if test="${fn:indexOf(searchVO.searchType, 'brdtitle')!=-1}">checked="checked"</c:if>/>
                                 <s:message code="board.title"/>
                             </label>
                             <label class="pull-right">
-                                <input type="checkbox" name="searchType" value="usernm" <c:if test="${fn:indexOf(searchVO.searchType, 'usernm')!=-1}">checked="checked"</c:if>/>
+                                <input type="checkbox" name="searchType" value="usernm"
+                                       <c:if test="${fn:indexOf(searchVO.searchType, 'usernm')!=-1}">checked="checked"</c:if>/>
                                 <s:message code="board.writer"/>
                             </label>
                         </div>

@@ -89,8 +89,13 @@
                 url: "search4Ajax",
                 cache: false,
                 data: {
-                    searchKeyword: searchKeyword, page: page, searchType: searchType, searchRange: searchRange.substr(0, searchRange.length - 1),
-                    searchTerm: $("#searchTerm:checked").val(), searchTerm1: $("#searchTerm1").val(), searchTerm2: $("#searchTerm2").val()
+                    searchKeyword: searchKeyword,
+                    page: page,
+                    searchType: searchType,
+                    searchRange: searchRange.substr(0, searchRange.length - 1),
+                    searchTerm: $("#searchTerm:checked").val(),
+                    searchTerm1: $("#searchTerm1").val(),
+                    searchTerm2: $("#searchTerm2").val()
                 }
             }).done(receiveData);
         }
@@ -197,7 +202,8 @@
         <div class="form-group">
             <div class="col-lg-1 pull-left"></div>
             <div class="input-group custom-search-form col-lg-3">
-                <input class="form-control" placeholder="Search..." type="text" id="searchKeyword" name="searchKeyword" onkeydown="if(event.keyCode == 13) { fn_formSubmit();}">
+                <input class="form-control" placeholder="Search..." type="text" id="searchKeyword" name="searchKeyword"
+                       onkeydown="if(event.keyCode == 13) { fn_formSubmit();}">
                 <span class="input-group-btn">
                               <button class="btn btn-default" onclick="fn_formSubmit()">
                                   <i class="fa fa-search"></i>
@@ -207,18 +213,22 @@
         </div>
         <div class="row">
             <div class="col-lg-1">검색기간</div>
-            <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked>전체</label></div>
+            <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked><s:message
+                    code="common.all"/></label></div>
             <div class="col-lg-2">
-                <input class="form-control" size="16" id="searchTerm1" type="text" value="<c:out value="${today}"/>" readonly>
+                <input class="form-control" size="16" id="searchTerm1" type="text" value="<c:out value="${today}"/>"
+                       readonly>
             </div>
             <div class="col-lg-2">
-                <input class="form-control" size="16" id="searchTerm2" type="text" value="<c:out value="${today}"/>" readonly>
+                <input class="form-control" size="16" id="searchTerm2" type="text" value="<c:out value="${today}"/>"
+                       readonly>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-1">검색범위</div>
             <div class="col-lg-1">
-                <label><input type="checkbox" id="searchRangeAll" value="" checked onchange="ev_checkAllField()">전체</label>
+                <label><input type="checkbox" id="searchRangeAll" value="" checked
+                              onchange="ev_checkAllField()">전체</label>
             </div>
             <div class="col-lg-10">
                 <label><input type="checkbox" id="searchRange" value="brdwriter" checked>등록자</label>
@@ -232,9 +242,13 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="pull-left" onclick="fn_fullTextSearchType('')" style="cursor: pointer;">통합검색 <span id="cnt" style="color:red">0</span></div>
-                    <div class="pull-left" onclick="fn_fullTextSearchType('3')" style="cursor: pointer;margin-left: 30px">일반 게시판 <span id="cnt3" style="color:red">0</span></div>
-                    <div class="pull-left" onclick="fn_fullTextSearchType('2')" style="cursor: pointer;margin-left: 30px">공지사항 <span id="cnt2" style="color:red">0</span></div>
+                    <div class="pull-left" onclick="fn_fullTextSearchType('')" style="cursor: pointer;">통합검색 <span
+                            id="cnt" style="color:red">0</span></div>
+                    <div class="pull-left" onclick="fn_fullTextSearchType('3')"
+                         style="cursor: pointer;margin-left: 30px">일반 게시판 <span id="cnt3" style="color:red">0</span>
+                    </div>
+                    <div class="pull-left" onclick="fn_fullTextSearchType('2')"
+                         style="cursor: pointer;margin-left: 30px">공지사항 <span id="cnt2" style="color:red">0</span></div>
                 </div>
             </div>
         </div>

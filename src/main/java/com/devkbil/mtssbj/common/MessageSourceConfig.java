@@ -1,6 +1,5 @@
 package com.devkbil.mtssbj.common;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -8,9 +7,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Locale;
 
 /**
  * Message Source Configuration
@@ -23,6 +25,22 @@ public class MessageSourceConfig {
     @ConfigurationProperties(prefix = "spring.messages")
     public MessageSourceProperties properties() {
         return new MessageSourceProperties();
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.US);
+        slr.setLocaleAttributeName("current.locale");
+        slr.setTimeZoneAttributeName("current.timezone");
+        return slr;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("language");
+        return localeChangeInterceptor;
     }
 
     @Bean
