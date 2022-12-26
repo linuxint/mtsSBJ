@@ -212,7 +212,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-1">검색기간</div>
+            <div class="col-lg-1"><s:message code="search.scope"/></div>
             <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked><s:message
                     code="common.all"/></label></div>
             <div class="col-lg-2">
@@ -225,24 +225,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-1">검색범위</div>
+            <div class="col-lg-1"><s:message code="search.period"/></div>
             <div class="col-lg-1">
                 <label><input type="checkbox" id="searchRangeAll" value="" checked
                               onchange="ev_checkAllField()">전체</label>
             </div>
             <div class="col-lg-10">
-                <label><input type="checkbox" id="searchRange" value="brdwriter" checked>등록자</label>
-                <label><input type="checkbox" id="searchRange" value="brdtitle" checked>제목</label>
-                <label><input type="checkbox" id="searchRange" value="brdmemo" checked>내용</label>
-                <label><input type="checkbox" id="searchRange" value="brdreply" checked>댓글</label>
-                <label><input type="checkbox" id="searchRange" value="brdfiles" checked>첨부파일</label>
+                <label><input type="checkbox" id="searchRange" value="brdwriter" checked><s:message
+                        code="board.writer"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdtitle" checked><s:message
+                        code="board.title"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdmemo" checked><s:message
+                        code="board.contents"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdreply" checked><s:message
+                        code="common.btnReply"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdfiles" checked><s:message
+                        code="board.attach"/></label>
             </div>
         </div>
 
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="pull-left" onclick="fn_fullTextSearchType('')" style="cursor: pointer;">통합검색 <span
+                    <div class="pull-left" onclick="fn_fullTextSearchType('')" style="cursor: pointer;"><s:message
+                            code="search.total"/> <span
                             id="cnt" style="color:red">0</span></div>
                     <div class="pull-left" onclick="fn_fullTextSearchType('3')"
                          style="cursor: pointer;margin-left: 30px">일반 게시판 <span id="cnt3" style="color:red">0</span>

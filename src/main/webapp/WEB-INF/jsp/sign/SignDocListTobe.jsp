@@ -49,17 +49,23 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-edit fa-fw"></i> 결제 받을(은) 문서</h1>
+                    <h1 class="page-header"><i class="fa fa-edit fa-fw"></i> <s:message
+                            code="electronic.approved"></s:message></h1>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <label><input name="searchExt1" id="searchExt1" type="radio" value="" onclick="fn_formSubmit()" <c:if test='${searchVO.searchExt1==""}'>checked</c:if>> 전체</label>
-                    <label><input name="searchExt1" id="searchExt1" type="radio" value="0" onclick="fn_formSubmit()" <c:if test='${searchVO.searchExt1=="0"}'>checked</c:if>> 임시저장</label>
-                    <label><input name="searchExt1" id="searchExt1" type="radio" value="2" onclick="fn_formSubmit()" <c:if test='${searchVO.searchExt1=="2"}'>checked</c:if>> 진행중</label>
-                    <label><input name="searchExt1" id="searchExt1" type="radio" value="4" onclick="fn_formSubmit()" <c:if test='${searchVO.searchExt1=="4"}'>checked</c:if>> 완료</label>
-                    <label><input name="searchExt1" id="searchExt1" type="radio" value="3" onclick="fn_formSubmit()" <c:if test='${searchVO.searchExt1=="3"}'>checked</c:if>> 반려</label>
+                    <label><input name="searchExt1" id="searchExt1" type="radio" value="" onclick="fn_formSubmit()"
+                                  <c:if test='${searchVO.searchExt1==""}'>checked</c:if>> 전체</label>
+                    <label><input name="searchExt1" id="searchExt1" type="radio" value="0" onclick="fn_formSubmit()"
+                                  <c:if test='${searchVO.searchExt1=="0"}'>checked</c:if>> 임시저장</label>
+                    <label><input name="searchExt1" id="searchExt1" type="radio" value="2" onclick="fn_formSubmit()"
+                                  <c:if test='${searchVO.searchExt1=="2"}'>checked</c:if>> 진행중</label>
+                    <label><input name="searchExt1" id="searchExt1" type="radio" value="4" onclick="fn_formSubmit()"
+                                  <c:if test='${searchVO.searchExt1=="4"}'>checked</c:if>> 완료</label>
+                    <label><input name="searchExt1" id="searchExt1" type="radio" value="3" onclick="fn_formSubmit()"
+                                  <c:if test='${searchVO.searchExt1=="3"}'>checked</c:if>> 반려</label>
                 </div>
             </div>
 
@@ -86,11 +92,16 @@
                         </c:url>
 
                         <div class="listBody">
-                            <div class="listHiddenField pull-left field60 textCenter"><c:out value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"/></div>
-                            <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.dttitle}"/></div>
-                            <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.updatedate}"/></div>
-                            <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.usernm}"/></div>
-                            <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.docstatus}"/></div>
+                            <div class="listHiddenField pull-left field60 textCenter"><c:out
+                                    value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"/></div>
+                            <div class="listHiddenField pull-right field100 textCenter"><c:out
+                                    value="${listview.dttitle}"/></div>
+                            <div class="listHiddenField pull-right field100 textCenter"><c:out
+                                    value="${listview.updatedate}"/></div>
+                            <div class="listHiddenField pull-right field100 textCenter"><c:out
+                                    value="${listview.usernm}"/></div>
+                            <div class="listHiddenField pull-right field100 textCenter"><c:out
+                                    value="${listview.docstatus}"/></div>
                             <div class="listTitle" title="<c:out value="${listview.doctitle}"/>">
                                 <a href="${link}"><c:out value="${listview.doctitle}"/></a>
                             </div>
@@ -103,11 +114,13 @@
                     <div class="form-group">
                         <div class="checkbox col-lg-3 pull-left">
                             <label class="pull-right">
-                                <input type="checkbox" name="searchType" value="doctitle" <c:if test="${fn:indexOf(searchVO.searchType, 'doctitle')!=-1}">checked="checked"</c:if>/>
+                                <input type="checkbox" name="searchType" value="doctitle"
+                                       <c:if test="${fn:indexOf(searchVO.searchType, 'doctitle')!=-1}">checked="checked"</c:if>/>
                                 제목
                             </label>
                             <label class="pull-right">
-                                <input type="checkbox" name="searchType" value="doccontents" <c:if test="${fn:indexOf(searchVO.searchType, 'doccontents')!=-1}">checked="checked"</c:if>/>
+                                <input type="checkbox" name="searchType" value="doccontents"
+                                       <c:if test="${fn:indexOf(searchVO.searchType, 'doccontents')!=-1}">checked="checked"</c:if>/>
                                 내용
                             </label>
                         </div>
