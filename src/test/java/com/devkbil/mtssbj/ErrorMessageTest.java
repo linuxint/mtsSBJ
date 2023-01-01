@@ -1,6 +1,5 @@
 package com.devkbil.mtssbj;
 
-import com.devkbil.mtssbj.mail.SendMail;
 import org.springframework.validation.DefaultMessageCodesResolver;
 
 public class ErrorMessageTest {
