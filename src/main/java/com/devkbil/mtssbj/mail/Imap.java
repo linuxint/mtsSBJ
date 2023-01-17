@@ -1,12 +1,10 @@
 package com.devkbil.mtssbj.mail;
 
-import com.devkbil.mtssbj.common.util.FileVO;
-import com.devkbil.mtssbj.common.LocaleMessage;
 import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.common.util.FileUtil;
+import com.devkbil.mtssbj.common.util.FileVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.mail.*;
 import javax.mail.internet.MimeUtility;
@@ -27,21 +25,19 @@ public class Imap {
     private final String protocol = "imap";
     private final String mbox = "INBOX";
     private final boolean debug = true;
-    @Autowired
-    LocaleMessage localeMessage;
     private String filePath;
-    
+
     private Store store;
     private Folder folder;
     private Message[] msgs;
-    
+
     public static void main(String[] args) throws Exception {
         Imap a = new Imap();
         a.connect("", "", "");
         a.patchMessage(null);
-        
+
         int cnt = 0;
-        
+
         while (cnt < a.msgs.length) {
             ArrayList<MailVO> msgList = a.getMail(0);
             cnt += msgList.size();
@@ -50,7 +46,7 @@ public class Imap {
         }
         a.disconnect();
     }
-    
+
     public void connect(String host, final String user, final String password) {
         Properties props = System.getProperties();
         props.put("mail.store.protocol", "imap");
@@ -58,7 +54,7 @@ public class Imap {
         props.put("mail.imap.socketFactory.port", "993");
         props.put("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         //props.put("mail.debug", debug);
-        
+
         // Get a Session object
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
@@ -67,7 +63,7 @@ public class Imap {
             }
         });
         session.setDebug(debug);
-        
+
         // Get a Store object
         try {
             store = session.getStore(protocol);
@@ -75,35 +71,35 @@ public class Imap {
         } catch (MessagingException e) {
         }
     }
-    
+
     public void disconnect() {
         try {
-            if(folder != null) folder.close(false);
+            if (folder != null) folder.close(false);
             store.close();
         } catch (MessagingException e) {
         }
     }
-    
+
     public Integer patchMessage(String lastdate) {
         filePath = System.getProperty("user.dir") + "/fileupload/"; //localeMessage.getMessage("info.filePath");
-        
+
         try {
             folder = store.getDefaultFolder();
-            if(folder == null) {
+            if (folder == null) {
                 System.out.println("Cant find default namespace");
                 return 0;
             }
-            
+
             folder = folder.getFolder(mbox);
-            if(folder == null) {
+            if (folder == null) {
                 System.out.println("Invalid folder");
                 return 0;
             }
-            
+
             folder.open(Folder.READ_ONLY);
             SearchTerm dateTerm = null;
-            
-            if(lastdate != null) {
+
+            if (lastdate != null) {
                 Calendar c = Calendar.getInstance();
                 c.set(Calendar.HOUR, 0);
                 c.set(Calendar.MINUTE, 0);
@@ -112,14 +108,14 @@ public class Imap {
                 c.set(Calendar.AM_PM, Calendar.AM);
                 c.add(Calendar.DATE, 1);    // next day
                 ReceivedDateTerm endDateTerm = new ReceivedDateTerm(ComparisonTerm.LT, c.getTime());
-                
+
                 c.setTime(DateUtil.str2Date(lastdate));
                 ReceivedDateTerm startDateTerm = new ReceivedDateTerm(ComparisonTerm.GE, c.getTime());
-                
+
                 dateTerm = new AndTerm(startDateTerm, endDateTerm);
             }
-            
-            if(dateTerm == null)
+
+            if (dateTerm == null)
                 msgs = folder.getMessages();
             else {
                 msgs = folder.search(dateTerm);
@@ -131,68 +127,68 @@ public class Imap {
         }
         return msgs.length;
     }
-    
+
     public ArrayList<MailVO> getMail(Integer sIndex) {
         ArrayList<MailVO> msgList = new ArrayList<MailVO>();
-        
+
         try {
             for (int i = sIndex; i < msgs.length; i++) {
                 MailVO mailInfo = new MailVO();
                 dumpPart(msgs[i], mailInfo);
                 msgList.add(mailInfo);
-                if(msgList.size() == 100) break; // commit by 100
+                if (msgList.size() == 100) break; // commit by 100
             }
         } catch (Exception e) {
         }
         return msgList;
     }
-    
+
     public void dumpPart(Part p, MailVO mailInfo) throws Exception {
-        if(p instanceof Message) {
+        if (p instanceof Message) {
             Message message = (Message) p;
             Address[] address;
             // FROM
-            if((address = message.getFrom()) != null) {
+            if ((address = message.getFrom()) != null) {
                 mailInfo.setEmfrom(address[0].toString());
             }
-            
+
             // TO
-            if((address = message.getRecipients(Message.RecipientType.TO)) != null) {
+            if ((address = message.getRecipients(Message.RecipientType.TO)) != null) {
                 for (int j = 0; j < address.length; j++)
                     mailInfo.getEmto().add(MimeUtility.decodeText(address[j].toString()));
             }
-            
+
             Address[] recipients = message.getRecipients(Message.RecipientType.CC);
-            if(recipients != null) {
+            if (recipients != null) {
                 for (Address recipient : recipients)
                     mailInfo.getEmcc().add(MimeUtility.decodeText(recipient.toString()));
             }
-            
+
             mailInfo.setEmsubject(message.getSubject());
             mailInfo.setEntrydate(DateUtil.date2Str(message.getSentDate()));
         }
-        
+
         Object o = p.getContent();
-        if(o instanceof String) {
+        if (o instanceof String) {
             mailInfo.setEmcontents((String) o);
-        } else if(o instanceof Multipart) {
+        } else if (o instanceof Multipart) {
             Multipart mp = (Multipart) o;
             int count = mp.getCount();
             for (int i = 0; i < count; i++) {
                 dumpPart(mp.getBodyPart(i), mailInfo);
             }
-        } else if(o instanceof InputStream) {
+        } else if (o instanceof InputStream) {
             String filename = p.getFileName();
-            if(filename == null) return;
-            
+            if (filename == null) return;
+
             String newName = FileUtil.getNewName();
-            
+
             File file = new File(filePath + newName);
             OutputStream out = new FileOutputStream(file);
             InputStream is = (InputStream) o;
             int c;
             while ((c = is.read()) != -1) out.write(c);
-            
+
             FileVO filedo = new FileVO();
             filedo.setFilename(MimeUtility.decodeText(filename));
             filedo.setRealname(newName);
