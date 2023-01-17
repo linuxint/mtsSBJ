@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "프로젝트 : ProjectVO", description = "프로젝트정보")
 @XmlRootElement(name = "ProjectVO")
-@XmlType(propOrder = {"prno", "prstartdat", "prenddate", "prtitle", "prdate", "userno", "usernm", "prstatus", "deleteflag"})
+@XmlType(propOrder = {"prno", "prstartdate", "prenddate", "prtitle", "prdate", "userno", "usernm", "prstatus", "deleteflag"})
 @Getter
 @Setter
 public class ProjectVO {
-    
+
     @ApiModelProperty(value = "프로젝트 번호")
     private String prno;        //프로젝트 번호
     @ApiModelProperty(value = "시작일자")
@@ -33,5 +33,5 @@ public class ProjectVO {
     private String prstatus;    //상태
     @ApiModelProperty(value = "삭제")
     private String deleteflag;    //삭제
-    
+
 }
