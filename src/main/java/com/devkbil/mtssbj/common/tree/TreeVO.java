@@ -11,11 +11,11 @@ import java.util.List;
 
 @ApiModel(value = "트리구조 : TreeVO", description = "TreeVO")
 @XmlRootElement(name = "TreeVO")
-@XmlType(propOrder = {"key", "title", "parent", "isFolder", "children"})
+@XmlType(propOrder = {"key", "title", "parent", "isfolder", "children"})
 @Getter
 @Setter
 public class TreeVO {
-    
+
     @ApiModelProperty(value = "트리노드키")
     private String key;
     @ApiModelProperty(value = "트리노드명")
@@ -26,5 +26,5 @@ public class TreeVO {
     private boolean isfolder;
     @ApiModelProperty(value = "하위 노트 목록")
     private List children;
-    
+
 }
