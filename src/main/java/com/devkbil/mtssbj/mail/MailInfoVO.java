@@ -1,20 +1,21 @@
 package com.devkbil.mtssbj.mail;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 @ApiModel(value = "메일정보 : MailInfoVO", description = "메일정보")
 @XmlRootElement(name = "MailInfoVO")
-@XmlType(propOrder = {"emino", "emiimap", "emiimapport", "emismtp", "emismtpport", "emiuser", "emipw", "userno", "usernm"})
+@XmlType(propOrder = {"emino", "emiimap", "emiimapport", "emismtp", "emismtpport", "emiuser", "emipw", "userno",
+        "usernm"})
 @Getter
 @Setter
 public class MailInfoVO {
-    
+
     @ApiModelProperty(value = "메일정보번호")
     private String emino; // 메일정보번호
     @ApiModelProperty(value = "IMAP서버주소")
@@ -33,5 +34,5 @@ public class MailInfoVO {
     private String userno; // 사용자번호
     @ApiModelProperty(value = "사용자명")
     private String usernm; // 사용자명
-    
+
 }

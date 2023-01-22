@@ -1,12 +1,12 @@
 package com.devkbil.mtssbj.crud;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "CRUD : CrudVO", description = "CrudVO")
 @XmlRootElement(name = "CrudVO")
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @Getter
 @Setter
 public class CrudVO {
-    
+
     @ApiModelProperty(value = "번호")
     private String crno;        // 번호
     @ApiModelProperty(value = "제목")
@@ -27,5 +27,5 @@ public class CrudVO {
     private String crdate;        // 작성일자
     @ApiModelProperty(value = "작성자 이름")
     private String usernm;        // 작성자 이름
-    
+
 }

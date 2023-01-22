@@ -1,20 +1,22 @@
 package com.devkbil.mtssbj.schedule;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 @ApiModel(value = "일정 : SchVO", description = "SchVO")
 @XmlRootElement(name = "SchVO")
-@XmlType(propOrder = {"ssno", "sstitle", "sstype", "ssstartdate", "ssstarthour", "ssstartminute", "ssenddate", "ssendhour", "ssendminute", "ssrepeattype", "ssrepeattypenm", "ssrepeatoption", "ssrepeatend", "sscontents", "ssisopen", "userno", "usernm"})
+@XmlType(propOrder = {"ssno", "sstitle", "sstype", "ssstartdate", "ssstarthour", "ssstartminute", "ssenddate",
+        "ssendhour", "ssendminute", "ssrepeattype", "ssrepeattypenm", "ssrepeatoption", "ssrepeatend", "sscontents",
+        "ssisopen", "userno", "usernm"})
 @Getter
 @Setter
 public class SchVO {
-    
+
     @ApiModelProperty(value = "일정번호")
     private String ssno;    //일정번호
     @ApiModelProperty(value = "일정명")
@@ -49,5 +51,5 @@ public class SchVO {
     private String userno; //사용자번호
     @ApiModelProperty(value = "사용자명")
     private String usernm; //사용자명
-    
+
 }

@@ -1,26 +1,29 @@
 package com.devkbil.mtssbj.common.interceptor;
 
-import com.devkbil.mtssbj.common.log.MDCFilter;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import com.devkbil.mtssbj.common.log.MDCFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
-    
-    public List loginEssential = Arrays.asList("/**");
-    
+
+    public List loginEssential = List.of("/**");
+
     public List loginInessential = Arrays.asList("/memberLogin", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
 
     @Bean
@@ -46,23 +49,23 @@ public class LoginInterceptor implements HandlerInterceptor {
          session.setAttribute("userno",   "1");
          session.setAttribute("usernm", "관리자");
          */
-        
+
         try {
-            if(session == null || session.getAttribute("userno") == null) {
+            if (session == null || session.getAttribute("userno") == null) {
                 res.sendRedirect("memberLogin");
                 return false;
             }
         } catch (IOException ex) {
             log.error("LoginInterceptor");
         }
-        
+
         return true;
     }
-    
+
     public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView mv) {
     }
-    
+
     public void afterCompletion(HttpServletRequest req, HttpServletResponse res, Object handler, Exception ex) {
     }
-    
+
 }

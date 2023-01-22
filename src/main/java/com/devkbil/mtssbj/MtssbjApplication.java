@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@RestController
 //@MapperScan(basePackages = "com.devkbil.*")
 public class MtssbjApplication {
-    
+
     public static void main(String[] args) {
         //SpringApplication.run(MtssbjApplication.class, args);
         SpringApplication application = new SpringApplication(MtssbjApplication.class);
         //application.setBannerMode(Banner.Mode.OFF); -- banner mode off
-        
+
         // custom banner of java
         /*
         application.setBanner(new Banner() {
@@ -34,5 +34,5 @@ public class MtssbjApplication {
         */
         application.run(args);
     }
-    
+
 }

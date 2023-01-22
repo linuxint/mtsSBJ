@@ -1,8 +1,5 @@
 package com.devkbil.mtssbj.common.config;
 
-import com.devkbil.mtssbj.common.interceptor.AdminInterceptor;
-import com.devkbil.mtssbj.common.interceptor.CommonInterceptor;
-import com.devkbil.mtssbj.common.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -16,17 +13,21 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.devkbil.mtssbj.common.interceptor.AdminInterceptor;
+import com.devkbil.mtssbj.common.interceptor.CommonInterceptor;
+import com.devkbil.mtssbj.common.interceptor.LoginInterceptor;
+
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    
+
     private static final String REQUEST_URL = "/index";
     private static final String REDIRECT_URL = "/memberLogin";
     private static final String ERROR_URL = "/error/**";
     private static final String ERROR_PAGE_CLASSPATH = "classpath:templates/error/";
-    
+
     @Value("${server.indexPage}")
     private static final String indexPage = "index.jsp";
-    
+
     /**
      * Interceptor 정의 - admin,login
      *
@@ -38,15 +39,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns(adminInterceptor.adminEssential);
         //.excludePathPatterns(adminInterceptor.adminInessential);
-        
+
         LoginInterceptor loginIntercepter = new LoginInterceptor();
         registry.addInterceptor(loginIntercepter)
                 .addPathPatterns(loginIntercepter.loginEssential)
                 .excludePathPatterns(loginIntercepter.loginInessential);
-    
+
         CommonInterceptor commonInterceptor = new CommonInterceptor();
         registry.addInterceptor(commonInterceptor);
-        
+
     }
     
     /*
@@ -58,7 +59,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:18080");  //CORS를 허용할 origin을 지정합니다.
     }
      */
-    
+
     /**
      * resourceHandlers정의 (/js, /css)
      *
@@ -75,11 +76,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler(ERROR_URL)
                 .addResourceLocations(ERROR_PAGE_CLASSPATH);
     }
-    
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController(REQUEST_URL, REDIRECT_URL);
-        if(!"".equals(indexPage)) {
+        if (!"".equals(indexPage)) {
             registry.addViewController("/").setViewName("forward:/" + indexPage);
         }
     }

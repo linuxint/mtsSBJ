@@ -1,12 +1,12 @@
 package com.devkbil.mtssbj.schedule;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "일정 : SchDetailVO", description = "일정정보")
 @XmlRootElement(name = "SchDetailVO")
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @Getter
 @Setter
 public class SchDetailVO {
-    
+
     @ApiModelProperty(value = "일정번호")
     private String ssno;        //일정번호
     @ApiModelProperty(value = "날짜")
@@ -31,5 +31,5 @@ public class SchDetailVO {
     private String fontcolor; // 글자색
     @ApiModelProperty(value = "순번")
     private Integer sdseq;         //순번
-    
+
 }

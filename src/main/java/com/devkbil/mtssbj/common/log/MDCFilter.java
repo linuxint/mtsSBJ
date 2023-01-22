@@ -1,16 +1,18 @@
 package com.devkbil.mtssbj.common.log;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
-import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.UUID;
+
+import org.slf4j.MDC;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MDCFilter extends OncePerRequestFilter {
@@ -27,10 +29,10 @@ public class MDCFilter extends OncePerRequestFilter {
         try {
 
             String user = getUserPrincipal(request);
-            System.out.println("MdcFilter save user="+user);
+            System.out.println("MdcFilter save user=" + user);
             MDC.put("userName", user);
 
-            final String trxId = UUID.randomUUID().toString().substring(0,8);
+            final String trxId = UUID.randomUUID().toString().substring(0, 8);
             MDC.put(MDCKey.TRX_ID.getKey(), trxId);
 
             filterChain.doFilter(request, response);
@@ -44,18 +46,17 @@ public class MDCFilter extends OncePerRequestFilter {
         // TODO Auto-generated method stub
     }
 
-
     private String getUserPrincipal(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String userid = "";
         String usernm = "";
-       try {
-           userid = session.getAttribute("userid").toString();
-           usernm = session.getAttribute("usernm").toString();
-           userid  = userid+"@"+usernm;
-       } catch (NullPointerException e) {
-           userid = "";
-       }
+        try {
+            userid = session.getAttribute("userid").toString();
+            usernm = session.getAttribute("usernm").toString();
+            userid = userid + "@" + usernm;
+        } catch (NullPointerException e) {
+            userid = "";
+        }
         return userid;
         
     /*

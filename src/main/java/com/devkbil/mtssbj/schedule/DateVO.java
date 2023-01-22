@@ -1,13 +1,14 @@
 package com.devkbil.mtssbj.schedule;
 
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import java.util.List;
 
 @ApiModel(value = "달력 : DateVO", description = "달력")
 @XmlRootElement(name = "DateVO")
@@ -29,5 +30,5 @@ public class DateVO {
     private boolean istoday = false;
     @ApiModelProperty(value = "날짜목록")
     private List<?> list;
-    
+
 }

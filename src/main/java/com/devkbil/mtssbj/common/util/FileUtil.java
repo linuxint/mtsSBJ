@@ -1,17 +1,24 @@
 package com.devkbil.mtssbj.common.util;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FileUtil {
@@ -67,103 +74,13 @@ public class FileUtil {
      */
     public static String getNewName() {
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-        return ft.format(new Date()) + (int) (Math.random() * 10);
+        return ft.format(new Date()) + (int)(Math.random() * 10);
     }
 
     public static String getFileExtension(String filename) {
         Integer mid = filename.lastIndexOf(".");
         return filename.substring(mid + 1);
     }
-
-    /**
-     * 파일 업로드.
-     */
-    public FileVO saveFile(MultipartFile uploadfile) {
-        if (uploadfile == null || uploadfile.getSize() == 0) {
-            return null;
-        }
-
-        String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
-        String newName = getNewName();
-        filePath = getRealPath(filePath, newName);
-
-        saveFileOne(uploadfile, filePath, newName);
-
-        FileVO filedo = new FileVO();
-        filedo.setFilename(uploadfile.getOriginalFilename());
-        filedo.setRealname(newName);
-        filedo.setFilesize(uploadfile.getSize());
-
-        return filedo;
-    }
-
-    /**
-     * 멀티 파일 업로드.
-     */
-    public List<FileVO> saveAllFiles(List<MultipartFile> upfiles) {
-        List<FileVO> filelist = new ArrayList<FileVO>();
-        String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
-
-        for (MultipartFile uploadfile : upfiles) {
-            if (uploadfile.getSize() == 0) {
-                continue;
-            }
-
-            String newName = getNewName();
-
-            saveFileOne(uploadfile, getRealPath(filePath, newName), newName);
-
-            FileVO filedo = new FileVO();
-            filedo.setFilename(uploadfile.getOriginalFilename());
-            filedo.setRealname(newName);
-            filedo.setFilesize(uploadfile.getSize());
-            filelist.add(filedo);
-        }
-        return filelist;
-    }
-
-    /**
-     * 이미지 파일 업로드 및 resize.
-     */
-    public FileVO saveImage(MultipartFile file) {
-        if (file == null || file.getName().equals("") || file.getSize() < 1) {
-            return null;
-        }
-
-        String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
-        String newName = getNewName();
-        String basePath = getRealPath(filePath, newName);
-        String serverFullPath = basePath + newName;
-        String ext = getFileExtension(file.getOriginalFilename());
-        makeBasePath(basePath);
-
-        File file1 = new File(serverFullPath);
-        try {
-            file.transferTo(file1);
-            BufferedImage srcImage = ImageIO.read(file1);
-            int type = srcImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : srcImage.getType();
-            if (srcImage.getWidth() > IMG_WIDTH && srcImage.getHeight() > IMG_HEIGHT) {
-                BufferedImage resizeImageJpg = resizeImage(srcImage, type);
-                ImageIO.write(resizeImageJpg, ext, new File(serverFullPath + "1"));
-                newName += "1";
-                file1.delete();
-            }
-        } catch (IOException ex) {
-            log.error("IOException:saveImage");
-        }
-
-        FileVO filedo = new FileVO();
-        filedo.setFilename(file.getOriginalFilename());
-        filedo.setRealname(newName);
-        filedo.setFilesize(file.getSize());
-
-        return filedo;
-    }
-
-    public String getRealPath(String path, String filename) {
-        return path + filename.substring(0, 4) + "/";
-    }
-
 
     /**
      * 파일존재여부 체크
@@ -178,11 +95,7 @@ public class FileUtil {
         try {
             temp = new File(srcFilePath);
 
-            if (temp.isFile()) {
-                retValue = true;
-            } else {
-                retValue = false;
-            }
+            retValue = temp.isFile();
         } catch (Exception e) {
             retValue = false;
         }
@@ -201,7 +114,8 @@ public class FileUtil {
 
         int nRtn;
 
-        if (srcFilePath == null || "".equals(srcFilePath)) return nFAILER;
+        if (srcFilePath == null || "".equals(srcFilePath))
+            return nFAILER;
 
         //  파일명변경: ".bak" 추가
         File srcFile = new File(srcFilePath);
@@ -214,8 +128,6 @@ public class FileUtil {
         }
 
     }
-
-    /** //////////////////////////////////// FILE COPY ///////////////////////////////////////////////////// **/
 
     /**
      * 파일이동
@@ -233,20 +145,18 @@ public class FileUtil {
         File srcFile = new File(source);
         File destFile = new File(target);
         try {
-            if (srcFile.renameTo(destFile)) {
-                retValue = true;
-            } else {
-                retValue = false;
-            }
+            retValue = srcFile.renameTo(destFile);
         } catch (Exception e) {
             retValue = false;
         } finally {
             try {
-                if (srcFile != null) srcFile = null;
+                if (srcFile != null)
+                    srcFile = null;
             } catch (Exception e) {
             }
             try {
-                if (destFile != null) destFile = null;
+                if (destFile != null)
+                    destFile = null;
             } catch (Exception e) {
             }
         }
@@ -373,12 +283,103 @@ public class FileUtil {
         return retValue;
     }
 
+    /** //////////////////////////////////// FILE COPY ///////////////////////////////////////////////////// **/
+
+    /**
+     * 파일 업로드.
+     */
+    public FileVO saveFile(MultipartFile uploadfile) {
+        if (uploadfile == null || uploadfile.getSize() == 0) {
+            return null;
+        }
+
+        String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
+        String newName = getNewName();
+        filePath = getRealPath(filePath, newName);
+
+        saveFileOne(uploadfile, filePath, newName);
+
+        FileVO filedo = new FileVO();
+        filedo.setFilename(uploadfile.getOriginalFilename());
+        filedo.setRealname(newName);
+        filedo.setFilesize(uploadfile.getSize());
+
+        return filedo;
+    }
+
+    /**
+     * 멀티 파일 업로드.
+     */
+    public List<FileVO> saveAllFiles(List<MultipartFile> upfiles) {
+        List<FileVO> filelist = new ArrayList<FileVO>();
+        String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
+
+        for (MultipartFile uploadfile : upfiles) {
+            if (uploadfile.getSize() == 0) {
+                continue;
+            }
+
+            String newName = getNewName();
+
+            saveFileOne(uploadfile, getRealPath(filePath, newName), newName);
+
+            FileVO filedo = new FileVO();
+            filedo.setFilename(uploadfile.getOriginalFilename());
+            filedo.setRealname(newName);
+            filedo.setFilesize(uploadfile.getSize());
+            filelist.add(filedo);
+        }
+        return filelist;
+    }
+
+    /**
+     * 이미지 파일 업로드 및 resize.
+     */
+    public FileVO saveImage(MultipartFile file) {
+        if (file == null || file.getName().equals("") || file.getSize() < 1) {
+            return null;
+        }
+
+        String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
+        String newName = getNewName();
+        String basePath = getRealPath(filePath, newName);
+        String serverFullPath = basePath + newName;
+        String ext = getFileExtension(file.getOriginalFilename());
+        makeBasePath(basePath);
+
+        File file1 = new File(serverFullPath);
+        try {
+            file.transferTo(file1);
+            BufferedImage srcImage = ImageIO.read(file1);
+            int type = srcImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : srcImage.getType();
+            if (srcImage.getWidth() > IMG_WIDTH && srcImage.getHeight() > IMG_HEIGHT) {
+                BufferedImage resizeImageJpg = resizeImage(srcImage, type);
+                ImageIO.write(resizeImageJpg, ext, new File(serverFullPath + "1"));
+                newName += "1";
+                file1.delete();
+            }
+        } catch (IOException ex) {
+            log.error("IOException:saveImage");
+        }
+
+        FileVO filedo = new FileVO();
+        filedo.setFilename(file.getOriginalFilename());
+        filedo.setRealname(newName);
+        filedo.setFilesize(file.getSize());
+
+        return filedo;
+    }
+
+    public String getRealPath(String path, String filename) {
+        return path + filename.substring(0, 4) + "/";
+    }
+
     public int getBufferSize() {
         return bufferSize;
     }
 
     public void setBufferSize(int bufferSize) {
-        this.bufferSize = bufferSize;
+        FileUtil.bufferSize = bufferSize;
     }
 
     /**

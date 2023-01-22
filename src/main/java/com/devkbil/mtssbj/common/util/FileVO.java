@@ -1,12 +1,12 @@
 package com.devkbil.mtssbj.common.util;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "첨부파일 : FileVO", description = "첨부파일")
 @XmlRootElement(name = "첨부파일")
@@ -24,25 +24,25 @@ public class FileVO {
     private String realname;
     @ApiModelProperty(value = "파일사이즈")
     private long filesize;
-    
+
     @ApiModelProperty(value = "파일fullpath")
     private String uri;
     @ApiModelProperty(value = "파일경로")
     private String filepath;
     @ApiModelProperty(value = "파일드라이브")
     private String fileroot;
-    
+
     /**
      * 파일 크기를 정형화하기.
      */
     public String size2String() {
         Integer unit = 1024;
-        if(filesize < unit) {
+        if (filesize < unit) {
             return String.format("(%d B)", filesize);
         }
-        int exp = (int) (Math.log(filesize) / Math.log(unit));
-        
+        int exp = (int)(Math.log(filesize) / Math.log(unit));
+
         return String.format("(%.0f %s)", filesize / Math.pow(unit, exp), "KMGTPE".charAt(exp - 1));
     }
-    
+
 }

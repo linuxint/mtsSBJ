@@ -34,6 +34,7 @@ public class EsConfig {
     String ELASTIC_CREDENTILS_ID = "elastic";
     @Value("${elasticsearch.credentials.passwd}")
     String ELASTIC_CREDENTILS_PASSWD = "manager";
+
     /**
      * Elasticsearch Connection client
      *
@@ -51,14 +52,16 @@ public class EsConfig {
         return RestClients.create(clientConfiguration).rest();
          */
         final CredentialsProvider credentialProvider = new BasicCredentialsProvider();
-        credentialProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(ELASTIC_CREDENTILS_ID, ELASTIC_CREDENTILS_PASSWD));
+        credentialProvider.setCredentials(AuthScope.ANY,
+                new UsernamePasswordCredentials(ELASTIC_CREDENTILS_ID, ELASTIC_CREDENTILS_PASSWD));
 
         return new RestHighLevelClient(
                 RestClient.builder(
                         new HttpHost(ELASTIC_HOST, ELASTIC_PORT, ELASTIC_SCHEME)
                 ).setHttpClientConfigCallback(
                         httpAsyncClientBuilder -> {
-                            HttpAsyncClientBuilder httpAsyncClientBuilder1 = httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialProvider);
+                            HttpAsyncClientBuilder httpAsyncClientBuilder1 = httpAsyncClientBuilder.setDefaultCredentialsProvider(
+                                    credentialProvider);
                             return httpAsyncClientBuilder1;
                         }
                 )

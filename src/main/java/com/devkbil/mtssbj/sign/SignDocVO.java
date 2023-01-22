@@ -1,20 +1,21 @@
 package com.devkbil.mtssbj.sign;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 @ApiModel(value = "결재문서 : SignDocVO", description = "SignDocVO")
 @XmlRootElement(name = "SignDocVO")
-@XmlType(propOrder = {"docno", "doctitle", "doccontents", "docstatus", "docstep", "dtno", "dttitle", "userno", "usernm", "deptnm", "updatedate", "docsignpath"})
+@XmlType(propOrder = {"docno", "doctitle", "doccontents", "docstatus", "docstep", "dtno", "dttitle", "userno", "usernm",
+        "deptnm", "updatedate", "docsignpath"})
 @Getter
 @Setter
 public class SignDocVO {
-    
+
     @ApiModelProperty(value = "문서번호")
     private String docno;        // 문서번호
     @ApiModelProperty(value = "제목")
@@ -39,5 +40,5 @@ public class SignDocVO {
     private String updatedate;    // 수정일자
     @ApiModelProperty(value = "결재경로문자열")
     private String docsignpath;        // 결재경로문자열
-    
+
 }

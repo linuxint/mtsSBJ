@@ -5,10 +5,10 @@ import java.util.jar.JarFile
 
 class DecompressJar {
 
-    public void unjar(String sourcePath, String destPath){
+    void unjar(String sourcePath, String destPath) {
         println ' - Start Unjar'
         byte[] buffer = new byte[2048]
-        try{
+        try {
             /** Ready **/
             JarFile jar = new JarFile(sourcePath)
             java.util.Enumeration enumEntries = jar.entries()
@@ -19,7 +19,7 @@ class DecompressJar {
                 println "Extracting: ${file.getAbsolutePath()}"
                 if (entry.isDirectory()) {
                     file.mkdirs()
-                }else{
+                } else {
                     file.parentFile.mkdirs()
                     java.io.InputStream is = jar.getInputStream(entry)
                     java.io.FileOutputStream fos = new java.io.FileOutputStream(file)
@@ -35,7 +35,7 @@ class DecompressJar {
             jar.close()
             println "Unjar Completed Successfully!!"
 
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace()
         }
 

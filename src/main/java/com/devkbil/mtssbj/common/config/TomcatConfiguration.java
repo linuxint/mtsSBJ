@@ -39,7 +39,7 @@ public class TomcatConfiguration {
         ajpConnector.setSecure(ajpSecure);
         ajpConnector.setAllowTrace(ajpAllowTrace);
         ajpConnector.setScheme(ajpSchema);
-        ((AbstractAjpProtocol) ajpConnector.getProtocolHandler()).setSecretRequired(ajpSecretRequired); // 해당 줄을 추가함
+        ((AbstractAjpProtocol)ajpConnector.getProtocolHandler()).setSecretRequired(ajpSecretRequired); // 해당 줄을 추가함
         return ajpConnector;
     }
 }

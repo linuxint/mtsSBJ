@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.admin.code;
 
-import com.devkbil.mtssbj.search.SearchVO;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -11,25 +11,27 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.util.List;
+import com.devkbil.mtssbj.search.SearchVO;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class CodeService {
-    
+
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
+
     public Integer selectCodeCount(SearchVO param) {
         return sqlSession.selectOne("selectCodeCount", param);
     }
-    
+
     public List<?> selectCodeList(SearchVO param) {
         return sqlSession.selectList("selectCodeList", param);
     }
-    
+
     /**
      * 글 저장.
      */
@@ -37,9 +39,9 @@ public class CodeService {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = txManager.getTransaction(def);
-        
+
         try {
-            if("U".equals(codeFormType)) {
+            if ("U".equals(codeFormType)) {
                 sqlSession.update("updateCode", param);
             } else {
                 sqlSession.insert("insertCode", param);
@@ -50,13 +52,13 @@ public class CodeService {
             log.error("insertCode");
         }
     }
-    
+
     public CodeVO selectCodeOne(CodeVO param) {
         return sqlSession.selectOne("selectCodeOne", param);
     }
-    
+
     public void deleteCodeOne(CodeVO param) {
         sqlSession.delete("deleteCodeOne", param);
     }
-    
+
 }

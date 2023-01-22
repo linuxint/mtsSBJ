@@ -1,12 +1,12 @@
 package com.devkbil.mtssbj.common;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "페이지수 : PageVO", description = "페이지수")
 @XmlRootElement(name = "PageVO")
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @Getter
 @Setter
 public class PagingVO {
-    
+
     @ApiModelProperty(value = "출력할 데이터 개수")
     private Integer displayRowCount = 10;           // 출력할 데이터 개수
     @ApiModelProperty(value = "시작행번호")
@@ -31,18 +31,18 @@ public class PagingVO {
     private Integer pageStart;                      // 시작페이지
     @ApiModelProperty(value = "종료페이지")
     private Integer pageEnd;                        // 종료페이지
-    
+
     /**
      * 현재 페이지 번호.
      */
     public Integer getPage() {
-        if(page == null || page == 0) {
+        if (page == null || page == 0) {
             page = 1;
         }
-        
+
         return page;
     }
-    
+
     /**
      * 전체 데이터 개수(total)를 이용하여 페이지수 계산.
      */
@@ -50,21 +50,21 @@ public class PagingVO {
         getPage();
         totRow = total;
         totPage = total / displayRowCount;
-        
-        if(total % displayRowCount > 0) {
+
+        if (total % displayRowCount > 0) {
             totPage++;
         }
-        
+
         pageStart = (page - (page - 1) % 10);
         pageEnd = pageStart + 9;
-        if(pageEnd > totPage) {
+        if (pageEnd > totPage) {
             pageEnd = totPage;
         }
-        
+
         rowStart = ((page - 1) * displayRowCount) + 1;
         rowEnd = rowStart + displayRowCount - 1;
     }
-    
+
 }
 
 

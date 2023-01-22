@@ -1,6 +1,11 @@
 package com.devkbil.mtssbj.error;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -8,10 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -22,7 +24,7 @@ public class CustomErrorController implements ErrorController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
-        log.info("httpStatus : "+ httpStatus.toString());
+        log.info("httpStatus : " + httpStatus);
 
         ModelAndView modelAndView = new ModelAndView();
         System.out.println(response.getStatus());

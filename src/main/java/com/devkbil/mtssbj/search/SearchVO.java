@@ -1,13 +1,14 @@
 package com.devkbil.mtssbj.search;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import com.devkbil.mtssbj.common.PagingVO;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "검색 : SearchVO", description = "SearchVO")
 @XmlRootElement(name = "SearchVO")
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @Getter
 @Setter
 public class SearchVO extends PagingVO {
-    
+
     @ApiModelProperty(value = "검색 키워드")
     private String searchKeyword = "";         // 검색 키워드
     @ApiModelProperty(value = "검색 필드: 제목, 내용")
@@ -26,9 +27,8 @@ public class SearchVO extends PagingVO {
     private String searchExt1 = "";            // 검색 확장 필드
     @ApiModelProperty(value = "사용자")
     private String userno;
-    
+
     public String[] getSearchTypeArr() {
         return searchType.split(",");
     }
 }
- 

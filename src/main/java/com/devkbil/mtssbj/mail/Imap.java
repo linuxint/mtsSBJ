@@ -1,17 +1,5 @@
 package com.devkbil.mtssbj.mail;
 
-import com.devkbil.mtssbj.common.util.DateUtil;
-import com.devkbil.mtssbj.common.util.FileUtil;
-import com.devkbil.mtssbj.common.util.FileVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.mail.*;
-import javax.mail.internet.MimeUtility;
-import javax.mail.search.AndTerm;
-import javax.mail.search.ComparisonTerm;
-import javax.mail.search.ReceivedDateTerm;
-import javax.mail.search.SearchTerm;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -19,6 +7,30 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
+
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.FetchProfile;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.internet.MimeUtility;
+import javax.mail.search.AndTerm;
+import javax.mail.search.ComparisonTerm;
+import javax.mail.search.ReceivedDateTerm;
+import javax.mail.search.SearchTerm;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.devkbil.mtssbj.common.util.DateUtil;
+import com.devkbil.mtssbj.common.util.FileUtil;
+import com.devkbil.mtssbj.common.util.FileVO;
 
 public class Imap {
     static final Logger LOGGER = LoggerFactory.getLogger(Imap.class);
@@ -74,7 +86,8 @@ public class Imap {
 
     public void disconnect() {
         try {
-            if (folder != null) folder.close(false);
+            if (folder != null)
+                folder.close(false);
             store.close();
         } catch (MessagingException e) {
         }
@@ -136,7 +149,8 @@ public class Imap {
                 MailVO mailInfo = new MailVO();
                 dumpPart(msgs[i], mailInfo);
                 msgList.add(mailInfo);
-                if (msgList.size() == 100) break; // commit by 100
+                if (msgList.size() == 100)
+                    break; // commit by 100
             }
         } catch (Exception e) {
         }
@@ -145,7 +159,7 @@ public class Imap {
 
     public void dumpPart(Part p, MailVO mailInfo) throws Exception {
         if (p instanceof Message) {
-            Message message = (Message) p;
+            Message message = (Message)p;
             Address[] address;
             // FROM
             if ((address = message.getFrom()) != null) {
@@ -170,24 +184,26 @@ public class Imap {
 
         Object o = p.getContent();
         if (o instanceof String) {
-            mailInfo.setEmcontents((String) o);
+            mailInfo.setEmcontents((String)o);
         } else if (o instanceof Multipart) {
-            Multipart mp = (Multipart) o;
+            Multipart mp = (Multipart)o;
             int count = mp.getCount();
             for (int i = 0; i < count; i++) {
                 dumpPart(mp.getBodyPart(i), mailInfo);
             }
         } else if (o instanceof InputStream) {
             String filename = p.getFileName();
-            if (filename == null) return;
+            if (filename == null)
+                return;
 
             String newName = FileUtil.getNewName();
 
             File file = new File(filePath + newName);
             OutputStream out = new FileOutputStream(file);
-            InputStream is = (InputStream) o;
+            InputStream is = (InputStream)o;
             int c;
-            while ((c = is.read()) != -1) out.write(c);
+            while ((c = is.read()) != -1)
+                out.write(c);
 
             FileVO filedo = new FileVO();
             filedo.setFilename(MimeUtility.decodeText(filename));

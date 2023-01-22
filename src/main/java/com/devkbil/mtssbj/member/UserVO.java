@@ -1,21 +1,23 @@
 package com.devkbil.mtssbj.member;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "사용자 : UserVO", description = "사용자정보")
 @XmlRootElement(name = "UserVO")
-@XmlType(propOrder = {"userno", "userid", "userpw", "usernm", "photo", "userrole", "userpos", "ip", "deptno", "deptnm", "photofile"})
+@XmlType(propOrder = {"userno", "userid", "userpw", "usernm", "photo", "userrole", "userpos", "ip", "deptno", "deptnm",
+        "photofile"})
 @Getter
 @Setter
 public class UserVO {
-    
+
     @ApiModelProperty(value = "사용자 번호")
     private String userno; // 사용자 번호
     @ApiModelProperty(value = "ID")
@@ -38,5 +40,5 @@ public class UserVO {
     private String deptnm; // 부서명
     @ApiModelProperty(value = "사진")
     private MultipartFile photofile; // 사진
-    
+
 }

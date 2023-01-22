@@ -1,13 +1,14 @@
 package com.devkbil.mtssbj.common.tree;
 
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import java.util.List;
 
 @ApiModel(value = "트리구조 : TreeVO", description = "TreeVO")
 @XmlRootElement(name = "TreeVO")

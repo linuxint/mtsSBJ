@@ -8,14 +8,14 @@ public class HostUtil {
     public static String getHostName() {
         String hostName = "";
         try {
-            Runtime rt   = Runtime.getRuntime();
+            Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec("hostname");
-            int     inp;
-            while((inp = proc.getInputStream().read()) != - 1) {
-                hostName += (char) inp;
+            int inp;
+            while ((inp = proc.getInputStream().read()) != -1) {
+                hostName += (char)inp;
             }
             proc.waitFor();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

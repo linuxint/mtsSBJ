@@ -1,21 +1,23 @@
 package com.devkbil.mtssbj.board;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import com.devkbil.mtssbj.common.util.UtilEtc;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 @ApiModel(value = "게시글 댓글 : Board Reply", description = "게시글 댓글")
 @XmlRootElement(name = "boardreplyvo")
-@XmlType(propOrder = {"brdno", "reno", "rewriter", "rememo", "redate", "reparent", "redepth", "reorder", "userno", "usernm", "photo"})
+@XmlType(propOrder = {"brdno", "reno", "rewriter", "rememo", "redate", "reparent", "redepth", "reorder", "userno",
+        "usernm", "photo"})
 @Getter
 @Setter
 public class BoardReplyVO {
-    
+
     @ApiModelProperty(value = "게시물 번호")
     private String brdno;
     @ApiModelProperty(value = "댓글 번호")
@@ -38,10 +40,10 @@ public class BoardReplyVO {
     private String usernm;
     @ApiModelProperty(value = "사용자사진")
     private String photo;
-    
+
     @ApiModelProperty(value = "댓글Html")
     public String getRememoByHTML() {
         return UtilEtc.text2Html(rememo);
     }
-    
+
 }

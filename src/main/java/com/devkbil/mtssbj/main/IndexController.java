@@ -1,22 +1,23 @@
 package com.devkbil.mtssbj.main;
 
-import com.devkbil.mtssbj.common.ExtFieldVO;
-import com.devkbil.mtssbj.common.util.DateUtil;
-import com.devkbil.mtssbj.etc.EtcService;
-import com.devkbil.mtssbj.project.ProjectService;
-import com.devkbil.mtssbj.schedule.DateVO;
-import com.devkbil.mtssbj.search.SearchVO;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.DateUtil;
+import com.devkbil.mtssbj.etc.EtcService;
+import com.devkbil.mtssbj.project.ProjectService;
+import com.devkbil.mtssbj.schedule.DateVO;
+import com.devkbil.mtssbj.search.SearchVO;
 
 @Controller
 public class IndexController {
@@ -26,7 +27,6 @@ public class IndexController {
     private EtcService etcService;
     @Autowired
     private ProjectService projectService;
-
 
     @RequestMapping(value = "/thymeleaftest")
     public String test(Model model) {

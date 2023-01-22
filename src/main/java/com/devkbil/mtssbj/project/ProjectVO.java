@@ -1,16 +1,17 @@
 package com.devkbil.mtssbj.project;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 @ApiModel(value = "프로젝트 : ProjectVO", description = "프로젝트정보")
 @XmlRootElement(name = "ProjectVO")
-@XmlType(propOrder = {"prno", "prstartdate", "prenddate", "prtitle", "prdate", "userno", "usernm", "prstatus", "deleteflag"})
+@XmlType(propOrder = {"prno", "prstartdate", "prenddate", "prtitle", "prdate", "userno", "usernm", "prstatus",
+        "deleteflag"})
 @Getter
 @Setter
 public class ProjectVO {

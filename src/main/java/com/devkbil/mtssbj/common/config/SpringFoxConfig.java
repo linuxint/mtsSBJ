@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+
 import springfox.bean.validators.plugins.Validators;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -16,11 +17,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @Order(Validators.BEAN_VALIDATOR_PLUGIN_ORDER)
 public class SpringFoxConfig {
-    
+
     @Value("${info.contact.mail}")
     String myEmail;
     @Value("${info.contact.phone}")
     String myPhone;
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -29,9 +31,10 @@ public class SpringFoxConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
-                //.securitySchemes(Arrays.asList(securityScheme()))
-                //.securityContexts(Arrays.asList(securityContext()))
+        //.securitySchemes(Arrays.asList(securityScheme()))
+        //.securityContexts(Arrays.asList(securityContext()))
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("My REST API")

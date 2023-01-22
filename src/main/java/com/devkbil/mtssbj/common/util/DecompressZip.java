@@ -20,9 +20,9 @@ public class DecompressZip {
      */
     public boolean unZip(String zipPath, String zipFileName, String zipUnzipPath, String type) throws Exception {
 
-        System.out.println(" unZip() - zipPath : "+zipPath);  //압축 파일 위치
-        System.out.println(" unZip() - zipFileName : "+zipFileName);  //압축파일 이름
-        System.out.println(" unZip() - zipUnzipPath : "+zipUnzipPath);  //압축이 해제될 위치
+        System.out.println(" unZip() - zipPath : " + zipPath);  //압축 파일 위치
+        System.out.println(" unZip() - zipFileName : " + zipFileName);  //압축파일 이름
+        System.out.println(" unZip() - zipUnzipPath : " + zipUnzipPath);  //압축이 해제될 위치
 
         //파일 압축 해제 성공 여부
         boolean isChk = false;
@@ -100,7 +100,6 @@ public class DecompressZip {
 
     }
 
-
     /**
      * 폴더 디렉토리 체크 및 생성
      * @param folder
@@ -108,7 +107,7 @@ public class DecompressZip {
      * @throws Exception
      */
     private boolean makeFolder(String folder) throws Exception {
-        System.out.println(" makeFolder() - folder : "+folder);
+        System.out.println(" makeFolder() - folder : " + folder);
 
         boolean result = false;
 
@@ -137,7 +136,6 @@ public class DecompressZip {
         return result;
     }
 
-
     /**
      * 파일 체크 및 생성
      * @param file
@@ -145,7 +143,7 @@ public class DecompressZip {
      * @throws Exception
      */
     private void createFile(File file, ZipInputStream zis) throws Exception {
-        System.out.println(" createFile() - file : "+file);
+        System.out.println(" createFile() - file : " + file);
         //디렉토리 확인
         File parentDir = new File(file.getParent());
 

@@ -1,6 +1,5 @@
 package com.devkbil.mtssbj.common.util;
 
-
 import java.util.Calendar;
 
 public class TimeUtil {
@@ -33,7 +32,8 @@ public class TimeUtil {
     public static String formatTime(long lTime) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(lTime);
-        return String.format("%02d:%02d:%02d.%03d", c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), c.get(Calendar.MILLISECOND));
+        return String.format("%02d:%02d:%02d.%03d", c.get(Calendar.HOUR), c.get(Calendar.MINUTE),
+                c.get(Calendar.SECOND), c.get(Calendar.MILLISECOND));
     }
 
     /**
@@ -61,7 +61,7 @@ public class TimeUtil {
             //logger.debug("lTmpTime="+lToTime);
 
             lDiff = lToTime - lFromTime;
-        } catch(Exception e) {
+        } catch (Exception e) {
         }
 
         return lDiff;

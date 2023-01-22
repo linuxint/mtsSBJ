@@ -1,8 +1,8 @@
 package com.devkbil.mtssbj.project;
 
-import com.devkbil.mtssbj.common.ExtFieldVO;
-import com.devkbil.mtssbj.common.util.FileVO;
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -12,18 +12,20 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.util.HashMap;
-import java.util.List;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class TaskService {
-    
+
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
     private DataSourceTransactionManager txManager;
-    
+
     /**
      * ------------------------------------------
      * Task.
@@ -31,11 +33,11 @@ public class TaskService {
     public List<?> selectTaskList(String param) {
         return sqlSession.selectList("selectTaskList", param);
     }
-    
+
     public List<?> selectTaskWorkerList(String param) {
         return sqlSession.selectList("selectTaskWorkerList", param);
     }
-    
+
     /**
      * Task 저장.
      */
@@ -43,10 +45,10 @@ public class TaskService {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = txManager.getTransaction(def);
-        
+
         try {
-            if(param.getTsno() == null || "".equals(param.getTsno())) {
-                if("".equals(param.getTsparent())) {
+            if (param.getTsno() == null || "".equals(param.getTsno())) {
+                if ("".equals(param.getTsparent())) {
                     param.setTsparent(null);
                 }
                 sqlSession.insert("insertTask", param);
@@ -55,11 +57,11 @@ public class TaskService {
                 sqlSession.delete("deleteTaskUser", param.getTsno());
             }
             String userno = param.getUserno();
-            if(userno != null) {
+            if (userno != null) {
                 ExtFieldVO fld = new ExtFieldVO(param.getTsno(), null, null);
                 String[] usernos = userno.split(",");
                 for (int i = 0; i < usernos.length; i++) {
-                    if("".equals(usernos[i])) {
+                    if ("".equals(usernos[i])) {
                         continue;
                     }
                     fld.setField2(usernos[i]);
@@ -72,19 +74,19 @@ public class TaskService {
             log.error("insertTask");
         }
     }
-    
+
     public TaskVO selectTaskOne(String param) {
         return sqlSession.selectOne("selectTaskOne", param);
     }
-    
+
     public List<?> selectTaskFileList(String param) {
         return sqlSession.selectList("selectTaskFileList", param);
     }
-    
+
     public void deleteTaskOne(String param) {
         sqlSession.delete("deleteTaskOne", param);
     }
-    
+
     /**
      * ------------------------------------------
      * TaskMine.
@@ -92,7 +94,7 @@ public class TaskService {
     public List<?> selectTaskMineList(ExtFieldVO param) {
         return sqlSession.selectList("selectTaskMineList", param);
     }
-    
+
     /**
      * TaskMine 저장.
      */
@@ -100,28 +102,28 @@ public class TaskService {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = txManager.getTransaction(def);
-        
+
         try {
             sqlSession.update("updateTaskMine", param);
-            
-            if(fileno != null) {
+
+            if (fileno != null) {
                 HashMap<String, String[]> fparam = new HashMap<String, String[]>();
                 fparam.put("fileno", fileno);
                 sqlSession.insert("deleteTaskFile", fparam);
             }
-            
+
             for (FileVO f : filelist) {
                 f.setParentPK(param.getTsno());
                 sqlSession.insert("insertTaskFile", f);
             }
-            
+
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
             log.error("insertTaskMine");
         }
     }
-    
+
     /**
      * TaskMine 복사.
      */
@@ -129,16 +131,16 @@ public class TaskService {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = txManager.getTransaction(def);
-        
+
         try {
             sqlSession.insert("taskCopy_step1", param);
             sqlSession.update("taskCopy_step2", param.getField2());   // prno
-            
+
             txManager.commit(status);
         } catch (TransactionException ex) {
             txManager.rollback(status);
             log.error("insertTaskMine");
         }
     }
-    
+
 }

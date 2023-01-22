@@ -1,20 +1,21 @@
 package com.devkbil.mtssbj.admin.board;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 @ApiModel(value = "게시판 그룹 : BoardGroupVO", description = "게시판 그룹")
 @XmlRootElement(name = "BoardGroupVO")
-@XmlType(propOrder = {"bgno", "bgname", "bglevel", "bgparent", "bgdeleteflag", "bgused", "bgreply", "bgreadonly", "bgregdate", "bgupdate", "bgnotice"})
+@XmlType(propOrder = {"bgno", "bgname", "bglevel", "bgparent", "bgdeleteflag", "bgused", "bgreply", "bgreadonly",
+        "bgregdate", "bgupdate", "bgnotice"})
 @Getter
 @Setter
 public class BoardGroupVO {
-    
+
     @ApiModelProperty(value = "게시글 그룹 부모")
     private String bglevel;
     @ApiModelProperty(value = "게시글 그룹번호")
@@ -38,5 +39,5 @@ public class BoardGroupVO {
     private String bgregdate;
     @ApiModelProperty(value = "변경일자")
     private String bgupdate;
-    
+
 }

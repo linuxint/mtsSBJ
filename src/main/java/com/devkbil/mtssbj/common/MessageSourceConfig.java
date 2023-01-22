@@ -1,5 +1,8 @@
 package com.devkbil.mtssbj.common;
 
+import java.time.Duration;
+import java.util.Locale;
+
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,9 +13,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-
-import java.time.Duration;
-import java.util.Locale;
 
 /**
  * Message Source Configuration
@@ -47,7 +47,8 @@ public class MessageSourceConfig {
     public MessageSource messageSource(MessageSourceProperties properties) {
         ExtendReloadableResourceBundleMessageSource messageSource = new ExtendReloadableResourceBundleMessageSource();
         if (StringUtils.hasText(properties.getBasename())) {
-            messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(StringUtils.trimAllWhitespace(properties.getBasename())));
+            messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(
+                    StringUtils.trimAllWhitespace(properties.getBasename())));
         }
         if (properties.getEncoding() != null) {
             messageSource.setDefaultEncoding(properties.getEncoding().name());

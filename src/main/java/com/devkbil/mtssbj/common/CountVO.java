@@ -1,12 +1,12 @@
 package com.devkbil.mtssbj.common;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @ApiModel(value = "조회수 : CountVO", description = "게시판조회수")
 @XmlRootElement(name = "CountVO")
@@ -18,5 +18,5 @@ public class CountVO {
     private String field1;
     @ApiModelProperty(value = "조회수")
     private Integer cnt1;
-    
+
 }

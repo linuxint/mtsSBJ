@@ -1,13 +1,14 @@
 package com.devkbil.mtssbj.error;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.NoSuchMessageException;
-import org.springframework.validation.MessageCodesResolver;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.metadata.ConstraintDescriptor;
-import java.util.Locale;
-import java.util.Map;
+
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
+import org.springframework.validation.MessageCodesResolver;
 
 /**
  * MessageCodesResolver 를 통해서 생성된 코드를 이용해서
@@ -22,7 +23,7 @@ public class ViolationMessageResolver {
     private final MessageCodesResolver codesResolver;
 
     public ViolationMessageResolver(MessageSource messageSource,
-                                    MessageCodesResolver codesResolver) {
+            MessageCodesResolver codesResolver) {
         this.messageSource = messageSource;
         this.codesResolver = codesResolver;
     }

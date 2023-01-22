@@ -18,8 +18,8 @@ public class AccessLogConfig implements WebServerFactoryCustomizer {
      */
     @Override
     public void customize(final WebServerFactory factory) {
-        final TomcatServletWebServerFactory containerFactory = (TomcatServletWebServerFactory) factory;
-        
+        final TomcatServletWebServerFactory containerFactory = (TomcatServletWebServerFactory)factory;
+
         final AccessLogValve accessLogValve = new AccessLogValve();
         //accessLogValve.setDirectory();
         //accessLogValve.setPattern("%{yyyy-MM-dd HH:mm:ss}t\t%s\t%r\t%{User-Agent}i\t%{Referer}i\t%a\t%b");

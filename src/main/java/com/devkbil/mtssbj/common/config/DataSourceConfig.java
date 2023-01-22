@@ -1,13 +1,5 @@
 package com.devkbil.mtssbj.common.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.sql.DataSource;
-
 //@EnableTransactionManagement
 class DataSourceConfig {
 /*

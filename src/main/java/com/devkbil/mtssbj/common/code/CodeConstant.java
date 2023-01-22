@@ -4,14 +4,6 @@ import java.util.Arrays;
 
 public class CodeConstant {
 
-
-
-
-
-
-
-
-
     public enum CodeOption {
         ADMIN("관리자"),
         USER("사용자"),
@@ -36,33 +28,40 @@ public class CodeConstant {
         OPEN("공개"),
         CLOSE("비공개");
 
-        private String viewName;
-        CodeOption(String viewName) { this.viewName = viewName; }
-        public String getViewName() { return viewName; }
+        private final String viewName;
+
+        CodeOption(String viewName) {
+            this.viewName = viewName;
+        }
+
+        public String getViewName() {
+            return viewName;
+        }
     }
+
     //CODEGROUP
-//User, Sign,Posion, Work, Repeat, Open
+    //User, Sign,Posion, Work, Repeat, Open
     public enum CodeGroup {
-        USER("사용자롤", new CodeOption[]{
+        USER("사용자롤", new CodeOption[] {
                 CodeOption.ADMIN, CodeOption.USER
         }),
-        SIGN("문서결제상태", new CodeOption[]{
+        SIGN("문서결제상태", new CodeOption[] {
                 CodeOption.SAVE, CodeOption.DELAY, CodeOption.CONTINUE, CodeOption.REJECT, CodeOption.COMPLETE
         }),
-        POSITION("직책구", new CodeOption[]{
+        POSITION("직책구", new CodeOption[] {
                 //CodeOption.SAVE, CodeOption.DELAY, CodeOption.CONTINUE, CodeOption.REJECT, CodeOption.COMPLETE
         }),
-        WORK("근무상태", new CodeOption[]{
+        WORK("근무상태", new CodeOption[] {
                 CodeOption.WORK, CodeOption.MEET
         }),
-        REPEAT("반복단위", new CodeOption[]{
+        REPEAT("반복단위", new CodeOption[] {
                 CodeOption.NOREPEAT, CodeOption.WREPEAT, CodeOption.MREPEAT
         }),
 
-        OPEN("공개여부", new CodeOption[]{
+        OPEN("공개여부", new CodeOption[] {
                 CodeOption.OPEN, CodeOption.CLOSE
         }),
-        EMPTY("없음", new CodeOption[]{});
+        EMPTY("없음", new CodeOption[] {});
 
         private final String viewName;
         private final CodeOption[] containCode;

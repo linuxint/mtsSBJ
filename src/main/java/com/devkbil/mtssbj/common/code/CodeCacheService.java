@@ -1,52 +1,25 @@
 package com.devkbil.mtssbj.common.code;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Service("CodeCacheService")
 public class CodeCacheService { //extends EgovAbstractServiceImpl
 
+    private static final List<Map> codeGroup = new ArrayList<Map>();
+    private static final List<Map> code = new ArrayList<Map>();
     @Autowired
     public CodeCacheDAO CodeCacheDAO;
-
-    private static List<Map> codeGroup = new ArrayList<Map>();
-    private static List<Map> code = new ArrayList<Map>();
-
-    /**
-     * 공통코드 메모리 등록
-     */
-    @SuppressWarnings("unchecked")
-    @PostConstruct
-    public void resetCodeList() throws Exception {
-
-        if (codeGroup.isEmpty()) {
-            synchronized (codeGroup) {
-                if (codeGroup.isEmpty()) {
-
-                    List<Map> MapList;
-                    // 코드 그룹
-                    MapList = (ArrayList<Map>)CodeCacheDAO.selectListCodeGroup();	// codecd,  codenm
-
-                    codeGroup.clear();
-                    codeGroup.addAll(MapList);
-
-                    // 상세코드
-                    MapList = (ArrayList<Map>)CodeCacheDAO.selectListCode();	// pcodecd, codecd, codenm
-                    code.clear();
-                    code.addAll(MapList);
-
-                }
-            }
-        }
-    }
 
     public static void clear() throws Exception {
         codeGroup.clear();
@@ -62,7 +35,7 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
         Iterator<Map> iterator = codeGroup.iterator();
         while (iterator.hasNext()) {
             Map Map = iterator.next();
-            if(codecd.equals(Map.get("codecd"))) {
+            if (codecd.equals(Map.get("codecd"))) {
                 returnVal = (String)Map.get("codenm");
                 break;
             }
@@ -80,7 +53,7 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
         Iterator<Map> iterator = code.iterator();
         while (iterator.hasNext()) {
             Map Map = iterator.next();
-            if(pcodecd.equals(Map.get("pcodecd")) && detailCode.equals(Map.get("codecd")) ) {
+            if (pcodecd.equals(Map.get("pcodecd")) && detailCode.equals(Map.get("codecd"))) {
                 returnVal = (String)Map.get("codenm");
                 break;
             }
@@ -99,7 +72,7 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
         Iterator<Map> iterator = code.iterator();
         while (iterator.hasNext()) {
             Map Map = iterator.next();
-            if(pcodecd.equals(Map.get("pcodecd"))) {
+            if (pcodecd.equals(Map.get("pcodecd"))) {
                 returnVal.add(Map);
             }
         }
@@ -112,5 +85,33 @@ public class CodeCacheService { //extends EgovAbstractServiceImpl
      */
     public static List<Map> getCode() throws Exception {
         return code;
+    }
+
+    /**
+     * 공통코드 메모리 등록
+     */
+    @SuppressWarnings("unchecked")
+    @PostConstruct
+    public void resetCodeList() throws Exception {
+
+        if (codeGroup.isEmpty()) {
+            synchronized (codeGroup) {
+                if (codeGroup.isEmpty()) {
+
+                    List<Map> MapList;
+                    // 코드 그룹
+                    MapList = (ArrayList<Map>)CodeCacheDAO.selectListCodeGroup();    // codecd,  codenm
+
+                    codeGroup.clear();
+                    codeGroup.addAll(MapList);
+
+                    // 상세코드
+                    MapList = (ArrayList<Map>)CodeCacheDAO.selectListCode();    // pcodecd, codecd, codenm
+                    code.clear();
+                    code.addAll(MapList);
+
+                }
+            }
+        }
     }
 }
