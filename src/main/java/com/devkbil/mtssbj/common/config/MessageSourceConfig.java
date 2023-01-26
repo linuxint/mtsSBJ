@@ -1,7 +1,6 @@
-package com.devkbil.mtssbj.common;
+package com.devkbil.mtssbj.common.config;
 
 import java.time.Duration;
-import java.util.Locale;
 
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,6 +12,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import com.devkbil.mtssbj.common.ExtendReloadableResourceBundleMessageSource;
 
 /**
  * Message Source Configuration
@@ -30,7 +31,7 @@ public class MessageSourceConfig {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.US);
+        //slr.setDefaultLocale(Locale.US);
         slr.setLocaleAttributeName("current.locale");
         slr.setTimeZoneAttributeName("current.timezone");
         return slr;
