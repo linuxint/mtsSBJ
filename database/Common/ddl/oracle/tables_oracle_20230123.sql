@@ -1,0 +1,825 @@
+create table MTS.PRJ_PROJECT
+(
+    PRNO        NUMBER(10) not null constraint PK_PRJ_PROJECT primary key,
+    PRSTARTDATE VARCHAR2(10),
+    PRENDDATE   VARCHAR2(10),
+    PRTITLE     VARCHAR2(100),
+    PRDATE      TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    USERNO      NUMBER(10),
+    PRSTATUS    CHAR,
+    DELETEFLAG  CHAR         default 'N'
+);
+COMMENT
+ON table MTS.PRJ_PROJECT is '프로젝트';
+COMMENT
+ON column MTS.PRJ_PROJECT.PRNO is '프로젝트 번호';
+COMMENT
+ON column MTS.PRJ_PROJECT.PRSTARTDATE is '시작일자';
+COMMENT
+ON column MTS.PRJ_PROJECT.PRENDDATE is '종료일자';
+COMMENT
+ON column MTS.PRJ_PROJECT.PRTITLE is '프로젝트 제목';
+COMMENT
+ON column MTS.PRJ_PROJECT.PRDATE is '작성일자';
+COMMENT
+ON column MTS.PRJ_PROJECT.USERNO is '사용자번호';
+COMMENT
+ON column MTS.PRJ_PROJECT.PRSTATUS is '상태';
+COMMENT
+ON column MTS.PRJ_PROJECT.DELETEFLAG is '삭제';
+
+create table MTS.PRJ_TASK
+(
+    PRNO        NUMBER(10),
+    TSNO        NUMBER(19) not null constraint PK_PRJ_TASK primary key,
+    TSPARENT    NUMBER(19),
+    TSSORT      NUMBER(7),
+    TSTITLE     VARCHAR2(100),
+    TSSTARTDATE VARCHAR2(10),
+    TSENDDATE   VARCHAR2(10),
+    TSENDREAL   VARCHAR2(10),
+    TSRATE      NUMBER(5),
+    OLDNO       NUMBER(19),
+    DELETEFLAG  CHAR default 'N'
+);
+COMMENT
+ON table MTS.PRJ_TASK is '프로젝트 업무';
+COMMENT
+ON column MTS.PRJ_TASK.PRNO is '프로젝트 번호';
+COMMENT
+ON column MTS.PRJ_TASK.TSNO is '업무번호';
+COMMENT
+ON column MTS.PRJ_TASK.TSPARENT is '부모업무번호';
+COMMENT
+ON column MTS.PRJ_TASK.TSSORT is '정렬';
+COMMENT
+ON column MTS.PRJ_TASK.TSTITLE is '업무 제목';
+COMMENT
+ON column MTS.PRJ_TASK.TSSTARTDATE is '시작일자';
+COMMENT
+ON column MTS.PRJ_TASK.TSENDDATE is '종료일자';
+COMMENT
+ON column MTS.PRJ_TASK.TSENDREAL is '종료일자(실제)';
+COMMENT
+ON column MTS.PRJ_TASK.TSRATE is '진행율';
+COMMENT
+ON column MTS.PRJ_TASK.OLDNO is '이전업무번호';
+COMMENT
+ON column MTS.PRJ_TASK.DELETEFLAG is '삭제';
+
+create table MTS.PRJ_TASKUSER
+(
+    TSNO   NUMBER(19) not null,
+    USERNO NUMBER(10) not null,
+    constraint PK_PRJ_TASKUSER primary key (TSNO, USERNO)
+);
+COMMENT
+ON table MTS.PRJ_TASKUSER is '업무할당';
+COMMENT
+ON column MTS.PRJ_TASKUSER.TSNO is '업무번호';
+COMMENT
+ON column MTS.PRJ_TASKUSER.USERNO is '사용자번호';
+
+create table MTS.PRJ_TASKFILE
+(
+    TSNO     NUMBER(19),
+    FILENO   NUMBER(10) not null constraint PK_PRJ_TASKFILE primary key,
+    FILENAME VARCHAR2(100),
+    REALNAME VARCHAR2(30),
+    FILESIZE NUMBER(10)
+);
+COMMENT
+ON table MTS.PRJ_TASKFILE is '첨부파일';
+COMMENT
+ON column MTS.PRJ_TASKFILE.TSNO is '업무번호';
+COMMENT
+ON column MTS.PRJ_TASKFILE.FILENO is '파일번호';
+COMMENT
+ON column MTS.PRJ_TASKFILE.FILENAME is '파일명';
+COMMENT
+ON column MTS.PRJ_TASKFILE.REALNAME is '실제파일명';
+COMMENT
+ON column MTS.PRJ_TASKFILE.FILESIZE is '파일크기';
+
+create table MTS.COM_CODE
+(
+    CLASSNO NUMBER(10) not null,
+    CODECD  VARCHAR2(10) not null,
+    CODENM  VARCHAR2(30),
+    constraint PK_COM_CODE primary key (CLASSNO, CODECD)
+);
+COMMENT
+ON table MTS.COM_CODE is '공통코드';
+COMMENT
+ON column MTS.COM_CODE.CLASSNO is '그릅코드';
+COMMENT
+ON column MTS.COM_CODE.CODECD is '코드번호';
+COMMENT
+ON column MTS.COM_CODE.CODENM is '코드명';
+
+create table MTS.COM_CODE_V2
+(
+    CODECD     VARCHAR2(5) not null constraint COM_CODE_V2_PK primary key,
+    PCODECD    VARCHAR2(5) constraint COM_CODE_V2_FK references MTS.COM_CODE_V2,
+    CODENM     VARCHAR2(40),
+    CODEDESC   VARCHAR2(100),
+    DELETEFLAG CHAR default 'N',
+    constraint COM_CODE_V2_UK unique (CODECD, PCODECD)
+);
+COMMENT
+ON table MTS.COM_CODE_V2 is '공통코드';
+COMMENT
+ON column MTS.COM_CODE_V2.CODECD is '코드';
+COMMENT
+ON column MTS.COM_CODE_V2.PCODECD is '상위코드';
+COMMENT
+ON column MTS.COM_CODE_V2.CODENM is '코드명';
+COMMENT
+ON column MTS.COM_CODE_V2.CODEDESC is '코드설명';
+COMMENT
+ON column MTS.COM_CODE_V2.DELETEFLAG is '사용여부';
+
+create table MTS.COM_DEPT
+(
+    DEPTNO     NUMBER(10) not null constraint PK_COM_DEPT primary key,
+    DEPTNM     VARCHAR2(20),
+    PARENTNO   NUMBER(10) default 0,
+    DELETEFLAG CHAR default 'N'
+);
+COMMENT
+ON table MTS.COM_DEPT is '그룹 부서';
+COMMENT
+ON column MTS.COM_DEPT.DEPTNO is '부서 번호';
+COMMENT
+ON column MTS.COM_DEPT.DEPTNM is '부서명';
+COMMENT
+ON column MTS.COM_DEPT.PARENTNO is '부모 부서';
+COMMENT
+ON column MTS.COM_DEPT.DELETEFLAG is '삭제 여부';
+
+create table MTS.COM_USER
+(
+    USERNO     NUMBER(10) not null constraint PK_COM_USER primary key,
+    USERID     VARCHAR2(20),
+    USERNM     VARCHAR2(20),
+    USERPW     VARCHAR2(100),
+    USERROLE   CHAR,
+    PHOTO      VARCHAR2(50),
+    DEPTNO     NUMBER(10),
+    DELETEFLAG CHAR default 'N',
+    USERPOS    VARCHAR2(2)
+);
+COMMENT
+ON table MTS.COM_USER is '사용자';
+COMMENT
+ON column MTS.COM_USER.USERNO is '사용자 번호';
+COMMENT
+ON column MTS.COM_USER.USERID is 'ID';
+COMMENT
+ON column MTS.COM_USER.USERNM is '이름';
+COMMENT
+ON column MTS.COM_USER.USERPW is '비밀번호';
+COMMENT
+ON column MTS.COM_USER.USERROLE is '권한';
+COMMENT
+ON column MTS.COM_USER.PHOTO is '사진';
+COMMENT
+ON column MTS.COM_USER.DEPTNO is '부서번호';
+COMMENT
+ON column MTS.COM_USER.DELETEFLAG is '삭제 여부';
+COMMENT
+ON column MTS.COM_USER.USERPOS is '직위';
+
+create table MTS.TBL_BOARD
+(
+    BGNO          NUMBER(10) default 0,
+    BRDNO         NUMBER(10) not null constraint PK_TBL_BOARD primary key,
+    BRDTITLE      VARCHAR2(255),
+    USERNO        NUMBER(10),
+    BRDMEMO       VARCHAR2(4000),
+    BRDDATE       TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    BRDNOTICE     CHAR,
+    LASTDATE      TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    LASTUSERNO    NUMBER(10),
+    BRDLIKE       NUMBER(10) default 0,
+    BRDDELETEFLAG CHAR         default 'N',
+    ETC1          VARCHAR2(200),
+    ETC2          VARCHAR2(200),
+    ETC3          VARCHAR2(200),
+    ETC4          VARCHAR2(200),
+    ETC5          VARCHAR2(200)
+);
+COMMENT
+ON table MTS.TBL_BOARD is '게시판';
+COMMENT
+ON column MTS.TBL_BOARD.BGNO is '게시판 그룹번호';
+COMMENT
+ON column MTS.TBL_BOARD.BRDNO is '글 번호';
+COMMENT
+ON column MTS.TBL_BOARD.BRDTITLE is '글 제목';
+COMMENT
+ON column MTS.TBL_BOARD.USERNO is '작성자';
+COMMENT
+ON column MTS.TBL_BOARD.BRDMEMO is '글 내용';
+COMMENT
+ON column MTS.TBL_BOARD.BRDDATE is '작성일자';
+COMMENT
+ON column MTS.TBL_BOARD.BRDNOTICE is '공지사항여부';
+COMMENT
+ON column MTS.TBL_BOARD.LASTDATE is '마지막 수정일';
+COMMENT
+ON column MTS.TBL_BOARD.LASTUSERNO is '마지막 수정자';
+COMMENT
+ON column MTS.TBL_BOARD.BRDLIKE is '좋아요';
+COMMENT
+ON column MTS.TBL_BOARD.BRDDELETEFLAG is '삭제 여부';
+COMMENT
+ON column MTS.TBL_BOARD.ETC1 is '기타1';
+COMMENT
+ON column MTS.TBL_BOARD.ETC2 is '기타2';
+COMMENT
+ON column MTS.TBL_BOARD.ETC3 is '기타3';
+COMMENT
+ON column MTS.TBL_BOARD.ETC4 is '기타4';
+COMMENT
+ON column MTS.TBL_BOARD.ETC5 is '기타5';
+
+create table MTS.TBL_BOARDFILE
+(
+    FILENO   NUMBER(10) not null constraint PK_TBL_BOARDFILE primary key,
+    BRDNO    NUMBER(10) default 0,
+    FILENAME VARCHAR2(100),
+    REALNAME VARCHAR2(30),
+    FILESIZE NUMBER(10)
+);
+COMMENT
+ON table MTS.TBL_BOARDFILE is '게시판 첨부파일';
+COMMENT
+ON column MTS.TBL_BOARDFILE.FILENO is '파일 번호';
+COMMENT
+ON column MTS.TBL_BOARDFILE.BRDNO is '글번호';
+COMMENT
+ON column MTS.TBL_BOARDFILE.FILENAME is '파일명';
+COMMENT
+ON column MTS.TBL_BOARDFILE.REALNAME is '실제파일명';
+COMMENT
+ON column MTS.TBL_BOARDFILE.FILESIZE is '파일 크기';
+
+create table MTS.TBL_BOARDLIKE
+(
+    BLNO   NUMBER(10) not null constraint PK_TBL_BOARDLIKE primary key,
+    BRDNO  NUMBER(10) default 0,
+    USERNO NUMBER(10),
+    BLDATE TIMESTAMP(6) default CURRENT_TIMESTAMP
+);
+COMMENT
+ON table MTS.TBL_BOARDLIKE is '게시판 좋아요';
+COMMENT
+ON column MTS.TBL_BOARDLIKE.BLNO is '번호';
+COMMENT
+ON column MTS.TBL_BOARDLIKE.BRDNO is '글번호';
+COMMENT
+ON column MTS.TBL_BOARDLIKE.USERNO is '작성자';
+COMMENT
+ON column MTS.TBL_BOARDLIKE.BLDATE is '등록일';
+
+create table MTS.TBL_BOARDREPLY
+(
+    BRDNO         NUMBER(10) not null,
+    RENO          NUMBER(10) not null constraint PK_TBL_BOARDREPLY primary key,
+    USERNO        NUMBER(10),
+    REMEMO        VARCHAR2(500) default NULL,
+    REPARENT      NUMBER(10) default 0,
+    REDEPTH       NUMBER(10),
+    REORDER       NUMBER(10),
+    REDATE        TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    REDELETEFLAG  CHAR         default 'N',
+    LASTDATE      TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    LASTUSERNO    NUMBER(10),
+    REDELETEDATE  TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    BRDDELETEDATE TIMESTAMP(6) default CURRENT_TIMESTAMP
+);
+COMMENT
+ON table MTS.TBL_BOARDREPLY is '게시판 좋아요';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.BRDNO is '게시물 번호';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.RENO is '댓글 번호';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.USERNO is '작성자';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.REMEMO is '댓글내용';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.REPARENT is '부모 댓글';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.REDEPTH is '깊이';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.REORDER is '순서';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.REDATE is '작성일자';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.REDELETEFLAG is '삭제여부';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.LASTDATE is '마지막 수정일';
+COMMENT
+ON column MTS.TBL_BOARDREPLY.LASTUSERNO is '미자막 수정자';
+
+create table MTS.TBL_BOARDREAD
+(
+    BRDNO    NUMBER(10) not null,
+    USERNO   NUMBER(10) not null,
+    READDATE TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    constraint PK_TBL_BOARDREAD primary key (BRDNO, USERNO)
+);
+COMMENT
+ON table MTS.TBL_BOARDREAD is '게시판읽기';
+COMMENT
+ON column MTS.TBL_BOARDREAD.BRDNO is '게시물 번호';
+COMMENT
+ON column MTS.TBL_BOARDREAD.USERNO is '작성자';
+COMMENT
+ON column MTS.TBL_BOARDREAD.READDATE is '작성일자';
+
+create table MTS.TBL_BOARDGROUP
+(
+    BGNO         NUMBER(10) not null constraint PK_TBL_BOARDGROUP primary key,
+    BGNAME       VARCHAR2(50),
+    BGPARENT     NUMBER(10) default 0,
+    BGDELETEFLAG CHAR         default 'N',
+    BGUSED       CHAR,
+    BGREPLY      CHAR,
+    BGREADONLY   CHAR,
+    BGNOTICE     CHAR,
+    BGDATE       TIMESTAMP(6) default CURRENT_TIMESTAMP
+);
+COMMENT
+ON table MTS.TBL_BOARDGROUP is '게시판 그룹';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGNO is '게시판 그룹번호';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGNAME is '게시판 그룹명';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGPARENT is '게시판 그룹 부모';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGDELETEFLAG is '삭제 여부';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGUSED is '사용 여부';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGREPLY is '댓글 사용여부';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGREADONLY is '글쓰기 가능 여부';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGNOTICE is '공지 쓰기  가능 여부';
+COMMENT
+ON column MTS.TBL_BOARDGROUP.BGDATE is '생성일자';
+
+create table MTS.COM_LOGINOUT
+(
+    LNO    NUMBER(10) not null constraint PK_COM_LOGINOUT primary key,
+    USERNO NUMBER(10),
+    LTYPE  CHAR,
+    LDATE  TIMESTAMP(6) default CURRENT_TIMESTAMP
+);
+COMMENT
+ON table MTS.COM_LOGINOUT is '로그인/로그아웃';
+COMMENT
+ON column MTS.COM_LOGINOUT.LNO is '순번';
+COMMENT
+ON column MTS.COM_LOGINOUT.USERNO is '로그인 사용자';
+COMMENT
+ON column MTS.COM_LOGINOUT.LTYPE is '로그인/로그아웃구분';
+COMMENT
+ON column MTS.COM_LOGINOUT.LDATE is '발생일자';
+
+create table MTS.TBL_CRUD
+(
+    CRNO         NUMBER(10) not null constraint PK_TBL_CRUD primary key,
+    CRTITLE      VARCHAR2(255),
+    USERNO       NUMBER(10),
+    CRMEMO       VARCHAR2(4000),
+    CRDATE       TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    CRDELETEFLAG CHAR         default 'N'
+);
+COMMENT
+ON table MTS.TBL_CRUD is '테이블 CRUD';
+COMMENT
+ON column MTS.TBL_CRUD.CRNO is '번호';
+COMMENT
+ON column MTS.TBL_CRUD.CRTITLE is '제목';
+COMMENT
+ON column MTS.TBL_CRUD.USERNO is '작성자';
+COMMENT
+ON column MTS.TBL_CRUD.CRMEMO is '내용';
+COMMENT
+ON column MTS.TBL_CRUD.CRDATE is '작성일자';
+COMMENT
+ON column MTS.TBL_CRUD.CRDELETEFLAG is '삭제 여부';
+
+create table MTS.EML_ADDRESS
+(
+    EMNO      NUMBER(10) not null,
+    EASEQ     NUMBER(10) not null,
+    EATYPE    CHAR not null,
+    EAADDRESS VARCHAR2(150),
+    constraint PK_EML_ADDRESS primary key (EMNO, EASEQ, EATYPE)
+);
+COMMENT
+ON table MTS.EML_ADDRESS is '메일주소';
+COMMENT
+ON column MTS.EML_ADDRESS.EMNO is '메일번호';
+COMMENT
+ON column MTS.EML_ADDRESS.EASEQ is '순번';
+COMMENT
+ON column MTS.EML_ADDRESS.EATYPE is '주소종류';
+COMMENT
+ON column MTS.EML_ADDRESS.EAADDRESS is '메일주소';
+
+create table MTS.EML_MAIL
+(
+    EMNO       NUMBER(10) not null constraint PK_EML_MAIL primary key,
+    EMTYPE     CHAR,
+    EMSUBJECT  VARCHAR2(150),
+    EMFROM     VARCHAR2(150),
+    EMCONTENTS VARCHAR2(4000),
+    ENTRYDATE  TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    USERNO     NUMBER(10) not null,
+    EMINO      NUMBER(10) not null,
+    DELETEFLAG CHAR         default 'N'
+);
+COMMENT
+ON table MTS.EML_MAIL is '메일주소';
+COMMENT
+ON column MTS.EML_MAIL.EMNO is '메일번호';
+COMMENT
+ON column MTS.EML_MAIL.EMTYPE is '메일종류';
+COMMENT
+ON column MTS.EML_MAIL.EMSUBJECT is '제목';
+COMMENT
+ON column MTS.EML_MAIL.EMFROM is '보낸사람';
+COMMENT
+ON column MTS.EML_MAIL.EMCONTENTS is '내용';
+COMMENT
+ON column MTS.EML_MAIL.ENTRYDATE is '작성일';
+COMMENT
+ON column MTS.EML_MAIL.USERNO is '사용자번호';
+COMMENT
+ON column MTS.EML_MAIL.EMINO is '메일정보번호';
+COMMENT
+ON column MTS.EML_MAIL.DELETEFLAG is '삭제';
+
+create index MTS.EML_MAIL_INX01 on MTS.EML_MAIL (EMTYPE, USERNO, EMINO);
+
+create table MTS.EML_MAILFILE
+(
+    FILENO   NUMBER(10) not null constraint PK_EML_MAILFILE primary key,
+    FILENAME VARCHAR2(100),
+    REALNAME VARCHAR2(30),
+    FILESIZE NUMBER(10),
+    EMNO     NUMBER(10) not null
+);
+COMMENT
+ON table MTS.EML_MAILFILE is '첨부파일';
+COMMENT
+ON column MTS.EML_MAILFILE.FILENO is '파일번호';
+COMMENT
+ON column MTS.EML_MAILFILE.FILENAME is '파일명';
+COMMENT
+ON column MTS.EML_MAILFILE.REALNAME is '실제파일명';
+COMMENT
+ON column MTS.EML_MAILFILE.FILESIZE is '파일크기';
+COMMENT
+ON column MTS.EML_MAILFILE.EMNO is '메일번호';
+
+create table MTS.EML_MAILINFO
+(
+    EMINO       NUMBER(10) not null constraint PK_EML_MAILINFO primary key,
+    EMIIMAP     VARCHAR2(30),
+    EMIIMAPPORT VARCHAR2(5),
+    EMISMTP     VARCHAR2(30),
+    EMISMTPPORT VARCHAR2(5),
+    EMIUSER     VARCHAR2(50),
+    EMIPW       VARCHAR2(50),
+    USERNO      NUMBER(10) not null,
+    ENTRYDATE   TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    DELETEFLAG  CHAR         default 'N'
+);
+COMMENT
+ON table MTS.EML_MAILINFO is '메일정보';
+COMMENT
+ON column MTS.EML_MAILINFO.EMINO is '메일정보번호';
+COMMENT
+ON column MTS.EML_MAILINFO.EMIIMAP is 'IMAP서버주소';
+COMMENT
+ON column MTS.EML_MAILINFO.EMIIMAPPORT is 'IMAP서버포트';
+COMMENT
+ON column MTS.EML_MAILINFO.EMISMTP is 'SMTP 서버주소';
+COMMENT
+ON column MTS.EML_MAILINFO.EMISMTPPORT is 'SMTP 서버포트';
+COMMENT
+ON column MTS.EML_MAILINFO.EMIUSER is '계정';
+COMMENT
+ON column MTS.EML_MAILINFO.EMIPW is '비밀번호';
+COMMENT
+ON column MTS.EML_MAILINFO.USERNO is '사용자번호';
+COMMENT
+ON column MTS.EML_MAILINFO.ENTRYDATE is '등록일자';
+COMMENT
+ON column MTS.EML_MAILINFO.DELETEFLAG is '삭제';
+
+create table MTS.SCH_DETAIL
+(
+    SSNO     NUMBER(10) not null,
+    SDSEQ    NUMBER(5) not null,
+    SDDATE   TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    SDHOUR   CHAR(2),
+    SDMINUTE CHAR(2),
+    constraint PK_SCH_DETAIL primary key (SSNO, SDSEQ)
+);
+COMMENT
+ON table MTS.SCH_DETAIL is '일정상세';
+COMMENT
+ON column MTS.SCH_DETAIL.SSNO is '일정번호';
+COMMENT
+ON column MTS.SCH_DETAIL.SDSEQ is '순번';
+COMMENT
+ON column MTS.SCH_DETAIL.SDDATE is '날짜';
+COMMENT
+ON column MTS.SCH_DETAIL.SDHOUR is '시간';
+COMMENT
+ON column MTS.SCH_DETAIL.SDMINUTE is '분';
+
+create table MTS.SCH_HOLIDAY
+(
+    SHNO       NUMBER(5) not null constraint PK_SCH_HOLIDAY primary key,
+    SHTITLE    VARCHAR2(20),
+    SHMONTH    NUMBER(5),
+    SHDATE     NUMBER(5),
+    SHCOLOR    VARCHAR2(10),
+    DELETEFLAG CHAR default 'N'
+);
+COMMENT
+ON table MTS.SCH_HOLIDAY is '공휴일';
+COMMENT
+ON column MTS.SCH_HOLIDAY.SHNO is '번호';
+COMMENT
+ON column MTS.SCH_HOLIDAY.SHTITLE is '공휴일명';
+COMMENT
+ON column MTS.SCH_HOLIDAY.SHMONTH is '월';
+COMMENT
+ON column MTS.SCH_HOLIDAY.SHDATE is '일';
+COMMENT
+ON column MTS.SCH_HOLIDAY.SHCOLOR is '색상';
+COMMENT
+ON column MTS.SCH_HOLIDAY.DELETEFLAG is '삭제';
+
+create table MTS.SCH_SCHEDULE
+(
+    SSNO           NUMBER(10) not null constraint PK_SCH_SCHEDULE primary key,
+    SSTITLE        VARCHAR2(50),
+    SSTYPE         CHAR,
+    SSSTARTDATE    CHAR(10),
+    SSSTARTHOUR    CHAR(2),
+    SSSTARTMINUTE  CHAR(2),
+    SSENDDATE      VARCHAR2(10),
+    SSENDHOUR      CHAR(2),
+    SSENDMINUTE    CHAR(2),
+    SSREPEATTYPE   CHAR,
+    SSREPEATOPTION VARCHAR2(2),
+    SSREPEATEND    VARCHAR2(10),
+    SSCONTENTS     VARCHAR2(4000),
+    SSISOPEN       CHAR,
+    UPDATEDATE     TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    INSERTDATE     TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    USERNO         NUMBER(10) not null,
+    DELETEFLAG     CHAR         default 'N'
+);
+COMMENT
+ON table MTS.SCH_SCHEDULE is '일정';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSNO is '일정번호';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSTITLE is '일정명';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSTYPE is '구분';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSSTARTDATE is '시작일';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSSTARTHOUR is '시작일-시간';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSSTARTMINUTE is '시작일-분';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSENDDATE is '종료일';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSENDHOUR is '종료일-시간';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSENDMINUTE is '종료일-분';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSREPEATTYPE is '반복';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSREPEATOPTION is '반복옵션';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSREPEATEND is '반복종료';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSCONTENTS is '내용';
+COMMENT
+ON column MTS.SCH_SCHEDULE.SSISOPEN is '공개여부';
+COMMENT
+ON column MTS.SCH_SCHEDULE.UPDATEDATE is '수정일자';
+COMMENT
+ON column MTS.SCH_SCHEDULE.INSERTDATE is '작성일자';
+COMMENT
+ON column MTS.SCH_SCHEDULE.USERNO is '사용자번호';
+COMMENT
+ON column MTS.SCH_SCHEDULE.DELETEFLAG is '삭제';
+
+create table MTS.SGN_DOC
+(
+    DOCNO       NUMBER(20) not null constraint PK_SGN_DOC primary key,
+    DOCTITLE    VARCHAR2(50),
+    DOCCONTENTS VARCHAR2(4000),
+    DELETEFLAG  CHAR         default 'N',
+    DOCSTATUS   CHAR,
+    DOCSTEP     NUMBER(5),
+    DTNO        NUMBER(10) not null,
+    UPDATEDATE  TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    INSERTDATE  TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    USERNO      NUMBER(10) not null,
+    DEPTNM      VARCHAR2(20),
+    DOCSIGNPATH VARCHAR2(200)
+);
+COMMENT
+ON table MTS.SGN_DOC is '결재문서';
+COMMENT
+ON column MTS.SGN_DOC.DOCNO is '문서번호';
+COMMENT
+ON column MTS.SGN_DOC.DOCTITLE is '제목';
+COMMENT
+ON column MTS.SGN_DOC.DOCCONTENTS is '문서내용';
+COMMENT
+ON column MTS.SGN_DOC.DELETEFLAG is '삭제여부';
+COMMENT
+ON column MTS.SGN_DOC.DOCSTATUS is '문서상태';
+COMMENT
+ON column MTS.SGN_DOC.DOCSTEP is '결재단계';
+COMMENT
+ON column MTS.SGN_DOC.DTNO is '문서양식번호';
+COMMENT
+ON column MTS.SGN_DOC.UPDATEDATE is '수정일자';
+COMMENT
+ON column MTS.SGN_DOC.INSERTDATE is '작성일자';
+COMMENT
+ON column MTS.SGN_DOC.USERNO is '사용자번호';
+COMMENT
+ON column MTS.SGN_DOC.DEPTNM is '부서명';
+COMMENT
+ON column MTS.SGN_DOC.DOCSIGNPATH is '결재경로문자열';
+
+create table MTS.SGN_DOCFILE
+(
+    FILENO   NUMBER(10) not null constraint PK_SGN_DOCFILE primary key,
+    FILENAME VARCHAR2(100),
+    REALNAME VARCHAR2(30),
+    FILESIZE NUMBER(10),
+    DOCNO    NUMBER(20) not null
+);
+COMMENT
+ON table MTS.SGN_DOCFILE is '첨부파일';
+COMMENT
+ON column MTS.SGN_DOCFILE.FILENO is '파일번호';
+COMMENT
+ON column MTS.SGN_DOCFILE.FILENAME is '파일명';
+COMMENT
+ON column MTS.SGN_DOCFILE.REALNAME is '실제파일명';
+COMMENT
+ON column MTS.SGN_DOCFILE.FILESIZE is '파일크기';
+COMMENT
+ON column MTS.SGN_DOCFILE.DOCNO is '문서번호';
+
+create table MTS.SGN_DOCTYPE
+(
+    DTNO       NUMBER(10) not null constraint PK_SGN_DOCTYPE primary key,
+    DTTITLE    VARCHAR2(30),
+    DTCONTENTS VARCHAR2(4000),
+    DELETEFLAG CHAR default 'N'
+);
+COMMENT
+ON table MTS.SGN_DOCTYPE is '문서양식종류';
+COMMENT
+ON column MTS.SGN_DOCTYPE.DTNO is '문서양식번호';
+COMMENT
+ON column MTS.SGN_DOCTYPE.DTTITLE is '문서양식명';
+COMMENT
+ON column MTS.SGN_DOCTYPE.DTCONTENTS is '문서양식내용';
+COMMENT
+ON column MTS.SGN_DOCTYPE.DELETEFLAG is '삭제';
+
+create table MTS.SGN_PATH
+(
+    SPNO       NUMBER(10) not null constraint PK_SGN_PATH primary key,
+    SPTITLE    VARCHAR2(30),
+    INSERTDATE TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    USERNO     NUMBER(10) not null,
+    SPSIGNPATH VARCHAR2(200)
+);
+COMMENT
+ON table MTS.SGN_PATH is '결재경로';
+COMMENT
+ON column MTS.SGN_PATH.SPNO is '결재경로번호';
+COMMENT
+ON column MTS.SGN_PATH.SPTITLE is '경로명';
+COMMENT
+ON column MTS.SGN_PATH.INSERTDATE is '생성일자';
+COMMENT
+ON column MTS.SGN_PATH.USERNO is '사용자번호';
+COMMENT
+ON column MTS.SGN_PATH.SPSIGNPATH is '결재경로문자열';
+
+create table MTS.SGN_PATHUSER
+(
+    SPNO   NUMBER(10) not null,
+    SPUSEQ NUMBER(10) not null,
+    USERNO NUMBER(10) not null,
+    SSTYPE CHAR,
+    constraint PK_SGN_PATHUSER primary key (SPNO, SPUSEQ)
+);
+COMMENT
+ON table MTS.SGN_PATHUSER is '결재경로상세-결재자';
+COMMENT
+ON column MTS.SGN_PATHUSER.SPNO is '결재경로번호';
+COMMENT
+ON column MTS.SGN_PATHUSER.SPUSEQ is '경로순번';
+COMMENT
+ON column MTS.SGN_PATHUSER.USERNO is '사용자번호';
+COMMENT
+ON column MTS.SGN_PATHUSER.SSTYPE is '결재종류';
+
+create table MTS.SGN_SIGN
+(
+    SSNO        NUMBER(10) not null,
+    DOCNO       NUMBER(20) not null,
+    SSSTEP      NUMBER(5),
+    SSTYPE      CHAR,
+    SSRESULT    CHAR,
+    SSCOMMENT   VARCHAR2(1000),
+    RECEIVEDATE TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    SIGNDATE    TIMESTAMP(6) default CURRENT_TIMESTAMP,
+    USERNO      NUMBER(10) not null,
+    USERPOS     VARCHAR2(10),
+    constraint SGN_SIGN primary key (SSNO, DOCNO)
+);
+COMMENT
+ON table MTS.SGN_SIGN is '결재';
+COMMENT
+ON column MTS.SGN_SIGN.SSNO is '결재번호';
+COMMENT
+ON column MTS.SGN_SIGN.DOCNO is '문서번호';
+COMMENT
+ON column MTS.SGN_SIGN.SSSTEP is '결재단계';
+COMMENT
+ON column MTS.SGN_SIGN.SSTYPE is '결재종류';
+COMMENT
+ON column MTS.SGN_SIGN.SSRESULT is '결재결과';
+COMMENT
+ON column MTS.SGN_SIGN.SSCOMMENT is '코멘트';
+COMMENT
+ON column MTS.SGN_SIGN.RECEIVEDATE is '받은일자';
+COMMENT
+ON column MTS.SGN_SIGN.SIGNDATE is '결재일자';
+COMMENT
+ON column MTS.SGN_SIGN.USERNO is '사용자번호';
+COMMENT
+ON column MTS.SGN_SIGN.USERPOS is '직위';
+
+create table MTS.COM_DATE
+(
+    CDNO          NUMBER(19) not null constraint PK_COM_DATE primary key,
+    CDDATE        VARCHAR2(10),
+    CDYEAR        VARCHAR2(4),
+    CDMM          VARCHAR2(2),
+    CDDD          VARCHAR2(2),
+    CDWEEKOFYEAR  NUMBER(5),
+    CDWEEKOFMONTH NUMBER(5),
+    CDWEEK        NUMBER(5),
+    CDDAYOFWEEK   NUMBER(5)
+);
+COMMENT
+ON table MTS.COM_DATE is '날짜';
+COMMENT
+ON column MTS.COM_DATE.CDNO is '번호';
+COMMENT
+ON column MTS.COM_DATE.CDDATE is '날짜';
+COMMENT
+ON column MTS.COM_DATE.CDYEAR is '년도';
+COMMENT
+ON column MTS.COM_DATE.CDMM is '월';
+COMMENT
+ON column MTS.COM_DATE.CDDD is '일';
+COMMENT
+ON column MTS.COM_DATE.CDWEEKOFYEAR is '연별주차';
+COMMENT
+ON column MTS.COM_DATE.CDWEEKOFMONTH is '월별주차';
+COMMENT
+ON column MTS.COM_DATE.CDWEEK is '주';
+COMMENT
+ON column MTS.COM_DATE.CDDAYOFWEEK is '주별일자';
+

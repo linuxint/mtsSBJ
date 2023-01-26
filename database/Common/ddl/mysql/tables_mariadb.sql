@@ -1,4 +1,3 @@
-
 CREATE TABLE PRJ_PROJECT
 (
     PRNO        INT          NOT NULL AUTO_INCREMENT COMMENT '프로젝트 번호',
@@ -123,6 +122,11 @@ CREATE TABLE TBL_BOARD
     LASTUSERNO    INT,
     BRDLIKE       INT default 0,                   -- 좋아요
     BRDDELETEFLAG CHAR(1),                         -- 삭제 여부
+    ETC1          VARCHAR(200),
+    ETC2          VARCHAR(200),
+    ETC3          VARCHAR(200),
+    ETC4          VARCHAR(200),
+    ETC5          VARCHAR(200),
     PRIMARY KEY (BRDNO)
 );
 
