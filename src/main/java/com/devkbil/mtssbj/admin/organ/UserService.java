@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.devkbil.mtssbj.member.UserVO;
 import com.devkbil.mtssbj.search.SearchVO;
 
+import lombok.SneakyThrows;
+
 @Service
 public class UserService {
 
@@ -53,6 +55,7 @@ public class UserService {
         sqlSession.delete("updateUserByMe", param);
     }
 
+    @SneakyThrows
     public void updateUserPassword(UserVO param) {
         sqlSession.delete("updateUserPassword", param);
     }

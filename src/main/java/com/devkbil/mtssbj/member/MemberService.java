@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.devkbil.mtssbj.search.SearchVO;
 
+import lombok.SneakyThrows;
+
 @Service
 public class MemberService {
 
@@ -22,6 +24,7 @@ public class MemberService {
         return sqlSession.selectList("selectSearchMemberList", param);
     }
 
+    @SneakyThrows
     public UserVO selectMember4Login(LoginVO param) {
         return sqlSession.selectOne("selectMember4Login", param);
     }

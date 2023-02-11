@@ -5,10 +5,13 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.devkbil.mtssbj.common.util.SecurityUtil;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 
 @ApiModel(value = "사용자 : UserVO", description = "사용자정보")
 @XmlRootElement(name = "UserVO")
@@ -41,4 +44,8 @@ public class UserVO {
     @ApiModelProperty(value = "사진")
     private MultipartFile photofile; // 사진
 
+    @SneakyThrows
+    public void setUserpw(String userpw) {
+        this.userpw = SecurityUtil.sha256(userpw);
+    }
 }

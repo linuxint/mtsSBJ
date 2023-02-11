@@ -26,14 +26,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     //     public ResponseEntity<User> getUser() {
     //         throw new RestApiException(UserErrorCode.INACTIVE_USER);
     //     }
-
+/*
     @ExceptionHandler(RestApiException.class)
     public ResponseEntity<Object> handleCustomException(RestApiException e) {
         log.error(e.getMessage(), e);
         ErrorCode errorCode = CommonErrorCode.NOT_FOUND;
         return handleExceptionInternal(errorCode);
     }
-
+*/
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Object> handleIllegalArgument(IllegalArgumentException e) {
         log.warn("handleIllegalArgument", e);
