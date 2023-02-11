@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <cache name="getCode"
+           maxEntriesLocalHeap="1000"
+           maxEntriesLocalDisk="10000"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="1800" timeToLiveSeconds="1800"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+</ehcache>
+        <!--
+        maxEntriesLocalHeap	메모리에 생성될 객체의 최대 수(0: 제한없음)
+        maxEntriesLocalDisk	디스크(DiskStore)에 저장될 객체의 최대 수(0: 제한없음)
+        eternal	저장된 캐시를 제거할지 여부. 설정이 true 인 경우 저장된 캐시는 제거되지 않으며 timeToIdleSeconds, timeToLiveSeconds 설정은 무시
+        timeToIdleSeconds	생성후 해당 시간 동안 캐쉬가 사용되지 않으면 삭제, 0은 삭제되지 않음
+        timeToLiveSeconds	생성후 해당 시간이 지나면 캐쉬는 삭제. 0은 삭제되지 않음
+        diskSpoolBufferSizeMB	디스크 캐시에 쓰기 모드로 들어갈때, 사용될 비동기 모드의 스폴 버퍼 크기 설정.(OutOfMemory 에러가 발생 시 설정한 크기를 낮추는 것이 좋음)
+        memoryStoreEvictionPolicy	maxEntriesLocalHeap 설정 값에 도달했을때 설정된 정책에 따라 객체가 제거되고 새로 추가(LRU : 사용이 가장 적었던 것부터 제거, FIFO : 먼저 입력된 것부터 제거, LFU : 사용량이 적은 것부터 제거)
+        persistence strategy	diskStore 사용 설정("localTempSwap": Temp DiskStore 사용, "none": Only Memory 사용)
+        -->
