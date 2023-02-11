@@ -25,8 +25,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.devkbil.mtssbj.common.config.EsConfig;
 import com.devkbil.mtssbj.common.util.DateUtil;
+import com.devkbil.mtssbj.config.EsConfig;
 
 @Controller
 public class SearchController {

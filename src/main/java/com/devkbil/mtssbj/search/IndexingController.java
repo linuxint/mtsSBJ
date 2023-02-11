@@ -33,9 +33,9 @@ import com.devkbil.mtssbj.board.BoardService;
 import com.devkbil.mtssbj.board.BoardVO;
 import com.devkbil.mtssbj.common.ExtFieldVO;
 import com.devkbil.mtssbj.common.LocaleMessage;
-import com.devkbil.mtssbj.common.config.EsConfig;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.common.util.FileVO;
+import com.devkbil.mtssbj.config.EsConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
