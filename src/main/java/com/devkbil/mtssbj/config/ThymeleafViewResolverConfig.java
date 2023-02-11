@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common.config;
+package com.devkbil.mtssbj.config;
 
 import org.springframework.context.annotation.Configuration;
 

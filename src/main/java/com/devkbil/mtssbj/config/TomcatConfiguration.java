@@ -1,4 +1,4 @@
-package com.devkbil.mtssbj.common.config;
+package com.devkbil.mtssbj.config;
 
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.ajp.AbstractAjpProtocol;

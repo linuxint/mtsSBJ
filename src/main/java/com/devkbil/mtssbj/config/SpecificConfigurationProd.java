@@ -1,22 +1,22 @@
-package com.devkbil.mtssbj.common.config;
+package com.devkbil.mtssbj.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 /**
- * Dev Cache Configuration
+ * Prod Cache Configuration
  */
-@Profile("dev")
+@Profile("prod")
 @Configuration
-public class SpecificConfigurationDev {
+public class SpecificConfigurationProd {
     /**
-     * Dev Cache Configuration
+     * Prod Cache Configuration
      *
      * @return
      */
     @Bean
     public String cache() {
-        return "Dev Cache Configuration";
+        return "Prod Cache Configuration";
     }
 }
