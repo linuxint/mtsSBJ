@@ -3,22 +3,27 @@ server:
 
 spring:
   profiles:
-    default: dev # 기본 환경을 dev로
+    active: dev # 기본 환경을 dev로
 
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/profiledemo?serverTimezone=Asia/Seoul
-#    username: root
-#    password: abcd
-
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        format_sql: true
-#    show-sql: true
-
+  datasource: ##https://www.4te.co.kr/892
+    jpa:
+      database-platform: org.hibernate.dialect.Oracle10gDialect
+      properties:
+        hibernate:
+          format_sql: true
+        generate-ddl: false
+        open-in-view: false
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: mts
+    password: mts
+    MaximumPoolSize: 10
+    MinimumIdle: 5
+    MaxLifetime: 1200000
+    ConnectionTimeout: 20000
+    IdleTimeout: 300000
+    hikari:
+      pool-name: pool-oracle
 ---
 server:
   port: 9090
@@ -28,10 +33,18 @@ spring:
     activate:
       on-profile: local # 환경이름설정
 
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-
+  jpa:
+    hibernate:
+      ddl-auto: create
+      use-new-id-generator-mappings: false
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 ---
 server:
   port: 8082
