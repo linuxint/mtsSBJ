@@ -3,8 +3,8 @@
  */
 
 plugins {
-    id 'org.springframework.boot' version '2.7.12'
-    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'org.springframework.boot' version '2.7.14'
+    id 'io.spring.dependency-management' version '1.1.2'
     id 'java'
     id 'maven-publish'
 }
@@ -50,7 +50,7 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.9'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.12'
-    implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.10'
+    implementation 'de.codecentric:spring-boot-admin-starter-client:3.0.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.7.8'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
