@@ -3,18 +3,18 @@ package com.devkbil.mtssbj.project;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devkbil.mtssbj.common.ExtFieldVO;
 import com.devkbil.mtssbj.search.SearchVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ProjectService {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
     @Autowired
     private SqlSessionTemplate sqlSession;
 

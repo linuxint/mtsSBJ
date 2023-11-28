@@ -57,16 +57,19 @@
         
     <insert id="insertSch" parameterType="com.devkbil.mtssbj.schedule.SchVO" useGeneratedKeys="true" keyProperty="ssno">
         INSERT INTO SCH_SCHEDULE(SSTITLE, SSTYPE, SSSTARTDATE, SSSTARTHOUR, SSSTARTMINUTE, SSENDDATE, SSENDHOUR, 
-                    SSENDMINUTE, SSREPEATTYPE, SSREPEATOPTION, SSREPEATEND, SSCONTENTS, SSISOPEN, USERNO, UPDATEDATE, INSERTDATE, DELETEFLAG)
+                    SSENDMINUTE, SSREPEATTYPE, SSREPEATOPTION, SSREPEATEND, SSCONTENTS, SSISOPEN, USERNO, CHGDATE, REGDATE, DELETEFLAG)
         VALUES (#{sstitle}, #{sstype}, #{ssstartdate}, #{ssstarthour}, #{ssstartminute}, #{ssenddate}, #{ssendhour}, 
                 #{ssendminute}, #{ssrepeattype}, #{ssrepeatoption}, #{ssrepeatend}, #{sscontents}, #{ssisopen}, #{userno}, NOW(), NOW(), 'N')
+        <selectKey keyProperty="ssno" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     
     <update id="updateSch" parameterType="com.devkbil.mtssbj.schedule.SchVO">
         UPDATE SCH_SCHEDULE
            SET SSTITLE=#{sstitle}, SSTYPE=#{sstype}, SSSTARTDATE=#{ssstartdate}, SSSTARTHOUR=#{ssstarthour}, SSSTARTMINUTE=#{ssstartminute}, SSENDDATE=#{ssenddate}
              , SSENDHOUR=#{ssendhour}, SSENDMINUTE=#{ssendminute}, SSREPEATTYPE=#{ssrepeattype}, SSREPEATOPTION=#{ssrepeatoption}, SSREPEATEND=#{ssrepeatend}
-             , SSCONTENTS=#{sscontents}, SSISOPEN=#{ssisopen}, UPDATEDATE=NOW()
+             , SSCONTENTS=#{sscontents}, SSISOPEN=#{ssisopen}, CHGDATE=NOW()
          WHERE SSNO=#{ssno} 
     </update> 
 

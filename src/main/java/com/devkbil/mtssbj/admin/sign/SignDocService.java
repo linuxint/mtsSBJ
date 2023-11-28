@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
@@ -22,7 +22,7 @@ public class SignDocService {
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
-    private DataSourceTransactionManager txManager;
+    private JpaTransactionManager txManager;
 
     /**
      * 리스트.

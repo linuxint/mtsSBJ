@@ -1,35 +1,35 @@
 package com.devkbil.mtssbj.common.util;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "첨부파일 : FileVO", description = "첨부파일")
+@Schema(description = "첨부파일 : FileVO")
 @XmlRootElement(name = "첨부파일")
 @XmlType(propOrder = {"fileno", "parentPK", "filename", "realname", "filesize"})
 @Getter
 @Setter
 public class FileVO {
-    @ApiModelProperty(value = "파일번호")
+    @Schema(description = "파일번호")
     private Integer fileno;
-    @ApiModelProperty(value = "파일 상위키 (게시판,프로젝트)")
+    @Schema(description = "파일 상위키 (게시판,프로젝트)")
     private String parentPK;
-    @ApiModelProperty(value = "서버 파일명")
+    @Schema(description = "서버 파일명")
     private String filename;
-    @ApiModelProperty(value = "업로드 파일명")
+    @Schema(description = "업로드 파일명")
     private String realname;
-    @ApiModelProperty(value = "파일사이즈")
+    @Schema(description = "파일사이즈")
     private long filesize;
+    @Schema(description = "삭제여부")
+    private String deleteflag;
 
-    @ApiModelProperty(value = "파일fullpath")
+    @Schema(description = "파일fullpath")
     private String uri;
-    @ApiModelProperty(value = "파일경로")
+    @Schema(description = "파일경로")
     private String filepath;
-    @ApiModelProperty(value = "파일드라이브")
+    @Schema(description = "파일드라이브")
     private String fileroot;
 
     /**

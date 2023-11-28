@@ -6,7 +6,11 @@
 <mapper namespace="task">
 
     <select id="selectTaskList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
-        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE, TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE
+        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE
+             , TSSTARTDATE
+             , TSENDDATE
+             , TSENDREAL
+             , TSRATE
              , GETCOLOR4ALERT (TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE) STATUSCOLOR
              , (SELECT GROUP_CONCAT(USERNO) FROM PRJ_TASKUSER WHERE TSNO=PT.TSNO) USERNO
              , (SELECT GROUP_CONCAT(USERNM) FROM PRJ_TASKUSER PTU, COM_USER CU WHERE TSNO=PT.TSNO AND PTU.USERNO=CU.USERNO) USERNM
@@ -16,7 +20,11 @@
     </select> 
 
     <select id="selectTaskWorkerList" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
-        SELECT PRNO, PTU.USERNO, PT.TSNO, TSPARENT, TSSORT, TSTITLE, TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE
+        SELECT PRNO, PTU.USERNO, PT.TSNO, TSPARENT, TSSORT, TSTITLE
+             , TSSTARTDATE
+             , TSENDDATE
+             , TSENDREAL
+             , TSRATE
              , GETCOLOR4ALERT (TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE) STATUSCOLOR
              , USERNM
           FROM PRJ_TASK PT
@@ -29,6 +37,9 @@
     <insert id="insertTask" parameterType="com.devkbil.mtssbj.project.TaskVO" useGeneratedKeys="true" keyProperty="tsno">
         INSERT INTO PRJ_TASK(PRNO, TSPARENT, TSSORT, TSTITLE,  TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE, DELETEFLAG)
         VALUES (#{prno}, #{tsparent}, #{tssort}, #{tstitle}, #{ tsstartdate}, #{tsenddate},  #{tsendreal},#{tsrate}, 'N')
+        <selectKey keyProperty="tsno" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     
     <update id="updateTask" parameterType="com.devkbil.mtssbj.project.TaskVO">
@@ -43,7 +54,11 @@
     </update> 
     
     <select id="selectTaskOne" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
-        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE, TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE 
+        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE
+             , TSSTARTDATE
+             , TSENDDATE
+             , TSENDREAL
+             , TSRATE
              , GETCOLOR4ALERT (TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE) STATUSCOLOR
              , (SELECT GROUP_CONCAT(USERNO) FROM PRJ_TASKUSER WHERE TSNO=PT.TSNO) USERNO
              , (SELECT GROUP_CONCAT(USERNM) FROM PRJ_TASKUSER PTU, COM_USER CU WHERE TSNO=PT.TSNO AND PTU.USERNO=CU.USERNO) USERNM

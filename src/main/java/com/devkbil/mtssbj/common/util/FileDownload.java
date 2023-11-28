@@ -1,23 +1,16 @@
 package com.devkbil.mtssbj.common.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
+import com.devkbil.mtssbj.common.LocaleMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.devkbil.mtssbj.common.LocaleMessage;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Controller
@@ -43,7 +36,8 @@ public class FileDownload {
 
         filename = URLEncoder.encode(filename, String.valueOf(StandardCharsets.UTF_8));
         try {
-            realPath = path + downname.substring(0, 4) + "/" + downname;
+            realPath = FileUtil.getRealPath(path, downname);
+            realPath = realPath+ downname;
         } catch (Exception e) {
         }
 

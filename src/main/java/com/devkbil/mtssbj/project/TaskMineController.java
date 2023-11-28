@@ -2,11 +2,6 @@ package com.devkbil.mtssbj.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,10 +12,14 @@ import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.etc.EtcService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class TaskMineController {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
     @Autowired
     private TaskService taskService;
     @Autowired

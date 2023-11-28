@@ -1,27 +1,25 @@
 package com.devkbil.mtssbj.mail;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "메일주소 : MailAddressVO", description = "메일주소")
+@Schema(description = "메일주소 : MailAddressVO")
 @XmlRootElement(name = "MailAddressVO")
 @XmlType(propOrder = {"emno", "eatype", "eaaddress", "easeq"})
 @Getter
 @Setter
 public class MailAddressVO {
 
-    @ApiModelProperty(value = "메일번호")
+    @Schema(description = "메일번호")
     private String emno; // 메일번호
-    @ApiModelProperty(value = "순번")
+    @Schema(description = "순번")
     private String eatype; // 순번
-    @ApiModelProperty(value = "주소종류")
+    @Schema(description = "주소종류")
     private String eaaddress; // 주소종류
-    @ApiModelProperty(value = "메일주소")
+    @Schema(description = "메일주소")
     private Integer easeq; // 메일주소
 
 } 

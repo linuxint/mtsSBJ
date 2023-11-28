@@ -2,8 +2,11 @@ package com.devkbil.mtssbj.common.code;
 
 import java.util.Arrays;
 
+import lombok.Getter;
+
 public class CodeConstant {
 
+    @Getter
     public enum CodeOption {
         ADMIN("관리자"),
         USER("사용자"),
@@ -34,13 +37,11 @@ public class CodeConstant {
             this.viewName = viewName;
         }
 
-        public String getViewName() {
-            return viewName;
-        }
     }
 
     //CODEGROUP
     //User, Sign,Posion, Work, Repeat, Open
+    @Getter
     public enum CodeGroup {
         USER("사용자롤", new CodeOption[] {
                 CodeOption.ADMIN, CodeOption.USER
@@ -83,8 +84,5 @@ public class CodeConstant {
                     .anyMatch(containCode -> containCode == searchTarget);
         }
 
-        public String getViewName() {
-            return viewName;
-        }
     }
 }

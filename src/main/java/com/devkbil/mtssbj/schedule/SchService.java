@@ -1,22 +1,20 @@
 package com.devkbil.mtssbj.schedule;
 
-import java.util.Date;
-import java.util.List;
-
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.DateUtil;
+import com.devkbil.mtssbj.search.SearchVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.devkbil.mtssbj.common.ExtFieldVO;
-import com.devkbil.mtssbj.common.util.DateUtil;
-import com.devkbil.mtssbj.search.SearchVO;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -25,7 +23,7 @@ public class SchService {
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
-    private DataSourceTransactionManager txManager;
+    private JpaTransactionManager txManager;
 
     public List<?> selectCalendar(MonthVO param, String userno) {
         List<?> list = sqlSession.selectList("selectCalendar", param);
@@ -66,7 +64,7 @@ public class SchService {
                 sqlSession.update("updateSch", param);
             }
 
-            sqlSession.insert("deleteSchDetail", param.getSsno());
+            sqlSession.delete("deleteSchDetail", param.getSsno());
 
             SchDetailVO param2 = new SchDetailVO();
             param2.setSsno(param.getSsno());
@@ -88,8 +86,9 @@ public class SchService {
 
                 Integer dayofweek = Integer.parseInt(param.getSsrepeatoption());
                 while (!sdate.after(edate)) {
-                    if (DateUtil.getDayOfWeek(sdate) == dayofweek)
+                    if (DateUtil.getDayOfWeek(sdate) == dayofweek) {
                         break;
+                    }
                     sdate = DateUtil.dateAdd(sdate, 1);
                 }
                 while (!sdate.after(edate)) {
@@ -106,10 +105,11 @@ public class SchService {
                 String sday = param.getSsrepeatoption();
 
                 Date ndate = DateUtil.str2Date(iYear + "-" + iMonth + "-" + sday);
-                if (sdate.after(ndate))
+                if (sdate.after(ndate)) {
                     sdate = DateUtil.str2Date(String.format("%s-%s-%s", iYear, ++iMonth, sday));
-                else
+                } else {
                     sdate = ndate;
+                }
 
                 while (!sdate.after(edate)) {
                     param2.setSdseq(inx++);
@@ -141,6 +141,6 @@ public class SchService {
      * 삭제.
      */
     public void deleteSch(SchVO param) {
-        sqlSession.update("deleteSch", param);
+        sqlSession.delete("deleteSch", param);
     }
 }

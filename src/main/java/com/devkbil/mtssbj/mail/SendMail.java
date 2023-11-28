@@ -37,8 +37,9 @@ public class SendMail {
         this.SMTP_ACCOUNT = user;
         this.SMTP_USERNM = usernm;
         this.SMTP_PASSWD = pw;
-        if (!"465".equals(port))
+        if (!"465".equals(port)) {
             smtpssl = "false";
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -99,8 +100,9 @@ public class SendMail {
         InternetAddress[] addressTo = new InternetAddress[maillist.length];
         try {
             for (int i = 0; i < maillist.length; i++) {
-                if (!"".equals(maillist[i]))
+                if (!"".equals(maillist[i])) {
                     addressTo[i] = new InternetAddress(maillist[i]);
+                }
             }
         } catch (AddressException e) {
             log.error("mail2Addr");

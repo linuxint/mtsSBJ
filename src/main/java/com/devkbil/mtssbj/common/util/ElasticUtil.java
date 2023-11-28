@@ -30,8 +30,9 @@ public class ElasticUtil {
     }
 
     public static ElasticUtil getInstance() throws IOException {
-        if (self == null)
+        if (self == null) {
             self = new ElasticUtil();
+        }
         return self;
     }
 

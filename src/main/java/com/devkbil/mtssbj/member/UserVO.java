@@ -1,19 +1,13 @@
 package com.devkbil.mtssbj.member;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import com.devkbil.mtssbj.common.util.SecurityUtil;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
+import org.springframework.web.multipart.MultipartFile;
 
-@ApiModel(value = "사용자 : UserVO", description = "사용자정보")
+@Schema(description = "사용자 : UserVO")
 @XmlRootElement(name = "UserVO")
 @XmlType(propOrder = {"userno", "userid", "userpw", "usernm", "photo", "userrole", "userpos", "ip", "deptno", "deptnm",
         "photofile"})
@@ -21,31 +15,37 @@ import lombok.SneakyThrows;
 @Setter
 public class UserVO {
 
-    @ApiModelProperty(value = "사용자 번호")
+    @Schema(description = "사용자 번호")
     private String userno; // 사용자 번호
-    @ApiModelProperty(value = "ID")
+
+    @Schema(description = "ID")
     private String userid; // ID
-    @ApiModelProperty(value = "비밀번호")
+
+    @Schema(description = "비밀번호")
     private String userpw; // 비밀번호
-    @ApiModelProperty(value = "이름")
+
+    @Schema(description = "이름")
     private String usernm; // 이름
-    @ApiModelProperty(value = "사진")
+
+    @Schema(description = "사진")
     private String photo; // 사진
-    @ApiModelProperty(value = "권한")
+
+    @Schema(description = "권한")
     private String userrole; // 권한
-    @ApiModelProperty(value = "메일서비스")
+
+    @Schema(description = "메일서비스")
     private String userpos; // 메일서비스
-    @ApiModelProperty(value = "아이피")
+
+    @Schema(description = "아이피")
     private String ip; // 아이피
-    @ApiModelProperty(value = "부서코드")
+
+    @Schema(description = "부서코드")
     private String deptno; // 부서코드
-    @ApiModelProperty(value = "부서명")
+
+    @Schema(description = "부서명")
     private String deptnm; // 부서명
-    @ApiModelProperty(value = "사진")
+
+    @Schema(description = "사진")
     private MultipartFile photofile; // 사진
 
-    @SneakyThrows
-    public void setUserpw(String userpw) {
-        this.userpw = SecurityUtil.sha256(userpw);
-    }
 }

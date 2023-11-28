@@ -2,34 +2,31 @@ package com.devkbil.mtssbj.common.util;
 
 import java.util.Calendar;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TimeUtil {
 
     private static long startTime;
     private static long endTime;
     private static long diffTime;
 
-    public static void setStartTime() {
+    public void setStartTime() {
         startTime = System.currentTimeMillis();
     }
 
-    public static long getStartTime() {
-        return startTime;
-    }
-
-    public static void setEndTime() {
+    public void setEndTime() {
         endTime = System.currentTimeMillis();
     }
 
-    public static long getEndTime() {
-        return endTime;
-    }
-
-    public static long getDiffTime() {
-        diffTime = getEndTime() - getStartTime();
+    public long getDiffTime() {
+        diffTime = endTime - startTime;
         return diffTime;
     }
 
-    public static String formatTime(long lTime) {
+    public String formatTime(long lTime) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(lTime);
         return String.format("%02d:%02d:%02d.%03d", c.get(Calendar.HOUR), c.get(Calendar.MINUTE),
@@ -46,19 +43,14 @@ public class TimeUtil {
      @praam fromTime String - 시작시각
      @praam toTime String - 종료시각
      */
-    public static long diffTime(String fromTime, String toTime) {
+    public long diffTime(String fromTime, String toTime) {
 
         long lDiff = 0;
 
         try {
-            //Date fromDate = DateUtil.convDate(fromTime);
-            //Date toDate   = DateUtil.convDate(toTime);
-
             long lFromTime = DateUtil.convDate(fromTime).getTime() / 1000;
-            //logger.debug("lCurTime="+lFromTime);
 
             long lToTime = DateUtil.convDate(toTime).getTime() / 1000;
-            //logger.debug("lTmpTime="+lToTime);
 
             lDiff = lToTime - lFromTime;
         } catch (Exception e) {

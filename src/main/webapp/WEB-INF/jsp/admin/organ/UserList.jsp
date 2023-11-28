@@ -11,13 +11,13 @@
         <col width='5%'/>
     </colgroup>
     <thead>
-        <tr>
-            <th><s:message code="board.no"/></th>
-            <th><s:message code="common.id"/></th>
-            <th><s:message code="common.name"/></th>
-            <th><s:message code="common.role"/></th>
-            <th></th>
-        </tr>
+    <tr>
+        <th><s:message code="board.no"/></th>
+        <th><s:message code="common.id"/></th>
+        <th><s:message code="common.name"/></th>
+        <th><s:message code="common.role"/></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
     <c:forEach var="listview" items="${listview}" varStatus="status">

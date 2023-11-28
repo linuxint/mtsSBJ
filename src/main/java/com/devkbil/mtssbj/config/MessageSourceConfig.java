@@ -15,11 +15,14 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.devkbil.mtssbj.common.ExtendReloadableResourceBundleMessageSource;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Message Source Configuration
  */
 @Configuration
 @EnableConfigurationProperties
+@Slf4j
 public class MessageSourceConfig {
 
     @Bean
@@ -31,7 +34,6 @@ public class MessageSourceConfig {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        //slr.setDefaultLocale(Locale.US);
         slr.setLocaleAttributeName("current.locale");
         slr.setTimeZoneAttributeName("current.timezone");
         return slr;
@@ -46,11 +48,17 @@ public class MessageSourceConfig {
 
     @Bean
     public MessageSource messageSource(MessageSourceProperties properties) {
+
         ExtendReloadableResourceBundleMessageSource messageSource = new ExtendReloadableResourceBundleMessageSource();
+
+        // comma Delimited To List
         if (StringUtils.hasText(properties.getBasename())) {
-            messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(
-                    StringUtils.trimAllWhitespace(properties.getBasename())));
+            String baseName = properties.getBasename();
+            baseName = StringUtils.trimAllWhitespace(baseName);
+            String[] baseNames = StringUtils.commaDelimitedListToStringArray(baseName);
+            messageSource.setBasenames(baseNames);
         }
+
         if (properties.getEncoding() != null) {
             messageSource.setDefaultEncoding(properties.getEncoding().name());
         }
@@ -61,6 +69,7 @@ public class MessageSourceConfig {
         }
         messageSource.setAlwaysUseMessageFormat(properties.isAlwaysUseMessageFormat());
         messageSource.setUseCodeAsDefaultMessage(properties.isUseCodeAsDefaultMessage());
+
         return messageSource;
     }
 }

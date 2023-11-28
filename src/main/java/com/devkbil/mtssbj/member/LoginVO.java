@@ -1,32 +1,41 @@
 package com.devkbil.mtssbj.member;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import com.devkbil.mtssbj.common.util.SecurityUtil;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 
-@ApiModel(value = "로그인 : LoginVO", description = "LoginVO")
+@Schema(description = "로그인 : LoginVO")
 @XmlRootElement(name = "LoginVO")
 @XmlType(propOrder = {"userid", "userpw", "remember"})
 @Getter
 @Setter
+@Entity(name = "com_user")
 public class LoginVO {
 
-    @ApiModelProperty(value = "메일서비스")
+    @Id
+    @Schema(description = "사용자 번호")
+    private String userno;
+
+    @Schema(description = "ID")
+    @Column(unique = true)
     private String userid;
-    @ApiModelProperty(value = "메일서비스")
+
+    @Schema(description = "비밀번호")
     private String userpw;
-    @ApiModelProperty(value = "메일서비스")
+
+    @Schema(description = "이름")
+    private String usernm;
+
+    @Schema(description = "remember")
+    @Transient
     private String remember;
 
-    @SneakyThrows
-    public void setUserpw(String userpw) {
-        this.userpw = SecurityUtil.sha256(userpw);
-    }
+    @Schema(description = "권한")
+    private String userrole;
 }

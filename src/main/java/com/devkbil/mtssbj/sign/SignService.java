@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
@@ -22,7 +22,7 @@ public class SignService {
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
-    private DataSourceTransactionManager txManager;
+    private JpaTransactionManager txManager;
 
     /**
      * 결제 받을 문서 리스트.
@@ -67,8 +67,9 @@ public class SignService {
             String[] arr;
             SignVO param2 = new SignVO();
             for (int i = 0; i < users.length; i++) {
-                if ("".equals(users[i]))
+                if ("".equals(users[i])) {
                     continue;
+                }
                 arr = users[i].split(","); // 사번, 이름, 기안/합의/결제, 직책
                 param2.setSsstep(Integer.toString(i));
                 param2.setDocno(param.getDocno());

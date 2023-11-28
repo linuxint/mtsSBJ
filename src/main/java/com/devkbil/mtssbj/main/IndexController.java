@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +16,8 @@ import com.devkbil.mtssbj.etc.EtcService;
 import com.devkbil.mtssbj.project.ProjectService;
 import com.devkbil.mtssbj.schedule.DateVO;
 import com.devkbil.mtssbj.search.SearchVO;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
@@ -77,7 +77,7 @@ public class IndexController {
         String userno = request.getSession().getAttribute("userno").toString();
         String date = request.getParameter("date");
 
-        Date today = DateUtil.getToday(date);
+        Date today = DateUtil.stringToDate(date);
 
         calCalen(userno, today, modelMap);
 

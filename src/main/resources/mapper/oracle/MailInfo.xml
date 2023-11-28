@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="board">
+<mapper namespace="mailinfo">
 
     <select id="selectMailInfoList" resultType="com.devkbil.mtssbj.mail.MailInfoVO" parameterType="String">
         SELECT EMINO, EMIIMAP, EMIIMAPPORT, EMISMTP, EMISMTPPORT, EMIUSER, EMIPW, EMI.USERNO, USERNM
@@ -15,8 +15,11 @@
             
         
     <insert id="insertMailInfo" parameterType="com.devkbil.mtssbj.mail.MailInfoVO" >
-        INSERT INTO EML_MAILINFO(EMINO, EMIIMAP, EMIIMAPPORT, EMISMTP, EMISMTPPORT, EMIUSER, EMIPW, USERNO, ENTRYDATE, DELETEFLAG)
-        VALUES (EMINO_SEQ.NEXTVAL, #{emiimap}, #{emiimapport}, #{emismtp}, #{emismtpport}, #{emiuser}, #{emipw}, #{userno}, SYSDATE, 'N')
+        <selectKey resultType="String" keyProperty="emino" order="BEFORE">
+            SELECT EMINO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO EML_MAILINFO(EMINO, EMIIMAP, EMIIMAPPORT, EMISMTP, EMISMTPPORT, EMIUSER, EMIPW, USERNO, REGDATE, DELETEFLAG)
+        VALUES (#{emino}, #{emiimap}, #{emiimapport}, #{emismtp}, #{emismtpport}, #{emiuser}, #{emipw}, #{userno}, SYSDATE, 'N')
     </insert>
     
     <update id="updateMailInfo" parameterType="com.devkbil.mtssbj.mail.MailInfoVO">

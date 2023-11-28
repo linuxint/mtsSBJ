@@ -41,9 +41,11 @@
                 </div>
                 <div layout:fragment="content">
                     <h1>Error Page</h1>
-                    error code : ${code}
-                    <br>error msg : ${msg}
+                    error code : ${status}
+                    <br>error : ${error}
+                    <br>message : ${message}
                     <br>timestamp : ${timestamp}
+                    <br>path : ${path}
                 </div>
             </div>
         </div>

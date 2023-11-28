@@ -13,7 +13,7 @@
     </select> 
     
     <select id="selectSearchMemberList" parameterType="com.devkbil.mtssbj.search.SearchVO" resultType="com.devkbil.mtssbj.member.UserVO" >
-        SELECT USERNO, USERID, USERNM, PHOTO, DEPTNM DEPTNO
+        SELECT USERNO, USERID, USERNM, PHOTO, DEPTNM as DEPTNO
           FROM COM_USER CU
          INNER JOIN COM_DEPT CD ON CD.DEPTNO=CU.DEPTNO
          WHERE CU.DELETEFLAG='N' AND CD.DELETEFLAG='N'
@@ -25,16 +25,16 @@
         SELECT USERNO, USERID, USERNM, USERROLE
           FROM COM_USER CU
          WHERE CU.DELETEFLAG='N' 
-           AND CU.USERID = #{userid} AND USERPW=SHA2(#{userpw}, 256)
+           AND CU.USERID = #{userid} AND USERPW=#{userpw}
     </select> 
     
     <insert id="insertLogIn" parameterType="String">
-        INSERT INTO COM_LOGINOUT (USERNO, LTYPE, LDATE)
+        INSERT INTO COM_LOGINOUT (USERNO, LTYPE, REGDATE)
                            VALUES (#{userno}, 'I', NOW() );
     </insert>
 
     <insert id="insertLogOut" parameterType="String">
-        INSERT INTO COM_LOGINOUT (USERNO, LTYPE, LDATE)
+        INSERT INTO COM_LOGINOUT (USERNO, LTYPE, REGDATE)
                            VALUES (#{userno}, 'O', NOW() );
     </insert>
     

@@ -14,7 +14,7 @@
     
     <select id="selectSearchMemberList" parameterType="com.devkbil.mtssbj.search.SearchVO" resultType="com.devkbil.mtssbj.member.UserVO" >
         SELECT * FROM (
-            SELECT ROWNUM AS RNUM, USERNO, USERID, USERNM, PHOTO, DEPTNM DEPTNO
+            SELECT ROWNUM AS RNUM, USERNO, USERID, USERNM, PHOTO, DEPTNM as DEPTNO
               FROM COM_USER CU
              INNER JOIN COM_DEPT CD ON CD.DEPTNO=CU.DEPTNO
              WHERE CU.DELETEFLAG='N' AND CD.DELETEFLAG='N'
@@ -35,12 +35,12 @@
     </select> 
     
     <insert id="insertLogIn" parameterType="String">
-        INSERT INTO COM_LOGINOUT (LNO, USERNO, LTYPE, LDATE)
+        INSERT INTO COM_LOGINOUT (LNO, USERNO, LTYPE, REGDATE)
          VALUES (LNO_SEQ.NEXTVAL, #{userno}, 'I', SYSDATE )
     </insert>
 
     <insert id="insertLogOut" parameterType="String">
-        INSERT INTO COM_LOGINOUT (LNO, USERNO, LTYPE, LDATE)
+        INSERT INTO COM_LOGINOUT (LNO, USERNO, LTYPE, REGDATE)
             VALUES (LNO_SEQ.NEXTVAL, #{userno}, 'O', SYSDATE )
     </insert>
     

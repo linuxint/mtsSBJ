@@ -5,18 +5,18 @@
 
 <mapper namespace="ad_department">
     <select id="selectDepartment" resultType="com.devkbil.mtssbj.common.tree.TreeVO" >
-        SELECT DEPTNO 'KEY', DEPTNM TITLE, PARENTNO PARENT
+        SELECT DEPTNO as KEY, DEPTNM as TITLE, PARENTNO as PARENT
           FROM COM_DEPT
          WHERE DELETEFLAG='N' 
          ORDER BY DEPTNO  
     </select> 
     
     <insert id="insertDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO" >
-        <selectKey resultType="String" keyProperty="deptno" order="BEFORE">
-            SELECT IFNULL(MAX(DEPTNO),0)+1 FROM COM_DEPT
-        </selectKey>    
-        INSERT INTO COM_DEPT(DEPTNO, DEPTNM, PARENTNO, DELETEFLAG)
-        VALUES (#{deptno}, #{deptnm}, #{parentno}, 'N')
+        INSERT INTO COM_DEPT(DEPTNM, PARENTNO, DELETEFLAG)
+        VALUES (#{deptnm}, #{parentno}, 'N')
+        <selectKey keyProperty="deptno" resultType="String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     
     <update id="updateDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO">

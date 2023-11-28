@@ -1,22 +1,19 @@
 package com.devkbil.mtssbj.common.interceptor;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
+import com.devkbil.mtssbj.common.log.MDCFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.devkbil.mtssbj.common.log.MDCFilter;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -24,7 +21,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     public List loginEssential = Arrays.asList("/**");
 
-    public List loginInessential = Arrays.asList("/memberLogin", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
+    public List loginInessential = Arrays.asList("/memberLogin","/memberLoginError", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
 
     @Bean
     public FilterRegistrationBean mdcFilterRegisterationBean() {

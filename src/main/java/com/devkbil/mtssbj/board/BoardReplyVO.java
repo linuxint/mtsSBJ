@@ -1,47 +1,45 @@
 package com.devkbil.mtssbj.board;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import com.devkbil.mtssbj.common.util.UtilEtc;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "게시글 댓글 : Board Reply", description = "게시글 댓글")
+@Schema(description = "게시글 댓글 : Board Reply")
 @XmlRootElement(name = "boardreplyvo")
-@XmlType(propOrder = {"brdno", "reno", "rewriter", "rememo", "redate", "reparent", "redepth", "reorder", "userno",
+@XmlType(propOrder = {"brdno", "reno", "rewriter", "rememo", "regdate", "reparent", "redepth", "reorder", "userno",
         "usernm", "photo"})
 @Getter
 @Setter
 public class BoardReplyVO {
 
-    @ApiModelProperty(value = "게시물 번호")
+    @Schema(description = "게시물 번호")
     private String brdno;
-    @ApiModelProperty(value = "댓글 번호")
+    @Schema(description = "댓글 번호")
     private String reno;
-    @ApiModelProperty(value = "댓글 작성자")
+    @Schema(description = "댓글 작성자")
     private String rewriter;
-    @ApiModelProperty(value = "댓글 내용")
+    @Schema(description = "댓글 내용")
     private String rememo;
-    @ApiModelProperty(value = "작성일자")
-    private String redate;
-    @ApiModelProperty(value = "부모댓글")
+    @Schema(description = "작성일자")
+    private String regdate;
+    @Schema(description = "부모댓글")
     private String reparent;
-    @ApiModelProperty(value = "깊이")
+    @Schema(description = "깊이")
     private String redepth;
-    @ApiModelProperty(value = "순서")
+    @Schema(description = "순서")
     private Integer reorder;
-    @ApiModelProperty(value = "작성자")
+    @Schema(description = "작성자")
     private String userno;
-    @ApiModelProperty(value = "작성자명")
+    @Schema(description = "작성자명")
     private String usernm;
-    @ApiModelProperty(value = "사용자사진")
+    @Schema(description = "사용자사진")
     private String photo;
 
-    @ApiModelProperty(value = "댓글Html")
+    @Schema(description = "댓글Html")
     public String getRememoByHTML() {
         return UtilEtc.text2Html(rememo);
     }

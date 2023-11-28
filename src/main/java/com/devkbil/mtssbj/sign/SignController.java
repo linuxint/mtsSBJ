@@ -2,10 +2,6 @@ package com.devkbil.mtssbj.sign;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,10 +12,13 @@ import com.devkbil.mtssbj.admin.sign.SignDocTypeVO;
 import com.devkbil.mtssbj.etc.EtcService;
 import com.devkbil.mtssbj.search.SearchVO;
 
+import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class SignController {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(SignController.class);
     @Autowired
     private SignService signService;
     @Autowired
@@ -59,8 +58,9 @@ public class SignController {
         etcService.setCommonAttribute(userno, modelMap);
 
         //
-        if (searchVO.getSearchExt1() == null || "".equals(searchVO.getSearchExt1()))
+        if (searchVO.getSearchExt1() == null || "".equals(searchVO.getSearchExt1())) {
             searchVO.setSearchExt1("sign");
+        }
         searchVO.setUserno(userno);
         searchVO.pageCalculate(signService.selectSignDocCount(searchVO)); // startRow, endRow
         List<?> listview = signService.selectSignDocList(searchVO);

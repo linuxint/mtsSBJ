@@ -8,6 +8,8 @@ import java.util.Map;
 import com.devkbil.mtssbj.common.util.JsonUtil;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+
 public class JsonUtilTest {
     public static void main(String[] args) {
         toJsonInlcudeTest();
@@ -35,6 +37,7 @@ public class JsonUtilTest {
 
     public static class Car {
         private String name;
+        @Getter
         private String color;
 
         @JsonView(CarJsonView.class)
@@ -44,10 +47,6 @@ public class JsonUtilTest {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public String getColor() {
-            return color;
         }
 
         public void setColor(String color) {

@@ -1,10 +1,9 @@
 package com.devkbil.mtssbj;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
 public class UserRequestDto {
 

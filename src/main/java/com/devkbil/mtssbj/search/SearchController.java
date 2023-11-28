@@ -2,9 +2,6 @@ package com.devkbil.mtssbj.search;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -18,8 +15,6 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,16 +23,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.config.EsConfig;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class SearchController {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
     static final Integer DISPLAY_COUNT = 5;
-    @Value("${elasticsearch.clustername}")
-    static final String INDEX_NAME = "mts";
     static final String[] HIGHLIGHT_FIELDS = {"brdwriter", "brdtitle", "brdmemo"};
-    static final String[] INCLUDE_FIELDS = new String[] {"brdno", "userno", "brddate", "brdtime", "brdtitle",
+    static final String[] INCLUDE_FIELDS = new String[] {"brdno", "userno", "regdate", "regtime", "brdtitle",
             "brdwriter", "brdmemo", "brdhit"}; // 값을 가지고 올 필드
+    @Value("${elasticsearch.clustername}")
+    final String INDEX_NAME = "";
 
     @RequestMapping(value = "/search")
     public String search(HttpServletRequest request, ModelMap modelMap) {
@@ -55,8 +54,10 @@ public class SearchController {
      */
     @RequestMapping(value = "/search4Ajax")
     public void search4Ajax(HttpServletRequest request, HttpServletResponse response, FullTextSearchVO searchVO) {
-        if ("".equals(searchVO.getSearchKeyword()))
+
+        if ("".equals(searchVO.getSearchKeyword()) || !"".equals(INDEX_NAME)) {
             return;
+        }
 
         String[] searchRange = searchVO.getSearchRange().split(",");                // 검색 대상 필드 - 작성자, 제목, 내용 등
 
@@ -71,8 +72,7 @@ public class SearchController {
         TermsAggregationBuilder aggregation = AggregationBuilders.terms("gujc").field("bgno");        // 그룹별(게시판) 개수
         searchSourceBuilder.aggregation(aggregation);
 
-        searchSourceBuilder.query(
-                makeQuery(searchRange, searchVO.getSearchKeyword().split(" "), searchVO));    // 검색식 작성
+        searchSourceBuilder.query(makeQuery(searchRange, searchVO.getSearchKeyword().split(" "), searchVO));    // 검색식 작성
 
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices(INDEX_NAME);
@@ -86,21 +86,20 @@ public class SearchController {
             client = esConfig.client();
             searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.getMessage());
         } finally {
             try {
                 client.close();
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
+            } catch (IOException e) {
+                log.info(e.getMessage());
             }
         }
 
         response.setContentType("application/json;charset=UTF-8");
         try {
-            response.getWriter()
-                    .print(searchResponse.toString()); //ES가  전송한 검색 결과를 그대로 client(ajax)에 전송. 모든 처리를 JS에서 진행
+            response.getWriter().print(searchResponse.toString()); //ES가  전송한 검색 결과를 그대로 client(ajax)에 전송. 모든 처리를 JS에서 진행
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info(e.getMessage());
         }
     }
 
@@ -119,13 +118,14 @@ public class SearchController {
         }
 
         if (!"a".equals(searchVO.getSearchTerm())) {                            // 기간 검색
-            qb.must(QueryBuilders.rangeQuery("brddate").from(searchVO.getSearchTerm1()).to(searchVO.getSearchTerm2()));
+            qb.must(QueryBuilders.rangeQuery("regdate").from(searchVO.getSearchTerm1()).to(searchVO.getSearchTerm2()));
         }
 
         for (String word : words) {            // 검색 키워드
             word = word.trim().toLowerCase();
-            if ("".equals(word))
+            if ("".equals(word)) {
                 continue;
+            }
 
             BoolQueryBuilder qb1 = QueryBuilders.boolQuery();
             for (String fld : fields) {                            // 입력한 키워드가 지정된 모든 필드에 있는지 조회
@@ -156,8 +156,9 @@ public class SearchController {
         HighlightBuilder highlightBuilder = new HighlightBuilder();
 
         for (String fld : fields) {
-            if ("brdreply".equals(fld) || "brdfiles".equals(fld))
+            if ("brdreply".equals(fld) || "brdfiles".equals(fld)) {
                 continue;    // 댓글, 첨부파일은 하이라이트 안함. 댓글, 첨부파일이 검색되어도 부모글이 출력되기 때문
+            }
             HighlightBuilder.Field hField = new HighlightBuilder.Field(fld);
             highlightBuilder.field(hField);
         }

@@ -9,7 +9,7 @@ import javax.mail.MessagingException;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
@@ -28,7 +28,7 @@ public class MailService {
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
-    private DataSourceTransactionManager txManager;
+    private JpaTransactionManager txManager;
 
     /**
      * 리스트.
@@ -115,10 +115,12 @@ public class MailService {
         String[] to = param.getStrTo().split(";");
         String[] cc = {};
         String[] bcc = {};
-        if (!"".equals(param.getStrCc()))
+        if (!"".equals(param.getStrCc())) {
             cc = param.getStrCc().split(";");
-        if (!"".equals(param.getStrBcc()))
+        }
+        if (!"".equals(param.getStrBcc())) {
             bcc = param.getStrBcc().split(";");
+        }
 
         param.setEmto(new ArrayList<String>(Arrays.asList(to)));
         param.setEmcc(new ArrayList<String>(Arrays.asList(cc)));
@@ -164,8 +166,9 @@ public class MailService {
         String str;
         for (int j = 0; j < list.size(); j++) {
             str = list.get(j);
-            if ("".equals(str) || str == null)
+            if ("".equals(str) || str == null) {
                 continue;
+            }
             mavo.setEaseq(j);
             mavo.setEaaddress(list.get(j));
             sqlSession.insert("insertMailAddress", mavo);

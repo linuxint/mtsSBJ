@@ -1,23 +1,21 @@
 package com.devkbil.mtssbj.schedule;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "년월 : MonthVO", description = "년월")
+@Schema(description = "년월 : MonthVO")
 @XmlRootElement(name = "MonthVO")
 @XmlType(propOrder = {"year", "month"})
 @Getter
 @Setter
 public class MonthVO {
 
-    @ApiModelProperty(value = "연도")
+    @Schema(description = "연도")
     private String year; // 연도
-    @ApiModelProperty(value = "월")
+    @Schema(description = "월")
     private String month; // 월
 
 }

@@ -2,33 +2,31 @@ package com.devkbil.mtssbj.schedule;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "달력 : DateVO", description = "달력")
+@Schema(description = "달력 : DateVO")
 @XmlRootElement(name = "DateVO")
 @XmlType(propOrder = {"year", "month", "day", "week", "istoday", "list"})
 @Getter
 @Setter
 public class DateVO {
-    @ApiModelProperty(value = "연도")
+    @Schema(description = "연도")
     private int year;
-    @ApiModelProperty(value = "월")
+    @Schema(description = "월")
     private int month;
-    @ApiModelProperty(value = "일")
+    @Schema(description = "일")
     private int day;
-    @ApiModelProperty(value = "날짜")
+    @Schema(description = "날짜")
     private String date;
-    @ApiModelProperty(value = "주")
+    @Schema(description = "주")
     private String week;
-    @ApiModelProperty(value = "금일")
+    @Schema(description = "금일")
     private boolean istoday = false;
-    @ApiModelProperty(value = "날짜목록")
+    @Schema(description = "날짜목록")
     private List<?> list;
 
 }

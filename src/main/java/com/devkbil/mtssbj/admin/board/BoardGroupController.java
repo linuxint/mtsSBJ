@@ -2,9 +2,6 @@ package com.devkbil.mtssbj.admin.board;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +11,8 @@ import com.devkbil.mtssbj.common.tree.TreeMaker;
 import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

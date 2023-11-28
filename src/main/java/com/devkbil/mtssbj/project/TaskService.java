@@ -1,21 +1,19 @@
 package com.devkbil.mtssbj.project;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.devkbil.mtssbj.common.ExtFieldVO;
-import com.devkbil.mtssbj.common.util.FileVO;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -24,7 +22,7 @@ public class TaskService {
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
-    private DataSourceTransactionManager txManager;
+    private JpaTransactionManager txManager;
 
     /**
      * ------------------------------------------
@@ -109,7 +107,7 @@ public class TaskService {
             if (fileno != null) {
                 HashMap<String, String[]> fparam = new HashMap<String, String[]>();
                 fparam.put("fileno", fileno);
-                sqlSession.insert("deleteTaskFile", fparam);
+                sqlSession.update("updateTaskFile", fparam);
             }
 
             for (FileVO f : filelist) {

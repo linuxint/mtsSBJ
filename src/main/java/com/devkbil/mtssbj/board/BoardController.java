@@ -1,16 +1,5 @@
 package com.devkbil.mtssbj.board;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.devkbil.mtssbj.admin.board.BoardGroupService;
 import com.devkbil.mtssbj.admin.board.BoardGroupVO;
 import com.devkbil.mtssbj.common.ExtFieldVO;
@@ -19,8 +8,18 @@ import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -108,7 +107,7 @@ public class BoardController {
     public String boardSave(HttpServletRequest request, BoardVO boardInfo) {
         String userno = request.getSession().getAttribute("userno").toString();
         String userrole = request.getSession().getAttribute("userrole").toString();
-        boolean isAdmin = "A".equals(userrole);
+        boolean isAdmin = "ADMIN".equals(userrole);
         boardInfo.setUserno(userno);
 
         if (boardInfo.getBrdno() != null && !"".equals(boardInfo.getBrdno())) {    // check auth for update
@@ -177,6 +176,12 @@ public class BoardController {
             return "common/noAuth";
         }
 
+        {
+            // 댓글 전체
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map map = objectMapper.convertValue(boardInfo, Map.class);
+            boardService.deleteBoardReplyAll(map);
+        }
         boardService.deleteBoardOne(brdno);
 
         return "redirect:/boardList?bgno=" + bgno;
@@ -260,7 +265,7 @@ public class BoardController {
             }
         }
 
-        if (!boardService.deleteBoardReply(boardReplyInfo.getReno())) {
+        if (!boardService.deleteBoardReply(boardReplyInfo)) {
             UtilEtc.responseJsonValue(response, "Fail");
         } else {
             UtilEtc.responseJsonValue(response, "OK");

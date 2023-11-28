@@ -6,6 +6,9 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import lombok.Getter;
+
+@Getter
 public class SystemProperties {
     private static final SystemProperties systemProperties = new SystemProperties();
     private static final Logger logger = Logger.getLogger(SystemProperties.class.getName());
@@ -24,20 +27,18 @@ public class SystemProperties {
 
     public static String getProperty(String key) {
         String property = systemProperties.properties.getProperty(key);
-        if (property == null)
+        if (property == null) {
             throw new RuntimeException(key + " can not found.");
+        }
         return property;
     }
 
     public static String getProperty(String key, String defaultValue) {
         String property = systemProperties.properties.getProperty(key);
-        if (property == null)
+        if (property == null) {
             return defaultValue;
+        }
         return property;
-    }
-
-    public Properties getProperties() {
-        return properties;
     }
 
     public void setProperties(Properties properties) {

@@ -2,11 +2,6 @@ package com.devkbil.mtssbj.mail;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.devkbil.mtssbj.etc.EtcService;
 import com.devkbil.mtssbj.search.SearchVO;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class MailController {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(MailController.class);
     @Autowired
     private MailService mailService;
     @Autowired
@@ -31,8 +30,9 @@ public class MailController {
     public String receiveMails(HttpServletRequest request, SearchVO searchVO, ModelMap modelMap) {
         String userno = request.getSession().getAttribute("userno").toString();
         List<?> mailInfoList = mailService.selectMailInfoList(userno);
-        if (mailInfoList.size() == 0)
+        if (mailInfoList.size() == 0) {
             return "mail/MailInfoGuide";
+        }
 
         // 페이지 공통: alert
         Integer alertcount = etcService.selectAlertCount(userno);
@@ -53,8 +53,9 @@ public class MailController {
     public String sendMails(HttpServletRequest request, SearchVO searchVO, ModelMap modelMap) {
         String userno = request.getSession().getAttribute("userno").toString();
         List<?> mailInfoList = mailService.selectMailInfoList(userno);
-        if (mailInfoList.size() == 0)
+        if (mailInfoList.size() == 0) {
             return "mail/MailInfoGuide";
+        }
 
         // 페이지 공통: alert
         Integer alertcount = etcService.selectAlertCount(userno);
@@ -78,8 +79,9 @@ public class MailController {
     public String mailForm(HttpServletRequest request, MailVO mailInfo, ModelMap modelMap) {
         String userno = request.getSession().getAttribute("userno").toString();
         List<?> mailInfoList = mailService.selectMailInfoList(userno);
-        if (mailInfoList.size() == 0)
+        if (mailInfoList.size() == 0) {
             return "mail/MailInfoGuide";
+        }
 
         // 페이지 공통: alert
         Integer alertcount = etcService.selectAlertCount(userno);
@@ -186,8 +188,9 @@ public class MailController {
     public String importMail(HttpServletRequest request, ModelMap modelMap) {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("mail") != null)
-            return "";
+        if (session.getAttribute("mail") != null) {
+            return "mail/MailInfoGuide";
+        }
 
         session.setAttribute("mail", "ing");
 
@@ -196,7 +199,7 @@ public class MailController {
         Thread t = new Thread(new ImportMail(mailService, userno, session));
         t.start();
 
-        return "";
+        return "mail/ReceiveMails";
     }
 
 }

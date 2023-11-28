@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.Getter;
+
 public class ValidateUtil {
 
     private static final int MAX_LOOP_CNT = 3;
@@ -267,6 +269,7 @@ public class ValidateUtil {
         }
     }
 
+    @Getter
     public static class ValidateException extends RuntimeException {
 
         private static final long serialVersionUID = -594115403693602549L;
@@ -281,8 +284,5 @@ public class ValidateUtil {
             this.strCause = String.valueOf(cause);
         }
 
-        public String getStrCause() {
-            return strCause;
-        }
     }
 }

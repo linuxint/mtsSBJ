@@ -1,21 +1,20 @@
 package com.devkbil.mtssbj.admin.organ;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.devkbil.mtssbj.common.tree.TreeMaker;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.etc.EtcService;
 import com.devkbil.mtssbj.member.UserVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -29,6 +28,8 @@ public class UserController {
     @Autowired
     private EtcService etcService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     /**
      * 리스트.
      */
@@ -88,6 +89,7 @@ public class UserController {
         if (fileInfo != null) {
             userInfo.setPhoto(fileInfo.getRealname());
         }
+        userInfo.setUserpw(passwordEncoder.encode(userInfo.getUserpw()));
         userService.insertUser(userInfo);
 
         return commonUserList(modelMap, userInfo.getDeptno());

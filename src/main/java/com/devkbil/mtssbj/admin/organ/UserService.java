@@ -1,22 +1,19 @@
 package com.devkbil.mtssbj.admin.organ;
 
-import java.util.List;
-
+import com.devkbil.mtssbj.member.UserVO;
+import com.devkbil.mtssbj.search.SearchVO;
+import lombok.SneakyThrows;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devkbil.mtssbj.member.UserVO;
-import com.devkbil.mtssbj.search.SearchVO;
-
-import lombok.SneakyThrows;
+import java.util.List;
 
 @Service
 public class UserService {
 
     @Autowired
     private SqlSessionTemplate sqlSession;
-
     public List<?> selectUserList(String param) {
         return sqlSession.selectList("selectUserList", param);
     }
@@ -59,5 +56,4 @@ public class UserService {
     public void updateUserPassword(UserVO param) {
         sqlSession.delete("updateUserPassword", param);
     }
-
 }

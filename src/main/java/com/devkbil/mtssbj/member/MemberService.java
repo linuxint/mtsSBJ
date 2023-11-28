@@ -1,20 +1,22 @@
 package com.devkbil.mtssbj.member;
 
-import java.util.List;
-
+import com.devkbil.mtssbj.repository.MemberRepository;
+import com.devkbil.mtssbj.search.SearchVO;
+import lombok.SneakyThrows;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devkbil.mtssbj.search.SearchVO;
-
-import lombok.SneakyThrows;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService {
 
     @Autowired
     private SqlSessionTemplate sqlSession;
+
+    private final MemberRepository repository;
 
     public Integer selectSearchMemberCount(SearchVO param) {
         return sqlSession.selectOne("selectSearchMemberCount", param);
@@ -37,4 +39,13 @@ public class MemberService {
         sqlSession.insert("insertLogOut", param);
     }
 
+
+    @Autowired
+    public MemberService(MemberRepository repository) {
+        this.repository = repository;
+    }
+
+    public Optional<LoginVO> findOne(String userId) {
+        return repository.findByUserid(userId);
+    }
 }

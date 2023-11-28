@@ -1,38 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title><s:message code="common.pageTitle"/></title>
-    <link href="css/sb-admin/bootstrap.min.css" rel="stylesheet">
-    <link href="css/sb-admin/metisMenu.min.css" rel="stylesheet">
-    <link href="css/sb-admin/sb-admin-2.css" rel="stylesheet">
-    <link href="css/sb-admin/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="js/dynatree/ui.dynatree.css" rel="stylesheet" id="skinSheet"/>
-    <link href="js/datepicker/datepicker.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <script src="css/sb-admin/bootstrap.min.js"></script>
-    <script src="css/sb-admin/metisMenu.min.js"></script>
-    <script src="css/sb-admin/sb-admin-2.js"></script>
-    <script src="js/mts.js"></script>
-    <script src="js/datepicker/bootstrap-datepicker.js"></script>
+<%@include file="../inc/header.jsp" %>
     <style>
         .title {
             color: blue;
@@ -129,7 +96,7 @@
                     '        <div class="col-lg-12 row">...' + brdmemo.substring(0, 200) + '...</div>' +
                     '        <div class="col-lg-12 row">' +
                     '            <div class="pull-left">등록자: ' + brdwriter + '</div>' +
-                    '             <div class="pull-left field1">등록일: ' + row._source.brddate + ' ' + row._source.brdtime + '</div>' +
+                    '             <div class="pull-left field1">등록일: ' + row._source.regdate + ' ' + row._source.regtime + '</div>' +
                     '             <div class="pull-left field1">조회수: ' + row._source.brdhit + '</div>' +
                     '        </div>' +
                     '</div>';
@@ -213,34 +180,25 @@
         </div>
         <div class="row">
             <div class="col-lg-1"><s:message code="search.scope"/></div>
-            <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked><s:message
-                    code="common.all"/></label></div>
+            <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked><s:message code="common.all"/></label></div>
             <div class="col-lg-2">
-                <input class="form-control" size="16" id="searchTerm1" type="text" value="<c:out value="${today}"/>"
-                       readonly>
+                <input class="form-control" size="16" id="searchTerm1" type="text" value="<c:out value="${today}"/>" readonly>
             </div>
             <div class="col-lg-2">
-                <input class="form-control" size="16" id="searchTerm2" type="text" value="<c:out value="${today}"/>"
-                       readonly>
+                <input class="form-control" size="16" id="searchTerm2" type="text" value="<c:out value="${today}"/>" readonly>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-1"><s:message code="search.period"/></div>
             <div class="col-lg-1">
-                <label><input type="checkbox" id="searchRangeAll" value="" checked
-                              onchange="ev_checkAllField()">전체</label>
+                <label><input type="checkbox" id="searchRangeAll" value="" checked onchange="ev_checkAllField()">전체</label>
             </div>
             <div class="col-lg-10">
-                <label><input type="checkbox" id="searchRange" value="brdwriter" checked><s:message
-                        code="board.writer"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdtitle" checked><s:message
-                        code="board.title"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdmemo" checked><s:message
-                        code="board.contents"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdreply" checked><s:message
-                        code="common.btnReply"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdfiles" checked><s:message
-                        code="board.attach"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdwriter" checked><s:message code="board.writer"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdtitle" checked><s:message code="board.title"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdmemo" checked><s:message code="board.contents"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdreply" checked><s:message code="common.btnReply"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdfiles" checked><s:message code="board.attach"/></label>
             </div>
         </div>
 
@@ -269,4 +227,4 @@
 <!-- /#wrapper -->
 </body>
 
-</html>
+<%@include file="../inc/footer.jsp" %>

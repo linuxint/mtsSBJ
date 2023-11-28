@@ -1,12 +1,10 @@
 package com.devkbil.mtssbj.schedule;
 
+import static org.springframework.http.HttpHeaders.*;
+
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,10 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.etc.EtcService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
+@Tag(name = "SchController", description = "일정관리-")
 public class SchController {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(SchController.class);
     @Autowired
     private SchService schService;
     @Autowired
@@ -27,6 +34,11 @@ public class SchController {
     /**
      * 리스트.
      */
+    @Operation(summary = "일정관리-일정목록")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The request has succeeded.", headers = @Header(name = AUTHORIZATION, description = "Access Token")),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     @RequestMapping(value = "/schList")
     public String schList(HttpServletRequest request, MonthVO searchVO, ModelMap modelMap) {
         // 페이지 공통: alert
@@ -43,8 +55,7 @@ public class SchController {
             searchVO = DateUtil.monthValid(searchVO);
         }
 
-        Integer dayofweek = DateUtil.getDayOfWeek(
-                DateUtil.str2Date(searchVO.getYear() + "-" + searchVO.getMonth() + "-01"));
+        Integer dayofweek = DateUtil.getDayOfWeek(DateUtil.str2Date(searchVO.getYear() + "-" + searchVO.getMonth() + "-01"));
 
         List<?> listview = schService.selectCalendar(searchVO, userno);
 
@@ -58,6 +69,7 @@ public class SchController {
     /**
      * 쓰기.
      */
+    @Operation(summary = "일정관리-일정입력")
     @RequestMapping(value = "/schForm")
     public String schForm(HttpServletRequest request, SchVO schInfo, ModelMap modelMap) {
         // 페이지 공통: alert
@@ -93,6 +105,7 @@ public class SchController {
     /**
      * 저장.
      */
+    @Operation(summary = "일정관리-일정저장")
     @RequestMapping(value = "/schSave")
     public String schSave(HttpServletRequest request, SchVO schInfo, ModelMap modelMap) {
         String userno = request.getSession().getAttribute("userno").toString();
@@ -106,6 +119,7 @@ public class SchController {
     /**
      * 읽기.
      */
+    @Operation(summary = "일정관리-일정읽기Ajax")
     @RequestMapping(value = "/schRead4Ajax")
     public String schRead4Ajax(HttpServletRequest request, SchVO schVO, String cddate, ModelMap modelMap) {
         SchVO schInfo = schService.selectSchOne4Read(schVO);
@@ -119,6 +133,7 @@ public class SchController {
     /**
      * 읽기.
      */
+    @Operation(summary = "일정관리-일정읽기Request")
     @RequestMapping(value = "/schRead")
     public String schRead(HttpServletRequest request, SchVO schVO, ModelMap modelMap) {
         // 페이지 공통: alert
@@ -137,6 +152,7 @@ public class SchController {
     /**
      * 삭제.
      */
+    @Operation(summary = "일정관리-일정삭제")
     @RequestMapping(value = "/schDelete")
     public String schDelete(HttpServletRequest request, SchVO schVO) {
 

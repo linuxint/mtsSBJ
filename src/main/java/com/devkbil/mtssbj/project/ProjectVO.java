@@ -1,38 +1,36 @@
 package com.devkbil.mtssbj.project;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "프로젝트 : ProjectVO", description = "프로젝트정보")
+@Schema(description = "프로젝트 : ProjectVO")
 @XmlRootElement(name = "ProjectVO")
-@XmlType(propOrder = {"prno", "prstartdate", "prenddate", "prtitle", "prdate", "userno", "usernm", "prstatus",
+@XmlType(propOrder = {"prno", "prstartdate", "prenddate", "prtitle", "regdate", "userno", "usernm", "prstatus",
         "deleteflag"})
 @Getter
 @Setter
 public class ProjectVO {
 
-    @ApiModelProperty(value = "프로젝트 번호")
+    @Schema(description = "프로젝트 번호")
     private String prno;        //프로젝트 번호
-    @ApiModelProperty(value = "시작일자")
+    @Schema(description = "시작일자")
     private String prstartdate;    //시작일자
-    @ApiModelProperty(value = "종료일자")
+    @Schema(description = "종료일자")
     private String prenddate;    //종료일자
-    @ApiModelProperty(value = "프로젝트 제목")
+    @Schema(description = "프로젝트 제목")
     private String prtitle;        //프로젝트 제목
-    @ApiModelProperty(value = "작성일자")
-    private String prdate;        //작성일자
-    @ApiModelProperty(value = "사용자번호")
+    @Schema(description = "작성일자")
+    private String regdate;        //작성일자
+    @Schema(description = "사용자번호")
     private String userno;        //사용자번호
-    @ApiModelProperty(value = "사용자명")
+    @Schema(description = "사용자명")
     private String usernm;        //사용자명
-    @ApiModelProperty(value = "상태")
+    @Schema(description = "상태")
     private String prstatus;    //상태
-    @ApiModelProperty(value = "삭제")
+    @Schema(description = "삭제")
     private String deleteflag;    //삭제
 
 }

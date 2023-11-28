@@ -32,6 +32,9 @@
     <insert id="insertSignDocType" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO" >
         INSERT INTO SGN_DOCTYPE(DTTITLE, DTCONTENTS, DELETEFLAG)
         VALUES (#{dttitle}, #{dtcontents}, 'N')
+        <selectKey keyProperty="dtno" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     
     <update id="updateSignDocType" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO">
@@ -42,7 +45,7 @@
         
     <select id="selectSignDocTypeOne" parameterType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO" resultType="com.devkbil.mtssbj.admin.sign.SignDocTypeVO">
         SELECT DTNO, DTTITLE, DTCONTENTS
-          FROM SGN_DOCTYPE SDT
+          FROM SGN_DOCTYPE
          WHERE DELETEFLAG='N' AND DTNO=#{dtno}
     </select> 
     

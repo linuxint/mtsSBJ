@@ -1,14 +1,19 @@
 package com.devkbil.mtssbj.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -54,6 +59,15 @@ public class LoginController {
         return ret;
     }
 
+    @RequestMapping(value = "memberLoginError")
+    public String memberLoginError(HttpServletRequest request, ModelMap modelMap) {
+        //String userid = get_cookie("sid", request);
+
+        //modelMap.addAttribute("userid", userid);
+        modelMap.addAttribute("msg", "로그인 할 수 없습니다.");
+        return "common/message";
+    }
+
     /**
      * 로그인화면.
      */
@@ -71,23 +85,24 @@ public class LoginController {
      */
     @RequestMapping(value = "memberLoginChk")
     public String memberLoginChk(HttpServletRequest request, HttpServletResponse response, LoginVO loginInfo,
-            ModelMap modelMap) {
+            ModelMap modelMap, @AuthenticationPrincipal User user) {
 
-        UserVO mdo = memberService.selectMember4Login(loginInfo);
+        Optional<LoginVO> findOne = memberService.findOne(user.getUsername());
+        LoginVO loginVO = findOne.orElseThrow(() -> new UsernameNotFoundException("없는 회원입니다 ㅠ"));
 
-        if (mdo == null) {
+        if (loginVO == null) {
             modelMap.addAttribute("msg", "로그인 할 수 없습니다.");
             return "common/message";
         }
 
-        memberService.insertLogIn(mdo.getUserno());
+        memberService.insertLogIn(loginVO.getUserno());
 
         HttpSession session = request.getSession();
 
-        session.setAttribute("userid", mdo.getUserid());
-        session.setAttribute("userrole", mdo.getUserrole());
-        session.setAttribute("userno", mdo.getUserno());
-        session.setAttribute("usernm", mdo.getUsernm());
+        session.setAttribute("userid", loginVO.getUserid());
+        session.setAttribute("userrole", loginVO.getUserrole());
+        session.setAttribute("userno", loginVO.getUserno());
+        session.setAttribute("usernm", loginVO.getUsernm());
 
         if ("Y".equals(loginInfo.getRemember())) {
             set_cookie("sid", loginInfo.getUserid(), response);

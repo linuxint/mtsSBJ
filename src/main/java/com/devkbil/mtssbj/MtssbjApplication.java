@@ -1,13 +1,18 @@
 package com.devkbil.mtssbj;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
-//@CrossOrigin(origins = "http://localhost:18080")    //'Access-Control-Allow-Origin' header 추가
+@CrossOrigin(origins = "http://localhost:18080, http://localhost:9090")    //'Access-Control-Allow-Origin' header 추가
 //@RestController
-//@MapperScan(basePackages = "com.devkbil.*")
-public class MtssbjApplication {
+//@MapperScan(basePackages = "com.devkbil.mtssbj.*")
+@Slf4j
+public class MtssbjApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         //SpringApplication.run(MtssbjApplication.class, args);
@@ -35,4 +40,18 @@ public class MtssbjApplication {
         application.run(args);
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("CourseTrackerApplication CommandLineRunner has executed");
+    }
+
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return args -> {
+            log.info("CommandLineRunner executed as a bean definition  with " + args.length + "arguments");
+            for(int nLoop = 0; nLoop < args.length; nLoop++) {
+                log.info("Argument: " + args[nLoop]);
+            }
+        };
+    }
 }

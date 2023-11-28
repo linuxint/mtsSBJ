@@ -5,15 +5,18 @@
 
 <mapper namespace="ad_department">
     <select id="selectDepartment" resultType="com.devkbil.mtssbj.common.tree.TreeVO" >
-        SELECT DEPTNO as KEY, DEPTNM TITLE, PARENTNO PARENT
+        SELECT DEPTNO as KEY, DEPTNM as TITLE, PARENTNO as PARENT
           FROM COM_DEPT
          WHERE DELETEFLAG='N' 
          ORDER BY DEPTNO  
     </select> 
     
-    <insert id="insertDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO" >
+    <insert id="insertDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO">
+        <selectKey resultType="String" keyProperty="deptno" order="BEFORE">
+            SELECT DEPTNO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO COM_DEPT(DEPTNO, DEPTNM, PARENTNO, DELETEFLAG)
-        VALUES (DEPTNO_SEQ.NEXTVAL, #{deptnm}, #{parentno}, 'N')
+        VALUES (#{deptno}, #{deptnm}, #{parentno}, 'N')
     </insert>
     
     <update id="updateDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO">

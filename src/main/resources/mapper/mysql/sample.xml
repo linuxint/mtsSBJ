@@ -10,11 +10,11 @@
           FROM (
                 SELECT BGNO, COUNT(*) CNT
                   FROM TBL_BOARD TB
-                 WHERE BRDDELETEFLAG='N' 
+                 WHERE TB.DELETEFLAG='N'
                  GROUP BY BGNO
         ) DS
         INNER JOIN TBL_BOARDGROUP TBG
-        WHERE TBG.BGNO=DS.BGNO AND BGDELETEFLAG='N' 
+        WHERE TBG.BGNO=DS.BGNO AND TBG.DELETEFLAG='N'
     </select> 
 </mapper>
 

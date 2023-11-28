@@ -23,7 +23,7 @@
     <select id="selectReceiveMailList" resultType="com.devkbil.mtssbj.mail.MailVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
         SELECT * FROM (
             SELECT ROW_NUMBER() OVER (ORDER BY EMNO DESC) AS RNUM
-                 , EMNO, EMTYPE, EMSUBJECT, EMFROM, TO_DATE(ENTRYDATE,'YYYY-MM-DD HH24:MI') ENTRYDATE, EM.USERNO, USERNM
+                 , EMNO, EMTYPE, EMSUBJECT, EMFROM, TO_DATE(EM.REGDATE,'YYYY-MM-DD HH24:MI') REGDATE, EM.USERNO, USERNM
                  , (
                     SELECT EAADDRESS FROM (
                         SELECT ROW_NUMBER() OVER (ORDER BY EASEQ) AS RNUM2, EAADDRESS
@@ -42,9 +42,12 @@
     </select> 
         
     <insert id="insertMail" parameterType="com.devkbil.mtssbj.mail.MailVO">
-        INSERT INTO EML_MAIL(EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, USERNO, EMINO, DELETEFLAG, ENTRYDATE)
-        VALUES (EMNO_SEQ.NEXTVAL, #{emtype}, #{emsubject}, #{emfrom}, #{emcontents}, #{userno}, #{emino}, 'N',
-                <if test="entrydate!=null">#{entrydate}</if><if test="entrydate==null">now()</if>)
+        <selectKey resultType="String" keyProperty="emno" order="BEFORE">
+            SELECT EMNO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO EML_MAIL(EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, USERNO, EMINO, DELETEFLAG, REGDATE)
+        VALUES (#{emno}, #{emtype}, #{emsubject}, #{emfrom}, #{emcontents}, #{userno}, #{emino}, 'N',
+                <if test="regdate!=null">#{regdate}</if><if test="regdate==null">sysdate</if>)
     </insert>
 
     <update id="updateMail" parameterType="com.devkbil.mtssbj.mail.MailVO">
@@ -60,18 +63,21 @@
     </insert>
 
     <select id="selectLastMail" parameterType="String" resultType="String">
-        SELECT MAX(ENTRYDATE)
+        SELECT MAX(REGDATE)
           FROM EML_MAIL
          WHERE EMINO=#{emino} AND EMTYPE='R'
     </select>
 
     <insert id="insertMailFile" parameterType="com.devkbil.mtssbj.common.util.FileVO" >
+        <selectKey resultType="int" keyProperty="fileno" order="BEFORE">
+            SELECT FILENO_EML_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO EML_MAILFILE (FILENO, EMNO, FILENAME, REALNAME, FILESIZE)
-        VALUES (FILENO_EML_SEQ.NEXTVAL, #{parentPK}, #{filename}, #{realname}, #{filesize})
+        VALUES (#{fileno}, #{parentPK}, #{filename}, #{realname}, #{filesize})
     </insert>
             
     <select id="selectReceiveMailOne" parameterType="com.devkbil.mtssbj.mail.MailVO" resultType="com.devkbil.mtssbj.mail.MailVO">
-        SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, TO_DATE(ENTRYDATE,'YYYY-MM-DD HH24:MI') ENTRYDATE, EM.USERNO, USERNM
+        SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, TO_DATE(EM.REGDATE,'YYYY-MM-DD HH24:MI') REGDATE, EM.USERNO, USERNM
           FROM EML_MAIL EM
          INNER JOIN COM_USER CU ON EM.USERNO=CU.USERNO
          WHERE EM.DELETEFLAG='N' AND EMNO=#{emno}

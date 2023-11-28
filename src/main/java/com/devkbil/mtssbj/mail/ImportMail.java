@@ -3,26 +3,24 @@ package com.devkbil.mtssbj.mail;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "메일수신 : ImportMail", description = "메일수신")
+@Schema(description = "메일수신 : ImportMail")
 @XmlRootElement(name = "ImportMail")
 @XmlType(propOrder = {"mailService", "userno", "session"})
 @Getter
 @Setter
 public class ImportMail implements Runnable {
-    @ApiModelProperty(value = "메일서비스")
+    @Schema(description = "메일서비스")
     private MailService mailService;
-    @ApiModelProperty(value = "사용자")
+    @Schema(description = "사용자")
     private String userno;
-    @ApiModelProperty(value = "세션")
+    @Schema(description = "세션")
     private HttpSession session;
 
     public ImportMail(MailService mailService, String userno, HttpSession session) {
@@ -37,10 +35,10 @@ public class ImportMail implements Runnable {
         try {
             for (int i = 0; i < list.size(); i++) {
                 MailInfoVO mivo = (MailInfoVO)list.get(i);
-                String lastdate = mailService.selectLastMail(mivo.getEmino());
+                String chgdate = mailService.selectLastMail(mivo.getEmino());
 
                 mail.connect(mivo.getEmiimap(), mivo.getEmiuser(), mivo.getEmipw());
-                Integer total = mail.patchMessage(lastdate);
+                Integer total = mail.patchMessage(chgdate);
 
                 int cnt = 0;
                 while (cnt < total) {

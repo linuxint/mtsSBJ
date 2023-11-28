@@ -12,7 +12,7 @@ public class CodeCacheDAO { // extends EgovComAbstractDAO
     @Autowired
     private SqlSessionTemplate sqlSession;
     //@Autowired(required = false)
-    //private DataSourceTransactionManager txManager;
+    //private JpaTransactionManager txManager;
 
     /**
      * 공통코드그룹 List 조회

@@ -26,7 +26,7 @@
         </c:if>
     </div>
     <div class="listHiddenField pull-right field60 textCenter"><c:out value="${listitem.brdhit}"/></div>
-    <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listitem.brddate}"/></div>
+    <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listitem.regdate}"/></div>
     <div class="listHiddenField pull-right field100 textCenter"><a href="list4User?userno=<c:out value="${listitem.userno}"/>"><c:out value="${listitem.brdwriter}"/></a></div>
     <div class="listTitle" title="<c:out value="${listitem.brdtitle}"/>">
         <a href="${link}" <c:if test="${listitem.brdnotice=='Y'}">class="notice"</c:if>><c:out value="${listitem.brdtitle}"/></a>
@@ -36,7 +36,7 @@
     </div>
     <div class="showField text-muted small">
         <c:out value="${listitem.brdwriter}"/>
-        <c:out value="${listitem.brddate}"/>
+        <c:out value="${listitem.regdate}"/>
         <i class="fa fa-eye fa-fw"></i> <c:out value="${listitem.brdhit}"/>
         <c:if test="${listitem.filecnt>0}">
             <i class="fa fa-download fa-fw" title="<c:out value="${listitem.filecnt}"/>"></i>

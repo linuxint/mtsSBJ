@@ -46,7 +46,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="memberForm"><i class="fa fa-user fa-fw"></i> <c:out value="${sessionScope.usernm}"/></a></li>
-                    <li><a href="searchMember"><i class="fa fa-users fa-fw"></i> <s:message code="memu.users"/></a></li>
+                    <li><a href="searchMember"><i class="fa fa-users fa-fw"></i> <s:message code="menu.users"/></a></li>
                     <li class="divider"></li>
                     <li><a href="memberLogout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
@@ -126,41 +126,44 @@
                     <a href="#"><i class="fa fa-music fa-fw"></i> <s:message code="sample.title"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="sample1"><s:message code="sample.title"/></a>
+                            <a href="sample1"><s:message code="sample.1"/></a>
                         </li>
                         <li>
-                            <a href="sample2"><s:message code="sample.1"/></a>
+                            <a href="sample2"><s:message code="sample.2"/></a>
                         </li>
                         <li>
-                            <a href="sample3"><s:message code="sample.2"/></a>
+                            <a href="sample3"><s:message code="sample.3"/></a>
                         </li>
                         <li>
-                            <a href="sample4"><s:message code="sample.3"/></a>
+                            <a href="sample4"><s:message code="sample.4"/></a>
                         </li>
                         <li>
-                            <a href="crudList"><s:message code="sample.4"/></a>
+                            <a href="crudList"><s:message code="sample.5"/></a>
                         </li>
                         <li>
-                            <a href="chkList"><s:message code="sample.5"/></a>
+                            <a href="chkList"><s:message code="sample.6"/></a>
                         </li>
                     </ul>
                 </li>
 
-                <c:if test='${sessionScope.userrole == "A"}'>
+                <c:if test='${sessionScope.userrole == "ADMIN"}'>
                     <li>
-                        <a href="#"> <s:message code="memu.admin"/></a>
+                        <a href="#"> <s:message code="menu.admin"/></a>
                     </li>
                     <li>
-                        <a href="adBoardGroupList"><i class="fa fa-files-o fa-fw"></i> <s:message code="memu.board"/></a>
+                        <a href="adBoardGroupList"><i class="fa fa-files-o fa-fw"></i> <s:message code="menu.board"/></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> <s:message code="memu.organ"/><span class="fa arrow"></span></a>
+                        <a href="adMenuList"><i class="fa fa-files-o fa-fw"></i> <s:message code="menu.menu"/></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> <s:message code="menu.organ"/><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="adDepartment"><s:message code="memu.dept"/></a>
+                                <a href="adDepartment"><s:message code="menu.dept"/></a>
                             </li>
                             <li>
-                                <a href="adUser"><s:message code="memu.user"/></a>
+                                <a href="adUser"><s:message code="menu.user"/></a>
                             </li>
                         </ul>
                     </li>
@@ -168,10 +171,26 @@
                         <a href="adSignDocTypeList"><i class="fa fa-edit fa-fw"></i> <s:message code="electronic.approval"/></a>
                     </li>
                     <li>
-                        <a href="adCodeList"><i class="fa fa-gear fa-fw"></i> <s:message code="memu.code"/></a>
+                        <a href="adCodeList"><i class="fa fa-gear fa-fw"></i> <s:message code="menu.code"/></a>
                     </li>
                 </c:if>
-            </ul>
+                <c:if test='${sessionScope.userrole == "ADMIN"}'>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> <s:message code="develop.title"/><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="dvLogView" target="_blank"><s:message code="develop.title1"/></a>
+                            </li>
+                            <li>
+                                <a href="/apidoc/index.html" target="_blank"><s:message code="develop.title2"/></a>
+                            </li>
+                            <li>
+                                <a href="/thymeleaftest" target="_blank"><s:message code="develop.title3"/></a>
+                            </li>
+                        </ul>
+                    </li>
+                </c:if>
+</ul>
         </div>
         <!-- /.sidebar-collapse -->
     </div>

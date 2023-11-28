@@ -1,34 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title><s:message code="common.pageTitle"/></title>
-    <link href="css/sb-admin/bootstrap.min.css" rel="stylesheet">
-    <link href="css/sb-admin/metisMenu.min.css" rel="stylesheet">
-    <link href="css/sb-admin/sb-admin-2.css" rel="stylesheet">
-    <link href="css/sb-admin/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <script src="css/sb-admin/bootstrap.min.js"></script>
-    <script src="css/sb-admin/metisMenu.min.js"></script>
-    <script src="css/sb-admin/sb-admin-2.js"></script>
-    <script src="js/mts.js"></script>
+<%@include file="../inc/header.jsp" %>
     <script>
 
         function fn_formSubmit() {
@@ -203,7 +174,7 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <c:out value="${boardInfo.brdtitle}"/> [ <c:out value="${boardInfo.brdwriter}"/> <c:out value="${boardInfo.brddate}"/>]
+                    <c:out value="${boardInfo.brdtitle}"/> [ <c:out value="${boardInfo.brdwriter}"/> <c:out value="${boardInfo.regdate}"/>]
                     <span class="pull-right text-muted">
                             <i class="fa fa-eye fa-fw"></i> <c:out value="${boardInfo.brdhit}"/>
                             <i class="fa fa-thumbs-o-up fa-fw"></i> <span id="boardLike"><c:out value="${boardInfo.brdlike}"/></span>
@@ -222,7 +193,7 @@
                 </c:if>
             </div>
             <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardList?bgno=<c:out value="${bgno}"/>')"><s:message code="common.btnList"/></button>
-            <c:if test='${boardInfo.userno==sessionScope.userno or sessionScope.userrole=="A"}'>
+            <c:if test='${boardInfo.userno==sessionScope.userno or sessionScope.userrole=="ADMIN"}'>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardDelete?bgno=<c:out value="${boardInfo.bgno}"/>&brdno=<c:out value="${boardInfo.brdno}"/>', '<s:message code="common.btnDelete"/>')"><s:message code="common.btnDelete"/></button>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardForm?brdno=<c:out value="${boardInfo.brdno}"/>')"><s:message code="common.btnUpdate"/></button>
             </c:if>
@@ -264,8 +235,8 @@
                                 </div>
                                 <div class="photoTitle">
                                     <div>
-                                        <c:out value="${replylist.rewriter}"/> <c:out value="${replylist.redate}"/>
-                                        <c:if test='${replylist.userno==sessionScope.userno or sessionScope.userrole=="A"}'>
+                                        <c:out value="${replylist.rewriter}"/> <c:out value="${replylist.regdate}"/>
+                                        <c:if test='${replylist.userno==sessionScope.userno or sessionScope.userrole=="ADMIN"}'>
                                             <a href="javascript:fn_replyDelete('<c:out value="${replylist.reno}"/>')" title="<s:message code="common.btnDelete"/>"><span class="text-muted"><i class="fa fa-times fa-fw"></i></span></a>
                                             <a href="javascript:fn_replyUpdate('<c:out value="${replylist.reno}"/>')" title="<s:message code="common.btnUpdate"/>"><span class="text-muted"><i class="fa fa-edit fa-fw"></i></span></a>
                                         </c:if>
@@ -313,4 +284,4 @@
 <!-- /#wrapper -->
 </body>
 
-</html>
+<%@include file="../inc/footer.jsp" %>

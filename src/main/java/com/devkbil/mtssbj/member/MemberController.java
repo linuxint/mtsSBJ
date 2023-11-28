@@ -1,20 +1,19 @@
 package com.devkbil.mtssbj.member;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.devkbil.mtssbj.admin.organ.UserService;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.common.util.FileVO;
 import com.devkbil.mtssbj.common.util.UtilEtc;
 import com.devkbil.mtssbj.search.SearchVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -23,6 +22,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 내정보.
@@ -66,7 +68,7 @@ public class MemberController {
     public void changePWSave(HttpServletRequest request, HttpServletResponse response, UserVO userInfo) {
         String userno = request.getSession().getAttribute("userno").toString();
         userInfo.setUserno(userno);
-
+        userInfo.setUserpw(passwordEncoder.encode(userInfo.getUserpw()));
         userService.updateUserPassword(userInfo);
 
         UtilEtc.responseJsonValue(response, "OK");

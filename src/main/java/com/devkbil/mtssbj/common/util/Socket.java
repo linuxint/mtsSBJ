@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 public class Socket {
-    private java.net.Socket socket;
     private final BufferedInputStream bis;
     private final BufferedOutputStream bos;
+    private java.net.Socket socket;
 
     public Socket(InetAddress byName, int port) {
         socket = null;

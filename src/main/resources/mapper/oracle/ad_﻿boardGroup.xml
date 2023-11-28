@@ -5,15 +5,18 @@
 
 <mapper namespace="ad_boardGroup">
     <select id="selectBoardGroupList" resultType="com.devkbil.mtssbj.common.tree.TreeVO">
-        SELECT BGNO KEY, BGNAME TITLE, BGPARENT PARENT
-        FROM TBL_BOARDGROUP
-        WHERE BGDELETEFLAG='N'
-        ORDER BY BGNO
+        SELECT BGNO as KEY, BGNAME as TITLE, BGPARENT as PARENT
+          FROM TBL_BOARDGROUP
+         WHERE DELETEFLAG='N'
+         ORDER BY BGNO
     </select>
 
     <insert id="insertBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
-        INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, BGDELETEFLAG, BGREGDATE)
-        VALUES (BGNO_SEQ.NEXTVAL, #{bgname}, #{bgused}, #{bgreply}, #{bgreadonly}, #{bgnotice}, #{bgparent, jdbcType=VARCHAR}, 'N', SYSDATE)
+        <selectKey resultType="String" keyProperty="bgno" order="BEFORE">
+            SELECT BGNO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_BOARDGROUP(BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE, BGPARENT, DELETEFLAG, BGREGDATE)
+        VALUES (#{bgno}, #{bgname}, #{bgused}, #{bgreply}, #{bgreadonly}, #{bgnotice}, #{bgparent, jdbcType=VARCHAR}, 'N', SYSDATE)
     </insert>
 
     <update id="updateBoardGroup" parameterType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
@@ -23,21 +26,19 @@
           , BGREPLY=#{bgreply}
           , BGREADONLY=#{bgreadonly}
           , BGNOTICE=#{bgnotice}
-          , BGUPDATE=SYSDATE
+          , CHGDATE=SYSDATE
         WHERE BGNO = #{bgno}
     </update>
 
     <select id="selectBoardGroupOne" parameterType="String" resultType="com.devkbil.mtssbj.admin.board.BoardGroupVO">
         SELECT BGNO, BGNAME, BGUSED, BGREPLY, BGREADONLY, BGNOTICE
         FROM TBL_BOARDGROUP
-        WHERE BGDELETEFLAG = 'N'
-          AND BGNO = #{bgno}
+        WHERE DELETEFLAG = 'N' AND BGNO = #{bgno}
     </select>
 
     <delete id="deleteBoardGroup" parameterType="String">
         UPDATE TBL_BOARDGROUP
-        SET BGDELETEFLAG='Y',
-            BGUPDATE=SYSDATE
+        SET DELETEFLAG='Y', CHGDATE=SYSDATE
         WHERE BGNO = #{bgno}
     </delete>
 

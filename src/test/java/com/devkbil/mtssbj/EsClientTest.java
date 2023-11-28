@@ -19,9 +19,11 @@ package com.devkbil.mtssbj;
  * under the License.
  */
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assume.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -58,8 +60,6 @@ import org.elasticsearch.client.transform.transforms.TransformConfig;
 import org.elasticsearch.client.transform.transforms.pivot.GroupConfig;
 import org.elasticsearch.client.transform.transforms.pivot.PivotConfig;
 import org.elasticsearch.client.transform.transforms.pivot.TermsGroupSource;
-//import org.elasticsearch.common.xcontent.XContentType; // 7.15
-import org.elasticsearch.xcontent.XContentType; // 7.17
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -70,23 +70,22 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
+import org.elasticsearch.xcontent.XContentType;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
-import java.io.IOException;
-
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 class EsClientTest {
 
     private static final Logger log = LogManager.getLogger();
+    private static final String PASSWORD = "manager";
     private static ElasticsearchContainer container;
     private static RestHighLevelClient client = null;
-    private static final String PASSWORD = "manager";
 
     @BeforeAll
     static void startOptionallyTestContainers() {
@@ -142,10 +141,11 @@ class EsClientTest {
     void getWithFilter() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\", \"application_id\": 6}", XContentType.JSON), RequestOptions.DEFAULT);
         GetResponse getResponse = client.get(new GetRequest("test", "1").fetchSourceContext(
-                new FetchSourceContext(true, new String[]{"application_id"}, null)
+                new FetchSourceContext(true, new String[] {"application_id"}, null)
         ), RequestOptions.DEFAULT);
         log.info("doc = {}", getResponse);
     }
@@ -161,7 +161,8 @@ class EsClientTest {
     void exist() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         boolean exists1 = client.exists(new GetRequest("test", "1"), RequestOptions.DEFAULT);
         boolean exists2 = client.exists(new GetRequest("test", "2"), RequestOptions.DEFAULT);
@@ -183,7 +184,8 @@ class EsClientTest {
 
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         CreateIndexRequest createIndexRequest = new CreateIndexRequest("test");
         createIndexRequest.source(settings, XContentType.JSON);
         client.indices().create(createIndexRequest, RequestOptions.DEFAULT);
@@ -200,7 +202,8 @@ class EsClientTest {
     void createMapping() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.indices().create(new CreateIndexRequest("test"), RequestOptions.DEFAULT);
         PutMappingRequest request =
                 new PutMappingRequest("test").source("{\n" +
@@ -215,7 +218,8 @@ class EsClientTest {
     void createData() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("test"), RequestOptions.DEFAULT);
         SearchResponse response = client.search(new SearchRequest("test"), RequestOptions.DEFAULT);
@@ -226,7 +230,8 @@ class EsClientTest {
     void searchData() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("test"), RequestOptions.DEFAULT);
         SearchResponse response = client.search(new SearchRequest("test").source(
@@ -258,12 +263,13 @@ class EsClientTest {
     void transformSqlQuery() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("test"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("test").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("test"), RequestOptions.DEFAULT);
 
         RestClient llClient = client.getLowLevelClient();
-        Request request = new Request("POST",  "/_sql/translate");
+        Request request = new Request("POST", "/_sql/translate");
         request.setJsonEntity("{\"query\":\"SELECT * FROM test WHERE foo='bar' limit 10\"}");
         Response llResponse = llClient.performRequest(request);
 
@@ -285,7 +291,8 @@ class EsClientTest {
     void transformApi() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("transform-source"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("transform-source").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("transform-source"), RequestOptions.DEFAULT);
 
@@ -315,7 +322,8 @@ class EsClientTest {
             GetTransformResponse response = client.transform().getTransform(new GetTransformRequest(id), RequestOptions.DEFAULT);
             log.info("response.getCount() = {}", response.getCount());
             fail("Failing this test indicates that https://github.com/elastic/elasticsearch/issues/64602 has been fixed. The code should be reviewed");
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
     }
 
     @Test
@@ -333,14 +341,15 @@ class EsClientTest {
                         )
         ), RequestOptions.DEFAULT);
         HighlightField highlightField = response.getHits().getAt(0).getHighlightFields().get("foo");
-        log.info("Highlights: {}", (Object) highlightField.fragments());
+        log.info("Highlights: {}", (Object)highlightField.fragments());
     }
 
     @Test
     void termsAgg() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("termsagg"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("termsagg").id("1").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.index(new IndexRequest("termsagg").id("2").source("{\"foo\":\"bar\"}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("termsagg"), RequestOptions.DEFAULT);
@@ -359,7 +368,8 @@ class EsClientTest {
         int size = 1000;
         try {
             client.indices().delete(new DeleteIndexRequest("bulk"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException | IOException ignored) { }
+        } catch (ElasticsearchStatusException | IOException ignored) {
+        }
         BulkProcessor bulkProcessor = BulkProcessor.builder(
                         (request, bulkListener) -> client.bulkAsync(request, RequestOptions.DEFAULT, bulkListener),
                         new BulkProcessor.Listener() {
@@ -397,7 +407,8 @@ class EsClientTest {
     void rangeQuery() throws IOException {
         try {
             client.indices().delete(new DeleteIndexRequest("rangequery"), RequestOptions.DEFAULT);
-        } catch (ElasticsearchStatusException ignored) { }
+        } catch (ElasticsearchStatusException ignored) {
+        }
         client.index(new IndexRequest("rangequery").id("1").source("{\"foo\":1}", XContentType.JSON), RequestOptions.DEFAULT);
         client.index(new IndexRequest("rangequery").id("2").source("{\"foo\":2}", XContentType.JSON), RequestOptions.DEFAULT);
         client.indices().refresh(new RefreshRequest("rangequery"), RequestOptions.DEFAULT);

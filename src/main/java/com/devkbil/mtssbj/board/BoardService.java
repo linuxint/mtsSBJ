@@ -1,22 +1,21 @@
 package com.devkbil.mtssbj.board;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.devkbil.mtssbj.admin.board.BoardGroupVO;
+import com.devkbil.mtssbj.common.ExtFieldVO;
+import com.devkbil.mtssbj.common.util.FileVO;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.devkbil.mtssbj.admin.board.BoardGroupVO;
-import com.devkbil.mtssbj.common.ExtFieldVO;
-import com.devkbil.mtssbj.common.util.FileVO;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -25,7 +24,7 @@ public class BoardService {
     @Autowired
     private SqlSessionTemplate sqlSession;
     @Autowired(required = false)
-    private DataSourceTransactionManager txManager;
+    private JpaTransactionManager txManager;
 
     /**
      * 게시판 정보 (그룹).
@@ -68,7 +67,7 @@ public class BoardService {
             if (fileno != null) {
                 HashMap<String, String[]> fparam = new HashMap<String, String[]>();
                 fparam.put("fileno", fileno);
-                sqlSession.insert("deleteBoardFile", fparam);
+                sqlSession.insert("updateBoardFile", fparam);
             }
 
             for (FileVO f : filelist) {
@@ -162,19 +161,29 @@ public class BoardService {
      * 댓글 삭제.
      * 자식 댓글이 있으면 삭제 안됨.
      */
-    public boolean deleteBoardReply(String param) {
-        Integer cnt = sqlSession.selectOne("selectBoardReplyChild", param);
+    public boolean deleteBoardReply(BoardReplyVO boardReplyInfo) {
+        Integer cnt = sqlSession.selectOne("selectBoardReplyChild", boardReplyInfo);
 
         if (cnt > 0) {
             return false;
         }
 
-        sqlSession.update("updateBoardReplyOrder4Delete", param);
+        sqlSession.update("updateBoardReplyOrder4Delete", boardReplyInfo);
 
-        sqlSession.delete("deleteBoardReply", param);
+        sqlSession.delete("deleteBoardReply", boardReplyInfo);
 
         return true;
     }
+
+
+    /**
+     * 게시글 하위 댓글 모두 삭제.
+     */
+    public boolean deleteBoardReplyAll(Map map) {
+        sqlSession.delete("deleteBoardReplyAll", map);
+        return true;
+    }
+
     /* =============================================================== */
 
     /**

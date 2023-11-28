@@ -21,7 +21,7 @@
         </div>
         <div class="pull-left photoTitle">
             <div>
-                <c:out value="${replyInfo.rewriter}"/> <c:out value="${replyInfo.redate}"/>
+                <c:out value="${replyInfo.rewriter}"/> <c:out value="${replyInfo.regdate}"/>
                 <c:if test='${replyInfo.userno==sessionScope.userno}'>
                     <a href="javascript:fn_replyDelete('<c:out value="${replyInfo.reno}"/>')"
                        title="<s:message code="common.btnDelete"/>"><span class="text-muted"><i

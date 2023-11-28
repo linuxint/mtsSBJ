@@ -1,31 +1,29 @@
 package com.devkbil.mtssbj.crud;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel(value = "CRUD : CrudVO", description = "CrudVO")
+@Schema(description = "CRUD : CrudVO")
 @XmlRootElement(name = "CrudVO")
-@XmlType(propOrder = {"crno", "crtitle", "userno", "crmemo", "crdate", "usernm"})
+@XmlType(propOrder = {"crno", "crtitle", "userno", "crmemo", "regdate", "usernm"})
 @Getter
 @Setter
 public class CrudVO {
 
-    @ApiModelProperty(value = "번호")
+    @Schema(description = "번호")
     private String crno;        // 번호
-    @ApiModelProperty(value = "제목")
+    @Schema(description = "제목")
     private String crtitle;    // 제목
-    @ApiModelProperty(value = "작성자")
+    @Schema(description = "작성자")
     private String userno;        // 작성자
-    @ApiModelProperty(value = "내용")
+    @Schema(description = "내용")
     private String crmemo;        // 내용
-    @ApiModelProperty(value = "작성일자")
-    private String crdate;        // 작성일자
-    @ApiModelProperty(value = "작성자 이름")
+    @Schema(description = "작성일자")
+    private String regdate;        // 작성일자
+    @Schema(description = "작성자 이름")
     private String usernm;        // 작성자 이름
 
 }

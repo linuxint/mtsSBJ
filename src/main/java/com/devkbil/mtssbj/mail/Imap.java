@@ -25,15 +25,16 @@ import javax.mail.search.ComparisonTerm;
 import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.devkbil.mtssbj.common.util.DateUtil;
 import com.devkbil.mtssbj.common.util.FileUtil;
 import com.devkbil.mtssbj.common.util.FileVO;
 
+import com.devkbil.mtssbj.mail.MailVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Imap {
-    static final Logger LOGGER = LoggerFactory.getLogger(Imap.class);
+
     private final String protocol = "imap";
     private final String mbox = "INBOX";
     private final boolean debug = true;
@@ -86,14 +87,15 @@ public class Imap {
 
     public void disconnect() {
         try {
-            if (folder != null)
+            if (folder != null) {
                 folder.close(false);
+            }
             store.close();
         } catch (MessagingException e) {
         }
     }
 
-    public Integer patchMessage(String lastdate) {
+    public Integer patchMessage(String chgdate) {
         filePath = System.getProperty("user.dir") + "/fileupload/"; //localeMessage.getMessage("info.filePath");
 
         try {
@@ -112,7 +114,7 @@ public class Imap {
             folder.open(Folder.READ_ONLY);
             SearchTerm dateTerm = null;
 
-            if (lastdate != null) {
+            if (chgdate != null) {
                 Calendar c = Calendar.getInstance();
                 c.set(Calendar.HOUR, 0);
                 c.set(Calendar.MINUTE, 0);
@@ -122,15 +124,15 @@ public class Imap {
                 c.add(Calendar.DATE, 1);    // next day
                 ReceivedDateTerm endDateTerm = new ReceivedDateTerm(ComparisonTerm.LT, c.getTime());
 
-                c.setTime(DateUtil.str2Date(lastdate));
+                c.setTime(DateUtil.str2Date(chgdate));
                 ReceivedDateTerm startDateTerm = new ReceivedDateTerm(ComparisonTerm.GE, c.getTime());
 
                 dateTerm = new AndTerm(startDateTerm, endDateTerm);
             }
 
-            if (dateTerm == null)
+            if (dateTerm == null) {
                 msgs = folder.getMessages();
-            else {
+            } else {
                 msgs = folder.search(dateTerm);
                 FetchProfile fp = new FetchProfile();
                 fp.add(FetchProfile.Item.ENVELOPE);
@@ -149,8 +151,9 @@ public class Imap {
                 MailVO mailInfo = new MailVO();
                 dumpPart(msgs[i], mailInfo);
                 msgList.add(mailInfo);
-                if (msgList.size() == 100)
+                if (msgList.size() == 100) {
                     break; // commit by 100
+                }
             }
         } catch (Exception e) {
         }
@@ -158,8 +161,8 @@ public class Imap {
     }
 
     public void dumpPart(Part p, MailVO mailInfo) throws Exception {
-        if (p instanceof Message) {
-            Message message = (Message)p;
+        if(p instanceof Message) {
+            Message message = (Message) p;
             Address[] address;
             // FROM
             if ((address = message.getFrom()) != null) {
@@ -168,42 +171,46 @@ public class Imap {
 
             // TO
             if ((address = message.getRecipients(Message.RecipientType.TO)) != null) {
-                for (int j = 0; j < address.length; j++)
+                for (int j = 0; j < address.length; j++) {
                     mailInfo.getEmto().add(MimeUtility.decodeText(address[j].toString()));
+                }
             }
 
             Address[] recipients = message.getRecipients(Message.RecipientType.CC);
             if (recipients != null) {
-                for (Address recipient : recipients)
+                for (Address recipient : recipients) {
                     mailInfo.getEmcc().add(MimeUtility.decodeText(recipient.toString()));
+                }
             }
 
             mailInfo.setEmsubject(message.getSubject());
-            mailInfo.setEntrydate(DateUtil.date2Str(message.getSentDate()));
+            mailInfo.setRegdate(DateUtil.date2Str(message.getSentDate()));
         }
 
         Object o = p.getContent();
         if (o instanceof String) {
             mailInfo.setEmcontents((String)o);
-        } else if (o instanceof Multipart) {
-            Multipart mp = (Multipart)o;
+        } else if(o instanceof Multipart) {
+            Multipart mp = (Multipart) o;
             int count = mp.getCount();
             for (int i = 0; i < count; i++) {
                 dumpPart(mp.getBodyPart(i), mailInfo);
             }
-        } else if (o instanceof InputStream) {
+        } else if(o instanceof InputStream) {
             String filename = p.getFileName();
-            if (filename == null)
+            if (filename == null) {
                 return;
+            }
 
             String newName = FileUtil.getNewName();
 
             File file = new File(filePath + newName);
             OutputStream out = new FileOutputStream(file);
-            InputStream is = (InputStream)o;
+            InputStream is = (InputStream) o;
             int c;
-            while ((c = is.read()) != -1)
+            while ((c = is.read()) != -1) {
                 out.write(c);
+            }
 
             FileVO filedo = new FileVO();
             filedo.setFilename(MimeUtility.decodeText(filename));

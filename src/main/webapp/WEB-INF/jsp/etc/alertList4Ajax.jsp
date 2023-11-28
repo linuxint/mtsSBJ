@@ -8,7 +8,7 @@
         <a href="boardRead?brdno=<c:out value="${listview.brdno}"/>">
             <div>
                 <i class="fa fa-<c:out value="${listview.extfield1}"/> fa-fw"></i> <c:out value="${listview.brdtitle}"/>
-                <span class="pull-right text-muted small"><c:out value="${listview.brddate}"/></span>
+                <span class="pull-right text-muted small"><c:out value="${listview.regdate}"/></span>
             </div>
         </a>
     </li>

@@ -1,18 +1,15 @@
 package com.devkbil.mtssbj.common;
 
-import java.io.IOException;
-
+import com.devkbil.mtssbj.common.util.FileUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devkbil.mtssbj.common.util.FileUtil;
-
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -30,8 +27,8 @@ public class Upload4ckeditor {
 
         String filePath = System.getProperty("user.dir") + "/fileupload/"; // localeMessage.getMessage("info.filePath");
         String newName = FileUtil.getNewName();
-
-        FileUtil.saveFileOne(upload, filePath + "/" + newName.substring(0, 4) + "/", newName);
+        String realPath = FileUtil.getRealPath(filePath, newName);
+        FileUtil.saveFileOne(upload, realPath, newName);
 
         String url = request.getRequestURL().toString();
         Integer inx = url.lastIndexOf("/");

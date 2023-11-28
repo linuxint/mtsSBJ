@@ -21,7 +21,7 @@
     </select> 
     
     <select id="selectReceiveMailList" resultType="com.devkbil.mtssbj.mail.MailVO" parameterType="com.devkbil.mtssbj.search.SearchVO">
-        SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, DATE_FORMAT(ENTRYDATE,'%y-%m-%d %h:%s') ENTRYDATE, EM.USERNO, USERNM
+        SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, DATE_FORMAT(EM.REGDATE,'%y-%m-%d %h:%s') REGDATE, EM.USERNO, USERNM
              , (SELECT EAADDRESS FROM EML_ADDRESS ADDR WHERE ADDR.EMNO = EMNO AND EATYPE='T' ORDER BY EASEQ LIMIT 1) STRTO
           FROM EML_MAIL EM
          INNER JOIN COM_USER CU ON EM.USERNO=CU.USERNO
@@ -33,9 +33,12 @@
     </select> 
         
     <insert id="insertMail" parameterType="com.devkbil.mtssbj.mail.MailVO" useGeneratedKeys="true" keyProperty="emno">
-        INSERT INTO EML_MAIL(EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, USERNO, EMINO, DELETEFLAG, ENTRYDATE) 
+        INSERT INTO EML_MAIL(EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, USERNO, EMINO, DELETEFLAG, REGDATE)
         VALUES (#{emtype}, #{emsubject}, #{emfrom}, #{emcontents}, #{userno}, #{emino}, 'N',
-                <if test="entrydate!=null">#{entrydate}</if><if test="entrydate==null">now()</if>)
+                <if test="regdate!=null">#{regdate}</if><if test="regdate==null">now()</if>)
+        <selectKey keyProperty="emno" resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <update id="updateMail" parameterType="com.devkbil.mtssbj.mail.MailVO">
@@ -51,7 +54,7 @@
     </insert>
 
     <select id="selectLastMail" parameterType="String" resultType="String">
-        SELECT MAX(ENTRYDATE)
+        SELECT MAX(REGDATE)
           FROM EML_MAIL
          WHERE EMINO=#{emino} AND EMTYPE='R'
     </select>
@@ -59,10 +62,13 @@
     <insert id="insertMailFile" parameterType="com.devkbil.mtssbj.common.util.FileVO" >
         INSERT INTO EML_MAILFILE (EMNO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, #{filename}, #{realname}, #{filesize})
+        <selectKey keyProperty="fileno" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
             
     <select id="selectReceiveMailOne" parameterType="com.devkbil.mtssbj.mail.MailVO" resultType="com.devkbil.mtssbj.mail.MailVO">
-        SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, DATE_FORMAT(ENTRYDATE,'%y-%m-%d %h:%s') ENTRYDATE, EM.USERNO, USERNM 
+        SELECT EMNO, EMTYPE, EMSUBJECT, EMFROM, EMCONTENTS, DATE_FORMAT(EM.REGDATE,'%y-%m-%d %h:%s') REGDATE, EM.USERNO, USERNM
           FROM EML_MAIL EM
          INNER JOIN COM_USER CU ON EM.USERNO=CU.USERNO
          WHERE EM.DELETEFLAG='N' AND EMNO=#{emno}
@@ -96,11 +102,6 @@
                 #{item}
             </foreach>         
     </delete>
-    
 
-  
-
-
-             
 </mapper>
 

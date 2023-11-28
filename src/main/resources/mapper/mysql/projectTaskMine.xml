@@ -23,7 +23,11 @@
     </update> 
     
     <select id="selectTaskMineOne" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
-        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE, TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE 
+        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE
+             , TSSTARTDATE
+             , TSENDDATE
+             , TSENDREAL
+             , TSRATE
              , GETCOLOR4ALERT (TSSTARTDATE, TSENDDATE, TSENDREAL, TSRATE) STATUSCOLOR
              , (SELECT GROUP_CONCAT(USERNO) FROM PRJ_TASKUSER WHERE TSNO=PT.TSNO) USERNO
              , (SELECT GROUP_CONCAT(USERNM) FROM PRJ_TASKUSER PTU, COM_USER CU WHERE TSNO=PT.TSNO AND PTU.USERNO=CU.USERNO) USERNM
@@ -42,7 +46,20 @@
     <insert id="insertTaskFile" parameterType="com.devkbil.mtssbj.common.util.FileVO" >
         INSERT INTO PRJ_TASKFILE (TSNO, FILENAME, REALNAME, FILESIZE)
         VALUES (#{parentPK}, #{filename}, #{realname}, #{filesize})
+        <selectKey keyProperty="fileno" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
+
+    <update id="updateTaskFile" parameterType="hashmap">
+        UPDATE PRJ_TASKFILE SET DELETEFLAG = 'Y'
+        WHERE FILENO IN (
+        <foreach item="item" index="index" collection="fileno" separator=",">
+            ${item}
+        </foreach>
+        )
+    </update>
+
     <delete id="deleteTaskFile" parameterType="hashmap"> 
         DELETE 
           FROM PRJ_TASKFILE
