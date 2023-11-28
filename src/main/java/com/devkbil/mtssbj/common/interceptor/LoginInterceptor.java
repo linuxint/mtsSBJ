@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    public List loginEssential = List.of("/**");
+    public List loginEssential = Arrays.asList("/**");
 
     public List loginInessential = Arrays.asList("/memberLogin", "/memberLoginChk", "/js/**", "/css/**", "/images/**");
 
