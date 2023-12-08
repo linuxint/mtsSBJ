@@ -1,23 +1,26 @@
 package com.devkbil.mtssbj.member;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import com.devkbil.mtssbj.common.LocaleMessage;
+import com.devkbil.mtssbj.member.exception.MemberNotFoundException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
 @Controller
 public class LoginController {
     private static final Integer cookieExpire = 60 * 60 * 24 * 30; // 1 month
+
+    @Autowired
+    LocaleMessage localeMessage;
 
     @Autowired
     private MemberService memberService;
@@ -88,7 +91,7 @@ public class LoginController {
             ModelMap modelMap, @AuthenticationPrincipal User user) {
 
         Optional<LoginVO> findOne = memberService.findOne(user.getUsername());
-        LoginVO loginVO = findOne.orElseThrow(() -> new UsernameNotFoundException("없는 회원입니다 ㅠ"));
+        LoginVO loginVO = findOne.orElseThrow(() -> new MemberNotFoundException(user.getUsername()));
 
         if (loginVO == null) {
             modelMap.addAttribute("msg", "로그인 할 수 없습니다.");
@@ -146,7 +149,10 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "noAuthMessage")
-    public String noAuthMessage(HttpServletRequest request) {
+    public String noAuthMessage(HttpServletRequest request, ModelMap modelMap) {
+
+        modelMap.put("msg", localeMessage.getMessage("msg.err.noAuth"));
+
         return "common/noAuth";
     }
 

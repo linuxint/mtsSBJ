@@ -144,7 +144,7 @@ class EsClientIT {
         client.index(ir -> ir.index("get-as-map").id("1").withJson(input));
         GetResponse<ObjectNode> getResponse = client.get(gr -> gr.index("get-with-filter").id("1"), ObjectNode.class);
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> result = mapper.convertValue(getResponse.source(), new TypeReference<>() {});
+        Map<String, Object> result = mapper.convertValue(getResponse.source(), new TypeReference<Map<String, Object>>() {});
         logger.info("doc = {}", result);
     }
 

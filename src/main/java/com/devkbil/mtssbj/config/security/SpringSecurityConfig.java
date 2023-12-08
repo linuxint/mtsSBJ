@@ -7,11 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
@@ -19,6 +20,9 @@ public class SpringSecurityConfig {
 
     @Autowired
     private AuthenticationManagerBuilder auth;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -46,11 +50,27 @@ public class SpringSecurityConfig {
                         .usernameParameter("userid")
                         .passwordParameter("userpw")
                         .defaultSuccessUrl("/memberLoginChk", true)
-                        .failureUrl("/memberLoginError").permitAll()
+                        .failureUrl("/memberLoginError")
                         .permitAll()
                 )
-                .logout(withDefaults());
+                .rememberMe(rememberMe->rememberMe
+                        .key("mtsSBJ3")
+                        .rememberMeParameter("remember")
+                        .tokenValiditySeconds(86400 * 30)
+                        .userDetailsService(userDetailsService)
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .permitAll()
+                );
 
         return http.build();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 }

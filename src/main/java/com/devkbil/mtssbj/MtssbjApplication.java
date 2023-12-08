@@ -1,8 +1,11 @@
 package com.devkbil.mtssbj;
 
+import com.devkbil.mtssbj.common.Listener.*;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,14 +13,28 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @CrossOrigin(origins = "http://localhost:18080, http://localhost:9090")    //'Access-Control-Allow-Origin' header 추가
 //@RestController
-//@MapperScan(basePackages = "com.devkbil.mtssbj.*")
+@MapperScan(basePackages = "com.devkbil.mtssbj.*")
 @Slf4j
 public class MtssbjApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         //SpringApplication.run(MtssbjApplication.class, args);
         SpringApplication application = new SpringApplication(MtssbjApplication.class);
+
+        application.addListeners(new ApplicationStartingEventListener());
+        application.addListeners(new ApplicationReadyEventListener());
+        application.addListeners(new ApplicationPreparedEventListener());
+        application.addListeners(new ApplicationFailedEventListener());
+
+        application.addListeners(new ApplicationEnvironmentPreparedEventListener());
+
+        application.addListeners(new ApplicationContextInitializedEventListener());
+        application.addListeners(new ApplicationContextClosedEventListener());
+        application.addListeners(new ApplicationContextRefreshedEventListener());
+
         //application.setBannerMode(Banner.Mode.OFF); -- banner mode off
+        application.setWebApplicationType(WebApplicationType.SERVLET);
+        //application.setWebApplicationType(WebApplicationType.REACTIVE);
 
         // custom banner of java
         /*
