@@ -72,7 +72,7 @@ dependencies {
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
-    implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.11'
+    implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.14'
 
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.5'
     implementation 'org.hibernate.validator:hibernate-validator'
@@ -93,6 +93,7 @@ dependencies {
 
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.2'
 
+    implementation 'org.hibernate.validator:hibernate-validator:7.0.5.Final'
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8:23.3.0.23.09'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.0'
     implementation 'org.xerial:sqlite-jdbc:3.44.0.0'
@@ -149,4 +150,8 @@ tasks.withType(JavaCompile) {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named('clean') {
+    delete "/logs_dev"
 }
