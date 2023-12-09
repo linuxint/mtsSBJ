@@ -1,6 +1,5 @@
 package com.devkbil.mtssbj.member;
 
-import com.devkbil.mtssbj.repository.MemberRepository;
 import com.devkbil.mtssbj.search.SearchVO;
 import lombok.SneakyThrows;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,7 +26,7 @@ public class MemberService {
     }
 
     @SneakyThrows
-    public UserVO selectMember4Login(LoginVO param) {
+    public UserVO selectMember4Login(UserVO param) {
         return sqlSession.selectOne("selectMember4Login", param);
     }
 
@@ -45,7 +44,7 @@ public class MemberService {
         this.repository = repository;
     }
 
-    public Optional<LoginVO> findOne(String userId) {
+    public Optional<UserVO> findOne(String userId) {
         return repository.findByUserid(userId);
     }
 }

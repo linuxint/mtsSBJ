@@ -1,6 +1,11 @@
 package com.devkbil.mtssbj.member;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import lombok.Getter;
@@ -13,12 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
         "photofile"})
 @Getter
 @Setter
+@Entity(name = "com_user")
 public class UserVO {
 
+    @Id
     @Schema(description = "사용자 번호")
     private String userno; // 사용자 번호
 
     @Schema(description = "ID")
+    @Column(unique = true)
     private String userid; // ID
 
     @Schema(description = "비밀번호")
@@ -26,6 +34,10 @@ public class UserVO {
 
     @Schema(description = "이름")
     private String usernm; // 이름
+
+    @Schema(description = "remember")
+    @Transient
+    private String remember;
 
     @Schema(description = "사진")
     private String photo; // 사진
@@ -37,15 +49,20 @@ public class UserVO {
     private String userpos; // 메일서비스
 
     @Schema(description = "아이피")
+    @Transient
     private String ip; // 아이피
 
     @Schema(description = "부서코드")
     private String deptno; // 부서코드
 
     @Schema(description = "부서명")
+    @Transient
     private String deptnm; // 부서명
 
     @Schema(description = "사진")
+    @Transient
     private MultipartFile photofile; // 사진
 
+    @Schema(description = "삭제여부")
+    private String deleteflag; // 삭제여부
 }

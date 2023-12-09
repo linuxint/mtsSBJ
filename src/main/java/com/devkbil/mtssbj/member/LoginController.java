@@ -87,25 +87,25 @@ public class LoginController {
      * 로그인 처리.
      */
     @RequestMapping(value = "memberLoginChk")
-    public String memberLoginChk(HttpServletRequest request, HttpServletResponse response, LoginVO loginInfo,
+    public String memberLoginChk(HttpServletRequest request, HttpServletResponse response, UserVO loginInfo,
             ModelMap modelMap, @AuthenticationPrincipal User user) {
 
-        Optional<LoginVO> findOne = memberService.findOne(user.getUsername());
-        LoginVO loginVO = findOne.orElseThrow(() -> new MemberNotFoundException(user.getUsername()));
+        Optional<UserVO> findOne = memberService.findOne(user.getUsername());
+        UserVO userVO = findOne.orElseThrow(() -> new MemberNotFoundException(user.getUsername()));
 
-        if (loginVO == null) {
+        if (userVO == null) {
             modelMap.addAttribute("msg", "로그인 할 수 없습니다.");
             return "common/message";
         }
 
-        memberService.insertLogIn(loginVO.getUserno());
+        memberService.insertLogIn(userVO.getUserno());
 
         HttpSession session = request.getSession();
 
-        session.setAttribute("userid", loginVO.getUserid());
-        session.setAttribute("userrole", loginVO.getUserrole());
-        session.setAttribute("userno", loginVO.getUserno());
-        session.setAttribute("usernm", loginVO.getUsernm());
+        session.setAttribute("userid", userVO.getUserid());
+        session.setAttribute("userrole", userVO.getUserrole());
+        session.setAttribute("userno", userVO.getUserno());
+        session.setAttribute("usernm", userVO.getUsernm());
 
         if ("Y".equals(loginInfo.getRemember())) {
             set_cookie("sid", loginInfo.getUserid(), response);

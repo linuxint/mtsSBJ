@@ -1,7 +1,7 @@
 package com.devkbil.mtssbj.config.security;
 
-import com.devkbil.mtssbj.member.LoginVO;
 import com.devkbil.mtssbj.member.MemberService;
+import com.devkbil.mtssbj.member.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,13 +22,13 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String insertedUserId) throws UsernameNotFoundException {
-        Optional<LoginVO> findOne = memberService.findOne(insertedUserId);
-        LoginVO loginVO = findOne.orElseThrow(() -> new UsernameNotFoundException("없는 회원입니다 ㅠ"));
+        Optional<UserVO> findOne = memberService.findOne(insertedUserId);
+        UserVO userVO = findOne.orElseThrow(() -> new UsernameNotFoundException("없는 회원입니다 ㅠ"));
 
         return User.builder()
-                .username(loginVO.getUserid())
-                .password(loginVO.getUserpw())
-                .roles(loginVO.getUserrole())
+                .username(userVO.getUserid())
+                .password(userVO.getUserpw())
+                .roles(userVO.getUserrole())
                 .build();
     }
 }

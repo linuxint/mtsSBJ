@@ -21,7 +21,7 @@
          LIMIT ${rowStart-1}, 10
     </select> 
 
-    <select id="selectMember4Login" parameterType="com.devkbil.mtssbj.member.LoginVO" resultType="com.devkbil.mtssbj.member.UserVO" >
+    <select id="selectMember4Login" parameterType="com.devkbil.mtssbj.member.UserVO" resultType="com.devkbil.mtssbj.member.UserVO" >
         SELECT USERNO, USERID, USERNM, USERROLE
           FROM COM_USER CU
          WHERE CU.DELETEFLAG='N' 
