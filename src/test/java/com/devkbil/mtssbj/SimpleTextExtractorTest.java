@@ -1,6 +1,7 @@
 package com.devkbil.mtssbj;
 
 import org.apache.tika.Tika;
+import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
@@ -14,40 +15,34 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SimpleTextExtractorTest {
-    public static void main1(String[] args) throws Exception {
-        Path resourceDirectory = Paths.get("src", "test", "resources");
-        String absolutePath = resourceDirectory.toFile().getAbsolutePath() + "/";
-
-        String fileName = "인천둘레길스템프북.pptx";
-        String fileName1 = "Demo1.pdf";
-        // Create a Tika instance with the default configuration
-        Tika tika = new Tika();
-
-        // Parse all given files and print out the extracted
-        // text content
-        String text = tika.parseToString(new File(absolutePath + fileName));
-        System.out.print(text);
-    }
-
     public static void main(String[] args) throws Exception {
         Path resourceDirectory = Paths.get("src", "test", "resources");
         String absolutePath = resourceDirectory.toFile().getAbsolutePath() + "/";
-        String fileName1 = "Demo1.pdf";
 
-        SimpleTextExtractorTest tika = new SimpleTextExtractorTest();
-        tika.convertPdf(absolutePath + fileName1);
+        String[] fileArr = { "인천둘레길스템프북.pptx" , "Demo1.pdf"};
+        // Create a Tika instance with the default configuration
+
+        for(String fileName : fileArr) {
+            System.out.println(convertSimple(absolutePath + fileName));
+            System.out.println(convert(absolutePath + fileName));
+        }
     }
 
-    public void convertPdf(String fileName){
+    public static String convertSimple(String fileName) throws TikaException, IOException {
+        Tika tika = new Tika();
+        String text = tika.parseToString(new File(fileName));
+        return text;
+    }
+    public static String convert(String fileName){
         InputStream stream = null;
+        String text = null;
         try {
             stream = new FileInputStream(fileName);
             AutoDetectParser parser = new AutoDetectParser();
             BodyContentHandler handler = new BodyContentHandler(-1);
             Metadata metadata = new Metadata();
-            parser.parse(stream, handler, metadata, new
-                    ParseContext());
-            System.out.println(handler.toString());
+            parser.parse(stream, handler, metadata, new ParseContext());
+            text = handler.toString();
         }catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -58,5 +53,6 @@ public class SimpleTextExtractorTest {
                     System.out.println("Error closing stream");
                 }
         }
+        return text;
     }
 }
