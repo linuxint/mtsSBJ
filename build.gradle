@@ -51,16 +51,16 @@ dependencies {
     implementation 'com.navercorp.lucy:lucy-xss:1.6.3'
     implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-configuration-processor'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.18'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.18'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.18'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.18'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.7.18'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:2.7.18'
 
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.7.18'
 
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.18'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
     implementation 'org.springframework.security:spring-security-test'
 
@@ -70,16 +70,16 @@ dependencies {
     implementation 'commons-lang:commons-lang:2.6'
     implementation 'org.apache.commons:commons-lang3:3.13.0'
 
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.18'
 
     implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.14'
 
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.5'
-    implementation 'org.hibernate.validator:hibernate-validator'
+    implementation 'org.hibernate.validator:hibernate-validator:7.0.5.Final'
 
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.18'
 
-    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.7.18'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.15.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
@@ -87,9 +87,9 @@ dependencies {
     implementation 'javax.servlet:jstl:1.2'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.83'
 
-    implementation 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testImplementation 'org.projectlombok:lombok:1.18.30'
 
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.2'
 
@@ -99,16 +99,16 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.44.0.0'
     runtimeOnly 'com.h2database:h2:2.2.224'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch:2.7.18'
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15'
     testImplementation 'org.testcontainers:elasticsearch:1.19.3'
 
     implementation 'io.micrometer:micrometer-registry-prometheus:1.12.0'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.18'
 
     implementation 'javax.mail:mail:1.5.0-b01'
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.18'
 
     implementation 'net.sf.jxls:jxls-core:1.0.6'
     implementation 'org.jxls:jxls:2.12.0'
@@ -117,9 +117,9 @@ dependencies {
     implementation 'org.apache.poi:poi:5.2.2'
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
 
-    annotationProcessor 'org.apache.tika:tika-core:2.5.0'
-    implementation 'org.apache.tika:tika-core:2.5.0'
-    implementation 'org.apache.tika:tika-parsers:2.5.0'
+    annotationProcessor 'org.apache.tika:tika-core:2.9.1'
+    implementation 'org.apache.tika:tika-core:2.9.1'
+    implementation 'org.apache.tika:tika-parsers-standard-package:2.9.1'
 
     implementation 'io.springfox:springfox-swagger2:3.0.0'
     implementation 'io.swagger.parser.v3:swagger-parser-v3:2.1.16'
@@ -128,10 +128,10 @@ dependencies {
 
     implementation 'com.jcraft:jsch:0.1.55'
     implementation 'org.eclipse.jgit:org.eclipse.jgit:5.8.1.202007141445-r'
-    implementation 'org.apache.pdfbox:pdfbox:3.0.0'
+    implementation 'org.apache.pdfbox:pdfbox:2.0.30'
     implementation 'com.github.jai-imageio:jai-imageio-core:1.4.0'
 
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-cache:2.7.18'
 
     implementation fileTree(dir: 'lib', include: ['*.jar'])
 }
