@@ -12,7 +12,6 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
 
-import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -29,7 +28,8 @@ public class PdfUtil {
         int DPI = 300;
         ImageType IMAGE_TYPE = ImageType.RGB;//This can be GRAY,ARGB,BINARY, BGR
 
-        try (PDDocument document = Loader.loadPDF(pdf)) {
+        try (PDDocument document = PDDocument.load(pdf)) { // pdfbox 2.x
+//        try (PDDocument document = Loader.loadPDF(pdf)) { // pdfbox 3.x
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             for (int page = 0; page < document.getNumberOfPages(); page++) {
                 BufferedImage bim = pdfRenderer.renderImageWithDPI(page, DPI, IMAGE_TYPE);
@@ -51,7 +51,8 @@ public class PdfUtil {
         int DPI = 300;
         ImageType IMAGE_TYPE = ImageType.RGB;//This can be GRAY,ARGB,BINARY, BGR
 
-        try (PDDocument document = Loader.loadPDF(pdf)) {
+        try (PDDocument document = PDDocument.load(pdf)) { // pdfbox 2.x
+//        try (PDDocument document = Loader.loadPDF(pdf)) { // pdfbox 3.x
             ImageWriter writer = null;
             try {
                 writer = ImageIO.getImageWritersByFormatName(type).next();
@@ -89,7 +90,8 @@ public class PdfUtil {
         int DPI = 300;
         ImageType IMAGE_TYPE = ImageType.BINARY;//This can be GRAY,ARGB,BINARY, BGR
 
-        try (PDDocument document = Loader.loadPDF(pdf)) {
+        try (PDDocument document = PDDocument.load(pdf)) { // pdfbox 2.x
+//        try (PDDocument document = Loader.loadPDF(pdf)) { // pdfbox 3.x
 
             ImageWriter writer = null;
             try {
@@ -130,7 +132,8 @@ public class PdfUtil {
         int DPI = 300;
         ImageType IMAGE_TYPE = ImageType.GRAY;//This can be GRAY,ARGB,BINARY, BGR
 
-        try (PDDocument document = Loader.loadPDF(pdf)) {
+        try (PDDocument document = PDDocument.load(pdf)) { // pdfbox 2.x
+//        try (PDDocument document = Loader.loadPDF(pdf)) { // pdfbox 3.x
             try (ImageOutputStream ios = ImageIO.createImageOutputStream(outputTiff)) {
 
                 ImageWriter writer = null;

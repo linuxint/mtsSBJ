@@ -1,11 +1,10 @@
 package com.devkbil.mtssbj;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.pdfbox.Loader;
-import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -16,7 +15,8 @@ public class PdfFIleMergeTest {
         String absolutePath = resourceDirectory.toFile().getAbsolutePath() + "/";
         System.out.println(absolutePath);
 
-        RandomAccessReadBufferedFile file = null;
+        //RandomAccessReadBufferedFile file = null; // pdfbox 3.0
+        File file = null; // pdfbox 2.0
         //Create PDFMergerUtility class object
         PDFMergerUtility PDFmerger = new PDFMergerUtility();
         //Setting the destination file path
@@ -27,9 +27,11 @@ public class PdfFIleMergeTest {
         try {
             for (String pdfFile : pdfFileList) {
 
-                file = new RandomAccessReadBufferedFile(absolutePath + pdfFile);
+                //file = new RandomAccessReadBufferedFile(absolutePath + pdfFile); // pdfbox 3.0
+                file = new File(absolutePath + pdfFile); // pdfbox 2.0
 
-                doc = Loader.loadPDF(file);
+                //doc = Loader.loadPDF(file); // pdfbox 3.0
+                doc = PDDocument.load(file); // pdfbox 2.0
                 int pageCount = doc.getNumberOfPages();
                 doc.close();
 
