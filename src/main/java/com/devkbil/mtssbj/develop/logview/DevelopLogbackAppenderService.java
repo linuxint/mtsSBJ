@@ -1,11 +1,11 @@
 package com.devkbil.mtssbj.develop.logview;
 
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 로컬 queue에 로그 내용을 담는 기능을 제공
