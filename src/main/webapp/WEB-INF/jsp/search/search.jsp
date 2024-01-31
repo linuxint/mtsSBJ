@@ -180,25 +180,34 @@
         </div>
         <div class="row">
             <div class="col-lg-1"><s:message code="search.scope"/></div>
-            <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked><s:message code="common.all"/></label></div>
+            <div class="col-lg-1"><label><input type="checkbox" id="searchTerm" value="a" checked><s:message
+                    code="common.all"/></label></div>
             <div class="col-lg-2">
-                <input class="form-control" size="16" id="searchTerm1" type="text" value="<c:out value="${today}"/>" readonly>
+                <input class="form-control" size="16" id="searchTerm1" type="text" value="<c:out value="${today}"/>"
+                       readonly>
             </div>
             <div class="col-lg-2">
-                <input class="form-control" size="16" id="searchTerm2" type="text" value="<c:out value="${today}"/>" readonly>
+                <input class="form-control" size="16" id="searchTerm2" type="text" value="<c:out value="${today}"/>"
+                       readonly>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-1"><s:message code="search.period"/></div>
             <div class="col-lg-1">
-                <label><input type="checkbox" id="searchRangeAll" value="" checked onchange="ev_checkAllField()">전체</label>
+                <label><input type="checkbox" id="searchRangeAll" value="" checked
+                              onchange="ev_checkAllField()">전체</label>
             </div>
             <div class="col-lg-10">
-                <label><input type="checkbox" id="searchRange" value="brdwriter" checked><s:message code="board.writer"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdtitle" checked><s:message code="board.title"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdmemo" checked><s:message code="board.contents"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdreply" checked><s:message code="common.btnReply"/></label>
-                <label><input type="checkbox" id="searchRange" value="brdfiles" checked><s:message code="board.attach"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdwriter" checked><s:message
+                        code="board.writer"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdtitle" checked><s:message
+                        code="board.title"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdmemo" checked><s:message
+                        code="board.contents"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdreply" checked><s:message
+                        code="common.btnReply"/></label>
+                <label><input type="checkbox" id="searchRange" value="brdfiles" checked><s:message
+                        code="board.attach"/></label>
             </div>
         </div>
 

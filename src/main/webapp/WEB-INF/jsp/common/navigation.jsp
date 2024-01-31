@@ -160,7 +160,7 @@
                         <a href="#"><i class="fa fa-sitemap fa-fw"></i> <s:message code="menu.organ"/><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="adDepartment"><s:message code="menu.dept"/></a>
+                                <a href="adDept"><s:message code="menu.dept"/></a>
                             </li>
                             <li>
                                 <a href="adUser"><s:message code="menu.user"/></a>
@@ -186,6 +186,15 @@
                             </li>
                             <li>
                                 <a href="/thymeleaftest" target="_blank"><s:message code="develop.title3"/></a>
+                            </li>
+                            <li>
+                                <a href="/fileAllIndex" ><s:message code="develop.title4"/></a>
+                            </li>
+                            <li>
+                                <a href="/pdfdraw" target="_blank"><s:message code="develop.title5"/></a>
+                            </li>
+                            <li>
+                                <a href="/dependencySearch" target="_blank"><s:message code="develop.title6"/></a>
                             </li>
                         </ul>
                     </li>

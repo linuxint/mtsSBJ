@@ -1,7 +1,7 @@
 package egovframework.com.utl.slm;
 
-import jakarta.servlet.http.HttpSessionBindingEvent;
-import jakarta.servlet.http.HttpSessionBindingListener;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -26,9 +26,9 @@ public class EgovHttpSessionBindingListener implements HttpSessionBindingListene
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
 		if (EgovMultiLoginPreventor.findByLoginId(event.getName())) {
-			log.debug("=".repeat(100));
+			log.debug("================================================");
 			log.debug("Login Bound : " + event.getName());
-			log.debug("=".repeat(100));
+			log.debug("================================================");
 			EgovMultiLoginPreventor.invalidateByLoginId(event.getName());
 		}
 		EgovMultiLoginPreventor.loginUsers.put(event.getName(), event.getSession());
@@ -42,9 +42,9 @@ public class EgovHttpSessionBindingListener implements HttpSessionBindingListene
 	 * */
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent event) {
-		log.debug("=".repeat(100));
+		log.debug("================================================");
 		log.debug("Login unBound : " + event.getName());
-		log.debug("=".repeat(100));
+		log.debug("================================================");
 		EgovMultiLoginPreventor.loginUsers.remove(event.getName(), event.getSession());
 	}
 }

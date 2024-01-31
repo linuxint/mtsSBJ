@@ -23,7 +23,7 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String insertedUserId) throws UsernameNotFoundException {
         Optional<UserVO> findOne = memberService.findOne(insertedUserId);
-        UserVO userVO = findOne.orElseThrow(() -> new UsernameNotFoundException("없는 회원입니다 ㅠ"));
+        UserVO userVO = findOne.orElseThrow(() -> new UsernameNotFoundException(insertedUserId));
 
         return User.builder()
                 .username(userVO.getUserid())

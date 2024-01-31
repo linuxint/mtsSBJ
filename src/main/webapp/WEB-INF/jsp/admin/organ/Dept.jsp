@@ -20,7 +20,7 @@
 
             if (selectedNode == null || selectedNode.data.key == 0) return;
             $.ajax({
-                url: "adDepartmentRead",
+                url: "adDeptRead",
                 cache: false,
                 data: {deptno: selectedNode.data.key}
             }).done(receiveData);
@@ -48,7 +48,7 @@
 
             if (!confirm("<s:message code="ask.Delete"/>")) return;
             $.ajax({
-                url: "adDepartmentDelete",
+                url: "adDeptDelete",
                 cache: false,
                 data: {deptno: selectedNode.data.key}
             }).done(receiveData4Delete);
@@ -70,7 +70,7 @@
             if (!confirm("<s:message code="ask.Save"/>")) return;
 
             $.ajax({
-                url: "adDepartmentSave",
+                url: "adDeptSave",
                 cache: false,
                 type: "POST",
                 data: {deptno: $("#deptno").val(), deptnm: $("#deptnm").val(), parentno: pid}

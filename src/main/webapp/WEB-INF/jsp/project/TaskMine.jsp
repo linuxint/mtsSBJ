@@ -50,7 +50,7 @@
                 </div>
 
                 <c:if test="${listview.size()==0}">
-                    <div class="listBody height200">
+                    <div class="listBody height200">데이터가 없습니다.
                     </div>
                 </c:if>
                 <c:forEach var="listview" items="${listview}" varStatus="status">

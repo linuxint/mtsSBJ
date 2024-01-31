@@ -1,7 +1,6 @@
 package egovframework.com.utl.slm;
 
-import jakarta.servlet.http.HttpSession;
-
+import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 

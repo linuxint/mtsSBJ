@@ -39,7 +39,7 @@
     <property name ="ERR_LOG_FILE_SYSTEM_NAME" value = "${log.config.filename}_SYSTEM_error"/>
 
     <!-- 로그 파일 패턴 -->
-    <property name ="LOG_PATTERN" value = "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread][%X{trxId}][%X{userName}] [%logger{0}:%line] - %msg%n"/>
+    <property name ="LOG_PATTERN" value = "%-5level [${HOSTNAME}] [${PID:- }]  %d{yyyy-MM-dd HH:mm:ss.SSSZ}[%thread][%X{trxId}][%X{userName}] [%logger{0}:%line] - %msg%n"/>
 
 
 
@@ -54,12 +54,10 @@
     <appender name="FILE" class ="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 파일 경로 설정 -->
         <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
-
         <!-- 로그 패턴 설정 -->
         <encoder class = "ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
-
         <!-- 롤링 정책 -->
         <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- gz, zip 등을 넣을 경우 자동 로그파일 압축 -->
@@ -101,13 +99,14 @@
     </appender>
 
 
-
+    <!-- 파일 Appender 설정 -->
     <appender name = "FILE_BATCH" class ="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class ="ch.qos.logback.classic.filter.LevelFilter">
             <level>error</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
+        <!-- 파일 경로 설정 -->
         <file>${LOG_PATH}/${LOG_FILE_BATCH_NAME}.log</file>
         <!-- 로그 패턴 설정 -->
         <encoder class = "ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -150,12 +149,14 @@
     </appender>
 
 
+    <!-- 파일 Appender 설정 -->
     <appender name = "FILE_SYSTEM" class ="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class ="ch.qos.logback.classic.filter.LevelFilter">
             <level>error</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
+        <!-- 파일 경로 설정 -->
         <file>${LOG_PATH}/${LOG_FILE_SYSTEM_NAME}.log</file>
         <!-- 로그 패턴 설정 -->
         <encoder class = "ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -210,14 +211,15 @@
         <appender-ref ref="ERROR"/>
     </logger>
 
-
     <logger name="org.springframework.boot.autoconfigure.logging" level="info"/>
 
     <logger name="BATCH" level="trace">
         <appender-ref ref="FILE_BATCH"/>
+        <appender-ref ref="ERROR_BATCH"/>
     </logger>
 
     <logger name="SYSTEM" level="trace">
         <appender-ref ref="FILE_SYSTEM"/>
+        <appender-ref ref="ERROR_SYSTEM"/>
     </logger>
 </configuration>

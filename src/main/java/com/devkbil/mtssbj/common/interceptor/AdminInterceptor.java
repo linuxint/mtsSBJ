@@ -28,10 +28,12 @@ public class AdminInterceptor implements HandlerInterceptor {
         HttpSession session = req.getSession();
 
         try {
+            // 로그인 검증
             if (session == null || session.getAttribute("userno") == null) {
                 res.sendRedirect("memberLogin");
                 return false;
             }
+            // 일반사용자 검증
             if (!"ADMIN".equals(session.getAttribute("userrole"))) {
                 res.sendRedirect("noAuthMessage");
                 return false;

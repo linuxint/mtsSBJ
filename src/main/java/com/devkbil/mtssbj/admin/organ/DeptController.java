@@ -28,29 +28,29 @@ public class DeptController {
     /**
      * 리스트.
      */
-    @RequestMapping(value = "/adDepartment")
-    public String department(HttpServletRequest request, ModelMap modelMap) {
+    @RequestMapping(value = "/adDept")
+    public String dept(HttpServletRequest request, ModelMap modelMap) {
         String userno = request.getSession().getAttribute("userno").toString();
 
         etcService.setCommonAttribute(userno, modelMap);
 
-        List<?> listview = deptService.selectDepartment();
+        List<?> listview = deptService.selectDept();
 
         TreeMaker tm = new TreeMaker();
         String treeStr = tm.makeTreeByHierarchy(listview);
 
         modelMap.addAttribute("treeStr", treeStr);
 
-        return "admin/organ/Department";
+        return "admin/organ/Dept";
     }
 
     /**
      * 부서 등록.
      */
-    @RequestMapping(value = "/adDepartmentSave")
-    public void departmentSave(HttpServletResponse response, DepartmentVO deptInfo) {
+    @RequestMapping(value = "/adDeptSave")
+    public void deptSave(HttpServletResponse response, DeptVO deptInfo) {
 
-        deptService.insertDepartment(deptInfo);
+        deptService.insertDept(deptInfo);
 
         UtilEtc.responseJsonValue(response, deptInfo);
     }
@@ -58,12 +58,12 @@ public class DeptController {
     /**
      * 부서 정보(하나).
      */
-    @RequestMapping(value = "/adDepartmentRead")
-    public void departmentRead(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/adDeptRead")
+    public void deptRead(HttpServletRequest request, HttpServletResponse response) {
 
         String deptno = request.getParameter("deptno");
 
-        DepartmentVO deptInfo = deptService.selectDepartmentOne(deptno);
+        DeptVO deptInfo = deptService.selectDeptOne(deptno);
 
         UtilEtc.responseJsonValue(response, deptInfo);
     }
@@ -71,12 +71,12 @@ public class DeptController {
     /**
      * 부서 삭제.
      */
-    @RequestMapping(value = "/adDepartmentDelete")
-    public void departmentDelete(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/adDeptDelete")
+    public void deptDelete(HttpServletRequest request, HttpServletResponse response) {
 
         String deptno = request.getParameter("deptno");
 
-        deptService.deleteDepartment(deptno);
+        deptService.deleteDept(deptno);
 
         UtilEtc.responseJsonValue(response, "OK");
     }

@@ -84,7 +84,11 @@
             </c:if>
 
             <div class="calendarColumnBox">
-                <div class="calendarColumnDay <c:if test='${listview.cddayofweek=="1"}'>calendarColumnSunDay</c:if>">
+                <div class="calendarColumnDay
+                    <c:if test='${listview.cddayofweek=="1"}'>calendarColumnSunDay</c:if>
+                    <c:if test='${listview.shcolor=="RED"}'>calendarColumnSunDay</c:if>
+                    <c:if test='${listview.shcolor=="BLUE"}'>calendarColumnThursDay</c:if>
+                    <c:if test='${listview.cddayofweek=="7"}'>calendarColumnThursDay</c:if>">
                     <a href="schForm?cddate=<c:out value="${listview.cddate}"/>"><c:out value="${listview.cddd}"/></a>
                 </div>
                 <c:forEach var="items" items="${listview.list}" varStatus="status">

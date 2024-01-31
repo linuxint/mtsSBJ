@@ -548,11 +548,17 @@ _div {border:1px solid #cccccc}
     height: 25px;
     font-weight: bold;
     padding-right: 10px;
+    color: black;
 }
 
 .calendarColumnSunDay,
 .calendarColumnSunDay a{
     color: red;
+}
+
+.calendarColumnThursDay,
+.calendarColumnThursDay a{
+    color: blue;
 }
 
 .calendarDay{

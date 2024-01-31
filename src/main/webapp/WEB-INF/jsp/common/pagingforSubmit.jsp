@@ -5,8 +5,14 @@
 
     <div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
         <ul class="pagination">
-            <li title="First" class="paginate_button <c:if test="${searchVO.page==1}">disabled</c:if>" onclick="fnSubmitForm(1)"><a href="#"><i class="fa fa-angle-double-left fa-fw"></i> </a></li>
-            <li title="Previous" class="paginate_button <c:if test="${searchVO.page==1}">disabled</c:if>" onclick="fnSubmitForm(${searchVO.page-1})"><a href="#"><i class="fa fa-angle-left  fa-fw"></i> </a></li>
+            <li title="First" class="paginate_button <c:if test="${searchVO.page==1}">disabled</c:if>"
+                <c:if test="${searchVO.page!=1}">onclick="fnSubmitForm(1)"</c:if>>
+                <a href="#"><i class="fa fa-angle-double-left fa-fw"></i> </a>
+            </li>
+            <li title="Previous" class="paginate_button <c:if test="${searchVO.page==1}">disabled</c:if>"
+                <c:if test="${searchVO.page!=1}">onclick="fnSubmitForm(${searchVO.page-1})"</c:if>>
+                <a href="#"><i class="fa fa-angle-left  fa-fw"></i> </a>
+            </li>
 
             <c:forEach var="i" begin="${searchVO.pageStart}" end="${searchVO.pageEnd}" step="1">
                 <c:choose>
@@ -18,8 +24,14 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
-            <li title="Next" class="paginate_button <c:if test="${searchVO.page==searchVO.totPage}">disabled</c:if>" onclick="fnSubmitForm(${searchVO.page+1})"><a href="#"><i class="fa fa-angle-right  fa-fw"></i></a></li>
-            <li title="Last" class="paginate_button <c:if test="${searchVO.page==searchVO.totPage}">disabled</c:if>" onclick="fnSubmitForm(${searchVO.totPage})"><a href="#"><i class="fa fa-angle-double-right  fa-fw"></i></a></li>
+            <li title="Next" class="paginate_button <c:if test="${searchVO.page==searchVO.totPage}">disabled</c:if>"
+                <c:if test="${searchVO.page!=searchVO.totPage}"> onclick="fnSubmitForm(${searchVO.page+1})"</c:if>>
+                <a href="#"><i class="fa fa-angle-right  fa-fw"></i></a>
+            </li>
+            <li title="Last" class="paginate_button <c:if test="${searchVO.page==searchVO.totPage}">disabled</c:if>"
+                <c:if test="${searchVO.page!=searchVO.totPage}"> onclick="fnSubmitForm(${searchVO.totPage})"</c:if>>
+                <a href="#"><i class="fa fa-angle-double-right  fa-fw"></i></a>
+            </li>
         </ul>
     </div>
     <input type="hidden" name="page" id="page" value=""/>

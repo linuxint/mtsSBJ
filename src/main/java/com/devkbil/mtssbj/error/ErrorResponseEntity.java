@@ -18,12 +18,12 @@ public class ErrorResponseEntity {
 
     public static ResponseEntity<ErrorResponseEntity> toResponseEntity(ErrorCode errorCode){
         return ResponseEntity
-                .status(errorCode.getResultCode())
+                .status(errorCode.getStatus())
                 .body(ErrorResponseEntity.builder()
-                        .status(errorCode.getResultCode().value())
-                        .error(errorCode.getResultCode().name())
+                        .status(errorCode.getStatus())
+                        .error(errorCode.getDivisionCode())
                         .code(errorCode.name())
-                        .message(errorCode.getResultMsg())
+                        .message(errorCode.getMessage())
                         .build()
                 );
     }

@@ -2,9 +2,14 @@
 <%@include file="../inc/header.jsp" %>
     <script>
         function fn_formSubmit() {
-            if (!chkInputValue("#userid", "<s:message code="common.id"/>")) return false;
-            if (!chkInputValue("#userpw", "<s:message code="common.password"/>")) return false;
-
+            if (!chkInputValue("#userid", "<s:message code="common.id"/>")){
+                $("#valid").remove()
+                return false;
+            }
+            if (!chkInputValue("#userpw", "<s:message code="common.password"/>")) {
+                $("#valid").remove();
+                return false;
+            }
             $("#form1").submit();
         }
     </script>
@@ -12,7 +17,8 @@
 </head>
 
 <body>
-
+Your User-Agent header: <c:out value="${header['User-Agent']}" /><br>
+Your type of device: <c:out value="${currentDevice}" />
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -29,10 +35,20 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="Password" name="userpw" id="userpw" type="password" value="" onkeydown="if(event.keyCode == 13) { fn_formSubmit();}">
                             </div>
-                            <div class="checkbox">
+                            <div class="checkbox form-check">
                                 <label>
-                                    <input name="remember" type="checkbox" value="Y" <c:if test='${userid != null && userid != ""}'>checked</c:if>>Remember Me
+                                    <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox">Remember Me
                                 </label>
+                            </div>
+                            <span>
+                                <c:if test="${error}">
+                                    <p id="valid" class="alert alert-danger">${exception}</p>
+                                </c:if>
+                            </span>
+                            <div class="duplicate-login-alert">
+                                <c:if test="${DUPLICATE_LOGIN eq 'true'}">
+                                    <script> alert("다른 기기에서 로그인되어 현재 로그인이 종료되었습니다.") </script>
+                                </c:if>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <a href="#" class="btn btn-lg btn-success btn-block" onclick="fn_formSubmit()">Login</a>

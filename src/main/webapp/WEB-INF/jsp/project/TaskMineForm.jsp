@@ -34,13 +34,13 @@
                     <div class="panel-body">
                         <div class="row form-group">
                             <label class="col-lg-2"><s:message code="project.task"/></label>
-                            <div class="col-lg-1">
+                            <div class="col-lg-5">
                                 <c:out value="${taskInfo.tstitle}"/>
                             </div>
                         </div>
                         <div class="row form-group">
                             <label class="col-lg-2"><s:message code="project.rate"/></label>
-                            <div class="col-lg-1">
+                            <div class="col-lg-5">
                                 <input type="text" class="form-control" id="tsrate" name="tsrate" maxlength="10"
                                        value="<c:out value="${taskInfo.tsrate}"/>">
                             </div>

@@ -12,31 +12,31 @@ public class DeptService {
     @Autowired
     private SqlSessionTemplate sqlSession;
 
-    public List<?> selectDepartment() {
-        return sqlSession.selectList("selectDepartment");
+    public List<?> selectDept() {
+        return sqlSession.selectList("selectDept");
     }
 
     /**
      * 부서저장.
      */
-    public void insertDepartment(DepartmentVO param) {
+    public void insertDept(DeptVO param) {
         if ("".equals(param.getParentno())) {
             param.setParentno(null);
         }
 
         if (param.getDeptno() == null || "".equals(param.getDeptno())) {
-            sqlSession.insert("insertDepartment", param);
+            sqlSession.insert("insertDept", param);
         } else {
-            sqlSession.insert("updateDepartment", param);
+            sqlSession.insert("updateDept", param);
         }
     }
 
-    public DepartmentVO selectDepartmentOne(String param) {
-        return sqlSession.selectOne("selectDepartmentOne", param);
+    public DeptVO selectDeptOne(String param) {
+        return sqlSession.selectOne("selectDeptOne", param);
     }
 
-    public void deleteDepartment(String param) {
-        sqlSession.delete("deleteDepartment", param);
+    public void deleteDept(String param) {
+        sqlSession.delete("deleteDept", param);
     }
 
 }

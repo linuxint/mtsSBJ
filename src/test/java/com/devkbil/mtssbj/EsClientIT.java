@@ -6,12 +6,7 @@ import co.elastic.clients.elasticsearch._helpers.bulk.BulkListener;
 import co.elastic.clients.elasticsearch._types.ElasticsearchException;
 import co.elastic.clients.elasticsearch._types.aggregations.StringTermsBucket;
 import co.elastic.clients.elasticsearch.cat.ThreadPoolResponse;
-import co.elastic.clients.elasticsearch.core.BulkRequest;
-import co.elastic.clients.elasticsearch.core.BulkResponse;
-import co.elastic.clients.elasticsearch.core.GetResponse;
-import co.elastic.clients.elasticsearch.core.InfoResponse;
-import co.elastic.clients.elasticsearch.core.ReindexResponse;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.sql.TranslateResponse;
 import co.elastic.clients.elasticsearch.transform.GetTransformResponse;
@@ -38,7 +33,6 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -48,7 +42,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static com.devkbil.mtssbj.common.util.SSLUtils.*;
+import static com.devkbil.mtssbj.common.util.SSLUtils.createContextFromCaCert;
+import static com.devkbil.mtssbj.common.util.SSLUtils.createTrustAllCertsContext;
 import static org.junit.Assume.assumeNotNull;
 class EsClientIT {
     private static final Logger logger = LogManager.getLogger();
@@ -71,10 +66,14 @@ class EsClientIT {
                             .withTag(version))
                     .withPassword(PASSWORD);
             container.start();
+           /*
             byte[] certAsBytes = container.copyFileFromContainer(
                     "/usr/share/elasticsearch/config/certs/http_ca.crt",
                     InputStream::readAllBytes);
             client = getClient("https://" + container.getHttpHostAddress(), certAsBytes);
+            */
+            // certAsBytes null
+            client = getClient("https://" + container.getHttpHostAddress(), null);
             assumeNotNull(client);
         }
     }

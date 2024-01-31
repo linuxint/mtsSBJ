@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @CrossOrigin(origins = "http://localhost:18080, http://localhost:9090")    //'Access-Control-Allow-Origin' header 추가
 //@RestController
-@MapperScan(basePackages = "com.devkbil.mtssbj.*")
+//@MapperScan(basePackages = "com.devkbil.mtssbj.*")
 @Slf4j
 public class MtssbjApplication implements CommandLineRunner {
 

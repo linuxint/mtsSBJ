@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../inc/header.jsp" %>
-    <script>
-    </script>
+    <style>
+        .listPeople {
+            background-color: #d8e3ea;
+        }
+        .listHead {
+            background-color: #eaedee;
+        }
+    </style>
 </head>
 <body>
 
@@ -40,12 +46,12 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <c:if test="${listview.size()==0}">
-                    <div class="listBody height200">
+                    <div class="listBody height200">데이터가 없습니다.
                     </div>
                 </c:if>
                 <c:forEach var="listview" items="${listview}" varStatus="status">
-                    <c:if test="${userno != listview.userno}">
-                        <p><i class="fa fa-user fa-fw"></i> <strong><c:out value="${listview.usernm}"/></strong></p>
+                    <c:if test="${taskCurUserno != listview.userno}">
+                        <p class="listPeople"><i class="fa fa-user fa-fw"></i> <strong><c:out value="${listview.usernm}"/></strong></p>
                         <div class="listHead">
                             <div class="listHiddenField pull-left field60"><s:message code="board.no"/></div>
                             <div class="listHiddenField pull-right field100"><s:message code="project.rate"/></div>
@@ -55,11 +61,10 @@
                             <div class="listTitle"><s:message code="project.task"/></div>
                         </div>
                     </c:if>
-                    <c:set var="userno" value="${listview.userno}"/>
+                    <c:set var="taskCurUserno" value="${listview.userno}"/>
                     <c:url var="link" value="taskMineForm">
                         <c:param name="tsno" value="${listview.tsno}"/>
                     </c:url>
-
                     <div class="listBody">
                         <div class="listHiddenField pull-left field60 textCenter"><c:out value="${status.index+1}"/></div>
                         <div class="listHiddenField pull-right field100 textCenter">

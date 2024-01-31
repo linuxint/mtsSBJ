@@ -1,5 +1,5 @@
 
-INSERT INTO `PRJ_PROJECT` (`PRNO`, `PRSTARTDATE`, `PRENDDATE`, `PRTITLE`, `PRDATE`, `USERNO`, `PRSTATUS`, `DELETEFLAG`) VALUES
+INSERT INTO `PRJ_PROJECT` (`PRNO`, `PRSTARTDATE`, `PRENDDATE`, `PRTITLE`, `REGDATE`, `USERNO`, `PRSTATUS`, `DELETEFLAG`) VALUES
 	(1, '2016-11-27', '2017-03-03', '시연 전자 과제 관리 시스템 구축', '2016-11-27 11:52:31', 1, '0', 'N'),
 	(5, '2016-12-01', '2017-01-31', '시연 화장품 제안 시스템 구축', '2016-11-30 08:44:23', 1, '0', 'N'),
 	(6, '2016-10-03', '2017-03-03', '스터디 관리 시스템 (내부 프로젝트)', '2016-11-30 09:02:21', 1, '0', 'N'),
@@ -251,7 +251,7 @@ INSERT INTO `COM_DEPT` (`DEPTNO`, `DEPTNM`, `PARENTNO`, `DELETEFLAG`) VALUES
 	(6, '개발 2팀', 4, 'N'),
 	(7, '디자인팀', 1, 'N');
 
-INSERT INTO `TBL_BOARDGROUP` (`BGNO`, `BGNAME`, `BGPARENT`, `BGDELETEFLAG`, `BGUSED`, `BGREPLY`, `BGREADONLY`, `BGNOTICE`, `BGREGDATE`) VALUES
+INSERT INTO `TBL_BOARDGROUP` (`BGNO`, `BGNAME`, `BGPARENT`, `DELETEFLAG`, `BGUSED`, `BGREPLY`, `BGREADONLY`, `BGNOTICE`, `regdate`) VALUES
 	(1, '게시판', NULL, 'N', 'N', 'N', 'N', 'N',NOW()),
 	(2, '공지사항', 1, 'N', 'Y', 'N', 'Y', 'Y', NOW()),
 	(3, '일반게시판', 1, 'N', 'Y', 'Y', 'N', 'N', NOW());
@@ -349,7 +349,7 @@ UPDATE COM_USER SET USERPOS='06' WHERE USERNO BETWEEN 10 AND 19;
 UPDATE COM_USER SET USERPOS='07' WHERE USERNO < 10;
 
 
-INSERT INTO `TBL_BOARD` (`BGNO`, `BRDNO`, `BRDTITLE`, `USERNO`, `BRDMEMO`, `BRDDATE`, `LASTDATE`, `LASTUSERNO`, `BRDDELETEFLAG`) VALUES
+INSERT INTO `TBL_BOARD` (`BGNO`, `BRDNO`, `BRDTITLE`, `USERNO`, `BRDMEMO`, `REGDATE`, `CHGDATE`, `CHGUSERNO`, `DELETEFLAG`) VALUES
 	(3, 2, '모바일 웹 사이트 제작 및 프로그래밍', 11, '모바일 웹 사이트 제작 및 프로그래밍', now(), now(), 11, 'N'),
 	(3, 3, '세상의 속도를 따라잡고 싶다면 DO IT(HTML5 CSS3)', 15, '세상의 속도를 따라잡고 싶다면 DO IT(HTML5 CSS3)', now(), now(), 15, 'N'),
 	(3, 4, '마음을 움직이는 콘텐츠디자인', 44, '마음을 움직이는 콘텐츠디자인', now(), now(), 44, 'N'),

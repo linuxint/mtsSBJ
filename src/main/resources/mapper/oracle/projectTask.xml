@@ -54,7 +54,7 @@
     </update> 
     
     <select id="selectTaskOne" resultType="com.devkbil.mtssbj.project.TaskVO" parameterType="String">
-        SELECT PRNO, TSNO, TSPARENT, TSSORT, ZTSTITLE
+        SELECT PRNO, TSNO, TSPARENT, TSSORT, TSTITLE
              , TSSTARTDATE
              , TSENDDATE
              , TSENDREAL

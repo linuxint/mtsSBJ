@@ -3,15 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ad_department">
-    <select id="selectDepartment" resultType="com.devkbil.mtssbj.common.tree.TreeVO" >
+<mapper namespace="ad_dept">
+    <select id="selectDept" resultType="com.devkbil.mtssbj.common.tree.TreeVO" >
         SELECT DEPTNO as KEY, DEPTNM as TITLE, PARENTNO as PARENT
           FROM COM_DEPT
          WHERE DELETEFLAG='N' 
          ORDER BY DEPTNO  
     </select> 
     
-    <insert id="insertDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO" >
+    <insert id="insertDept" parameterType="com.devkbil.mtssbj.admin.organ.DeptVO" >
         INSERT INTO COM_DEPT(DEPTNM, PARENTNO, DELETEFLAG)
         VALUES (#{deptnm}, #{parentno}, 'N')
         <selectKey keyProperty="deptno" resultType="String">
@@ -19,19 +19,19 @@
         </selectKey>
     </insert>
     
-    <update id="updateDepartment" parameterType="com.devkbil.mtssbj.admin.organ.DepartmentVO">
+    <update id="updateDept" parameterType="com.devkbil.mtssbj.admin.organ.DeptVO">
         UPDATE COM_DEPT
            SET DEPTNM=#{deptnm}
          WHERE DEPTNO=#{deptno}
     </update> 
         
-    <select id="selectDepartmentOne" parameterType="String" resultType="com.devkbil.mtssbj.admin.organ.DepartmentVO">
+    <select id="selectDeptOne" parameterType="String" resultType="com.devkbil.mtssbj.admin.organ.DeptVO">
         SELECT DEPTNO, DEPTNM
           FROM COM_DEPT
          WHERE DELETEFLAG='N' AND DEPTNO=#{deptno} 
     </select> 
 
-    <delete id="deleteDepartment" parameterType="String">
+    <delete id="deleteDept" parameterType="String">
         UPDATE COM_DEPT
            SET DELETEFLAG='Y'
          WHERE DEPTNO=#{deptno}

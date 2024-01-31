@@ -49,8 +49,28 @@
         }
 
         function fn_groupNew() {
+            parentMenuKey = selectedNode!=null ? selectedNode.parent.data.key : "";
             $("#mnuNo").val("");
-            $("#mnuParent").val("");
+            $("#mnuParent").val(parentMenuKey);
+            $("#mnuNm").val("");
+            $("#mnuType").val("");
+            $("#mnuTarget").val("");
+            $("#mnuFilenm").val("");
+            $("#mnuImgpath").val("");
+            $("#mnuCustom").val("");
+            $("#mnuDesc").val("");
+            $('input:radio[name="mnuDesktop"][value="N"]').prop('checked', true);
+            $('input:radio[name="mnuMobile"][value="N"]').prop('checked', true);
+            $('input:radio[name="mnuExtnConnYn"][value="N"]').prop('checked', true);
+            $("#mnuStartHour").val("");
+            $("#mnuEndHour").val("");
+            $("#mnuOrder").val("");
+        }
+
+        function fn_subGroupNew() {
+            menuKey = selectedNode!=null ? selectedNode.data.key : "";
+            $("#mnuNo").val("");
+            $("#mnuParent").val(menuKey);
             $("#mnuNm").val("");
             $("#mnuType").val("");
             $("#mnuTarget").val("");
@@ -170,7 +190,8 @@
             <div class="panel panel-default col-lg-6">
                 <div class="panel-body">
                     <div class="row form-group">
-                        <button class="btn btn-outline btn-primary" onclick="fn_groupNew()"><s:message code="board.append"/></button>
+                        <button class="btn btn-outline btn-primary" onclick="fn_subGroupNew()"><s:message code="menu.subappend"/></button>
+                        <button class="btn btn-outline btn-primary" onclick="fn_groupNew()"><s:message code="menu.append"/></button>
                     </div>
                     <div class="row form-group">
                         <label class="col-lg-3">메뉴No</label>

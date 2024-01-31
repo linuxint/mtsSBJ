@@ -54,7 +54,7 @@
             $("#usernm").val("");
             $("#userpw").val("");
             $("#userpw2").val("");
-            $('input:radio[name="userrole"][value="U"]').prop("checked", true);
+            $('input:radio[name="userrole"][value="USER"]').prop("checked", true);
             $("#pwDiv").show("");
             $("#photofile").val("");
             //$("#previewImg").attr("src", "");
@@ -257,8 +257,8 @@
                         <div class="col-lg-1"></div>
                         <label class="col-lg-2"><s:message code="common.role"/></label>
                         <div class="col-lg-8 checkbox-inline">
-                            <label><input name="userrole" id="userrole" type="radio" checked="checked" value="U"><s:message code="common.user"/></label>
-                            <label><input name="userrole" id="userrole" type="radio" value="A"><s:message code="menu.admin"/></label>
+                            <label><input name="userrole" id="userrole" type="radio" checked="checked" value="USER"><s:message code="common.user"/></label>
+                            <label><input name="userrole" id="userrole" type="radio" value="ADMIN"><s:message code="menu.admin"/></label>
                         </div>
                     </div>
                     <div class="row form-group">

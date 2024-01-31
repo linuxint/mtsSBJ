@@ -52,13 +52,13 @@
           "brdno": {
             "type": "keyword"
           },
-          "brddate": {
+          "regdate": {
             "type": "date",
             "fields": {
               "keyword": {"type": "keyword"}
             }
           },
-          "brdtime": {
+          "regtime": {
             "type": "text",
             "fields": {
               "keyword": {"type": "keyword"}
@@ -97,7 +97,7 @@
             "type": "nested",
             "properties": {
               "reno": {"type": "text"} ,
-              "redate": {"type": "text"} ,
+              "regdate": {"type": "text"} ,
               "rememo": {"type": "text", "analyzer":"nori_analyzer"} ,
               "usernm": {"type": "text"} ,
               "userno": {"type": "text"}

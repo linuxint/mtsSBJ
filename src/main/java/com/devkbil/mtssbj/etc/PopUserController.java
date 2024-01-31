@@ -28,7 +28,7 @@ public class PopUserController {
      */
     @RequestMapping(value = "/popupDept")
     public String popupDept(ModelMap modelMap) {
-        List<?> listview = deptService.selectDepartment();
+        List<?> listview = deptService.selectDept();
 
         TreeMaker tm = new TreeMaker();
         String treeStr = tm.makeTreeByHierarchy(listview);
@@ -43,7 +43,7 @@ public class PopUserController {
      */
     @RequestMapping(value = "/popupUser")
     public String popupUser(ModelMap modelMap) {
-        List<?> listview = deptService.selectDepartment();
+        List<?> listview = deptService.selectDept();
 
         TreeMaker tm = new TreeMaker();
         String treeStr = tm.makeTreeByHierarchy(listview);

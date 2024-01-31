@@ -10,16 +10,16 @@
                 dataType: "html",
                 type: "post",
                 data: {brdno: $("#brdno").val(), rememo: $("#rememo1").val()},
-                success: function (result) {
-                    if (result !== "") {
-                        $("#rememo1").val("");
-                        $("#replyList").append(result);
-                        alert("<s:message code="msg.boardSave"/>");
-                    } else {
-                        alert("<s:message code="msg.err.server"/>");
-                    }
+            }).done(function(result) {
+                if(result.status === 500) {
+                    alert("<s:message code="msg.err.server"/>");
                 }
-            })
+                $("#rememo1").val("");
+                $("#replyList").append(result);
+                alert("<s:message code="msg.boardSave"/>");
+            }).fail(function(error) {
+                alert("<s:message code="msg.err.server"/>");
+            });
         }
 
         function fn_replyDelete(reno) {
@@ -43,7 +43,7 @@
             })
         }
 
-        var updateReno = updateRememo = null;
+        let updateReno = updateRememo = null;
 
         function fn_replyUpdate(reno) {
             hideDiv("#replyDialog");
@@ -122,8 +122,8 @@
                 data: {brdno: $("#brdno").val(), reno: $("#reno3").val(), reparent: $("#reparent3").val(), rememo: $("#rememo3").val()},
                 success: function (result) {
                     if (result !== "") {
-                        var parent = $("#reparent3").val();
-                        var parentNodes = $(".replyParent" + parent);
+                        let parent = $("#reparent3").val();
+                        let parentNodes = $(".replyParent" + parent);
                         if (parentNodes.length === 0) {
                             $("#replyItem" + parent).after(result);
                         } else {

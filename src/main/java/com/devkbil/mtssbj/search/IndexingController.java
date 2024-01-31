@@ -11,6 +11,11 @@ import com.devkbil.mtssbj.common.util.HostUtil;
 import com.devkbil.mtssbj.config.EsConfig;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.ocr.TesseractOCRConfig;
+import org.apache.tika.sax.BodyContentHandler;
 import org.elasticsearch.ElasticsearchStatusException;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -28,10 +33,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +55,7 @@ public class IndexingController {
     private final String lastFile = System.getProperty("user.dir") + "/elasticsearch/" + indexName + ".last";
     //final String LAST_FILE = localeMessage.getMessage("info.workspace") + "/elasticsearch/mts.last";
     @Value("${batch.indexing.file_ext}")
-    private final String fileExtention = "";
+    private final String fileExtention = "doc,ppt,xls,docx,pptx,xlsx,pdf,txt,zip,hwp";
     private final Logger logBatch = LoggerFactory.getLogger("BATCH");
     @Autowired
     LocaleMessage localeMessage;
@@ -75,7 +77,7 @@ public class IndexingController {
 
         // indexing host check
         if (!HostUtil.hostCheck(indexingHost)) {
-            return;
+            //return;
         }
 
         if (isIndexing) {
@@ -129,7 +131,6 @@ public class IndexingController {
                 writeLastValue("brd_update", brdnoUpdate);
             }
             logBatch.info("board indexed update : " + boardlist.size());
-            boardlist.clear();
         }
 
         // ---------------------------- 게시판 신규글 --------------------------------
@@ -162,7 +163,6 @@ public class IndexingController {
         }
 
         logBatch.info("board indexed : " + boardlist.size());
-        boardlist.clear();
 
         // ---------------------------- 댓글 --------------------------------
         ExtFieldVO lastVO = new ExtFieldVO(); // 게시판, 댓글, 파일의 마지막 색인 값
@@ -182,7 +182,6 @@ public class IndexingController {
             replyMap.put("userno", el.getUserno());
 
             Map<String, Object> singletonMap = Collections.singletonMap("reply", replyMap);
-            replyMap.clear();
 
             UpdateRequest updateRequest = new UpdateRequest()
                     .index(indexName)
@@ -203,7 +202,6 @@ public class IndexingController {
         }
 
         logBatch.info("board reply indexed : " + replylist.size());
-        replylist.clear();
 
         // ---------------------------- 첨부파일 --------------------------------
         lastVO.setField2(getLastValue("file"));
@@ -217,10 +215,12 @@ public class IndexingController {
             }
             fileno = el.getFileno().toString();
             fileMap.put("fileno", fileno);
-            fileMap.put("filememo", extractTextFromFile(el.getRealname()));
+
+            String realPath = FileUtil.getRealPath(filePath, el.getRealname());
+            realPath += el.getRealname();
+            fileMap.put("filememo", convert(realPath));
 
             Map<String, Object> singletonMap = Collections.singletonMap("file", fileMap);
-            fileMap.clear();
 
             UpdateRequest updateRequest = new UpdateRequest()
                     .index(indexName)
@@ -239,7 +239,6 @@ public class IndexingController {
         }
 
         logBatch.info("board files indexed : " + filelist.size());
-        filelist.clear();
 
         try {
             client.close();
@@ -256,8 +255,7 @@ public class IndexingController {
      * @return
      */
     private String extractTextFromFile(String filename) {
-        String realPath = FileUtil.getRealPath(filePath, filename);
-        File file = new File(realPath + filename);
+        File file = new File(filename);
         if (!file.exists()) {
             logBatch.error("file not exists : " + filename);
             return "";
@@ -270,6 +268,36 @@ public class IndexingController {
             logBatch.error(String.valueOf(e));
         } catch (TikaException e) {
             throw new RuntimeException(e);
+        }
+        return text;
+    }
+
+    public String convert(String fileName){
+        InputStream stream = null;
+        String text = null;
+        try {
+            stream = new FileInputStream(fileName);
+
+            TesseractOCRConfig config = new TesseractOCRConfig();
+            config.setSkipOcr(false);
+            config.setLanguage("kor");
+            ParseContext context = new ParseContext();
+            context.set(TesseractOCRConfig.class, config);
+
+            AutoDetectParser parser = new AutoDetectParser();
+            BodyContentHandler handler = new BodyContentHandler(-1);
+            Metadata metadata = new Metadata();
+            parser.parse(stream, handler, metadata, context);
+            text = handler.toString();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (stream != null)
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    logBatch.error("Error closing stream");
+                }
         }
         return text;
     }

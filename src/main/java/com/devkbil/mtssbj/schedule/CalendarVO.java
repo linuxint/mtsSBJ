@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Schema(description = "달력 : CalendarVO")
 @XmlRootElement(name = "CalendarVO")
-@XmlType(propOrder = {"cddate", "cddd", "cddayofweek", "list"})
+@XmlType(propOrder = {"cddate", "cddd", "cddayofweek", "shcolor", "list"})
 @Getter
 @Setter
 public class CalendarVO {
@@ -21,6 +21,8 @@ public class CalendarVO {
     private Integer cddd; // 일
     @Schema(description = "주별일자")
     private Integer cddayofweek;
+    @Schema(description = "일자컬러")
+    private String shcolor;
     @Schema(description = "")
     private List<?> list;
 

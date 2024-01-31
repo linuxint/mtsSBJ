@@ -44,12 +44,14 @@ springBoot {
 configurations.all {
     exclude group: 'commons-collections', module: 'commons-collections'
     exclude group: 'com.itextpdf', module: 'itextpdf'
+    exclude group: 'jakarta.tion', module: 'jakarta.validation-api'
 }
-
 dependencies {
 
     implementation 'com.navercorp.lucy:lucy-xss:1.6.3'
     implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
+
+    implementation 'io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.41'
 
     implementation 'org.springframework.boot:spring-boot-starter-web:2.7.18'
     implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.18'
@@ -72,15 +74,11 @@ dependencies {
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.18'
 
-    implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.14'
+    implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.15'
 
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
-    implementation 'org.hibernate.validator:hibernate-validator:7.0.5.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.18'
 
-    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.18'
-
-    implementation 'org.springframework.boot:spring-boot-starter-hateoas:2.7.18'
-    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.15.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
@@ -90,14 +88,15 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     testImplementation 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.2'
 
-    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8:23.3.0.23.09'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.0'
     implementation 'org.xerial:sqlite-jdbc:3.44.0.0'
     runtimeOnly 'com.h2database:h2:2.2.224'
+    compileOnly 'jdbc.tibero:tibero:6'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch:2.7.18'
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15'
@@ -128,10 +127,16 @@ dependencies {
 
     implementation 'com.jcraft:jsch:0.1.55'
     implementation 'org.eclipse.jgit:org.eclipse.jgit:5.8.1.202007141445-r'
-    implementation 'org.apache.pdfbox:pdfbox:2.0.30'
+    implementation 'org.apache.pdfbox:pdfbox:3.0.1'
+    implementation 'org.apache.pdfbox:jbig2-imageio:3.0.4'
     implementation 'com.github.jai-imageio:jai-imageio-core:1.4.0'
+    implementation 'com.github.jai-imageio:jai-imageio-jpeg2000:1.4.0'
+    implementation 'com.twelvemonkeys.imageio:imageio-jpeg:3.10.1'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
 
     implementation 'org.springframework.boot:spring-boot-starter-cache:2.7.18'
+
+    implementation 'org.mnode.ical4j:ical4j:4.0.0-rc3'
 
     implementation fileTree(dir: 'lib', include: ['*.jar'])
 }

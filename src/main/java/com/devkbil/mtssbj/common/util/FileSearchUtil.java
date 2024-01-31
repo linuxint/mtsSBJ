@@ -77,7 +77,7 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
                 attrs = Files.readAttributes(file, BasicFileAttributes.class);
                 if (attrs.isDirectory()) {
                     System.out.println("dir : " + file);
-                    showFIlesInDir3(file.toString());
+                    filelist = showFIlesInDir3(file.toString());
                     //} else if(file.getFileName().endsWith(".txt")) {
                     //    System.out.println("1");
                 } else {
@@ -85,8 +85,8 @@ public class FileSearchUtil extends SimpleFileVisitor<Path> {
                     filedo.setFilename(file.getFileName().toString());
                     filedo.setRealname(file.getFileName().toString());
 
-                    fileChannel = FileChannel.open(path);
-                    filedo.setFilesize(fileChannel.size()); // Kbyte
+                    fileChannel = FileChannel.open(Paths.get(path + "/" + filedo.getRealname()));
+                    filedo.setFilesize(fileChannel.size() / 1024); // Kbyte
 
                     filedo.setUri(file.toUri().toString());
                     filedo.setFilepath(file.getParent().toString());

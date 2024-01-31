@@ -1,10 +1,17 @@
+CREATE TABLE PERSISTENT_LOGINS (
+    USERNAME VARCHAR(64) NOT NULL,
+    SERIES VARCHAR(64) PRIMARY KEY,
+    TOKEN VARCHAR(64) NOT NULL,
+    LAST_USED TIMESTAMP NOT NULL
+) COMMENT = 'remember-me 토큰 저장소';
+
 CREATE TABLE PRJ_PROJECT
 (
     PRNO        INT          NOT NULL AUTO_INCREMENT COMMENT '프로젝트 번호',
     PRSTARTDATE VARCHAR(10)  NULL                    COMMENT '시작일자',
     PRENDDATE   VARCHAR(10)  NULL                    COMMENT '종료일자',
     PRTITLE     VARCHAR(100) NULL                    COMMENT '프로젝트 제목',
-    PRDATE      DATETIME     NULL                    COMMENT '작성일자',
+    REGDATE      DATETIME     NULL                    COMMENT '등록일자',
     USERNO      INT          NULL                    COMMENT '사용자번호',
     PRSTATUS    CHAR(1)      NULL                    COMMENT '상태',
     DELETEFLAG  CHAR(1)      NULL                    COMMENT '삭제',
@@ -41,6 +48,7 @@ CREATE TABLE PRJ_TASKFILE
     FILENAME VARCHAR(100) NULL COMMENT '파일명',
     REALNAME VARCHAR(30)  NULL COMMENT '실제파일명',
     FILESIZE INT(10)      NULL COMMENT '파일크기',
+    DELETEFLAG CHAR(1) DEFAULT 'N'
     PRIMARY KEY (FILENO)
 ) COMMENT ='첨부파일';
 
@@ -65,6 +73,10 @@ CREATE TABLE COM_CODE_V2
     CODENM     VARCHAR(40),        -- 코드명
     CODEDESC   VARCHAR(100),       -- 코드설명
     DELETEFLAG CHAR(1) DEFAULT 'N', -- 사용여부
+    REGDATE    DATETIME, -- 등록일자
+    REGUSERNO  INT, -- 등록사용자
+    CHGDATE    DATETIME, -- 변경일자
+    CHGUSERNO  INT, -- 변경사용자
     CONSTRAINT COM_CODE_V2_PK PRIMARY KEY (CODECD),
     CONSTRAINT COM_CODE_V2_UK UNIQUE      (CODECD, PCODECD),
     CONSTRAINT COM_CODE_V2_FK FOREIGN KEY (PCODECD) REFERENCES COM_CODE_V2(CODECD)
@@ -76,14 +88,18 @@ COMMENT ON COLUMN COM_CODE_V2.PCODECD    IS '상위코드';
 COMMENT ON COLUMN COM_CODE_V2.CODENM     IS '코드명';
 COMMENT ON COLUMN COM_CODE_V2.CODEDESC   IS '코드설명';
 COMMENT ON COLUMN COM_CODE_V2.DELETEFLAG IS '사용여부';
+COMMENT ON COLUMN COM_CODE_V2.REGDATE IS '등록일자';
+COMMENT ON COLUMN COM_CODE_V2.REGUSERNO IS '등록사용자';
+COMMENT ON COLUMN COM_CODE_V2.CHGDATE IS '변경일자';
+COMMENT ON COLUMN COM_CODE_V2.CHGUSERNO IS '변경사용자';
 
 -- DROP TABLE COM_DEPT;
 
 CREATE TABLE COM_DEPT
 (
-    DEPTNO     INT(11),     -- 부서 번호
+    DEPTNO     INT(11) NOT NULL AUTO_INCREMENT,     -- 부서 번호
     DEPTNM     VARCHAR(20), -- 부서명
-    PARENTNO   INT(11),     -- 부모 부서
+    PARENTNO   INT(11) default 0,     -- 부모 부서
     DELETEFLAG CHAR(1),     -- 삭제 여부
     PRIMARY KEY (DEPTNO)
 );
@@ -116,12 +132,12 @@ CREATE TABLE TBL_BOARD
     BRDTITLE      VARCHAR(255),                    -- 글 제목
     USERNO        INT,                             -- 작성자
     BRDMEMO       MEDIUMTEXT,                      -- 글 내용
-    BRDDATE       DATETIME,                        -- 작성일자
+    REGDATE       DATETIME,                        -- 작성일자
     BRDNOTICE     VARCHAR(1),                      -- 공지사항여부
-    LASTDATE      DATETIME,
-    LASTUSERNO    INT,
+    CHGDATE       DATETIME,
+    CHGUSERNO     INT,
     BRDLIKE       INT default 0,                   -- 좋아요
-    BRDDELETEFLAG CHAR(1),                         -- 삭제 여부
+    DELETEFLAG CHAR(1),                         -- 삭제 여부
     ETC1          VARCHAR(200),
     ETC2          VARCHAR(200),
     ETC3          VARCHAR(200),
@@ -139,7 +155,9 @@ CREATE TABLE TBL_BOARDFILE
     FILENAME VARCHAR(100),                    -- 파일명
     REALNAME VARCHAR(30),                     -- 실제파일명
     FILESIZE INT,                             -- 파일 크기
-    PRIMARY KEY (FILENO)
+    DELETEFLAG CHAR(1)         default 'N',      -- 삭제 여부
+
+        PRIMARY KEY (FILENO)
 );
 
 CREATE TABLE TBL_BOARDLIKE
@@ -147,7 +165,7 @@ CREATE TABLE TBL_BOARDLIKE
     BLNO   INT(11) NOT NULL AUTO_INCREMENT, -- 번호
     BRDNO  INT(11),                         -- 글번호
     USERNO INT,                             -- 작성자
-    BLDATE DATETIME,                        -- 일자
+    REGDATE DATETIME,                        -- 등록일자
     PRIMARY KEY (BLNO)
 );
 
@@ -156,23 +174,23 @@ CREATE TABLE TBL_BOARDLIKE
 CREATE TABLE TBL_BOARDREPLY
 (
     BRDNO        INT(11)    NOT NULL,       -- 게시물 번호
-    RENO         INT(11)    NOT NULL,       -- 댓글 번호
+    RENO         INT(11)    NOT NULL AUTO_INCREMENT,       -- 댓글 번호
     USERNO       INT,                       -- 작성자
     REMEMO       VARCHAR(500) DEFAULT NULL, -- 댓글내용
     REPARENT     INT(11),                   -- 부모 댓글
     REDEPTH      INT,                       -- 깊이
     REORDER      INT,                       -- 순서
-    REDATE       DATETIME     DEFAULT NULL, -- 작성일자
+    REGDATE       DATETIME     DEFAULT NULL, -- 작성일자
     REDELETEFLAG VARCHAR(1) NOT NULL,       -- 삭제여부
-    LASTDATE     DATETIME,
-    LASTUSERNO   INT,
-    REDELETEDATE DATETIME,
-    BRDDELETEDATE DATETIME,
+    CHGDATE     DATETIME,
+    CHGUSERNO   INT,
+    REDELDATE   DATETIME,
+    DELDATE     DATETIME,
     PRIMARY KEY (RENO)
 );
 
--- ALTER TABLE TBL_BOARDREPLY ADD REDELETEDATE DATETIME;
--- ALTER TABLE TBL_BOARD ADD BRDDELETEDATE DATETIME;
+-- ALTER TABLE TBL_BOARDREPLY ADD REDELDATE DATETIME;
+-- ALTER TABLE TBL_BOARD ADD DELDATE DATETIME;
 
 -- DROP TABLE TBL_BOARDREAD;
 
@@ -180,7 +198,7 @@ CREATE TABLE TBL_BOARDREAD
 (
     BRDNO    INT(11) NOT NULL, -- 게시물 번호
     USERNO   INT,              -- 작성자
-    READDATE DATETIME,         -- 작성일자
+    REGDATE  DATETIME,         -- 작성일자
     PRIMARY KEY (BRDNO, USERNO)
 );
 
@@ -192,13 +210,13 @@ CREATE TABLE TBL_BOARDGROUP
     BGNO         INT(11) NOT NULL AUTO_INCREMENT, -- 게시판 그룹번호
     BGNAME       VARCHAR(50),                     -- 게시판 그룹명
     BGPARENT     INT(11),                         -- 게시판 그룹 부모
-    BGDELETEFLAG CHAR(1),                         -- 삭제 여부
+    DELETEFLAG CHAR(1),                         -- 삭제 여부
     BGUSED       CHAR(1),                         -- 사용 여부
     BGREPLY      CHAR(1),                         -- 댓글 사용여부
     BGREADONLY   CHAR(1),                         -- 글쓰기 가능 여부
     BGNOTICE     CHAR(1),                         -- 공지 쓰기  가능 여부
-    BGREGDATE    DATETIME,                        -- 생성일자
-    BGUPDATE     DATETIME,                        -- 변경일자
+    REGDATE      DATETIME,                        -- 등록일자
+    CHGDATE      DATETIME,                        -- 변경일자
     PRIMARY KEY (BGNO)
 );
 
@@ -209,7 +227,7 @@ CREATE TABLE COM_LOGINOUT
     LNO    INT(11) NOT NULL AUTO_INCREMENT, -- 순번
     USERNO INT,                             -- 로그인 사용자
     LTYPE  CHAR(1),                         -- in / out
-    LDATE  DATETIME,                        -- 발생일자
+    REGDATE  DATETIME,                        -- 발생일자
     PRIMARY KEY (LNO)
 );
 
@@ -219,8 +237,8 @@ CREATE TABLE TBL_CRUD
     CRTITLE      VARCHAR(255),                -- 제목
     USERNO       INT,                         -- 작성자
     CRMEMO       MEDIUMTEXT,                  -- 내용
-    CRDATE       DATETIME,                    -- 작성일자
-    CRDELETEFLAG CHAR(1),                     -- 삭제 여부
+    REGDATE       DATETIME,                    -- 작성일자
+    DELETEFLAG CHAR(1),                     -- 삭제 여부
     PRIMARY KEY (CRNO)
 );
 
@@ -244,7 +262,7 @@ CREATE TABLE COM_DATE
 -- 메일주소
 CREATE TABLE EML_ADDRESS
 (
-    EMNO      INT(10) NOT NULL COMMENT '메일번호',
+    EMNO      INT(10) NOT NULL COMMENT '메일번호', , --EML_MAIL.EMNO
     EASEQ     INT     NOT NULL COMMENT '순번',
     EATYPE    CHAR(1) NOT NULL COMMENT '주소종류',
     EAADDRESS VARCHAR(150) COMMENT '메일주소',
@@ -261,7 +279,7 @@ CREATE TABLE EML_MAIL
     EMSUBJECT  VARCHAR(150) COMMENT '제목',
     EMFROM     VARCHAR(150) COMMENT '보낸사람',
     EMCONTENTS MEDIUMTEXT COMMENT '내용',
-    ENTRYDATE  DATETIME COMMENT '작성일',
+    REGDATE  DATETIME COMMENT '등록일자',
     USERNO     INT(10) NOT NULL COMMENT '사용자번호',
     EMINO      INT(10) NOT NULL COMMENT '메일정보번호',
     DELETEFLAG CHAR(1) COMMENT '삭제',
@@ -294,8 +312,8 @@ CREATE TABLE EML_MAILINFO
     EMIUSER     VARCHAR(50) COMMENT '계정',
     EMIPW       VARCHAR(50) COMMENT '비밀번호',
     USERNO      INT(10) NOT NULL COMMENT '사용자번호',
-    ENTRYDATE   DATE COMMENT '등록일자',
-    DELETEFLAG  CHAR(1) COMMENT '삭제',
+    REGDATE     DATE COMMENT '등록일자',
+    DELETEFLAG  CHAR(1) COMMENT '삭제여부',
     PRIMARY KEY (EMINO),
     UNIQUE (EMINO)
 ) COMMENT = '메일정보';
@@ -345,8 +363,8 @@ CREATE TABLE SCH_SCHEDULE
     SSREPEATEND    VARCHAR(10) COMMENT '반복종료',
     SSCONTENTS     TEXT COMMENT '내용',
     SSISOPEN       CHAR(1) COMMENT '공개여부',
-    UPDATEDATE     DATETIME COMMENT '수정일자',
-    INSERTDATE     DATETIME COMMENT '작성일자',
+    CHGDATE     DATETIME COMMENT '수정일자',
+    REGDATE     DATETIME COMMENT '작성일자',
     USERNO         INT(10) NOT NULL COMMENT '사용자번호',
     DELETEFLAG     CHAR(1) COMMENT '삭제',
     PRIMARY KEY (SSNO),
@@ -364,8 +382,8 @@ CREATE TABLE SGN_DOC
     DOCSTATUS   CHAR(1) COMMENT '문서상태',
     DOCSTEP     SMALLINT COMMENT '결재단계',
     DTNO        INT     NOT NULL COMMENT '문서양식번호',
-    UPDATEDATE  DATETIME COMMENT '수정일자',
-    INSERTDATE  DATETIME COMMENT '작성일자',
+    CHGDATE     DATETIME COMMENT '수정일자',
+    REGDATE     DATETIME COMMENT '작성일자',
     USERNO      INT(10) NOT NULL COMMENT '사용자번호',
     DEPTNM      VARCHAR(20) COMMENT '부서명',
     DOCSIGNPATH VARCHAR(200) COMMENT '결재경로문자열',
@@ -404,7 +422,7 @@ CREATE TABLE SGN_PATH
 (
     SPNO       INT     NOT NULL AUTO_INCREMENT COMMENT '결재경로번호',
     SPTITLE    VARCHAR(30) COMMENT '경로명',
-    INSERTDATE DATE COMMENT '생성일자',
+    REGDATE    DATE COMMENT '등록일자',
     USERNO     INT(10) NOT NULL COMMENT '사용자번호',
     SPSIGNPATH VARCHAR(200) COMMENT '결재경로문자열',
     PRIMARY KEY (SPNO),
@@ -441,7 +459,30 @@ CREATE TABLE SGN_SIGN
     UNIQUE (SSNO, DOCNO)
 ) COMMENT = '결재';
 
-
+create table COM_MENU
+(
+    MNU_NO           INT(10) NOT NULL AUTO_INCREMENT COMMENT '메뉴ID'
+    MNU_PARENT       INT(10) COMMENT '상위메뉴ID'
+    MNU_TYPE         VARCHAR(10) COMMENT '메뉴업무구분코드'
+    MNU_NM           VARCHAR(100) COMMENT '메뉴명'
+    MNU_DESC         VARCHAR(400) COMMENT '설명'
+    MNU_TARGET       VARCHAR(100) COMMENT '메뉴링크'
+    MNU_FILENM       VARCHAR(100) COMMENT '파일명'
+    MNU_IMGPATH      VARCHAR(100) COMMENT '이미지경로'
+    MNU_CUSTOM       VARCHAR(400) COMMENT '커스텀태그'
+    MNU_DESKTOP      CHAR(1) DEFAULT 'N' COMMENT '데스크탑버전 사용여부'
+    MNU_MOBILE       CHAR(1) DEFAULT 'N' COMMENT '모바일버전 사용여부'
+    MNU_ORDER        INT(10) COMMENT '정렬순서'
+    MNU_CERT_TYPE    VARCHAR(10) COMMENT '인증구분코드'
+    MNU_EXTN_CONN_YN CHAR(1) DEFAULT 'N' COMMENT '외부연결여부'
+    MNU_START_HOUR   VARCHAR(5) COMMENT '사용시작시'
+    MNU_END_HOUR     VARCHAR(5) COMMENT '사용종료시'
+    REGDATE          DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '등록일자'
+    REGUSERNO        NUMBER(10) COMMENT '등록자'
+    CHGDATE          DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자'
+    CHGUSERNO        INT(10) COMMENT '수정자'
+    DELETEFLAG       CHAR(1) COMMENT '삭제 여부'
+) COMMENT = '메뉴정보';
 
 CREATE INDEX EML_MAIL_INX01 ON EML_MAIL (EMTYPE ASC, USERNO ASC, EMINO ASC);
 
@@ -492,9 +533,29 @@ BEGIN
     DECLARE sdate date DEFAULT STR_TO_DATE(startdate, '%Y-%m-%d');
     DECLARE edate date DEFAULT STR_TO_DATE(enddate, '%Y-%m-%d');
 
+    SELECT CONCATE('sdate=' , sdate);
+    SELECT CONCATE('edate=' , edate);
+
+    IF sdate IS NULL THEN
+        SELECT DATE_ADD(MAX(DATE_FORMAT(CDDATE,'%Y-%m-%d')), INTERVAL 1 DAY),
+               DATE_ADD(MAX(DATE_FORMAT(CDDATE,'%Y-%m-%d')), INTERVAL 300 DAY)
+        INTO sdate, edate
+        FROM COM_DATE;
+    END IF;
+
+    SELECT CONCATE('sdate=', DATE_FORMAT(sdate,'%Y-%m-%d'));
+    SELECT CONCATE('edate=', DATE_FORMAT(edate,'%Y-%m-%d'));
+
+    IF edate <= sdate THEN
+        DBMS_OUTPUT.PUT_LINE('edate <= sdate RET');
+        RETURN ret_;
+    END IF;
+
     WHILE sdate <= edate
         DO
-            INSERT INTO COM_DATE (CDDATE, CDYEAR, CDMM, CDDD, CDWEEKOFYEAR, CDWEEKOFMONTH, CDWEEK, CDDAYOFWEEK)
+          SELECT CONCATE('LOOP ', DATE_FORMAT(sdate,'%Y-%m-%d'));
+
+          INSERT INTO COM_DATE (CDDATE, CDYEAR, CDMM, CDDD, CDWEEKOFYEAR, CDWEEKOFMONTH, CDWEEK, CDDAYOFWEEK)
             SELECT SDATE,
                    YEAR(SDATE),
                    MONTH(SDATE),
@@ -507,7 +568,7 @@ BEGIN
 
             SET sdate = DATE_ADD(sdate, INTERVAL 1 DAY);
         END WHILE;
-
+        SELECT CONCATE('LOOP END');
 END;
 
 DELIMITER $$

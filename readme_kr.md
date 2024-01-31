@@ -112,6 +112,13 @@ groupware9 - 1)전자결제
       docker cp userdict.txt elasticsearch:/usr/share/elasticsearch/config/
     6. index생성
       curl -XPUT localhost:9200/mts -d @index_board.json -H "Content-Type: application/json"
+    7. imagemagick , terssaract , terssaract-lang , exiftool , ffmpeg , leptonica install
+      ./brew install imagemagick
+      ./brew install tesseract
+      ./brew install terssaract-lang
+      ./brew install exiftool
+      ./brew install ffmpeg
+      ./brew install leptonica
 
 ### james 환경설정 ###
     1. docker pull apache/james:demo-latest
@@ -120,6 +127,10 @@ groupware9 - 1)전자결제
       SMTP port : 465
       user : user01@james.local
       passwd : 1234
+
+### redis 환경설정 ###
+    1. docker pull redis
+    2. 
 
 ### 네트워크 환경설정 ###
     0. 네티워크 생성

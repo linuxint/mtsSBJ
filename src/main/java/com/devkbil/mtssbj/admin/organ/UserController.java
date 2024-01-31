@@ -43,7 +43,7 @@ public class UserController {
 
         etcService.setCommonAttribute(userno, modelMap);
 
-        List<?> listview = deptService.selectDepartment();
+        List<?> listview = deptService.selectDept();
 
         TreeMaker tm = new TreeMaker();
         String treeStr = tm.makeTreeByHierarchy(listview);
@@ -96,7 +96,7 @@ public class UserController {
         userInfo.setUserpw(passwordEncoder.encode(userInfo.getUserpw()));
         userService.insertUser(userInfo);
 
-        return commonUserList(modelMap, userInfo.getDeptno());
+        return commonUserList(modelMap, userInfo.getDeptVO().getDeptno());
     }
 
     /**
@@ -131,6 +131,6 @@ public class UserController {
 
         userService.deleteUser(userInfo.getUserno());
 
-        return commonUserList(modelMap, userInfo.getDeptno());
+        return commonUserList(modelMap, userInfo.getDeptVO().getDeptno());
     }
 }
