@@ -70,17 +70,17 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
     implementation 'be.atbash.json:octopus-json-smart:1.1.1'
     implementation 'commons-lang:commons-lang:2.6'
-    implementation 'org.apache.commons:commons-lang3:3.13.0'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.18'
 
     implementation 'de.codecentric:spring-boot-admin-starter-client:2.7.15'
 
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.2'
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.18'
 
-    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.15.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.15.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 
     implementation 'javax.servlet:jstl:1.2'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.83'
@@ -93,16 +93,16 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.2'
 
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8:23.3.0.23.09'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.0'
-    implementation 'org.xerial:sqlite-jdbc:3.44.0.0'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.1'
+    implementation 'org.xerial:sqlite-jdbc:3.45.0.0'
     runtimeOnly 'com.h2database:h2:2.2.224'
-    compileOnly 'jdbc.tibero:tibero:6'
+    //compileOnly 'jdbc.tibero:tibero:6'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch:2.7.18'
-    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.15'
-    testImplementation 'org.testcontainers:elasticsearch:1.19.3'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.18'
+    testImplementation 'org.testcontainers:elasticsearch:1.19.7'
 
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.12.0'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.12.2'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.18'
 
@@ -110,23 +110,23 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.18'
 
     implementation 'net.sf.jxls:jxls-core:1.0.6'
-    implementation 'org.jxls:jxls:2.12.0'
-    implementation 'org.jxls:jxls-poi:2.12.0'
+    implementation 'org.jxls:jxls:2.13.0'
+    implementation 'org.jxls:jxls-poi:2.13.0'
     implementation 'org.jxls:jxls-jexcel:1.0.9'
-    implementation 'org.apache.poi:poi:5.2.2'
-    implementation 'org.apache.poi:poi-ooxml:5.2.2'
+    implementation 'org.apache.poi:poi:5.2.5'
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
 
     annotationProcessor 'org.apache.tika:tika-core:2.9.1'
     implementation 'org.apache.tika:tika-core:2.9.1'
     implementation 'org.apache.tika:tika-parsers-standard-package:2.9.1'
 
     implementation 'io.springfox:springfox-swagger2:3.0.0'
-    implementation 'io.swagger.parser.v3:swagger-parser-v3:2.1.16'
+    implementation 'io.swagger.parser.v3:swagger-parser-v3:2.1.20'
     implementation 'io.springfox:springfox-bean-validators:2.10.5'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
 
     implementation 'com.jcraft:jsch:0.1.55'
-    implementation 'org.eclipse.jgit:org.eclipse.jgit:5.8.1.202007141445-r'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:6.9.0.202403050737-r'
     implementation 'org.apache.pdfbox:pdfbox:3.0.1'
     implementation 'org.apache.pdfbox:jbig2-imageio:3.0.4'
     implementation 'com.github.jai-imageio:jai-imageio-core:1.4.0'
