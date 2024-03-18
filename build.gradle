@@ -83,7 +83,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 
     implementation 'javax.servlet:jstl:1.2'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.83'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.87'
 
     implementation 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
@@ -102,7 +102,7 @@ dependencies {
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.18'
     testImplementation 'org.testcontainers:elasticsearch:1.19.7'
 
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.12.2'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.12.4'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.18'
 
@@ -110,8 +110,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.18'
 
     implementation 'net.sf.jxls:jxls-core:1.0.6'
-    implementation 'org.jxls:jxls:2.13.0'
-    implementation 'org.jxls:jxls-poi:2.13.0'
+    implementation 'org.jxls:jxls:2.14.0'
+    implementation 'org.jxls:jxls-poi:2.14.0'
     implementation 'org.jxls:jxls-jexcel:1.0.9'
     implementation 'org.apache.poi:poi:5.2.5'
     implementation 'org.apache.poi:poi-ooxml:5.2.5'
@@ -127,7 +127,7 @@ dependencies {
 
     implementation 'com.jcraft:jsch:0.1.55'
     implementation 'org.eclipse.jgit:org.eclipse.jgit:6.9.0.202403050737-r'
-    implementation 'org.apache.pdfbox:pdfbox:3.0.1'
+    implementation 'org.apache.pdfbox:pdfbox:3.0.2'
     implementation 'org.apache.pdfbox:jbig2-imageio:3.0.4'
     implementation 'com.github.jai-imageio:jai-imageio-core:1.4.0'
     implementation 'com.github.jai-imageio:jai-imageio-jpeg2000:1.4.0'
