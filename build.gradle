@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.navercorp.lucy:lucy-xss:1.6.3'
     implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
 
-    implementation 'io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.41'
+    implementation 'io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.42'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
@@ -85,7 +85,7 @@ dependencies {
     implementation 'javax.servlet:jstl:1.2'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.0.27'
 
-    implementation 'org.projectlombok:lombok:1.18.32'
+    implementation 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
     testImplementation 'org.projectlombok:lombok:1.18.32'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
@@ -102,7 +102,7 @@ dependencies {
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.21'
     testImplementation 'org.testcontainers:elasticsearch:1.19.7'
 
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.12.6'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.13.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -121,7 +121,7 @@ dependencies {
     implementation 'org.apache.tika:tika-parsers-standard-package:2.9.2'
 
     implementation 'io.springfox:springfox-swagger2:3.0.0'
-    implementation 'io.swagger.parser.v3:swagger-parser-v3:2.1.21'
+    implementation 'io.swagger.parser.v3:swagger-parser-v3:2.1.22'
     implementation 'io.springfox:springfox-bean-validators:2.10.5'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
 
@@ -131,12 +131,12 @@ dependencies {
     implementation 'org.apache.pdfbox:jbig2-imageio:3.0.4'
     implementation 'com.github.jai-imageio:jai-imageio-core:1.4.0'
     implementation 'com.github.jai-imageio:jai-imageio-jpeg2000:1.4.0'
-    implementation 'com.twelvemonkeys.imageio:imageio-jpeg:3.10.1'
-    implementation 'org.bouncycastle:bcprov-jdk18on:1.78'
+    implementation 'com.twelvemonkeys.imageio:imageio-jpeg:3.11.0'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
-    implementation 'org.mnode.ical4j:ical4j:4.0.0-rc6'
+    implementation 'org.mnode.ical4j:ical4j:4.0.0'
 
     implementation fileTree(dir: 'lib', include: ['*.jar'])
 }
