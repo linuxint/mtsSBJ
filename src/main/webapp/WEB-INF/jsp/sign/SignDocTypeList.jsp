@@ -17,7 +17,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><i class="fa fa-edit fa-fw"></i> 기안하기</h1>
+                <h1 class="page-header"><i class="fa fa-edit fa-fw"></i> <s:message code="electronic.draft"/></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
